@@ -1,7 +1,8 @@
+require('dotenv').config();
 const app = require('./app');
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
+  console.log(`API corriendo en puerto ${PORT}`);
 });
