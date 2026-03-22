@@ -1,12 +1,18 @@
+// Importamos el modelo
 const User = require('../models/user.model');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 
+// Controlador para obtener todos los usuarios
 const getAllUsers = (req, res) => {
+
+    // Llamamos al modelo para obtener los usuarios
     const users = User.getAllUsers();
-    res.json(users);
+
+    // Respondemos con status 200 y los usuarios en formato JSON
+    res.status(200).json(users);
 };
 
 const googleLogin = async (req, res) => {

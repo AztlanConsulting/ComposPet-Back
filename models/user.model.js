@@ -1,11 +1,16 @@
+// Exportamos una clase llamada User
 module.exports = class User {
+
+    // Constructor que define la estructura de un usuario
     constructor(id, nombre, apellido) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
+        this.id = id;           // Identificador único del usuario
+        this.nombre = nombre;   // Nombre del usuario
+        this.apellido = apellido; // Apellido del usuario
     }
 
     // ===== DATOS ESTÁTICOS =====
+
+    // Lista estática de usuarios (simula una base de datos en memoria)
     static users = [
         new User(1, 'Leo', 'Alvarado'),
         new User(2, 'Ale', 'Arredondo'),
@@ -18,7 +23,9 @@ module.exports = class User {
 
     // ===== MÉTODOS =====
 
+    // Método estático para obtener todos los usuarios
+    // No necesita crear una instancia de la clase (se llama con User.getAllUsers())
     static getAllUsers() {
-        return this.users;
+        return this.users; // Retorna la lista completa de usuarios
     }
 };
