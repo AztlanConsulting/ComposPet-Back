@@ -6,8 +6,8 @@ const register = new client.Registry();
 client.collectDefaultMetrics({ register });
 
 const httpRequestCounter = new client.Counter({
-    name: 'compopet_http_requests_total',
-    help: 'Total de peticiones procesadas por CompoPet',
+    name: 'compospet_http_requests_total',
+    help: 'Total de peticiones procesadas por ComposPet',
     labelNames: ['method', 'route', 'status']
 });
 
