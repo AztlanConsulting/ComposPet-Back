@@ -4,11 +4,8 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 
-<<<<<<< HEAD
 
 // Controlador para obtener todos los usuarios
-=======
->>>>>>> 49e03c17ffd9fad79080ad027d496fefc9d05b67
 const getAllUsers = (req, res) => {
     const users = User.getAllUsers();
     res.status(200).json(users);
