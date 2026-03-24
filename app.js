@@ -1,15 +1,28 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const { register } = require('./config/metrics');
+const monitorMiddleware = require('./middlewares/monitor');
 
 const routes = require('./routes/general_routes.routes');
 
-app.use(cors({
-  origin: 'https://compospetmx.org',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+// Middlewares globales de configuración y seguridad
+app.use(cors());
 app.use(express.json());
+
+// Inyecta el interceptor de métricas en todas las peticiones entrantes
+app.use(monitorMiddleware);
+
+/**
+ * Endpoint expuesto para que el servidor de Prometheus haga "scraping" (recolección)
+ * de las métricas acumuladas en el registro global.
+ */
+app.get('/metrics', async (req, res) => {
+    res.set('Content-Type', register.contentType);
+    res.end(await register.metrics());
+});
+
+// Definición de las rutas de negocio de la aplicación
 app.use('/', routes);
 
 module.exports = app;

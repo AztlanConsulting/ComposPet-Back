@@ -1,44 +1,35 @@
-// Importamos el modelo
 const User = require('../models/user.model');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 
-// Controlador para obtener todos los usuarios
 const getAllUsers = (req, res) => {
-
-    // Llamamos al modelo para obtener los usuarios
     const users = User.getAllUsers();
-
-    // Respondemos con status 200 y los usuarios en formato JSON
     res.status(200).json(users);
 };
 
+/**
+ * Autentica al usuario con Google y genera un JWT propio para la plataforma.
+ */
 const googleLogin = async (req, res) => {
-  const { token } = req.body; // Este es el Access Token que viene de useGoogleLogin
+  const { token } = req.body; 
 
   try {
-    // 1. Usamos el token para pedirle a Google la info del usuario directamente
     const auth = new google.auth.OAuth2();
     auth.setCredentials({ access_token: token });
 
     const oauth2 = google.oauth2({ version: 'v2', auth });
     const userInfo = await oauth2.userinfo.get();
-
-    // Extraemos los datos que nos interesan
     const { email, name, picture } = userInfo.data;
 
-    console.log("Usuario autenticado vía Access Token:", email);
-
-    // 2. Creamos TU propio JWT para la sesión de Compospet
+    // Independizamos la sesión de Compospet del ciclo de vida del token de Google
     const userToken = jwt.sign(
       { email, name },
       process.env.JWT_SECRET || 'TU_PALABRA_SECRETA', 
       { expiresIn: '24h' }
     );
 
-    // 3. Respondemos al Front
     res.status(200).json({ 
       msg: "Login correcto", 
       token: userToken, 
@@ -46,23 +37,26 @@ const googleLogin = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Error en Google Login con Access Token:", error);
+    console.error("Error en Google Login:", error);
     res.status(400).json({ msg: "Token inválido o expirado" });
   }
 };
 
+/**
+ * Envía un correo electrónico formateado en HTML usando la API de Gmail.
+ * Requiere un Access Token de Google con permisos de Gmail.
+ */
 const sendEmail = async (req, res) => {
     const { token, to, subject, message } = req.body;
 
-    if (!token) {
-        return res.status(401).json({ msg: "No hay token de acceso" });
-    }
+    if (!token) return res.status(401).json({ msg: "No hay token de acceso" });
 
     try {
         const auth = new google.auth.OAuth2();
         auth.setCredentials({ access_token: token });
         const gmail = google.gmail({ version: 'v1', auth });
 
+        // Codificación RFC 2047 y Base64 URL Safe para compatibilidad con la API de Gmail
         const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
         
         const emailLines = [
@@ -80,35 +74,21 @@ const sendEmail = async (req, res) => {
             </div>`,
         ];
 
-        const email = emailLines.join('\r\n').trim();
-
-        const encodedEmail = Buffer.from(email)
+        const encodedEmail = Buffer.from(emailLines.join('\r\n').trim())
             .toString('base64')
-            .replace(/\+/g, '-')
-            .replace(/\//g, '_')
-            .replace(/=+$/, '');
+            .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 
-        // 4. Enviar
         await gmail.users.messages.send({
             userId: 'me',
-            requestBody: {
-                raw: encodedEmail,
-            },
+            requestBody: { raw: encodedEmail },
         });
 
         res.status(200).json({ msg: "¡Correo enviado exitosamente!" });
 
     } catch (error) {
         console.error("Error en Gmail Controller:", error);
-        res.status(500).json({ 
-            msg: "Error al enviar el correo", 
-            error: error.message 
-        });
+        res.status(500).json({ msg: "Error al enviar el correo", error: error.message });
     }
 };
 
-module.exports = {
-    getAllUsers,
-    googleLogin, 
-    sendEmail, 
-};
+module.exports = { getAllUsers, googleLogin, sendEmail };
