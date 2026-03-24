@@ -1,13 +1,12 @@
 const { httpRequestCounter } = require('../config/metrics');
 
 const monitorMiddleware = (req, res, next) => {
+    const end = httpRequestDurationMicroseconds.startTimer();
     res.on('finish', () => {
         if (req.path !== '/metrics') {
-            httpRequestCounter.inc({ 
-                method: req.method, 
-                route: req.path, 
-                status: res.statusCode 
-            });
+            const labels = { method: req.method, route: req.path, status: res.statusCode };
+            httpRequestCounter.inc(labels);
+            end({ code: res.statusCode });
         }
     });
     next();
