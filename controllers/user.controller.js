@@ -5,6 +5,7 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 
+
 // Controlador para obtener todos los usuarios
 const getAllUsers = (req, res) => {
 
@@ -107,8 +108,56 @@ const sendEmail = async (req, res) => {
     }
 };
 
+const sendSheets = async (request, response) => {
+    const {token, numero, texto} = request.body
+    console.log(token);
+
+    // Validación de token de Google
+    if (!token) {
+        return response.status(401).json({ msg: "No hay token de acceso" });
+    }
+
+    try {
+        const auth = new google.auth.OAuth2();
+        auth.setCredentials({ access_token: token });
+        const sheets = google.sheets({version: 'v4', auth});
+
+        // Seleccionamos el archivo y el rango de datos
+        const spreadsheetId = '1sx5JCvSrVpJGdA6eKwjBoZyiNMFO2KtfuWmoMD0GZ8A';
+        const range = 'Prueba!A1';
+            
+        const values = [[numero, texto]];
+
+        // Mandamos la información
+        await sheets.spreadsheets.values.append({
+            spreadsheetId,
+            range,
+            valueInputOption: 'USER_ENTERED',
+            requestBody: {values},
+        })
+
+        // Recuperamos la información y la mandamos de respuesta
+        const data = await sheets.spreadsheets.values.get({
+            spreadsheetId,
+            range: 'Prueba!A1:B10',
+        })
+        dataClean = data.data.values;
+        console.log(dataClean)
+        response.status(200).json({ data: dataClean });
+
+    } catch (error) {
+        console.error("Error en Sheets Controller:", error);
+        response.status(500).json({ 
+            msg: "Error al ingresar el valor", 
+            error: error.message 
+        });
+    }
+    
+};
+
 module.exports = {
     getAllUsers,
     googleLogin, 
     sendEmail, 
+    sendSheets,
 };
