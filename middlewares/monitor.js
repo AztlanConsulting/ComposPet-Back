@@ -1,4 +1,4 @@
-const { httpRequestCounter } = require('../config/metrics');
+const { httpRequestCounter, httpRequestDurationMicroseconds } = require('../config/metrics');
 
 const monitorMiddleware = (req, res, next) => {
     const end = httpRequestDurationMicroseconds.startTimer();
