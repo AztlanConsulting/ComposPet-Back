@@ -38,8 +38,7 @@ const httpRequestDurationMicroseconds = new client.Histogram({
 const externalApiRetryCounter = new client.Counter({
     name: 'compospet_external_api_retries_total',
     help: 'Total de reintentos a APIs externas',
-    labelNames: ['url', 'attempt'],
-    registers: [register],
+    labelNames: ['url', 'attempt']
 });
 
 /**
@@ -49,8 +48,7 @@ const externalApiRetryCounter = new client.Counter({
 const externalApiTimeoutCounter = new client.Counter({
     name: 'compospet_external_api_timeouts_total',
     help: 'Total de timeouts en llamadas a APIs externas',
-    labelNames: ['url'],
-    registers: [register],
+    labelNames: ['url']
 });
 
 /**
@@ -60,7 +58,6 @@ const externalApiTimeoutCounter = new client.Counter({
 const systemStartTime = new client.Gauge({
     name: 'compospet_system_start_time_seconds',
     help: 'Timestamp Unix del último arranque del sistema',
-    registers: [register],
 });
 systemStartTime.setToCurrentTime();
 
@@ -71,7 +68,6 @@ systemStartTime.setToCurrentTime();
 const systemFailureCounter = new client.Counter({
     name: 'compospet_system_failures_total',
     help: 'Total de fallas/reinicios del sistema',
-    registers: [register],
 });
 
 /**
@@ -82,7 +78,6 @@ const httpErrorCounter = new client.Counter({
     name: 'compospet_http_errors_total',
     help: 'Total de errores HTTP por código de status',
     labelNames: ['method', 'route', 'status_code'],
-    registers: [register],
 });
 
 register.registerMetric(httpRequestDurationMicroseconds);
