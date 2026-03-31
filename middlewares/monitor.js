@@ -21,6 +21,15 @@ const monitorMiddleware = (req, res, next) => {
             // Incrementa el contador global y detiene el cronómetro del histograma
             httpRequestCounter.inc(labels);
             end({ code: res.statusCode });
+
+            // Conteo explícito de errores 5xx
+            if (res.statusCode >= 500) {
+                httpErrorCounter.inc({
+                    method: req.method,
+                    route: req.path,
+                    status_code: res.statusCode,
+                });
+            }
         }
     });
 
