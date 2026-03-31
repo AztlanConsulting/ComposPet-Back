@@ -6,7 +6,7 @@ const userController = require('../controllers/user.controller');
 
 router.get('/', auth, userController.getAllUsers);
 router.post('/auth/google', userController.googleLogin);
-router.post('/sheets', userController.sendSheets);
+router.post('/sheets', auth, userController.sendSheets);
 router.post('/send-email', auth,  userController.sendEmail);
 
 module.exports = router;
