@@ -45,8 +45,13 @@ const googleLogin = async (req, res) => {
 };
 
 /**
- * Envía un correo electrónico formateado en HTML usando la API de Gmail.
- * Requiere un Access Token de Google con permisos de Gmail.
+ * Envía un correo electrónico utilizando la API de Gmail del usuario.
+ * Requiere validación previa del middleware de sesión.
+ * * @param {Object} req - Objeto de petición.
+ * @param {Object} req.headers - Debe contener 'x-google-token' con el Access Token de Google.
+ * @param {Object} req.body - Datos del correo (to, subject, message).
+ * @param {Object} res - Objeto de respuesta.
+ * @returns {Promise<void>} Respuesta exitosa con status 200.
  */
 const sendEmail = async (req, res) => {
     const googleToken = req.headers['x-google-token'];

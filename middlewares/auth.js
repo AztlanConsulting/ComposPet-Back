@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
 
 /**
- * Middleware para validar el JWT en las cabeceras de la petición.
- * Si es válido, inyecta los datos del usuario en el objeto 'req'.
+ * Middleware para validar el JWT del servidor en el header Authorization.
+ * Extrae el token, lo verifica y añade los datos del usuario al objeto request.
+ * * @param {Object} req - Objeto de petición de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @param {Function} next - Función para continuar al siguiente middleware.
+ * @throws {401} Si el header Authorization no existe o el token es "malformed".
  */
 module.exports = (req, res, next) => {
     const authHeader = req.header('Authorization');
