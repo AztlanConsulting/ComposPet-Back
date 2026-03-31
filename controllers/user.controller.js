@@ -49,13 +49,16 @@ const googleLogin = async (req, res) => {
  * Requiere un Access Token de Google con permisos de Gmail.
  */
 const sendEmail = async (req, res) => {
-    const { token, to, subject, message } = req.body;
+    const googleToken = req.headers['x-google-token'];
+    const { to, subject, message } = req.body;
 
-    if (!token) return res.status(401).json({ msg: "No hay token de acceso" });
+    if (!googleToken) {
+        return res.status(401).json({ msg: "Falta el token de Google en los headers" });
+    }
 
     try {
         const auth = new google.auth.OAuth2();
-        auth.setCredentials({ access_token: token });
+        auth.setCredentials({ access_token: googleToken });
         const gmail = google.gmail({ version: 'v1', auth });
 
         // Codificación RFC 2047 y Base64 URL Safe para compatibilidad con la API de Gmail
@@ -94,17 +97,17 @@ const sendEmail = async (req, res) => {
 };
 
 const sendSheets = async (request, response) => {
-    const {token, numero, texto} = request.body
-    console.log(token);
+    const googleToken = req.headers['x-google-token'];
+    const { numero, texto } = req.body;
 
     // Validación de token de Google
-    if (!token) {
+    if (!googleToken) {
         return response.status(401).json({ msg: "No hay token de acceso" });
     }
 
     try {
         const auth = new google.auth.OAuth2();
-        auth.setCredentials({ access_token: token });
+        auth.setCredentials({ access_token: googleToken });
         const sheets = google.sheets({version: 'v4', auth});
 
         // Seleccionamos el archivo y el rango de datos
