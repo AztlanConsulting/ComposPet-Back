@@ -1,0 +1,250 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model administrador {
+  id_admin    String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_usuario  String      @unique @db.Uuid
+  clave       BigInt?
+  nombre      String      @db.VarChar
+  banco       String?     @db.VarChar
+  usuarios_cp usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_administrador_usuario")
+  avisos      avisos[]
+}
+
+model avisos {
+  id_aviso      Int           @id
+  id_admin      String        @db.Uuid
+  titulo        String        @db.VarChar
+  texto         String
+  foto          String?       @db.VarChar
+  fecha         DateTime      @db.Date
+  administrador administrador @relation(fields: [id_admin], references: [id_admin], onDelete: NoAction, onUpdate: NoAction, map: "fk_avisos_administrador")
+}
+
+model bitacora {
+  id_bitacora      Int          @id @default(autoincrement())
+  origen           String       @db.VarChar
+  accion           String       @db.VarChar
+  tabla_afectada   String?      @db.VarChar
+  objeto_afectado  String?      @db.VarChar
+  id_registro      String?      @db.VarChar
+  app_user_id      String?      @db.Uuid
+  db_user          String       @db.VarChar
+  fecha_evento     DateTime     @default(now()) @db.Timestamp(6)
+  datos_anteriores Json?
+  datos_nuevos     Json?
+  detalle          String?
+  usuarios_cp      usuarios_cp? @relation(fields: [app_user_id], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_bitacora_usuario")
+}
+
+model cliente {
+  id_cliente              String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_usuario              String                    @unique @db.Uuid
+  id_ruta                 Int
+  mascotas                String?                   @db.VarChar
+  cantidad_familia        Int?
+  direccion               String?                   @db.VarChar
+  orden_horario           Int?
+  notas                   String?
+  fecha_entrada           DateTime?                 @db.Date
+  fecha_salida            DateTime?                 @db.Date
+  ruta                    ruta                      @relation(fields: [id_ruta], references: [id_ruta], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_ruta")
+  usuarios_cp             usuarios_cp               @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_usuario")
+  solicitudes_recoleccion solicitudes_recoleccion[]
+  tarjeta_lealtad         tarjeta_lealtad?
+}
+
+model compospet {
+  id_cp           String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  faq             faq[]
+  metricas        metricas[]
+  personas_equipo personas_equipo[]
+  usuarios_cp     usuarios_cp[]
+}
+
+model faq {
+  id_faq    Int       @id
+  id_cp     String    @db.Uuid
+  pregunta  String    @db.VarChar
+  respuesta String
+  compospet compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_faq_compospet")
+}
+
+model formas_pago {
+  id_pago                 String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  tipo                    String                    @db.VarChar
+  texto                   String?
+  notas                   String?
+  solicitudes_recoleccion solicitudes_recoleccion[]
+}
+
+model metricas {
+  id_metrica Int       @id
+  id_cp      String    @db.Uuid
+  valor      Float
+  nombre     String    @db.VarChar
+  fecha      DateTime  @db.Date
+  compospet  compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_metricas_compospet")
+}
+
+model nivel_promociones {
+  id_nivel       String      @db.Uuid
+  id_promociones Int
+  niveles        niveles     @relation(fields: [id_nivel], references: [id_nivel], onDelete: NoAction, onUpdate: NoAction, map: "fk_nivel_promociones_nivel")
+  promociones    promociones @relation(fields: [id_promociones], references: [id_promociones], onDelete: NoAction, onUpdate: NoAction, map: "fk_nivel_promociones_promocion")
+
+  @@id([id_nivel, id_promociones])
+}
+
+model niveles {
+  id_nivel          String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nombre            String              @db.VarChar
+  nivel_promociones nivel_promociones[]
+  tarjeta_lealtad   tarjeta_lealtad[]
+}
+
+model permisos {
+  id_permiso     String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nombre         String           @db.VarChar
+  descripcion    String?
+  roles_permisos roles_permisos[]
+}
+
+model personas_equipo {
+  id_personas_equipo Int       @id
+  id_cp              String    @db.Uuid
+  nombre             String    @db.VarChar
+  apellido_paterno   String    @db.VarChar
+  apellido_materno   String    @db.VarChar
+  foto               String?   @db.VarChar
+  compospet          compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_personas_equipo_compospet")
+}
+
+model productos_extra {
+  id_producto         Int                   @id
+  nombre              String                @db.VarChar
+  precio              Float
+  descripcion         String?               @db.VarChar
+  cantidad            Int
+  productos_solicitud productos_solicitud[]
+}
+
+model productos_solicitud {
+  id_solicitud            String                  @db.Uuid
+  id_producto             Int
+  fecha                   DateTime?               @db.Date
+  cantidad                Int
+  productos_extra         productos_extra         @relation(fields: [id_producto], references: [id_producto], onDelete: NoAction, onUpdate: NoAction, map: "fk_productos_solicitud_producto")
+  solicitudes_recoleccion solicitudes_recoleccion @relation(fields: [id_solicitud], references: [id_solicitud], onDelete: NoAction, onUpdate: NoAction, map: "fk_productos_solicitud_solicitud")
+
+  @@id([id_solicitud, id_producto])
+}
+
+model promociones {
+  id_promociones    Int                 @id
+  nombre            String              @db.VarChar
+  descripcion       String?
+  valor_descuento   Int?
+  nivel_promociones nivel_promociones[]
+}
+
+model roles {
+  id_rol         String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nombre         String           @db.VarChar
+  roles_permisos roles_permisos[]
+  usuarios_cp    usuarios_cp[]
+}
+
+model roles_permisos {
+  id_rol     String   @db.Uuid
+  id_permiso String   @db.Uuid
+  permisos   permisos @relation(fields: [id_permiso], references: [id_permiso], onDelete: NoAction, onUpdate: NoAction, map: "fk_roles_permisos_permiso")
+  roles      roles    @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_roles_permisos_rol")
+
+  @@id([id_rol, id_permiso])
+}
+
+model ruta {
+  id_ruta    Int       @id
+  dia_ruta   String    @db.VarChar
+  id_zona    Int
+  turno_ruta String    @db.VarChar
+  cliente    cliente[]
+  zona       zona      @relation(fields: [id_zona], references: [id_zona], onDelete: NoAction, onUpdate: NoAction, map: "ruta_zona_fk")
+}
+
+model solicitud_registro {
+  id_solicitud_registro String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_usuario            String      @db.Uuid
+  nombre                String      @db.VarChar
+  apellido              String      @db.VarChar
+  telefono              String?     @db.VarChar
+  correo                String      @db.VarChar
+  direccion             String?     @db.VarChar
+  zona                  String?     @db.VarChar
+  mascotas              String?     @db.VarChar
+  cantidad_familia      Int?
+  notas                 String?
+  fecha                 DateTime    @db.Date
+  estatus               Boolean     @default(false)
+  usuarios_cp           usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitud_registro_usuario")
+}
+
+model solicitudes_recoleccion {
+  id_solicitud         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente           String                @db.Uuid
+  id_pago              String                @db.Uuid
+  cubetas_entregadas   Int?
+  cubetas_recolectadas Int?
+  total_a_pagar        Float?
+  total_pagado         Float?
+  fecha                DateTime              @db.Date
+  horario              DateTime?             @db.Time(6)
+  notas                String?
+  productos_solicitud  productos_solicitud[]
+  cliente              cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
+  formas_pago          formas_pago           @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
+}
+
+model tarjeta_lealtad {
+  id_tarjeta_lealtad String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente         String  @unique @db.Uuid
+  id_nivel           String  @db.Uuid
+  saldo              Float   @default(0)
+  cliente            cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_tarjeta_lealtad_cliente")
+  niveles            niveles @relation(fields: [id_nivel], references: [id_nivel], onDelete: NoAction, onUpdate: NoAction, map: "fk_tarjeta_lealtad_nivel")
+}
+
+model usuarios_cp {
+  id_usuario           String               @id(map: "usuarios_cp_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cp                String               @db.Uuid
+  id_rol               String               @db.Uuid
+  nombre               String               @db.VarChar
+  apellido             String?              @db.VarChar
+  contrasena           String               @db.VarChar
+  estatus              Boolean              @default(false)
+  telefono             String?              @db.VarChar
+  correo               String               @unique(map: "usuarios_cp_unique_correo") @db.VarChar
+  primer_inicio_sesion Boolean              @default(true)
+  administrador        administrador?
+  bitacora             bitacora[]
+  cliente              cliente?
+  solicitud_registro   solicitud_registro[]
+  compospet            compospet            @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
+  roles                roles                @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
+}
+
+model zona {
+  id_zona     Int     @id
+  nombre_zona String  @db.VarChar
+  municipio   String  @db.VarChar
+  descripcion String? @db.VarChar
+  estado      String  @db.VarChar
+  ruta        ruta[]
+}

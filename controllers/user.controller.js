@@ -3,6 +3,21 @@ const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
+const prisma = require('../config/prisma');
+
+
+
+// Ejemplo de controlador para obtener todos los niveles desde la base de datos. 
+const getAllUsers2 = async (req, res) => {
+    try {
+        const users = await User.getAllUsers2();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Error al obtener niveles:", error);
+        res.status(500).json({ msg: "Error interno del servidor" });
+    }
+};
+
 
 const { callExternalApi } = require('../middlewares/externalApiClient');
 
@@ -165,4 +180,6 @@ module.exports = {
     googleLogin, 
     sendEmail, 
     sendSheets,
+    getAllUsers2
 };
+
