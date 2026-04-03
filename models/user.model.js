@@ -36,5 +36,6 @@ module.exports = class User {
         const x = prisma.niveles.findMany();
         console.log(x);
         return await prisma.niveles.findMany();
+    }
 
 };
