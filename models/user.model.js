@@ -35,7 +35,6 @@ module.exports = class User {
     static async getAllUsers2() {
         const x = prisma.niveles.findMany();
         console.log(x);
-        return await prisma.niveles.findMany(); // Retorna la lista completa de usuarios desde la base de datos usando Prisma
-    }
+        return await prisma.niveles.findMany();
 
 };
