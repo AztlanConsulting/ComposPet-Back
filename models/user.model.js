@@ -1,3 +1,5 @@
+const prisma = require("../config/prisma");
+
 // Exportamos una clase llamada User
 module.exports = class User {
 
@@ -28,4 +30,12 @@ module.exports = class User {
     static getAllUsers() {
         return this.users; // Retorna la lista completa de usuarios
     }
+
+    // Ejemplo: Obtiene todos los registros de niveles desde la base de datos usando Prisma
+    static async getAllUsers2() {
+        const x = prisma.niveles.findMany();
+        console.log(x);
+        return await prisma.niveles.findMany();
+    }
+
 };
