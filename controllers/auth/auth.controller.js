@@ -5,6 +5,27 @@ const bcrypt    = require('bcrypt');
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
 
+/**
+ * Controlador del endpoint de inicio de sesión.
+ * Orquesta la autenticación del usuario aplicando las siguientes validaciones en orden:
+ * 1. Existencia del usuario por correo (solo usuarios con `estatus: true`).
+ * 2. Verificación de bloqueo temporal por intentos fallidos previos.
+ * 3. Comparación de contraseña con hash almacenado en base de datos.
+ * 4. Incremento de intentos fallidos y bloqueo automático al alcanzar `MAX_INTENTOS`.
+ *
+ * Tras una autenticación exitosa, resetea los intentos fallidos, registra el evento
+ * en bitácora y emite un JWT con vigencia de 8 horas.
+ *
+ * Todos los intentos (exitosos y fallidos) quedan registrados en la tabla `bitacora`
+ * mediante `AuthModel.addLog` para trazabilidad y auditoría.
+ *
+ * @param {import('express').Request} req - Solicitud HTTP. Se esperan `email` y `password` en `req.body`.
+ * @param {import('express').Response} res - Respuesta HTTP.
+ * @returns {Promise<void>} Respuesta JSON con los datos del usuario y token, o mensaje de error.
+ * @throws {Error} Errores inesperados de base de datos o JWT se capturan y responden con HTTP 500.
+ * @see AuthModel
+ */
+
 const login = async(req, res) => {
 
     console.log("headers:", req.headers["content-type"]);
@@ -24,6 +45,7 @@ const login = async(req, res) => {
             return res.status(401).json({message: 'Credenciales incorrectas.'});
         }
 
+         // Se responde con el mismo mensaje genérico que credenciales incorrectas para no revelar si el correo existe
         if (user.bloqueado_hasta && new Date < new Date(user.bloqueado_hasta)) {
             await AuthModel.addLog(null, 'INTENTO_LOGIN_CUENTA_BLOQUEADA');
 
@@ -45,6 +67,7 @@ const login = async(req, res) => {
         if (!passwordOK) {
             const intentos = (user.intentos_fallidos || 0) + 1;
 
+            // Al alcanzar el límite se bloquea la cuenta y se reinician los intentos en BD
             if (intentos >= MAX_INTENTOS){
                 await AuthModel.lockAccount(user.id_usuario);
                 await AuthModel.addLog(user.id_usuario, 'CUENTA_BLOQUEDA_POR_INTENTOS');
