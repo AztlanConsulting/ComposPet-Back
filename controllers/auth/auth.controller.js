@@ -117,6 +117,17 @@ const login = async(req, res) => {
     }
 };
 
+/**
+ * Procesa la autenticación mediante Google OAuth 2.0.
+ * * 1. Valida el access_token con los servidores de Google usando una estrategia de reintentos.
+ * 2. Verifica si el correo electrónico obtenido existe y está activo en la base de datos de ComposPet.
+ * 3. Registra auditoría del intento (exitoso o fallido) en la tabla de logs.
+ * 4. Genera un JWT propio de la aplicación si el usuario tiene acceso.
+ * * @async
+ * @param {import('express').Request} req - Objeto de petición, debe contener `token` en el body.
+ * @param {import('express').Response} res - Objeto de respuesta HTTP.
+ * @returns {Promise<void>} Responde con el JWT y datos del usuario o un error de autenticación.
+ */
 const googleAuth = async (req, res) => {
   const { token } = req.body; 
 

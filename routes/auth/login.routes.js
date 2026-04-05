@@ -20,6 +20,12 @@ const authController = require('../../controllers/auth/auth.controller');
 
 router.post('/login', authController.login);
 
+/**
+ * @route POST /auth/google
+ * @description Autentica al usuario mediante Google OAuth 2.0.
+ * Valida el token externo, verifica el registro en ComposPet y genera sesión local.
+ * @access Público
+ */
 router.post('/auth/google', authController.googleAuth);
 
 module.exports = router;
