@@ -26672,8 +26672,18 @@ export namespace Prisma {
 
   export type AggregateUsuarios_cp = {
     _count: Usuarios_cpCountAggregateOutputType | null
+    _avg: Usuarios_cpAvgAggregateOutputType | null
+    _sum: Usuarios_cpSumAggregateOutputType | null
     _min: Usuarios_cpMinAggregateOutputType | null
     _max: Usuarios_cpMaxAggregateOutputType | null
+  }
+
+  export type Usuarios_cpAvgAggregateOutputType = {
+    intentos_fallidos: number | null
+  }
+
+  export type Usuarios_cpSumAggregateOutputType = {
+    intentos_fallidos: number | null
   }
 
   export type Usuarios_cpMinAggregateOutputType = {
@@ -26687,6 +26697,8 @@ export namespace Prisma {
     telefono: string | null
     correo: string | null
     primer_inicio_sesion: boolean | null
+    intentos_fallidos: number | null
+    bloqueado_hasta: Date | null
   }
 
   export type Usuarios_cpMaxAggregateOutputType = {
@@ -26700,6 +26712,8 @@ export namespace Prisma {
     telefono: string | null
     correo: string | null
     primer_inicio_sesion: boolean | null
+    intentos_fallidos: number | null
+    bloqueado_hasta: Date | null
   }
 
   export type Usuarios_cpCountAggregateOutputType = {
@@ -26713,9 +26727,19 @@ export namespace Prisma {
     telefono: number
     correo: number
     primer_inicio_sesion: number
+    intentos_fallidos: number
+    bloqueado_hasta: number
     _all: number
   }
 
+
+  export type Usuarios_cpAvgAggregateInputType = {
+    intentos_fallidos?: true
+  }
+
+  export type Usuarios_cpSumAggregateInputType = {
+    intentos_fallidos?: true
+  }
 
   export type Usuarios_cpMinAggregateInputType = {
     id_usuario?: true
@@ -26728,6 +26752,8 @@ export namespace Prisma {
     telefono?: true
     correo?: true
     primer_inicio_sesion?: true
+    intentos_fallidos?: true
+    bloqueado_hasta?: true
   }
 
   export type Usuarios_cpMaxAggregateInputType = {
@@ -26741,6 +26767,8 @@ export namespace Prisma {
     telefono?: true
     correo?: true
     primer_inicio_sesion?: true
+    intentos_fallidos?: true
+    bloqueado_hasta?: true
   }
 
   export type Usuarios_cpCountAggregateInputType = {
@@ -26754,6 +26782,8 @@ export namespace Prisma {
     telefono?: true
     correo?: true
     primer_inicio_sesion?: true
+    intentos_fallidos?: true
+    bloqueado_hasta?: true
     _all?: true
   }
 
@@ -26795,6 +26825,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: Usuarios_cpAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Usuarios_cpSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: Usuarios_cpMinAggregateInputType
@@ -26825,6 +26867,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: Usuarios_cpCountAggregateInputType | true
+    _avg?: Usuarios_cpAvgAggregateInputType
+    _sum?: Usuarios_cpSumAggregateInputType
     _min?: Usuarios_cpMinAggregateInputType
     _max?: Usuarios_cpMaxAggregateInputType
   }
@@ -26840,7 +26884,11 @@ export namespace Prisma {
     telefono: string | null
     correo: string
     primer_inicio_sesion: boolean
+    intentos_fallidos: number
+    bloqueado_hasta: Date | null
     _count: Usuarios_cpCountAggregateOutputType | null
+    _avg: Usuarios_cpAvgAggregateOutputType | null
+    _sum: Usuarios_cpSumAggregateOutputType | null
     _min: Usuarios_cpMinAggregateOutputType | null
     _max: Usuarios_cpMaxAggregateOutputType | null
   }
@@ -26870,6 +26918,8 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: boolean
+    bloqueado_hasta?: boolean
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
@@ -26890,6 +26940,8 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: boolean
+    bloqueado_hasta?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -26905,6 +26957,8 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: boolean
+    bloqueado_hasta?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -26920,9 +26974,11 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: boolean
+    bloqueado_hasta?: boolean
   }
 
-  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion", ExtArgs["result"]["usuarios_cp"]>
+  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta", ExtArgs["result"]["usuarios_cp"]>
   export type usuarios_cpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
@@ -26962,6 +27018,8 @@ export namespace Prisma {
       telefono: string | null
       correo: string
       primer_inicio_sesion: boolean
+      intentos_fallidos: number
+      bloqueado_hasta: Date | null
     }, ExtArgs["result"]["usuarios_cp"]>
     composites: {}
   }
@@ -27401,6 +27459,8 @@ export namespace Prisma {
     readonly telefono: FieldRef<"usuarios_cp", 'String'>
     readonly correo: FieldRef<"usuarios_cp", 'String'>
     readonly primer_inicio_sesion: FieldRef<"usuarios_cp", 'Boolean'>
+    readonly intentos_fallidos: FieldRef<"usuarios_cp", 'Int'>
+    readonly bloqueado_hasta: FieldRef<"usuarios_cp", 'DateTime'>
   }
     
 
@@ -29273,7 +29333,9 @@ export namespace Prisma {
     estatus: 'estatus',
     telefono: 'telefono',
     correo: 'correo',
-    primer_inicio_sesion: 'primer_inicio_sesion'
+    primer_inicio_sesion: 'primer_inicio_sesion',
+    intentos_fallidos: 'intentos_fallidos',
+    bloqueado_hasta: 'bloqueado_hasta'
   };
 
   export type Usuarios_cpScalarFieldEnum = (typeof Usuarios_cpScalarFieldEnum)[keyof typeof Usuarios_cpScalarFieldEnum]
@@ -30695,6 +30757,8 @@ export namespace Prisma {
     telefono?: StringNullableFilter<"usuarios_cp"> | string | null
     correo?: StringFilter<"usuarios_cp"> | string
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
+    intentos_fallidos?: IntFilter<"usuarios_cp"> | number
+    bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30714,6 +30778,8 @@ export namespace Prisma {
     telefono?: SortOrderInput | SortOrder
     correo?: SortOrder
     primer_inicio_sesion?: SortOrder
+    intentos_fallidos?: SortOrder
+    bloqueado_hasta?: SortOrderInput | SortOrder
     administrador?: administradorOrderByWithRelationInput
     bitacora?: bitacoraOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
@@ -30736,6 +30802,8 @@ export namespace Prisma {
     estatus?: BoolFilter<"usuarios_cp"> | boolean
     telefono?: StringNullableFilter<"usuarios_cp"> | string | null
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
+    intentos_fallidos?: IntFilter<"usuarios_cp"> | number
+    bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30755,9 +30823,13 @@ export namespace Prisma {
     telefono?: SortOrderInput | SortOrder
     correo?: SortOrder
     primer_inicio_sesion?: SortOrder
+    intentos_fallidos?: SortOrder
+    bloqueado_hasta?: SortOrderInput | SortOrder
     _count?: usuarios_cpCountOrderByAggregateInput
+    _avg?: usuarios_cpAvgOrderByAggregateInput
     _max?: usuarios_cpMaxOrderByAggregateInput
     _min?: usuarios_cpMinOrderByAggregateInput
+    _sum?: usuarios_cpSumOrderByAggregateInput
   }
 
   export type usuarios_cpScalarWhereWithAggregatesInput = {
@@ -30774,6 +30846,8 @@ export namespace Prisma {
     telefono?: StringNullableWithAggregatesFilter<"usuarios_cp"> | string | null
     correo?: StringWithAggregatesFilter<"usuarios_cp"> | string
     primer_inicio_sesion?: BoolWithAggregatesFilter<"usuarios_cp"> | boolean
+    intentos_fallidos?: IntWithAggregatesFilter<"usuarios_cp"> | number
+    bloqueado_hasta?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
   }
 
   export type zonaWhereInput = {
@@ -32086,6 +32160,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -32105,6 +32181,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -32120,6 +32198,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -32139,6 +32219,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -32156,6 +32238,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
   }
 
   export type usuarios_cpUpdateManyMutationInput = {
@@ -32167,6 +32251,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type usuarios_cpUncheckedUpdateManyInput = {
@@ -32180,6 +32266,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type zonaCreateInput = {
@@ -33506,6 +33594,12 @@ export namespace Prisma {
     telefono?: SortOrder
     correo?: SortOrder
     primer_inicio_sesion?: SortOrder
+    intentos_fallidos?: SortOrder
+    bloqueado_hasta?: SortOrder
+  }
+
+  export type usuarios_cpAvgOrderByAggregateInput = {
+    intentos_fallidos?: SortOrder
   }
 
   export type usuarios_cpMaxOrderByAggregateInput = {
@@ -33519,6 +33613,8 @@ export namespace Prisma {
     telefono?: SortOrder
     correo?: SortOrder
     primer_inicio_sesion?: SortOrder
+    intentos_fallidos?: SortOrder
+    bloqueado_hasta?: SortOrder
   }
 
   export type usuarios_cpMinOrderByAggregateInput = {
@@ -33532,6 +33628,12 @@ export namespace Prisma {
     telefono?: SortOrder
     correo?: SortOrder
     primer_inicio_sesion?: SortOrder
+    intentos_fallidos?: SortOrder
+    bloqueado_hasta?: SortOrder
+  }
+
+  export type usuarios_cpSumOrderByAggregateInput = {
+    intentos_fallidos?: SortOrder
   }
 
   export type RutaListRelationFilter = {
@@ -35182,6 +35284,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35200,6 +35304,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35256,6 +35362,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35274,6 +35382,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35364,6 +35474,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35382,6 +35494,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35412,6 +35526,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35430,6 +35546,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35463,6 +35581,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35481,6 +35601,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35589,6 +35711,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35607,6 +35731,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35748,6 +35874,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -35765,6 +35893,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -35892,6 +36022,8 @@ export namespace Prisma {
     telefono?: StringNullableFilter<"usuarios_cp"> | string | null
     correo?: StringFilter<"usuarios_cp"> | string
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
+    intentos_fallidos?: IntFilter<"usuarios_cp"> | number
+    bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
   }
 
   export type compospetCreateWithoutFaqInput = {
@@ -36519,6 +36651,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -36536,6 +36670,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -36791,6 +36927,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -36809,6 +36947,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -36839,6 +36979,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -36857,6 +36999,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -37641,6 +37785,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
   }
 
   export type faqUpdateWithoutCompospetInput = {
@@ -37715,6 +37861,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -37732,6 +37880,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -37748,6 +37898,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type solicitudes_recoleccionCreateManyFormas_pagoInput = {
@@ -37910,6 +38062,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
   }
 
   export type roles_permisosUpdateWithoutRolesInput = {
@@ -37933,6 +38087,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -37950,6 +38106,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -37966,6 +38124,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type clienteCreateManyRutaInput = {

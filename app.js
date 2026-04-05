@@ -22,6 +22,12 @@ app.get('/metrics', async (req, res) => {
     res.end(await register.metrics());
 });
 
+app.use((req, res, next) => {
+    console.log("Content-Type recibido:", req.headers["content-type"]);
+    console.log("Body recibido:", req.body);
+    next();
+});
+
 // Definición de las rutas de negocio de la aplicación
 app.use('/', routes);
 

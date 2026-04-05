@@ -301,7 +301,9 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   estatus: 'estatus',
   telefono: 'telefono',
   correo: 'correo',
-  primer_inicio_sesion: 'primer_inicio_sesion'
+  primer_inicio_sesion: 'primer_inicio_sesion',
+  intentos_fallidos: 'intentos_fallidos',
+  bloqueado_hasta: 'bloqueado_hasta'
 };
 
 exports.Prisma.ZonaScalarFieldEnum = {
