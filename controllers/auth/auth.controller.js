@@ -1,6 +1,8 @@
 const AuthModel = require('../../models/auth/auth.model');
 const jwt       = require('jsonwebtoken');
 const bcrypt    = require('bcrypt');
+const { google } = require('googleapis');
+const { callExternalApi } = require('../../middlewares/externalApiClient');
 
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
@@ -115,4 +117,65 @@ const login = async(req, res) => {
     }
 };
 
-module.exports = {login};
+const googleAuth = async (req, res) => {
+  const { token } = req.body; 
+
+  try {
+    const auth = new google.auth.OAuth2();
+    auth.setCredentials({ access_token: token });
+    const oauth2 = google.oauth2({ version: 'v2', auth });
+
+    const userInfo = await callExternalApi(
+        () => oauth2.userinfo.get(),
+        'google-userinfo'
+    );
+
+    const { email, name, picture } = userInfo.data;
+
+
+    const userDB = await AuthModel.findUserByEmail(email);
+
+
+    if (!userDB) {
+      await AuthModel.addLog(null, "LOGIN_GOOGLE_FALLIDO", `Intento con correo no registrado: ${email}`);
+      
+      return res.status(401).json({ 
+        msg: "Este correo de Google no tiene acceso a ComposPet. Contacta al administrador." 
+      });
+    }
+
+    const userToken = jwt.sign(
+      { 
+        id: userDB.id_usuario, 
+        email: userDB.correo, 
+        rol: userDB.roles.nombre 
+      },
+      process.env.JWT_SECRET || 'TU_PALABRA_SECRETA', 
+      { expiresIn: '24h' }
+    );
+
+    await AuthModel.addLog(userDB.id_usuario, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
+
+    res.status(200).json({ 
+        msg: "Login correcto", 
+        token: userToken, 
+        user: { 
+            id_usuario: userDB.id_usuario,
+            name: name, 
+            email: userDB.correo, 
+            rol: userDB.roles.nombre,
+            primer_inicio_sesion: userDB.primer_inicio_sesion, // <--- ¡No olvides este!
+            picture: picture 
+        } 
+    });
+
+  } catch (error) {
+    console.error("Error en Google Login:", error);
+    res.status(400).json({ msg: "Token de Google inválido o expirado" });
+  }
+};
+
+module.exports = {
+    login, 
+    googleAuth,
+};
