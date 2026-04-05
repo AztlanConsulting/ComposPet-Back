@@ -5,8 +5,6 @@ const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 const prisma = require('../config/prisma');
 
-
-
 // Ejemplo de controlador para obtener todos los niveles desde la base de datos. 
 const getAllUsers2 = async (req, res) => {
     try {

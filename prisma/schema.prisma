@@ -5,6 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url = env("DATABASE_URL")
 }
 
 model administrador {
@@ -232,6 +233,8 @@ model usuarios_cp {
   telefono             String?              @db.VarChar
   correo               String               @unique(map: "usuarios_cp_unique_correo") @db.VarChar
   primer_inicio_sesion Boolean              @default(true)
+  intentos_fallidos    Int                  @default(0)
+  bloqueado_hasta      DateTime?            @db.Timestamp(6)
   administrador        administrador?
   bitacora             bitacora[]
   cliente              cliente?
