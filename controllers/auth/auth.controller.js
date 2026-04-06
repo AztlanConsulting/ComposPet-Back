@@ -86,7 +86,7 @@ const login = async(req, res) => {
             const restantes = MAX_INTENTOS - intentos;
 
             return res.status(401).json(
-                {message: `Credenciales incorrectas. Intentos restantes: ${restantes}.`}
+                {message: `Credenciales incorrectas.`}
             );
 
         }
