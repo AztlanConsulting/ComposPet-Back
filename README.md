@@ -1,5 +1,19 @@
 # Compospet
 
+## Índice
+
+- [Necesidad de la empresa](#necesidad-de-la-empresa)
+- [Objetivo del proyecto](#objetivo-del-proyecto)
+- [Tecnologías](#tecnologías)
+- [Requisitos previos](#requisitos-previos)
+- [Instalación](#instalación)
+- [Variables de entorno](#variables-de-entorno)
+- [Configuración de la BD (PostgreSQL)](#configuración-de-la-bd-postgresql)
+- [Configuración de Prisma](#configuración-de-prisma)
+- [Ejecución del proyecto](#ejecución-del-proyecto)
+
+---
+
 ### Necesidad de la empresa
 ComposPet no puede iniciar nuevos proyectos, ya que se encuentra en un cuello de botella administrativo, pues una sola persona gestiona los procesos largos y manuales. 
 
