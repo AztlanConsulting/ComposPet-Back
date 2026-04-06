@@ -7,6 +7,12 @@ const { callExternalApi } = require('../../middlewares/externalApiClient');
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
 
+const logIfAdmin = async (user, accion, detalle = null) => {
+    if (user && user.roles?.nombre === 'administrador') {
+        await AuthModel.addLog(user.id_usuario, accion, detalle);
+    }
+};
+
 /**
  * Controlador del endpoint de inicio de sesión.
  * Orquesta la autenticación del usuario aplicando las siguientes validaciones en orden:
@@ -30,28 +36,18 @@ const BLOQUEO_MINUTOS = 15;
 
 const login = async(req, res) => {
 
-    console.log("headers:", req.headers["content-type"]);
-    console.log("body:", req.body);
-
     const {email, password} = req.body;
 
     try{
         const user = await AuthModel.findUserByEmail(email);
 
         if (!user) {
-            await AuthModel.addLog(null, 'INTENTO_LOGIN_USUARIO_INEXISTENTE',
-                `Correo no encontrado: ${email}`);
-
-            console.log("1. Usuario encontrado:", user ? "SÍ" : "NO");
-
             return res.status(401).json({message: 'Credenciales incorrectas.'});
         }
 
          // Se responde con el mismo mensaje genérico que credenciales incorrectas para no revelar si el correo existe
         if (user.bloqueado_hasta && new Date < new Date(user.bloqueado_hasta)) {
-            await AuthModel.addLog(null, 'INTENTO_LOGIN_CUENTA_BLOQUEADA');
-
-            console.log("2. bloqueado_hasta:", user.bloqueado_hasta);
+            await logIfAdmin(user, 'INTENTO_LOGIN_CUENTA_BLOQUEADA');
 
             return res.status(401).json(
                 {message: `Cuenta bloqueda. Intente en ${BLOQUEO_MINUTOS} minutos.`}
@@ -60,19 +56,14 @@ const login = async(req, res) => {
 
         const passwordOK = await bcrypt.compare(password, user.contrasena);
 
-        console.log("3. Contraseña correcta:", passwordOK);
-
-        console.log("password recibido:", password);
-        console.log("hash en BD:", user.contrasena);
-        console.log("longitud hash:", user.contrasena.length);
-
         if (!passwordOK) {
             const intentos = (user.intentos_fallidos || 0) + 1;
 
             // Al alcanzar el límite se bloquea la cuenta y se reinician los intentos en BD
             if (intentos >= MAX_INTENTOS){
                 await AuthModel.lockAccount(user.id_usuario);
-                await AuthModel.addLog(user.id_usuario, 'CUENTA_BLOQUEDA_POR_INTENTOS');
+
+                await logIfAdmin(user, 'CUENTA_BLOQUEDA_POR_INTENTOS');
 
                 return res.status(401).json({
                     message: `Cuenta bloqueda por ${BLOQUEO_MINUTOS} minutos.`
@@ -80,10 +71,8 @@ const login = async(req, res) => {
             }
 
             await AuthModel.updateLoginTry(user.id_usuario, intentos);
-            await AuthModel.addLog(user.id_usuario, 'INTENTO_LOGIN_FALLIDO',
-                `Intentos: ${intentos}`);
-            
-            const restantes = MAX_INTENTOS - intentos;
+
+            await logIfAdmin(user, 'INTENTO_LOGIN_FALLIDO', `Intentos: ${intentos}`);
 
             return res.status(401).json(
                 {message: `Credenciales incorrectas.`}
@@ -92,7 +81,7 @@ const login = async(req, res) => {
         }
 
         await AuthModel.resetLoginTry(user.id_usuario);
-        await AuthModel.addLog(user.id_usuario, `LOGIN_EXITOSO`);
+        await logIfAdmin(user, `LOGIN_EXITOSO`);
 
         const token = jwt.sign(
             {
@@ -148,7 +137,7 @@ const googleAuth = async (req, res) => {
 
 
     if (!userDB) {
-      await AuthModel.addLog(null, "LOGIN_GOOGLE_FALLIDO", `Intento con correo no registrado: ${email}`);
+      await logIfAdmin(userDB, "LOGIN_GOOGLE_FALLIDO", `Intento con correo no registrado: ${email}`);
       
       return res.status(401).json({ 
         msg: "Este correo de Google no tiene acceso a ComposPet. Contacta al administrador." 
@@ -165,7 +154,7 @@ const googleAuth = async (req, res) => {
       { expiresIn: '24h' }
     );
 
-    await AuthModel.addLog(userDB.id_usuario, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
+    await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
     res.status(200).json({ 
         msg: "Login correcto", 
