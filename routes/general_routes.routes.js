@@ -10,7 +10,8 @@ router.use('/', authRoutes);
 router.use("/user", user_routes);
 
 // Agrega las rutas de solicitudes_rec
-router.use('/solicitudes_rec', auth, solicitudesRecRoutes);
+// router.use('/solicitudes_rec', auth, solicitudesRecRoutes); // Cuando este el Front volvemos a protegerla ruta 
+router.use('/solicitudes_rec', solicitudesRecRoutes);
 
 router.get('/', (req, res) => {
     res.send('API funcionando correctamente');

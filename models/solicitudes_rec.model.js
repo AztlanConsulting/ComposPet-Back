@@ -27,7 +27,7 @@ module.exports = class SolicitudesRec {
      */
     static async obtenerSolicitudRecActual(idCliente, fechaInicioSemana, fechaFinSemana) {
 
-        const solicitudRecActual = await prisma.solicitud_recoleccion.findFirst({
+        const solicitudRecActual = await prisma.solicitudes_recoleccion.findFirst({
             where: {
                 id_cliente: idCliente,
                 fecha: {
@@ -56,18 +56,21 @@ module.exports = class SolicitudesRec {
      */
     static async crearSolicitudRecInicial(idCliente) {
 
-        const nuevaSolicitudRecActual = await prisma.solicitud_recoleccion.create({
+        const nuevaSolicitudRecActual = await prisma.solicitudes_recoleccion.create({
             data: {
-                id_cliente: idCliente,
-                quiere_recoleccion: false,
-                quiere_productos_extra: false,
+                cliente: {
+                    connect: {
+                    id_cliente: idCliente,
+                    },
+                },
                 cubetas_recolectadas: 0,
                 cubetas_entregadas: 0,
                 total_a_pagar: 0,
                 total_pagado: 0,
                 fecha: new Date(),
                 notas: null,
-
+                quiere_recoleccion: false,
+                quiere_productos_extra: false,
             },
         });
         return nuevaSolicitudRecActual;
@@ -93,7 +96,7 @@ module.exports = class SolicitudesRec {
         cubetasRecolectadas,
         cubetasEntregadas,
     }) {
-        return await prisma.solicitud_recoleccion.update({
+        return await prisma.solicitudes_recoleccion.update({
             where: {
                 id_solicitud: idSolicitud,
             },
