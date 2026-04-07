@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const authController = require('../../controllers/auth/auth.controller');
+const firstLoginController = require('../../controllers/auth/password.controller');
 
 /**
  * Rutas del módulo de autenticación.
@@ -27,5 +28,11 @@ router.post('/login', authController.login);
  * @access Público
  */
 router.post('/auth/google', authController.googleAuth);
+
+router.post('/request-otp', firstLoginController.requestOTP);
+
+router.post('/verify-otp', firstLoginController.verifyOTP);
+
+router.post('/update-password', firstLoginController.updatePassword);
 
 module.exports = router;
