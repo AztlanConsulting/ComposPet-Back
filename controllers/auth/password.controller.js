@@ -5,7 +5,7 @@ const bcrypt    = require('bcrypt');
 const { google } = require('googleapis');
 const { callExternalApi } = require('../../middlewares/externalApiClient');
 const crypto = require('crypto');
-const GmailService = require('../../services/gmail.service');
+const GmailService = require('../../config/gmail.service');
 
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
@@ -41,7 +41,7 @@ const requestOTP = async (req, res) => {
         const expires = new Date(Date.now() + BLOQUEO_MINUTOS * 60 * 1000);
 
         await PasswordModel.setVerificationCode(user.id_usuario, code, expires);
-
+        console.log(process.env.JWT_SECRET)
         const seedToken = jwt.sign(
             { email: user.correo, step: 'CAN_VERIFY' },
             process.env.JWT_SECRET,
@@ -115,7 +115,7 @@ const verifyOTP = async (req, res) => {
 
 
 const updatePassword = async (req, res) => {
-    const { email, code, password, flowToken } = req.body;
+    const { email, password, flowToken } = req.body;
 
     try {
         const decodedFlow = jwt.verify(flowToken, process.env.JWT_SECRET);
@@ -125,7 +125,7 @@ const updatePassword = async (req, res) => {
 
         const user = await PasswordModel.findUserForFirstLogin(email);
         
-        if (!user || user.codigo_verificacion !== code) {
+        if (!user) {
             return res.status(401).json({ message: 'Sesión de verificación inválida.' });
         }
 

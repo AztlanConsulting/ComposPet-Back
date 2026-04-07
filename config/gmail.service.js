@@ -1,5 +1,5 @@
 const { google } = require('googleapis');
-const { callExternalApi } = require('../../middlewares/externalApiClient');
+const { callExternalApi } = require('../middlewares/externalApiClient');
 
 const GmailService = {
     getAuthClient: () => {
