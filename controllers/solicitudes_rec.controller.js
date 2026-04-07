@@ -37,6 +37,11 @@ const obtenerSolicitudRecActual = async (req, res) => {
             fechaFinSemana
         );
 
+         // Si ya existe una solicitud dentro del rango semanal, se retorna
+        if (!solicitudRecActual) {
+            solicitudRecActual= await SolicitudesRec.crearSolicitudRecInicial(idCliente);
+        }
+
         res.status(200).json({
             success: true,
             message: "Solicitud de recolección obtenida exitosamente.",

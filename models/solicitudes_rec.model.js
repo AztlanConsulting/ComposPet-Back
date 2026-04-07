@@ -38,13 +38,7 @@ module.exports = class SolicitudesRec {
         });
 
         // Si ya existe una solicitud dentro del rango semanal, se retorna
-        if (solicitudRecActual) {
-            return solicitudRecActual;
-        } else {
-
-             // Si no existe una solicitud, se crea una nueva solicitud
-            return this.crearSolicitudRecInicial(idCliente);
-        }
+        return solicitudRecActual;
     }
 
     /**
