@@ -108,7 +108,86 @@ const guardarSolicitudRecPrimeraSeccion = async (req, res) => {
     }
 }
 
+const obtenerProductosExtra = async (req, res) => {
+    try {
+        const productosExtra = await SolicitudesRec.obtenerProductosExtra();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Productos extra obtenidos exitosamente.',
+            data: productosExtra,
+        });
+    } catch (error) {
+        if (error.message === 'PRODUCTOS_EXTRA_NO_ENCONTRADOS') {
+            return res.status(404).json({
+                success: false,
+                message: 'No se encontraron productos extra.',
+            });
+        }
+
+        console.error('Error al obtener productos extra:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error servidor al obtener productos extra.',
+            error,
+        });
+    }
+};
+
+const guardarSolicitudRecSegundaSeccion = async (req, res) => {
+    try {
+        const { id_solicitud: idSolicitud, productos } = req.body;
+
+        if (!idSolicitud || !Array.isArray(productos)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Faltan datos requeridos para guardar la segunda sección de la solicitud de recolección.',
+            });
+        }
+
+        if (
+            !productos.every(
+                (producto) =>
+                    producto.id_producto !== undefined &&
+                    producto.cantidad !== undefined
+            )
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: 'Cada producto debe incluir id_producto y cantidad.',
+            });
+        }
+
+        const productosGuardados = await SolicitudesRec.guardarSolicitudRecSegundaSeccion({
+            idSolicitud,
+            productos,
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Segunda sección de la solicitud de recolección guardada exitosamente.',
+            data: productosGuardados,
+        });
+    } catch (error) {
+        if (error.message === 'Solicitud no encontrada') {
+            return res.status(404).json({
+                success: false,
+                message: 'La solicitud de recolección no existe.',
+            });
+        }
+
+        console.error('Error al guardar la segunda sección de la solicitud de recolección:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error servidor al guardar la segunda sección de la solicitud de recolección.',
+            error,
+        });
+    }
+};
+
 module.exports = {
     obtenerSolicitudRecActual,
     guardarSolicitudRecPrimeraSeccion,
+    guardarSolicitudRecSegundaSeccion,
+    obtenerProductosExtra,
 };

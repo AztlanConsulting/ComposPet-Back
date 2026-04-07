@@ -27,7 +27,7 @@ module.exports = class SolicitudesRec {
      */
     static async obtenerSolicitudRecActual(idCliente, fechaInicioSemana, fechaFinSemana) {
 
-        const solicitudRecActual = await prisma.solicitud_recoleccion.findFirst({
+        const solicitudRecActual = await prisma.solicitudes_recoleccion.findFirst({
             where: {
                 id_cliente: idCliente,
                 fecha: {
@@ -56,7 +56,7 @@ module.exports = class SolicitudesRec {
      */
     static async crearSolicitudRecInicial(idCliente) {
 
-        const nuevaSolicitudRecActual = await prisma.solicitud_recoleccion.create({
+        const nuevaSolicitudRecActual = await prisma.solicitudes_recoleccion.create({
             data: {
                 id_cliente: idCliente,
                 quiere_recoleccion: false,
@@ -93,7 +93,7 @@ module.exports = class SolicitudesRec {
         cubetasRecolectadas,
         cubetasEntregadas,
     }) {
-        return await prisma.solicitud_recoleccion.update({
+        return await prisma.solicitudes_recoleccion.update({
             where: {
                 id_solicitud: idSolicitud,
             },
@@ -104,5 +104,56 @@ module.exports = class SolicitudesRec {
                 cubetas_entregadas: cubetasEntregadas,
             },
         });
+    }
+
+    static async obtenerProductosExtra() {
+        const productosExtra = await prisma.productos_extra.findMany({
+            where: {
+                estatus: 'activo',
+            }
+        });
+
+        if (!productosExtra || productosExtra.length === 0) {
+            throw new Error('PRODUCTOS_EXTRA_NO_ENCONTRADOS');
+        }
+
+        return productosExtra;
+    };
+
+    static async guardarSolicitudRecSegundaSeccion(idSolicitud, productos) {
+        const solicitud = await prisma.solicitudes_recoleccion.findUnique({
+            where: {
+                id_solicitud: idSolicitud,
+            }
+        })
+
+        if (!solicitud) {
+            throw new Error('Solicitud no encontrada');
+        }
+
+        await prisma.productos_solicitud.deleteMany({
+            where: {
+                id_solicitud: idSolicitud,
+            },
+        })
+
+        if (productos.length > 0) {
+            await prisma.productos_solicitud.createMany({
+                data: productos.map((producto) => ({
+                    id_solicitud: idSolicitud,
+                    id_producto: producto.id_producto,
+                    fecha: new Date(),
+                    cantidad: producto.cantidad,
+                    imagen_url: producto.imagen_url || null,
+                })),
+            });
+        }
+
+        const productosGuardados = await prisma.productos_solicitud.findMany( {
+            where: {
+                id_solicitud: idSolicitud,
+            },
+        });
+        return productosGuardados;
     }
 };

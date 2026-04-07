@@ -59,3 +59,149 @@ VALUES (
     'cliente@test.com',
     true
 );
+
+
+INSERT INTO public.zona (
+  id_zona,
+  nombre_zona,
+  municipio,
+  descripcion,
+  estado
+) VALUES (
+  1,
+  'Zona Centro',
+  'Querétaro',
+  'Zona de prueba',
+  'Activa'
+);
+
+
+INSERT INTO public.ruta (
+  id_ruta,
+  dia_ruta,
+  id_zona,
+  turno_ruta
+) VALUES (
+  1,
+  'Lunes',
+  1,
+  'Matutino'
+);
+
+INSERT INTO public.cliente (
+  id_cliente,
+  id_usuario,
+  id_ruta,
+  mascotas,
+  cantidad_familia,
+  direccion,
+  orden_horario,
+  notas,
+  fecha_entrada,
+  fecha_salida
+) VALUES (
+  '11111111-1111-1111-1111-111111111111',
+  '55555555-5555-5555-5555-555555555555',
+  1,
+  '2 perros',
+  4,
+  'Dirección demo',
+  1,
+  'Sin notas',
+  DATE '2026-04-01',
+  DATE '2026-12-31'
+);
+
+INSERT INTO cliente (
+  id_cliente,
+  id_usuario,
+  id_ruta,
+  cantidad_familia,
+  direccion,
+  orden_horario,
+  notas,
+  fecha_entrada,
+  fecha_salida
+) VALUES (
+  '11111111-1111-1111-1111-111111111111',
+  '55555555-5555-5555-5555-555555555555',
+  'Cliente Test',
+  4,
+  'Dirección demo',
+  'Matutino',
+  'Sin notas',
+  '2026-04-01',
+  '2026-12-31'
+);
+
+
+INSERT INTO public.solicitudes_recoleccion (
+  id_solicitud,
+  id_cliente,
+  cubetas_entregadas,
+  cubetas_recolectadas,
+  total_a_pagar,
+  total_pagado,
+  fecha,
+  horario,
+  notas,
+  quiere_recoleccion,
+  quiere_productos_extra,
+  id_pago
+) VALUES
+(
+  gen_random_uuid(),
+  '11111111-1111-1111-1111-111111111111',
+  2,
+  1,
+  150.50,
+  100.00,
+  DATE '2026-04-12',
+  TIME '09:00:00',
+  'Primera solicitud',
+  true,
+  false,
+  NULL
+),
+(
+  gen_random_uuid(),
+  '11111111-1111-1111-1111-111111111111',
+  3,
+  2,
+  200.00,
+  200.00,
+  DATE '2026-04-14',
+  TIME '11:30:00',
+  'Segunda solicitud',
+  true,
+  true,
+  NULL
+),
+(
+  gen_random_uuid(),
+  '11111111-1111-1111-1111-111111111111',
+  1,
+  1,
+  100.00,
+  0.00,
+  DATE '2026-04-16',
+  TIME '15:00:00',
+  'Tercera solicitud',
+  false,
+  true,
+  NULL
+);
+
+INSERT INTO public.productos_extra (
+  id_producto,
+  nombre,
+  precio,
+  descripcion,
+  cantidad,
+  imagen_url
+) VALUES
+(1, 'Composta 5kg', 120.00, 'Bolsa de composta orgánica', 50, '/images/productos/composta.jpg'),
+(2, 'Tierra preparada', 90.00, 'Tierra lista para plantas', 30, '/images/productos/tierra.jpg'),
+(3, 'Fertilizante líquido', 150.00, 'Fertilizante natural', 20, '/images/productos/fertilizante.jpg'),
+(4, 'Humus de lombriz', 180.00, 'Abono orgánico premium', 25, '/images/productos/humus.jpg'),
+(5, 'Maceta reciclada', 70.00, 'Maceta ecológica', 40, '/images/productos/maceta.jpg');

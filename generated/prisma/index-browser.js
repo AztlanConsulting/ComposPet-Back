@@ -177,10 +177,10 @@ exports.Prisma.FaqScalarFieldEnum = {
 };
 
 exports.Prisma.Formas_pagoScalarFieldEnum = {
-  id_pago: 'id_pago',
   tipo: 'tipo',
   texto: 'texto',
-  notas: 'notas'
+  notas: 'notas',
+  id_pago: 'id_pago'
 };
 
 exports.Prisma.MetricasScalarFieldEnum = {
@@ -221,7 +221,9 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   nombre: 'nombre',
   precio: 'precio',
   descripcion: 'descripcion',
-  cantidad: 'cantidad'
+  cantidad: 'cantidad',
+  imagen_url: 'imagen_url',
+  estatus: 'estatus'
 };
 
 exports.Prisma.Productos_solicitudScalarFieldEnum = {
@@ -274,14 +276,16 @@ exports.Prisma.Solicitud_registroScalarFieldEnum = {
 exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {
   id_solicitud: 'id_solicitud',
   id_cliente: 'id_cliente',
-  id_pago: 'id_pago',
   cubetas_entregadas: 'cubetas_entregadas',
   cubetas_recolectadas: 'cubetas_recolectadas',
   total_a_pagar: 'total_a_pagar',
   total_pagado: 'total_pagado',
   fecha: 'fecha',
   horario: 'horario',
-  notas: 'notas'
+  notas: 'notas',
+  quiere_recoleccion: 'quiere_recoleccion',
+  quiere_productos_extra: 'quiere_productos_extra',
+  id_pago: 'id_pago'
 };
 
 exports.Prisma.Tarjeta_lealtadScalarFieldEnum = {
