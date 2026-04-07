@@ -87,6 +87,8 @@ CREATE TABLE public.productos_extra (
 	precio float8 NOT NULL,
 	descripcion varchar NULL,
 	cantidad int4 NOT NULL,
+	estatus bool DEFAULT true NOT NULL,
+	imagen_url varchar NULL,
 	CONSTRAINT productos_extra_pkey PRIMARY KEY (id_producto)
 );
 
@@ -97,17 +99,13 @@ CREATE TABLE public.productos_extra (
 
 -- DROP TABLE public.promociones;
 
-CREATE TABLE public.productos_extra (
-	id_producto int4 NOT NULL,
+CREATE TABLE public.promociones (
+	id_promociones int4 NOT NULL,
 	nombre varchar NOT NULL,
-	precio float8 NOT NULL,
-	descripcion varchar NULL,
-	cantidad int4 NOT NULL,
-	estatus bool DEFAULT true NOT NULL,
-	imagen_url varchar NULL,
-	CONSTRAINT productos_extra_pkey PRIMARY KEY (id_producto)
+	descripcion text NULL,
+	valor_descuento int4 NULL,
+	CONSTRAINT promociones_pkey PRIMARY KEY (id_promociones)
 );
-
 
 
 -- public.roles definition
