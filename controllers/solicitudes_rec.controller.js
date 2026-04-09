@@ -7,9 +7,9 @@ const SolicitudesRec = require('../models/solicitudes_rec.model');
  *
  * @async
  * @function obtenerSolicitudRecActual
- * @param {number} req.body.id_cliente - Id del cliente
- * @param {string} req.body.fecha_inicio_semana - Fecha inicial de la semana
- * @param {string} req.body.fecha_fin_semana - Fecha final de la semana
+ * @param {number} req.body.idCliente - Id del cliente
+ * @param {string} req.body.fechaInicioSemana - Fecha inicial de la semana
+ * @param {string} req.body.fechaFinSemana - Fecha final de la semana
  */
 
 const obtenerSolicitudRecActual = async (req, res) => {
@@ -17,9 +17,9 @@ const obtenerSolicitudRecActual = async (req, res) => {
 
         //Arbnb style destructuring para extraer los datos del body de la solicitud
         const {
-            id_cliente: idCliente,
-            fecha_inicio_semana: fechaInicioSemana,
-            fecha_fin_semana: fechaFinSemana,
+            idCliente,
+            fechaInicioSemana,
+            fechaFinSemana,
         } = req.body;
 
         // Validación de que lleguen los datos
@@ -64,21 +64,21 @@ const obtenerSolicitudRecActual = async (req, res) => {
  *
  * @async
  * @function guardarSolicitudRecPrimeraSeccion
- * @param {number} req.body.id_solicitud - Id de la solicitud
- * @param {boolean} req.body.quiere_recoleccion - Cliente desea recolección
- * @param {boolean} req.body.quiere_productos_extra - Cliente desea productos extra
- * @param {number} req.body.cubetas_recolectadas  - Cantidad de cubetas que el cliente entregará
- * @param {number} req.body.cubetas_entregadas -  Cantidad de cubetas vacías solicitadas
+ * @param {number} req.body.idSolicitud - Id de la solicitud
+ * @param {boolean} req.body.quiereRecoleccion - Cliente desea recolección
+ * @param {boolean} req.body.quiereProductosExtra - Cliente desea productos extra
+ * @param {number} req.body.cubetasRecolectadas  - Cantidad de cubetas que el cliente entregará
+ * @param {number} req.body.cubetasEntregadas -  Cantidad de cubetas vacías solicitadas
  */
 
 const guardarSolicitudRecPrimeraSeccion = async (req, res) => {
     try {
         const {
-            id_solicitud: idSolicitud,
-            quiere_recoleccion: quiereRecoleccion,
-            quiere_productos_extra: quiereProductosExtra,
-            cubetas_recolectadas: cubetasRecolectadas,
-            cubetas_entregadas: cubetasEntregadas,
+            idSolicitud,
+            quiereRecoleccion,
+            quiereProductosExtra,
+            cubetasRecolectadas,
+            cubetasEntregadas,
         } = req.body;
 
         // Validación de que lleguen los datos
