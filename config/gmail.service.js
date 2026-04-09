@@ -48,7 +48,6 @@ const GmailService = {
                 'gmail-static-send'
             );
 
-            console.log(`[GMAIL-API] Correo enviado a ${to}`);
         } catch (error) {
             console.error("Error enviando correo con API de Gmail:", error);
             throw error;

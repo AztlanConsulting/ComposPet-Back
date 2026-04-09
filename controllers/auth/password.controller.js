@@ -41,7 +41,6 @@ const requestOTP = async (req, res) => {
         const expires = new Date(Date.now() + BLOQUEO_MINUTOS * 60 * 1000);
 
         await PasswordModel.setVerificationCode(user.id_usuario, code, expires);
-        console.log(process.env.JWT_SECRET)
         const seedToken = jwt.sign(
             { email: user.correo, step: 'CAN_VERIFY' },
             process.env.JWT_SECRET,
