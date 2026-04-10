@@ -34,18 +34,14 @@ const GmailService = {
      */
     encodeMessage: (to, subject, message) => {
         const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
+        const htmlContent = getEmailTemplate(message);
         const emailLines = [
             `To: ${to}`,
             'Content-Type: text/html; charset=utf-8',
             'MIME-Version: 1.0',
             `Subject: ${utf8Subject}`,
             '',
-            `<div style="font-family: Arial, sans-serif; border: 1px solid #e0e0e0; padding: 20px; border-radius: 10px;">
-                <h2 style="color: #4CAF50;">Compospet</h2>
-                <p style="font-size: 16px; color: #333;">${message}</p>
-                <hr style="border: 0; border-top: 1px solid #eee;" />
-                <p style="font-size: 12px; color: #888;">Este es un mensaje automático de activación.</p>
-            </div>`
+            htmlContent
         ];
 
         return Buffer.from(emailLines.join('\r\n').trim())
