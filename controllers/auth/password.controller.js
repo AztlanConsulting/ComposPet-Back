@@ -6,27 +6,11 @@ const { google } = require('googleapis');
 const { callExternalApi } = require('../../middlewares/externalApiClient');
 const crypto = require('crypto');
 const GmailService = require('../../config/gmail.service');
+const { logIfAdmin } = require('../../utils/logIfAdmin');
 
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
 
-/**
- * Middleware de auditoría selectiva para acciones administrativas.
- * Registra eventos en la base de datos únicamente si el usuario autenticado
- * posee el rol de 'administrador'.
- * * @async
- * @function logIfAdmin
- * @param {Object} user - Objeto del usuario obtenido del contexto de autenticación.
- * @param {string} accion - Etiqueta descriptiva de la acción realizada (ej. 'CREAR_USUARIO').
- * @param {string|null} [detalle=null] - Información adicional opcional sobre el evento en formato string o JSON.
- * @returns {Promise<void>} - No retorna valor, pero ejecuta una operación asíncrona de escritura en logs.
- * @throws {Error} Si la operación `AuthModel.addLog` falla durante la persistencia.
- */
-const logIfAdmin = async (user, accion, detalle = null) => {
-    if (user && user.roles?.nombre === 'administrador') {
-        await AuthModel.addLog(user.id_usuario, accion, detalle);
-    }
-};
 
 /**
  * Controlador para la Fase 1 del primer inicio de sesión.
@@ -47,7 +31,7 @@ const requestOTP = async (req, res) => {
 
         const code = crypto.randomInt(100000, 999999).toString();
 
-        const expires = new Date(Date.now() + BLOQUEO_MINUTOS * 60 * 1000);
+        const expires = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
 
         await PasswordModel.setVerificationCode(user.id_usuario, code, expires);
         const seedToken = jwt.sign(
@@ -64,7 +48,6 @@ const requestOTP = async (req, res) => {
             `Tu código de verificación es: <b>${code}</b>`
         );
 
-        console.log(`[DEBUG] OTP para ${email}: ${code}`);
 
         return res.status(200).json({ 
             success: true, 
@@ -107,6 +90,7 @@ const verifyOTP = async (req, res) => {
             
             if (intentos >= MAX_INTENTOS) {
                 await AuthModel.lockAccount(user.id_usuario);
+                await PasswordModel.setVerificationCode(user.id_usuario, null, null);
                 return res.status(401).json({ message: 'Cuenta bloqueada.' });
             }
 

@@ -1,5 +1,6 @@
 const { google } = require('googleapis');
 const { callExternalApi } = require('../middlewares/externalApiClient');
+const { getEmailTemplate } = require('../utils/emailTemplate');
 
 /**
  * GmailService proporciona métodos para autenticar, formatear y enviar correos 
