@@ -107,6 +107,7 @@ module.exports = class SolicitudesRec {
     }
 
     static async obtenerProductosExtra() {
+
         const productosExtra = await prisma.productos_extra.findMany({
             where: {
                 estatus: 'activo',

@@ -46,6 +46,7 @@ const logIfAdmin = async (user, accion, detalle = null) => {
  */
 
 const login = async(req, res) => {
+    console.log("Entro al login");
 
     const {email, password} = req.body;
 
