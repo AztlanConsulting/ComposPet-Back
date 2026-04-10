@@ -11,7 +11,16 @@ const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
 
 /**
- * Registra un evento en bitácora únicamente si el usuario tiene rol de administrador.
+ * Middleware de auditoría selectiva para acciones administrativas.
+ * Registra eventos en la base de datos únicamente si el usuario autenticado
+ * posee el rol de 'administrador'.
+ * * @async
+ * @function logIfAdmin
+ * @param {Object} user - Objeto del usuario obtenido del contexto de autenticación.
+ * @param {string} accion - Etiqueta descriptiva de la acción realizada (ej. 'CREAR_USUARIO').
+ * @param {string|null} [detalle=null] - Información adicional opcional sobre el evento en formato string o JSON.
+ * @returns {Promise<void>} - No retorna valor, pero ejecuta una operación asíncrona de escritura en logs.
+ * @throws {Error} Si la operación `AuthModel.addLog` falla durante la persistencia.
  */
 const logIfAdmin = async (user, accion, detalle = null) => {
     if (user && user.roles?.nombre === 'administrador') {
@@ -68,7 +77,16 @@ const requestOTP = async (req, res) => {
     }
 };
 
-
+/**
+ * Verifica el código de un solo uso (OTP) proporcionado por el usuario.
+ * Valida la integridad de la sesión mediante un 'seedToken' y gestiona el bloqueo de cuenta
+ * tras múltiples intentos fallidos.
+ * * @async
+ * @function verifyOTP
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {Promise<Object>} Respuesta JSON con el 'flowToken' si la verificación es exitosa.
+ */
 const verifyOTP = async (req, res) => {
     const { email, code, seedToken } = req.body;
 
@@ -112,7 +130,15 @@ const verifyOTP = async (req, res) => {
     }
 };
 
-
+/**
+ * Actualiza la contraseña del usuario tras una verificación OTP exitosa.
+ * Utiliza un 'flowToken' para asegurar que el usuario ha completado los pasos previos.
+ * * @async
+ * @function updatePassword
+ * @param {Object} req - Objeto de solicitud de Express.
+ * @param {Object} res - Objeto de respuesta de Express.
+ * @returns {Promise<Object>} Mensaje de éxito tras la actualización y registro en auditoría.
+ */
 const updatePassword = async (req, res) => {
     const { email, password, flowToken } = req.body;
 
