@@ -1,6 +1,7 @@
 const { google } = require('googleapis');
 const { callExternalApi } = require('../middlewares/externalApiClient');
-const { getEmailTemplate } = require('../utils/emailTemplate');
+const { getBaseLayout } = require('../utils/templates/baseLayout'); 
+const { getOtpContent } = require('../utils/templates/authTemplates');
 
 /**
  * GmailService proporciona métodos para autenticar, formatear y enviar correos 
@@ -33,16 +34,16 @@ const GmailService = {
      * @param {string} message - Cuerpo del mensaje o contenido dinámico.
      * @returns {string} Mensaje codificado en Base64 URL-Safe.
      */
-    encodeMessage: (to, subject, message) => {
+    encodeMessage: (to, subject, content) => {
         const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
-        const htmlContent = getEmailTemplate(message);
+        const htmlFinal = getBaseLayout(content);
         const emailLines = [
             `To: ${to}`,
             'Content-Type: text/html; charset=utf-8',
             'MIME-Version: 1.0',
             `Subject: ${utf8Subject}`,
             '',
-            htmlContent
+            htmlFinal
         ];
 
         return Buffer.from(emailLines.join('\r\n').trim())
@@ -63,11 +64,12 @@ const GmailService = {
         try {
             const auth = GmailService.getAuthClient();
             const gmail = google.gmail({ version: 'v1', auth });
-            const raw = GmailService.encodeMessage(to, subject, message);
+            const otpContent = getOtpContent(message);
+            const raw = GmailService.encodeMessage(to, subject, otpContent);
 
             await callExternalApi(
                 () => gmail.users.messages.send({ userId: 'me', requestBody: { raw } }),
-                'gmail-static-send'
+                'gmail-send'
             );
 
         } catch (error) {

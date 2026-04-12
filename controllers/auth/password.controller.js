@@ -45,7 +45,7 @@ const requestOTP = async (req, res) => {
         await GmailService.sendStaticEmail(
             email, 
             'Activa tu cuenta de Compospet', 
-            `Tu código de verificación es: <b>${code}</b>`
+            code,
         );
 
 
