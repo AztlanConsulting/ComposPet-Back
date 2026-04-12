@@ -1,7 +1,11 @@
 const { colors, fonts } = require('./emailStyles');
 
 /**
- * Genera el contenido de bienvenida con el código y las instrucciones.
+ * Genera el cuerpo de contenido HTML para correos de autenticación (OTP).
+ * Diseñado para ser insertado dentro de un Layout base.
+ * * @function getOtpContent
+ * @param {string|number} code - El código de verificación generado para el usuario.
+ * @returns {string} Fragmento de tabla HTML con el diseño de bienvenida y OTP.
  */
 const getOtpContent = (code) => `
 <table bgcolor="${colors.white}" align="center" cellpadding="0" cellspacing="0" width="600" class="es-content-body">
