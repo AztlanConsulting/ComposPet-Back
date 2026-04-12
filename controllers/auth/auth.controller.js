@@ -3,6 +3,7 @@ const jwt       = require('jsonwebtoken');
 const bcrypt    = require('bcrypt');
 const { google } = require('googleapis');
 const { callExternalApi } = require('../../middlewares/externalApiClient');
+const { generateAccessToken, generateRefreshToken } = require('../../utils/jwt.utils');
 
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
@@ -94,21 +95,24 @@ const login = async(req, res) => {
         await AuthModel.resetLoginTry(user.id_usuario);
         await logIfAdmin(user, `LOGIN_EXITOSO`);
 
-        const token = jwt.sign(
-            {
-                id: user.id_usuario,
-                email: user.correo,
-                rol: user.roles.nombre,
-            },
-            process.env.JWT_SECRET, { expiresIn: '8h' }
-        );
+        const tokenPayload = {
+            userId: user.id_usuario,
+            email: user.correo,
+            role: user.roles.nombre,
+        };
+
+        const accessToken = generateAccessToken(tokenPayload);
+        const refreshToken = generateRefreshToken(tokenPayload);
 
         return res.status(200).json({
             id_usuario: user.id_usuario,
             correo: user.correo,
             rol: user.roles.nombre,
             primer_inicio_sesion: user.primer_inicio_sesion,
-            token,
+            tokens: {
+                accessToken,
+                refreshToken
+            }
         });
 
     } catch (error) {
@@ -155,27 +159,29 @@ const googleAuth = async (req, res) => {
       });
     }
 
-    const userToken = jwt.sign(
-      { 
-        id: userDB.id_usuario, 
+    const tokenPayload = { 
+        userId: userDB.id_usuario, 
         email: userDB.correo, 
-        rol: userDB.roles.nombre 
-      },
-      process.env.JWT_SECRET || 'TU_PALABRA_SECRETA', 
-      { expiresIn: '24h' }
-    );
+        role: userDB.roles.nombre 
+    };
+
+    const accessToken = generateAccessToken(tokenPayload);
+    const refreshToken = generateRefreshToken(tokenPayload);
 
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
     res.status(200).json({ 
         msg: "Login correcto", 
-        token: userToken, 
+        tokens: {
+            accessToken,
+            refreshToken
+        },
         user: { 
             id_usuario: userDB.id_usuario,
             name: name, 
             email: userDB.correo, 
             rol: userDB.roles.nombre,
-            primer_inicio_sesion: userDB.primer_inicio_sesion, // <--- ¡No olvides este!
+            primer_inicio_sesion: userDB.primer_inicio_sesion,
             picture: picture 
         } 
     });
