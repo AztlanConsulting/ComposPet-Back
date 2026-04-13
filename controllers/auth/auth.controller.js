@@ -15,7 +15,8 @@ const cookieOptions = {
     sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días en ms
     path: '/',
-    ...(process.env.COOKIE_DOMAIN && { domain: process.env.COOKIE_DOMAIN })
+    ...(process.env.NODE_ENV === 'production' && process.env.COOKIE_DOMAIN 
+        && { domain: process.env.COOKIE_DOMAIN }),
 };
 
 /**
@@ -170,8 +171,11 @@ const googleAuth = async (req, res) => {
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
     console.log("Enviando cookies...");
 
+    console.log('cookieOptions:', cookieOptions);
+    console.log('NODE_ENV:', process.env.NODE_ENV);
     res.cookie('refreshToken', refreshToken, cookieOptions);
-
+    console.log('Cookie enviada, headers:', res.getHeaders());
+    
     res.status(200).json({ 
         msg: "Login correcto", 
         accessToken,

@@ -19,7 +19,16 @@ const corsOptions = {
 // Middlewares globales de configuración y seguridad
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use(helmet());
+if (process.env.NODE_ENV === 'production') {
+    app.use(helmet());
+} else {
+    // En desarrollo desactivamos las políticas que bloquean cross-origin
+    app.use(helmet({
+        crossOriginResourcePolicy: false,
+        crossOriginOpenerPolicy: false,
+        contentSecurityPolicy: false,
+    }));
+}
 app.use(express.json());
 
 // Inyecta el interceptor de métricas en todas las peticiones entrantes
