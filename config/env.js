@@ -18,7 +18,6 @@ const config = {
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
 };
 
-// Validación: El servidor NO debe arrancar sin secrets configurados
 if (!config.jwtAccessSecret || !config.jwtRefreshSecret) {
   console.error('FATAL: JWT secrets no configurados. Revisa tu archivo .env');
   process.exit(1);

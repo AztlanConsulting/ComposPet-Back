@@ -9,6 +9,14 @@ const { logIfAdmin } = require('../../utils/logIfAdmin');
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
 
+const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production', // false en desarrollo
+    sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'lax',
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 días en ms
+    path: '/',
+    ...(process.env.COOKIE_DOMAIN && { domain: process.env.COOKIE_DOMAIN })
+};
 
 /**
  * Controlador del endpoint de inicio de sesión.
@@ -43,7 +51,7 @@ const login = async(req, res) => {
         }
 
          // Se responde con el mismo mensaje genérico que credenciales incorrectas para no revelar si el correo existe
-        if (user.bloqueado_hasta && new Date < new Date(user.bloqueado_hasta)) {
+        if (user.bloqueado_hasta && new Date() < new Date(user.bloqueado_hasta)) {
             await logIfAdmin(user, 'INTENTO_LOGIN_CUENTA_BLOQUEADA');
 
             return res.status(401).json(
@@ -89,12 +97,14 @@ const login = async(req, res) => {
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
 
-        res.cookie('refreshToken', refreshToken, {
-            httpOnly: true,    
-            secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000 
-        });
+        res.cookie('refreshToken', refreshToken, cookieOptions);
+
+        // res.cookie('refreshToken', refreshToken, {
+        //     httpOnly: true,    
+        //     secure: process.env.NODE_ENV === 'production', 
+        //     sameSite: 'strict',
+        //     maxAge: 7 * 24 * 60 * 60 * 1000 
+        // });
 
         return res.status(200).json({
             id_usuario: user.id_usuario,
@@ -158,19 +168,9 @@ const googleAuth = async (req, res) => {
     const refreshToken = generateRefreshToken(tokenPayload);
 
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
+    console.log("Enviando cookies...");
 
-    res.cookie('refreshToken', token, { 
-        httpOnly: true, 
-        secure: false, 
-        sameSite: 'lax' 
-    });
-
-    res.cookie('googleAccessToken', token, {
-        httpOnly: true,   
-        secure: process.env.NODE_ENV === 'production', 
-        sameSite: 'strict',
-        maxAge: 3600 * 1000 
-    });
+    res.cookie('refreshToken', refreshToken, cookieOptions);
 
     res.status(200).json({ 
         msg: "Login correcto", 
@@ -200,7 +200,7 @@ const refreshToken = async (req, res) => {
     }
 
     try {
-        const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+        const payload = verifyRefreshToken(token);
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,
@@ -208,9 +208,18 @@ const refreshToken = async (req, res) => {
             role: payload.role
         });
 
+        const newRefreshToken = generateRefreshToken({
+            userId: payload.userId,
+            email: payload.email,
+            role: payload.role
+        });
+
+        res.cookie('refreshToken', newRefreshToken, cookieOptions);
+
         return res.status(200).json({ accessToken: newAccessToken });
 
     } catch (error) {
+        res.clearCookie('refreshToken');
         console.error('Error al refrescar token:', error);
         return res.status(403).json({ message: 'Token de refresco inválido o expirado.' });
     }

@@ -25,6 +25,7 @@
     "express": "^5.2.1",
     "google-auth-library": "^10.6.2",
     "googleapis": "^171.4.0",
+    "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.20.0",
     "prom-client": "^15.1.3"

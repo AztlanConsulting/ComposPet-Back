@@ -5,6 +5,7 @@ const { register } = require('./config/metrics');
 const monitorMiddleware = require('./middlewares/monitor');
 const config = require('./config/env')
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
 
 const routes = require('./routes/general_routes.routes');
 
@@ -18,6 +19,7 @@ const corsOptions = {
 // Middlewares globales de configuración y seguridad
 app.use(cookieParser());
 app.use(cors(corsOptions));
+app.use(helmet());
 app.use(express.json());
 
 // Inyecta el interceptor de métricas en todas las peticiones entrantes
