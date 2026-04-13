@@ -87,6 +87,8 @@ CREATE TABLE public.productos_extra (
 	precio float8 NOT NULL,
 	descripcion varchar NULL,
 	cantidad int4 NOT NULL,
+	estatus bool DEFAULT true NOT NULL,
+	imagen_url varchar NULL,
 	CONSTRAINT productos_extra_pkey PRIMARY KEY (id_producto)
 );
 

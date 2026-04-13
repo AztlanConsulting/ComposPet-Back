@@ -4,15 +4,16 @@ const router = express.Router();
 const user_routes = require('./user.routes');
 const authRoutes = require('./auth/login.routes');
 const solicitudesRecRoutes = require('./solicitudes_rec.routes');
+const clienteRoutes = require('./client.routes');
 const auth = require("../middlewares/auth");
 
 router.use('/', authRoutes);
 router.use("/user", user_routes);
 
 // Agrega las rutas de solicitudes_rec
-router.use('/solicitudes_rec', solicitudesRecRoutes);
-// Agrega las rutas de solicitudes_rec
-//router.use('/solicitudes_rec', auth, solicitudesRecRoutes);
+router.use('/solicitudes_rec', auth, solicitudesRecRoutes); 
+
+router.use('/cliente', auth, clienteRoutes);
 
 router.get('/', (req, res) => {
     res.send('API funcionando correctamente');

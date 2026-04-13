@@ -38,13 +38,7 @@ module.exports = class SolicitudesRec {
         });
 
         // Si ya existe una solicitud dentro del rango semanal, se retorna
-        if (solicitudRecActual) {
-            return solicitudRecActual;
-        } else {
-
-             // Si no existe una solicitud, se crea una nueva solicitud
-            return this.crearSolicitudRecInicial(idCliente);
-        }
+        return solicitudRecActual;
     }
 
     /**
@@ -58,16 +52,19 @@ module.exports = class SolicitudesRec {
 
         const nuevaSolicitudRecActual = await prisma.solicitudes_recoleccion.create({
             data: {
-                id_cliente: idCliente,
-                quiere_recoleccion: false,
-                quiere_productos_extra: false,
+                cliente: {
+                    connect: {
+                    id_cliente: idCliente,
+                    },
+                },
                 cubetas_recolectadas: 0,
                 cubetas_entregadas: 0,
                 total_a_pagar: 0,
                 total_pagado: 0,
                 fecha: new Date(),
                 notas: null,
-
+                quiere_recoleccion: false,
+                quiere_productos_extra: false,
             },
         });
         return nuevaSolicitudRecActual;
@@ -110,7 +107,7 @@ module.exports = class SolicitudesRec {
 
         const productosExtra = await prisma.productos_extra.findMany({
             where: {
-                estatus: 'activo',
+                estatus: true,
             },
             orderBy:{
                 nombre: 'asc',
