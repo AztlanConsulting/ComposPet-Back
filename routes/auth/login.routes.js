@@ -50,4 +50,6 @@ router.post('/verify-otp', firstLoginController.verifyOTP);
  */
 router.post('/update-password', firstLoginController.updatePassword);
 
+router.post('/refresh', authController.refreshToken);
+
 module.exports = router;

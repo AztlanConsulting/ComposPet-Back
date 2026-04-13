@@ -14,9 +14,6 @@ router.get('/', (req, res) => {
     res.send('API funcionando correctamente');
 });
 
-router.get('/health', (req, res) => {
-    res.send("");
-});
 
 
 module.exports = router;

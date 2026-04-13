@@ -89,15 +89,19 @@ const login = async(req, res) => {
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
 
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,    
+            secure: process.env.NODE_ENV === 'production', 
+            sameSite: 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000 
+        });
+
         return res.status(200).json({
             id_usuario: user.id_usuario,
             correo: user.correo,
             rol: user.roles.nombre,
             primer_inicio_sesion: user.primer_inicio_sesion,
-            tokens: {
-                accessToken,
-                refreshToken
-            }
+            accessToken,
         });
 
     } catch (error) {
@@ -155,12 +159,22 @@ const googleAuth = async (req, res) => {
 
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
+    res.cookie('refreshToken', token, { 
+        httpOnly: true, 
+        secure: false, 
+        sameSite: 'lax' 
+    });
+
+    res.cookie('googleAccessToken', token, {
+        httpOnly: true,   
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'strict',
+        maxAge: 3600 * 1000 
+    });
+
     res.status(200).json({ 
         msg: "Login correcto", 
-        tokens: {
-            accessToken,
-            refreshToken
-        },
+        accessToken,
         user: { 
             id_usuario: userDB.id_usuario,
             name: name, 
@@ -177,7 +191,33 @@ const googleAuth = async (req, res) => {
   }
 };
 
+
+const refreshToken = async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if (!refreshToken) {
+        return res.status(401).json({ message: 'No hay token de refresco.' });
+    }
+
+    try {
+        const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+
+        const newAccessToken = generateAccessToken({
+            userId: payload.userId,
+            email: payload.email,
+            role: payload.role
+        });
+
+        return res.status(200).json({ accessToken: newAccessToken });
+
+    } catch (error) {
+        console.error('Error al refrescar token:', error);
+        return res.status(403).json({ message: 'Token de refresco inválido o expirado.' });
+    }
+};
+
 module.exports = {
     login, 
     googleAuth,
+    refreshToken,
 };
