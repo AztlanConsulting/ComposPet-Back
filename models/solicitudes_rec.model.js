@@ -111,6 +111,9 @@ module.exports = class SolicitudesRec {
         const productosExtra = await prisma.productos_extra.findMany({
             where: {
                 estatus: 'activo',
+            },
+            orderBy:{
+                nombre: 'asc',
             }
         });
 
@@ -123,38 +126,79 @@ module.exports = class SolicitudesRec {
 
     static async guardarSolicitudRecSegundaSeccion(idSolicitud, productos) {
         const solicitud = await prisma.solicitudes_recoleccion.findUnique({
-            where: {
-                id_solicitud: idSolicitud,
-            }
-        })
+            where: { id_solicitud: idSolicitud }
+        });
 
         if (!solicitud) {
             throw new Error('Solicitud no encontrada');
         }
 
-        await prisma.productos_solicitud.deleteMany({
-            where: {
-                id_solicitud: idSolicitud,
-            },
-        })
-
-        if (productos.length > 0) {
-            await prisma.productos_solicitud.createMany({
-                data: productos.map((producto) => ({
+        // Actualiza o crea cada producto
+        for (const producto of productos) {
+            await prisma.productos_solicitud.upsert({
+                where: {
+                    id_solicitud_id_producto: {
+                        id_solicitud: idSolicitud,
+                        id_producto: producto.id_producto,
+                    }
+                },
+                update: {
+                    cantidad: producto.cantidad,  // solo actualiza la cantidad
+                },
+                create: {
                     id_solicitud: idSolicitud,
                     id_producto: producto.id_producto,
                     fecha: new Date(),
                     cantidad: producto.cantidad,
-                    imagen_url: producto.imagen_url || null,
-                })),
+                }
             });
         }
 
-        const productosGuardados = await prisma.productos_solicitud.findMany( {
-            where: {
-                id_solicitud: idSolicitud,
-            },
+        return { message: 'Productos guardados correctamente' };
+    }
+
+    static async cancelarSolicitud(idSolicitud) {
+        const solicitud = await prisma.solicitudes_recoleccion.findUnique({
+            where: { id_solicitud: idSolicitud }
         });
-        return productosGuardados;
+
+        if (!solicitud) {
+            throw new Error('Solicitud no encontrada');
+        }
+
+        await prisma.solicitudes_recoleccion.update({
+            where: { id_solicitud: idSolicitud },
+            data: {
+                cubetas_entregadas: null,
+                cubetas_recolectadas: null,
+                total_a_pagar: null,
+                total_pagado: null,
+                fecha: null,
+                horario: null,
+                notas: null,
+                quiere_recoleccion: null,
+                quiere_productos_extra: null,
+                id_pago: null,
+            }
+        });
+
+        await prisma.productos_solicitud.deleteMany({
+            where: { id_solicitud: idSolicitud }
+        });
+
+        return { message: 'Solicitud cancelada correctamente' };
+    }
+
+    static async obtenerUltimaSolicitudPorCliente(idCliente) {
+        const solicitud = await prisma.solicitudes_recoleccion.findFirst({
+            where: {
+                id_cliente: idCliente
+            },
+            orderBy: {
+                fecha: 'desc'
+            }
+        });
+
+        return solicitud || null;
     }
 };

@@ -15,5 +15,6 @@ router.get('/form04/obtener', solicitudRecController.obtenerProductosExtra);
 // Ruta que guarda la información de la primera sección del formulario de recolección.
 router.post('/form04/guardar', solicitudRecController.guardarSolicitudRecSegundaSeccion);
 
-//router.get('/form04/obtener', solicitudRecController.obtenerSolicitudRecSegundaSeccion);
+router.post('/ultimaSolicitud', solicitudRecController.obtenerUltimaSolicitudPorCliente);
+
 module.exports = router;

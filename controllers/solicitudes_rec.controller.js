@@ -185,9 +185,50 @@ const guardarSolicitudRecSegundaSeccion = async (req, res) => {
     }
 };
 
+/**
+ * Obtiene el id de la última solicitud de recolección de un cliente
+ *
+ * @async
+ * @function obtenerUltimaSolicitudPorCliente
+ * @param {string} req.body.id_cliente - Id del cliente
+ */
+const obtenerUltimaSolicitudPorCliente = async (req, res) => {
+    console.log('Obteniendo última solicitud para cliente:', req.body);
+    try {
+        console.log("ENTRO AL TRYYYY");
+        const { id_cliente: idCliente } = req.body;
+        console.log('Obteniendo última solicitud para cliente x2:', req.body);
+        if (!idCliente) {
+            console.log("Entro donde")
+            return res.status(400).json({
+                success: false,
+                message: 'El id del cliente es requerido.',
+            });
+        }
+
+        const ultimaSolicitudId = await SolicitudesRec.obtenerUltimaSolicitudPorCliente(idCliente);
+        console.log('Última solicitud encontrada:', ultimaSolicitudId);
+
+        return res.status(200).json({
+            data: {
+                id_solicitud: ultimaSolicitudId
+            },
+        });
+
+    } catch (error) {
+        console.error('Error al obtener la última solicitud:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error servidor al obtener la última solicitud.',
+            error,
+        });
+    }
+};
+
 module.exports = {
     obtenerSolicitudRecActual,
     guardarSolicitudRecPrimeraSeccion,
     guardarSolicitudRecSegundaSeccion,
     obtenerProductosExtra,
+    obtenerUltimaSolicitudPorCliente,
 };

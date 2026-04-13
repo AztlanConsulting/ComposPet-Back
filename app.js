@@ -27,7 +27,7 @@ app.get('/metrics', async (req, res) => {
 
 app.use((req, res, next) => {
     console.log("Content-Type recibido:", req.headers["content-type"]);
-    console.log("Body recibido:", req.body);
+    //console.log("Body recibido:", req.body);
     next();
 });
 
