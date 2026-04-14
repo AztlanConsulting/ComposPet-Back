@@ -3,7 +3,7 @@ const jwt       = require('jsonwebtoken');
 const bcrypt    = require('bcrypt');
 const { google } = require('googleapis');
 const { callExternalApi } = require('../../middlewares/externalApiClient');
-const { generateAccessToken, generateRefreshToken } = require('../../utils/jwt.utils');
+const { verifyRefreshToken, generateAccessToken, generateRefreshToken } = require('../../utils/jwt.utils');
 const { logIfAdmin } = require('../../utils/logIfAdmin');
 
 const MAX_INTENTOS = 5;
@@ -175,7 +175,7 @@ const googleAuth = async (req, res) => {
     console.log('NODE_ENV:', process.env.NODE_ENV);
     res.cookie('refreshToken', refreshToken, cookieOptions);
     console.log('Cookie enviada, headers:', res.getHeaders());
-    
+
     res.status(200).json({ 
         msg: "Login correcto", 
         accessToken,
