@@ -6,7 +6,7 @@ const authRoutes = require('./auth/login.routes');
 
 const { authMiddleware } = require('../middlewares/auth')
 
-router.use('/', authRoutes);
+router.use('/api', authRoutes);
 
 router.use("/user", user_routes);
 
