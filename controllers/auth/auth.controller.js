@@ -204,7 +204,7 @@ const refreshToken = async (req, res) => {
     }
 
     try {
-        const payload = verifyRefreshToken(token);
+        const payload = verifyRefreshToken(refreshToken);
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,
