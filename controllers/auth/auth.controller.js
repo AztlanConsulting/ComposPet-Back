@@ -137,7 +137,7 @@ const googleAuth = async (req, res) => {
 
   try {
     const auth = new google.auth.OAuth2();
-    auth.setCredentials({ access_token: token });
+    auth.setCredentials({ accessToken: token });
     const oauth2 = google.oauth2({ version: 'v2', auth });
 
     const userInfo = await callExternalApi(
@@ -174,6 +174,7 @@ const googleAuth = async (req, res) => {
     console.log('cookieOptions:', cookieOptions);
     console.log('NODE_ENV:', process.env.NODE_ENV);
     res.cookie('refreshToken', refreshToken, cookieOptions);
+    res.cookie('googleToken', accessToken, cookieOptions);
     console.log('Cookie enviada, headers:', res.getHeaders());
 
     res.status(200).json({ 
