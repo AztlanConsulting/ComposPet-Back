@@ -2,6 +2,11 @@ const { verifyAccessToken } = require('../utils/jwt.utils');
 
 /**
  * Middleware para autenticar usuarios mediante Bearer Token.
+ * Valida la existencia, formato y vigencia del JWT enviado en los headers.
+ * * @param {import('express').Request} req - Objeto de petición. Se extrae `authorization` de `req.headers`.
+ * @param {import('express').Response} res - Objeto de respuesta.
+ * @param {import('express').NextFunction} next - Función para continuar al siguiente middleware.
+ * @returns {void} Responde con 401 si el token es inexistente, inválido o ha expirado.
  */
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -47,8 +52,13 @@ function authMiddleware(req, res, next) {
 }
 
 /**
- * Middleware de autorización por roles.
- * @param {...string} allowedRoles - Lista de roles permitidos (ej: 'admin', 'user').
+ * Middleware de autorización basado en roles.
+ * Restringe el acceso a recursos específicos según el rol inyectado en `req.user`.
+ * * @param {...string} allowedRoles - Lista de roles permitidos (ej: 'admin', 'user').
+ * @returns {function(import('express').Request, import('express').Response, import('express').NextFunction): void} 
+ * Middleware configurado para los roles especificados.
+ * * @example
+ * router.get('/admin-panel', authMiddleware, requireRole('admin'), adminController);
  */
 function requireRole(...allowedRoles) {
   return (req, res, next) => {

@@ -50,6 +50,13 @@ router.post('/verify-otp', firstLoginController.verifyOTP);
  */
 router.post('/update-password', firstLoginController.updatePassword);
 
+/**
+ * @route POST /refresh
+ * @description Renueva el Access Token de la aplicación utilizando un Refresh Token válido.
+ * Implementa rotación de tokens para mejorar la seguridad de la sesión.
+ * @access Público (Requiere cookie refreshToken)
+ * @see authController.refreshToken
+ */
 router.post('/refresh', authController.refreshToken);
 
 module.exports = router;

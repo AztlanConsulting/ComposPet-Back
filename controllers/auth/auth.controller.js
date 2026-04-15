@@ -9,6 +9,14 @@ const { logIfAdmin } = require('../../utils/logIfAdmin');
 const MAX_INTENTOS = 5;
 const BLOQUEO_MINUTOS = 15;
 
+/**
+ * Configuración de las cookies de sesión.
+ * @type {Object}
+ * @property {boolean} httpOnly - Evita el acceso a la cookie vía JavaScript del cliente.
+ * @property {boolean} secure - Solo permite el envío bajo HTTPS en producción.
+ * @property {string} sameSite - Política de envío de cookies entre sitios.
+ * @property {number} maxAge - Tiempo de vida de la cookie (7 días).
+ */
 const cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production', // false en desarrollo
@@ -43,7 +51,6 @@ const cookieOptions = {
 const login = async(req, res) => {
 
     const {email, password} = req.body;
-
     try{
         const user = await AuthModel.findUserByEmail(email);
 
@@ -169,13 +176,9 @@ const googleAuth = async (req, res) => {
     const refreshToken = generateRefreshToken(tokenPayload);
 
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
-    console.log("Enviando cookies...");
 
-    console.log('cookieOptions:', cookieOptions);
-    console.log('NODE_ENV:', process.env.NODE_ENV);
     res.cookie('refreshToken', refreshToken, cookieOptions);
     res.cookie('googleToken', token, cookieOptions);
-    console.log('Cookie enviada, headers:', res.getHeaders());
 
     res.status(200).json({ 
         msg: "Login correcto", 
@@ -196,7 +199,14 @@ const googleAuth = async (req, res) => {
   }
 };
 
-
+/**
+ * Genera un nuevo par de tokens (Access y Refresh) utilizando un Refresh Token válido.
+ * * @async
+ * @param {import('express').Request} req - Petición que debe contener la cookie `refreshToken`.
+ * @param {import('express').Response} res - Respuesta con el nuevo accessToken.
+ * @returns {Promise<void>}
+ * @throws {Error} Si el token ha expirado o ha sido manipulado.
+ */
 const refreshToken = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
 
