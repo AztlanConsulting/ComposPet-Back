@@ -459,3 +459,7 @@ CHECK (estatus IN ('activo', 'inactivo', 'suspendido'));
 
 ALTER TABLE public.productos_extra
 ADD COLUMN imagen_url character varying;
+
+
+ALTER TABLE public.productos_extra 
+ADD COLUMN orden INT;

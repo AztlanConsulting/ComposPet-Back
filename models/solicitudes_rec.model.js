@@ -104,13 +104,21 @@ module.exports = class SolicitudesRec {
     }
 
     static async obtenerProductosExtra() {
-
         const productosExtra = await prisma.productos_extra.findMany({
             where: {
-                estatus: true,
+                estatus: 'true',
             },
             orderBy:{
-                nombre: 'asc',
+                orden: 'asc',
+            },
+            select: {
+                id_producto: true,
+                nombre: true,
+                precio: true,
+                descripcion: true,
+                cantidad: true,
+                imagen_url: true,
+                estatus: true,
             }
         });
 
@@ -130,19 +138,13 @@ module.exports = class SolicitudesRec {
             throw new Error('Solicitud no encontrada');
         }
 
-        // Actualiza o crea cada producto
+        await prisma.productos_solicitud.deleteMany({
+            where: { id_solicitud: idSolicitud }
+        });
+
         for (const producto of productos) {
-            await prisma.productos_solicitud.upsert({
-                where: {
-                    id_solicitud_id_producto: {
-                        id_solicitud: idSolicitud,
-                        id_producto: producto.id_producto,
-                    }
-                },
-                update: {
-                    cantidad: producto.cantidad,  // solo actualiza la cantidad
-                },
-                create: {
+            await prisma.productos_solicitud.create({
+                data: {
                     id_solicitud: idSolicitud,
                     id_producto: producto.id_producto,
                     fecha: new Date(),
@@ -187,15 +189,35 @@ module.exports = class SolicitudesRec {
     }
 
     static async obtenerUltimaSolicitudPorCliente(idCliente) {
+        console.log("Obteniendo última solicitud para cliente con id:", idCliente);
         const solicitud = await prisma.solicitudes_recoleccion.findFirst({
             where: {
-                id_cliente: idCliente
+                id_cliente : idCliente
             },
             orderBy: {
                 fecha: 'desc'
+            },
+            select: {
+                id_solicitud: true
+            }
+            });
+
+        console.log("Solicitud obtenida:", solicitud);
+
+        return solicitud;
+    }
+
+    static async getInfoAboutExtraProuctsSelected(idSolicitud){
+        const data = await prisma.productos_solicitud.findMany({
+            where:{
+                id_solicitud: idSolicitud
+            },
+            select: {
+                id_producto: true,
+                cantidad: true,
             }
         });
 
-        return solicitud || null;
+        return data;
     }
 };

@@ -17,4 +17,6 @@ router.post('/form04/guardar', solicitudRecController.guardarSolicitudRecSegunda
 
 router.post('/ultimaSolicitud', solicitudRecController.obtenerUltimaSolicitudPorCliente);
 
+router.post('/form03/obtenerInfo', solicitudRecController.getInfoAboutExtraProuctsSelected);
+
 module.exports = router;

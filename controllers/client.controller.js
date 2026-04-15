@@ -11,7 +11,7 @@ const Cliente = require('../models/client.model');
  */
 
 const obtenerClientePorIdUsuario = async (req, res) => {
-    console.log("Entro a obtenerClientePorIdUsuario con body:", req.body);
+    //console.log("Entro a obtenerClientePorIdUsuario con body:", req.body);
     try {
         const { idUsuario } = req.body;
 

@@ -134,6 +134,7 @@ model productos_extra {
   cantidad            Int
   imagen_url          String?               @db.VarChar
   estatus             String?               @default("activo") @db.VarChar(20)
+  orden               Int?
   productos_solicitud productos_solicitud[]
 }
 
@@ -238,8 +239,8 @@ model usuarios_cp {
   primer_inicio_sesion Boolean              @default(true)
   intentos_fallidos    Int                  @default(0)
   bloqueado_hasta      DateTime?            @db.Timestamp(6)
-  codigo_verificacion  String?              @db.VarChar(6)
   codigo_expiracion    DateTime?            @db.Timestamp(6)
+  codigo_verificacion  String?              @db.VarChar(6)
   administrador        administrador?
   bitacora             bitacora[]
   cliente              cliente?

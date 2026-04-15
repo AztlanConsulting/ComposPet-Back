@@ -140,6 +140,8 @@ const obtenerProductosExtra = async (req, res) => {
 };
 
 const guardarSolicitudRecSegundaSeccion = async (req, res) => {
+    console.log("Guardando segunda sección de la solicitud de recolección con body:", req.body);
+
     try {
         const { id_solicitud: idSolicitud, productos } = req.body;
 
@@ -163,10 +165,10 @@ const guardarSolicitudRecSegundaSeccion = async (req, res) => {
             });
         }
 
-        const productosGuardados = await SolicitudesRec.guardarSolicitudRecSegundaSeccion({
+        const productosGuardados = await SolicitudesRec.guardarSolicitudRecSegundaSeccion(
             idSolicitud,
-            productos,
-        });
+            productos
+        );
 
         return res.status(200).json({
             success: true,
@@ -182,6 +184,7 @@ const guardarSolicitudRecSegundaSeccion = async (req, res) => {
         }
 
         console.error('Error al guardar la segunda sección de la solicitud de recolección:', error);
+
         return res.status(500).json({
             success: false,
             message: 'Error servidor al guardar la segunda sección de la solicitud de recolección.',
@@ -198,11 +201,9 @@ const guardarSolicitudRecSegundaSeccion = async (req, res) => {
  * @param {string} req.body.id_cliente - Id del cliente
  */
 const obtenerUltimaSolicitudPorCliente = async (req, res) => {
-    console.log('Obteniendo última solicitud para cliente:', req.body);
+
     try {
-        console.log("ENTRO AL TRYYYY");
         const { id_cliente: idCliente } = req.body;
-        console.log('Obteniendo última solicitud para cliente x2:', req.body);
         if (!idCliente) {
             console.log("Entro donde")
             return res.status(400).json({
@@ -211,13 +212,11 @@ const obtenerUltimaSolicitudPorCliente = async (req, res) => {
             });
         }
 
-        const ultimaSolicitudId = await SolicitudesRec.obtenerUltimaSolicitudPorCliente(idCliente);
-        console.log('Última solicitud encontrada:', ultimaSolicitudId);
+        const data = await SolicitudesRec.obtenerUltimaSolicitudPorCliente(idCliente);
+        console.log('Última solicitud encontrada:', data);
 
         return res.status(200).json({
-            data: {
-                id_solicitud: ultimaSolicitudId
-            },
+            data,
         });
 
     } catch (error) {
@@ -230,10 +229,38 @@ const obtenerUltimaSolicitudPorCliente = async (req, res) => {
     }
 };
 
+const getInfoAboutExtraProuctsSelected = async (req, res) => {
+    try {
+        console.log("Obteniendo información de los productos extra seleccionados con body:", req.body);
+        const requestId  = req.body.requestID;
+        console.log("Id de solicitud recibido:", requestId);
+
+        if (!requestId) {
+            return res.status(400).json({
+                success: false,
+                message: "El id de la solicitud es requerido para obtener la información de los productos extra seleccionados.",
+            });
+        }
+
+        const data = await SolicitudesRec.getInfoAboutExtraProuctsSelected(requestId);
+
+        return res.status(200).json({
+            data,
+        });
+    } catch (error){
+        return res.status(500).json({
+            success:false,
+            message: "Error al obtener la información de los productos extra",
+            error,
+        })
+    }
+};
+
 module.exports = {
     obtenerSolicitudRecActual,
     guardarSolicitudRecPrimeraSeccion,
     guardarSolicitudRecSegundaSeccion,
     obtenerProductosExtra,
     obtenerUltimaSolicitudPorCliente,
+    getInfoAboutExtraProuctsSelected,
 };
