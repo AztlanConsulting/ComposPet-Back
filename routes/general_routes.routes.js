@@ -10,8 +10,8 @@ const auth = require("../middlewares/auth");
 router.use('/', authRoutes);
 router.use("/user", user_routes);
 
-// Agrega las rutas de solicitudes_rec
-router.use('/solicitudes_rec', auth, collectionRequesrRoutes); 
+// Agrega las rutas de solicitudes-rec
+router.use('/solicitudes-rec', auth, collectionRequesrRoutes); 
 
 // Agrega las rutas de cliente
 router.use('/cliente', auth, clientRoutes);
