@@ -103,8 +103,8 @@ module.exports = class SolicitudesRec {
         });
     }
 
-    static async obtenerProductosExtra() {
-        const productosExtra = await prisma.productos_extra.findMany({
+    static async getExtraProducts() {
+        const extraProducts = await prisma.productos_extra.findMany({
             where: {
                 estatus: 'true',
             },
@@ -122,33 +122,33 @@ module.exports = class SolicitudesRec {
             }
         });
 
-        if (!productosExtra || productosExtra.length === 0) {
+        if (!extraProducts || extraProducts.length === 0) {
             throw new Error('PRODUCTOS_EXTRA_NO_ENCONTRADOS');
         }
 
-        return productosExtra;
+        return extraProducts;
     };
 
-    static async guardarSolicitudRecSegundaSeccion(idSolicitud, productos) {
-        const solicitud = await prisma.solicitudes_recoleccion.findUnique({
-            where: { id_solicitud: idSolicitud }
+    static async saveSecondSection(requestID, products) {
+        const requestSecondSection = await prisma.solicitudes_recoleccion.findUnique({
+            where: { id_solicitud: requestID }
         });
 
-        if (!solicitud) {
+        if (!requestSecondSection) {
             throw new Error('Solicitud no encontrada');
         }
 
         await prisma.productos_solicitud.deleteMany({
-            where: { id_solicitud: idSolicitud }
+            where: { id_solicitud: requestID }
         });
 
-        for (const producto of productos) {
+        for (const product of products) {
             await prisma.productos_solicitud.create({
                 data: {
-                    id_solicitud: idSolicitud,
-                    id_producto: producto.id_producto,
+                    id_solicitud: requestID,
+                    id_producto: product.id_producto,
                     fecha: new Date(),
-                    cantidad: producto.cantidad,
+                    cantidad: product.cantidad,
                 }
             });
         }
@@ -156,43 +156,44 @@ module.exports = class SolicitudesRec {
         return { message: 'Productos guardados correctamente' };
     }
 
-    static async cancelarSolicitud(idSolicitud) {
-        const solicitud = await prisma.solicitudes_recoleccion.findUnique({
-            where: { id_solicitud: idSolicitud }
-        });
+    // Le sirve a Juan para la primera
+    // static async cancelarSolicitud(idSolicitud) {
+    //     const solicitud = await prisma.solicitudes_recoleccion.findUnique({
+    //         where: { id_solicitud: idSolicitud }
+    //     });
 
-        if (!solicitud) {
-            throw new Error('Solicitud no encontrada');
-        }
+    //     if (!solicitud) {
+    //         throw new Error('Solicitud no encontrada');
+    //     }
 
-        await prisma.solicitudes_recoleccion.update({
-            where: { id_solicitud: idSolicitud },
-            data: {
-                cubetas_entregadas: null,
-                cubetas_recolectadas: null,
-                total_a_pagar: null,
-                total_pagado: null,
-                fecha: null,
-                horario: null,
-                notas: null,
-                quiere_recoleccion: null,
-                quiere_productos_extra: null,
-                id_pago: null,
-            }
-        });
+    //     await prisma.solicitudes_recoleccion.update({
+    //         where: { id_solicitud: idSolicitud },
+    //         data: {
+    //             cubetas_entregadas: null,
+    //             cubetas_recolectadas: null,
+    //             total_a_pagar: null,
+    //             total_pagado: null,
+    //             fecha: null,
+    //             horario: null,
+    //             notas: null,
+    //             quiere_recoleccion: null,
+    //             quiere_productos_extra: null,
+    //             id_pago: null,
+    //         }
+    //     });
 
-        await prisma.productos_solicitud.deleteMany({
-            where: { id_solicitud: idSolicitud }
-        });
+    //     await prisma.productos_solicitud.deleteMany({
+    //         where: { id_solicitud: idSolicitud }
+    //     });
 
-        return { message: 'Solicitud cancelada correctamente' };
-    }
+    //     return { message: 'Solicitud cancelada correctamente' };
+    // }
 
-    static async obtenerUltimaSolicitudPorCliente(idCliente) {
-        console.log("Obteniendo última solicitud para cliente con id:", idCliente);
-        const solicitud = await prisma.solicitudes_recoleccion.findFirst({
+    static async getLastRequestPerClient(idClient) {
+        console.log("Obteniendo última solicitud para cliente con id:", idClient);
+        const request = await prisma.solicitudes_recoleccion.findFirst({
             where: {
-                id_cliente : idCliente
+                id_cliente : idClient
             },
             orderBy: {
                 fecha: 'desc'
@@ -202,9 +203,9 @@ module.exports = class SolicitudesRec {
             }
             });
 
-        console.log("Solicitud obtenida:", solicitud);
+        console.log("Solicitud obtenida:", request);
 
-        return solicitud;
+        return request;
     }
 
     static async getInfoAboutExtraProuctsSelected(idSolicitud){

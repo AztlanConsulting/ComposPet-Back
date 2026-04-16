@@ -113,14 +113,14 @@ const guardarSolicitudRecPrimeraSeccion = async (req, res) => {
     }
 }
 
-const obtenerProductosExtra = async (req, res) => {
+const getExtraProducts = async (req, res) => {
     try {
-        const productosExtra = await SolicitudesRec.obtenerProductosExtra();
+        const extraProducts = await SolicitudesRec.getExtraProducts();
 
         return res.status(200).json({
             success: true,
             message: 'Productos extra obtenidos exitosamente.',
-            data: productosExtra,
+            data: extraProducts,
         });
     } catch (error) {
         if (error.message === 'PRODUCTOS_EXTRA_NO_ENCONTRADOS') {
@@ -130,7 +130,6 @@ const obtenerProductosExtra = async (req, res) => {
             });
         }
 
-        console.error('Error al obtener productos extra:', error);
         return res.status(500).json({
             success: false,
             message: 'Error servidor al obtener productos extra.',
@@ -139,13 +138,14 @@ const obtenerProductosExtra = async (req, res) => {
     }
 };
 
-const guardarSolicitudRecSegundaSeccion = async (req, res) => {
+const saveSecondSection = async (req, res) => {
     console.log("Guardando segunda sección de la solicitud de recolección con body:", req.body);
 
     try {
-        const { id_solicitud: idSolicitud, productos } = req.body;
+        const { requestIDReceived: requestID, products } = req.body;
+        console.log("Id de solicitud recibido:", requestIDReceived);
 
-        if (!idSolicitud || !Array.isArray(productos)) {
+        if (!requestID || !Array.isArray(products)) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para guardar la segunda sección de la solicitud de recolección.',
@@ -153,10 +153,10 @@ const guardarSolicitudRecSegundaSeccion = async (req, res) => {
         }
 
         if (
-            !productos.every(
-                (producto) =>
-                    producto.id_producto !== undefined &&
-                    producto.cantidad !== undefined
+            !products.every(
+                (product) =>
+                    product.id_producto !== undefined &&
+                    product.cantidad !== undefined
             )
         ) {
             return res.status(400).json({
@@ -165,15 +165,15 @@ const guardarSolicitudRecSegundaSeccion = async (req, res) => {
             });
         }
 
-        const productosGuardados = await SolicitudesRec.guardarSolicitudRecSegundaSeccion(
-            idSolicitud,
-            productos
+        const savedProducts = await SolicitudesRec.saveSecondSection(
+            requestID,
+            products
         );
 
         return res.status(200).json({
             success: true,
             message: 'Segunda sección de la solicitud de recolección guardada exitosamente.',
-            data: productosGuardados,
+            data: savedProducts,
         });
     } catch (error) {
         if (error.message === 'Solicitud no encontrada') {
@@ -200,11 +200,11 @@ const guardarSolicitudRecSegundaSeccion = async (req, res) => {
  * @function obtenerUltimaSolicitudPorCliente
  * @param {string} req.body.id_cliente - Id del cliente
  */
-const obtenerUltimaSolicitudPorCliente = async (req, res) => {
+const getLastRequestPerClient = async (req, res) => {
 
     try {
-        const { id_cliente: idCliente } = req.body;
-        if (!idCliente) {
+        const idClient = req.body;
+        if (!idClient) {
             console.log("Entro donde")
             return res.status(400).json({
                 success: false,
@@ -212,7 +212,7 @@ const obtenerUltimaSolicitudPorCliente = async (req, res) => {
             });
         }
 
-        const data = await SolicitudesRec.obtenerUltimaSolicitudPorCliente(idCliente);
+        const data = await SolicitudesRec.getLastRequestPerClient(idClient);
         console.log('Última solicitud encontrada:', data);
 
         return res.status(200).json({
@@ -259,8 +259,8 @@ const getInfoAboutExtraProuctsSelected = async (req, res) => {
 module.exports = {
     obtenerSolicitudRecActual,
     guardarSolicitudRecPrimeraSeccion,
-    guardarSolicitudRecSegundaSeccion,
-    obtenerProductosExtra,
-    obtenerUltimaSolicitudPorCliente,
+    getExtraProducts,
+    saveSecondSection,
+    getLastRequestPerClient,
     getInfoAboutExtraProuctsSelected,
 };

@@ -11,7 +11,7 @@ router.use('/', authRoutes);
 router.use("/user", user_routes);
 
 // Agrega las rutas de solicitudes_rec
-router.use('/solicitudes_rec', auth, solicitudesRecRoutes); 
+router.use('/solicitudes-rec', auth, solicitudesRecRoutes);
 
 router.use('/cliente', auth, clienteRoutes);
 
