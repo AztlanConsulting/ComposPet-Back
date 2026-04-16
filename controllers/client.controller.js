@@ -1,31 +1,35 @@
-const Cliente = require('../models/client.model');
+const Client = require('../models/client.model');
 
 /**
  * Obtiene el cliente asociado a un usuario.
  * Recibe el id del usuario en el body y retorna el id del cliente relacionado.
  *
  * @async
- * @function obtenerClientePorIdUsuario
- * @param {string} req.body.idUsuario - Id del usuario
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} req.body - Cuerpo de la solicitud.
+ * @param {string} req.body.userId - Id del usuario.
+ * @param {Object} res - Objeto de respuesta HTTP.
  * @returns {Promise<void>} Respuesta JSON con el cliente encontrado o un error.
+ * @throws {Error} Cuando ocurre un error inesperado al obtener el cliente.
  */
 
-const obtenerClientePorIdUsuario = async (req, res) => {
-    //console.log("Entro a obtenerClientePorIdUsuario con body:", req.body);
+const getClientByUserId = async (req, res) => {
     try {
-        const { idUsuario } = req.body;
+        // Extrae el identificador del usuario para buscar el cliente
+        const { userId } = req.body;
 
-        if (!idUsuario) {
+        // Valida que el identificador del usuario haya sido enviado.
+        if (!userId) {
             return res.status(400).json({
                 success: false,
                 message: 'Falta el id del usuario para obtener el cliente.',
             });
         }
 
-        // Solicita al modelo la búsqueda del cliente por id de usuario
-        const cliente = await Cliente.obtenerClientePorIdUsuario(idUsuario);
+        // Consulta el modelo para obtener el cliente 
+        const client = await Client.getClientByUserId(userId);
 
-        if (!cliente) {
+        if (!client) {
             return res.status(404).json({
                 success: false,
                 message: 'No se encontró un cliente asociado a este usuario.',
@@ -35,7 +39,7 @@ const obtenerClientePorIdUsuario = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Cliente obtenido exitosamente.',
-            data: cliente,
+            data: client,
         });
     } catch (error) {
         console.error('Error al obtener el cliente por id de usuario:', error);
@@ -48,5 +52,5 @@ const obtenerClientePorIdUsuario = async (req, res) => {
 };
 
 module.exports = {
-    obtenerClientePorIdUsuario,
+    getClientByUserId,
 };

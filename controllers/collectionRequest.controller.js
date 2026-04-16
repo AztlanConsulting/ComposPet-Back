@@ -1,29 +1,33 @@
-const SolicitudesRec = require('../models/solicitudes_rec.model');
+const CollectionRequest = require('../models/collectionRequest.model');
 
 
 /**
- * Obtiene la solicitud de recolección actual del cliente para la semana actual
- * Si no existe una solicitud en ese rango de fechas, el modelo crea una solicitud inicial
+ * Obtiene la solicitud de recolección actual del cliente para la semana indicada.
+ * Si no existe una solicitud dentro de ese rango de fechas, se crea una solicitud inicial.
  *
  * @async
- * @function obtenerSolicitudRecActual
- * @param {number} req.body.idCliente - Id del cliente
- * @param {string} req.body.fechaInicioSemana - Fecha inicial de la semana
- * @param {string} req.body.fechaFinSemana - Fecha final de la semana
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} req.body - Cuerpo de la solicitud.
+ * @param {number} req.body.clientId - Id del cliente.
+ * @param {string} req.body.weekStartDate - Fecha inicial de la semana.
+ * @param {string} req.body.weekEndDate - Fecha final de la semana.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @returns {Promise<void>} Respuesta HTTP con la solicitud encontrada o creada.
+ * @throws {Error} Cuando ocurre un error inesperado al obtener la solicitud.
  */
 
-const obtenerSolicitudRecActual = async (req, res) => {
+const getCurrentCollectionRequest = async (req, res) => {
     try {
 
         //Arbnb style destructuring para extraer los datos del body de la solicitud
         const {
-            idCliente,
-            fechaInicioSemana,
-            fechaFinSemana,
+            clientId,
+            weekStartDate,
+            weekEndDate,
         } = req.body;
 
         // Validación de que lleguen los datos
-        if (!idCliente || !fechaInicioSemana || !fechaFinSemana) {
+        if (!clientId || !weekStartDate || !weekEndDate) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para obtener la solicitud de recolección.',
@@ -31,24 +35,25 @@ const obtenerSolicitudRecActual = async (req, res) => {
         }
 
         // Solicita al modelo la búsqueda o creación de la solicitud actual
-        const solicitudRecActual = await SolicitudesRec.obtenerSolicitudRecActual(
-            idCliente, 
-            fechaInicioSemana, 
-            fechaFinSemana
+        const currentCollectionRequest = await CollectionRequest.getCurrentCollectionRequest(
+            clientId, 
+            weekStartDate, 
+            weekEndDate
         );
 
-         // Si ya existe una solicitud dentro del rango semanal, se retorna
-        if (!solicitudRecActual) {
-            solicitudRecActual= await SolicitudesRec.crearSolicitudRecInicial(idCliente);
+         // Si no existe una solicitud previa, crea el registro inicial para continuar el flujo
+        if (!currentCollectionRequest) {
+            currentCollectionRequest= await CollectionRequest.createInitialCollectionRequest(clientId);
         }
 
         res.status(200).json({
             success: true,
             message: "Solicitud de recolección obtenida exitosamente.",
-            data: solicitudRecActual,
+            data: currentCollectionRequest,
         });
     } catch (error) {
         console.error("Error al obtener la solicitud de recolección:", error);
+
         res.status(500).json({
             success: false,
             message: "Error servidor al obtener la solicitud de recolección.",
@@ -58,31 +63,36 @@ const obtenerSolicitudRecActual = async (req, res) => {
 };
 
 /**
- * Guarda la información de la primera sección del formulario de recolección
- * Actualiza la solicitud con la decisión del cliente sobre si quiererecolección,
- * productos extra y las cantidades de cubetas que entregara y que le recolectaran 
+ * Guarda la información de la primera sección del formulario de recolección.
+ * Actualiza la solicitud con la decisión del cliente sobre la recolección,
+ * los productos extra y las cantidades de cubetas involucradas.
  *
  * @async
- * @function guardarSolicitudRecPrimeraSeccion
- * @param {number} req.body.idSolicitud - Id de la solicitud
- * @param {boolean} req.body.quiereRecoleccion - Cliente desea recolección
- * @param {boolean} req.body.quiereProductosExtra - Cliente desea productos extra
- * @param {number} req.body.cubetasRecolectadas  - Cantidad de cubetas que el cliente entregará
- * @param {number} req.body.cubetasEntregadas -  Cantidad de cubetas vacías solicitadas
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} req.body - Cuerpo de la solicitud.
+ * @param {number} req.body.requestId - Id de la solicitud.
+ * @param {boolean} req.body.wantsCollection - Indica si el cliente desea recolección.
+ * @param {boolean} req.body.wantsExtraProducts - Indica si el cliente desea productos extra.
+ * @param {number} req.body.collectedBuckets - Cantidad de cubetas que el cliente entregará.
+ * @param {number} req.body.deliveredBuckets - Cantidad de cubetas vacías solicitadas.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @returns {Promise<void>} Respuesta HTTP con la solicitud actualizada.
+ * @throws {Error} Cuando ocurre un error inesperado al guardar la información.
  */
 
-const guardarSolicitudRecPrimeraSeccion = async (req, res) => {
+const saveCollectionRequestFirstSection  = async (req, res) => {
     try {
+        // Recupera los datos de la primera sección del formulario enviados por el cliente.
         const {
-            idSolicitud,
-            quiereRecoleccion,
-            quiereProductosExtra,
-            cubetasRecolectadas,
-            cubetasEntregadas,
+            requestId,
+            wantsCollection,
+            wantsExtraProducts,
+            collectedBuckets,
+            deliveredBuckets,
         } = req.body;
 
         // Validación de que lleguen los datos
-        if (!idSolicitud || quiereRecoleccion === undefined || quiereProductosExtra === undefined) {
+        if (!requestId || wantsCollection === undefined || wantsExtraProducts === undefined) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para guardar la primera sección de la solicitud de recolección.',
@@ -90,18 +100,18 @@ const guardarSolicitudRecPrimeraSeccion = async (req, res) => {
         }
 
          // Envía al modelo la información para actualizar la solicitud
-        const solicitudGuardada = await SolicitudesRec.guardarSolicitudRecPrimeraSeccion({
-            idSolicitud,
-            quiereRecoleccion,
-            quiereProductosExtra,
-            cubetasRecolectadas,
-            cubetasEntregadas
+        const savedCollectionRequest = await CollectionRequest.saveCollectionRequestFirstSection({
+            requestId,
+            wantsCollection,
+            wantsExtraProducts,
+            collectedBuckets,
+            deliveredBuckets,
         });
 
         res.status(200).json({
             success: true,
             message: "Primera sección de la solicitud de recolección guardada exitosamente.",
-            data: solicitudGuardada,
+            data: savedCollectionRequest,
         });
     } catch (error) {
         console.error("Error al guardar la primera sección de la solicitud de recolección:", error);
@@ -113,9 +123,10 @@ const guardarSolicitudRecPrimeraSeccion = async (req, res) => {
     }
 }
 
+
 const getExtraProducts = async (req, res) => {
     try {
-        const extraProducts = await SolicitudesRec.getExtraProducts();
+        const extraProducts = await CollectionRequest.getExtraProducts();
 
         return res.status(200).json({
             success: true,
@@ -142,10 +153,11 @@ const saveSecondSection = async (req, res) => {
     console.log("Guardando segunda sección de la solicitud de recolección con body:", req.body);
 
     try {
-        const { requestIDReceived: requestID, products } = req.body;
-        console.log("Id de solicitud recibido:", requestIDReceived);
+        const { requestIDReceived, products } = req.body;
+        console.log("Productos recibidos:", products);
+        console.log("RequestID:", requestIDReceived);
 
-        if (!requestID || !Array.isArray(products)) {
+        if (!requestIDReceived || !Array.isArray(products)) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para guardar la segunda sección de la solicitud de recolección.',
@@ -165,8 +177,8 @@ const saveSecondSection = async (req, res) => {
             });
         }
 
-        const savedProducts = await SolicitudesRec.saveSecondSection(
-            requestID,
+        const savedProducts = await CollectionRequest.saveSecondSection(
+            requestIDReceived,
             products
         );
 
@@ -203,7 +215,10 @@ const saveSecondSection = async (req, res) => {
 const getLastRequestPerClient = async (req, res) => {
 
     try {
-        const idClient = req.body;
+        const idClient = req.body.idClient;
+        console.log("Id de cliente recibido:", req.body);
+        console.log("LOL", req.body.idClient);
+        console.log("Obteniendo última solicitud para cliente con id:", idClient);
         if (!idClient) {
             console.log("Entro donde")
             return res.status(400).json({
@@ -212,7 +227,7 @@ const getLastRequestPerClient = async (req, res) => {
             });
         }
 
-        const data = await SolicitudesRec.getLastRequestPerClient(idClient);
+        const data = await CollectionRequest.getLastRequestPerClient(idClient);
         console.log('Última solicitud encontrada:', data);
 
         return res.status(200).json({
@@ -242,7 +257,7 @@ const getInfoAboutExtraProuctsSelected = async (req, res) => {
             });
         }
 
-        const data = await SolicitudesRec.getInfoAboutExtraProuctsSelected(requestId);
+        const data = await CollectionRequest.getInfoAboutExtraProuctsSelected(requestId);
 
         return res.status(200).json({
             data,
@@ -256,11 +271,12 @@ const getInfoAboutExtraProuctsSelected = async (req, res) => {
     }
 };
 
+
 module.exports = {
-    obtenerSolicitudRecActual,
-    guardarSolicitudRecPrimeraSeccion,
+    getCurrentCollectionRequest,
+    saveCollectionRequestFirstSection,
     getExtraProducts,
     saveSecondSection,
     getLastRequestPerClient,
-    getInfoAboutExtraProuctsSelected,
+    getInfoAboutExtraProuctsSelected
 };

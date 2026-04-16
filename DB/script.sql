@@ -453,10 +453,6 @@ AS $function$
 $function$
 ;
 
-ALTER TABLE productos_extra
-ADD COLUMN estatus VARCHAR(20) DEFAULT 'activo'
-CHECK (estatus IN ('activo', 'inactivo', 'suspendido'));
-
 ALTER TABLE public.productos_extra
 ADD COLUMN imagen_url character varying;
 

@@ -7,54 +7,58 @@
  * Todas las operaciones son realizadas mediante el cliente Prisma configurado
  * en `config/prisma`
  *
- * @namespace SolicitudesRec
+ * @namespace CollectionRequest
  */
 
 const prisma = require("../config/prisma");
 
-module.exports = class SolicitudesRec {
+module.exports = class CollectionRequest {
 
     /**
-     * Obtiene la solicitud de recolección actual del cliente dentro del rango de fechas
-     * correspondiente a la semana consultada. Si no existe una solicitud en ese rango,
-     * crea una solicitud inicial y la retorna
+     * Obtiene la solicitud de recolección actual del cliente dentro del rango
+     * de fechas correspondiente a la semana consultada.
      *
      * @async
      * @static
-     * @param {number} idCliente - Id del cliente
-     * @param {string} fechaInicioSemana - Fecha inicial del rango semanal
-     * @param {string} fechaFinSemana - Fecha final del rango semanal
+     * @param {number} clientId - Id del cliente.
+     * @param {string} weekStartDate - Fecha inicial del rango semanal.
+     * @param {string} weekEndDate - Fecha final del rango semanal.
+     * @returns {Promise<Object|null>} La solicitud encontrada o `null` si no existe.
      */
-    static async obtenerSolicitudRecActual(idCliente, fechaInicioSemana, fechaFinSemana) {
+    static async getCurrentCollectionRequest(clientId, weekStartDate, weekEndDate) {
 
-        const solicitudRecActual = await prisma.solicitudes_recoleccion.findFirst({
+        // Busca la solicitud del cliente dentro del rango semanal solicitado.
+        const currentCollectionRequest = await prisma.solicitudes_recoleccion.findFirst({
             where: {
-                id_cliente: idCliente,
+                id_cliente: clientId,
                 fecha: {
-                    gte: new Date(fechaInicioSemana),
-                    lte: new Date(fechaFinSemana),
+                    gte: new Date(weekStartDate),
+                    lte: new Date(weekEndDate),
                 },
             },
         });
 
         // Si ya existe una solicitud dentro del rango semanal, se retorna
-        return solicitudRecActual;
+        return currentCollectionRequest;
     }
 
     /**
-     * Crea una solicitud de recolección inicial con valores por defecto para el FORM-02-03
+     * Crea una solicitud de recolección inicial con valores por defecto
+     * para el FORM-02-03.
      *
      * @async
      * @static
-     * @param {number} idCliente - Id del cliente.
+     * @param {number} clientId - Id del cliente.
+     * @returns {Promise<Object>} La solicitud inicial creada.
      */
-    static async crearSolicitudRecInicial(idCliente) {
+    static async createInitialCollectionRequest(clientId) {
 
-        const nuevaSolicitudRecActual = await prisma.solicitudes_recoleccion.create({
+        // Genera una solicitud para que el cliente pueda continuar el flujo del formulario.
+        const newCollectionRequest = await prisma.solicitudes_recoleccion.create({
             data: {
                 cliente: {
                     connect: {
-                    id_cliente: idCliente,
+                    id_cliente: clientId,
                     },
                 },
                 cubetas_recolectadas: 0,
@@ -67,42 +71,44 @@ module.exports = class SolicitudesRec {
                 quiere_productos_extra: false,
             },
         });
-        return nuevaSolicitudRecActual;
+
+        return newCollectionRequest;
     }
 
     /**
-     * Guarda la información correspondiente a la primera sección del formulario
-     * de solicitud de recolección.
+     * Guarda la información correspondiente a la primera sección
+     * del formulario de solicitud de recolección.
      *
      * @async
      * @static
-     * @param {Object} datosFormulario - Datos de la primera sección
-     * @param {number} datosFormulario.idSolicitud - Id de la solicitud
-     * @param {boolean} datosFormulario.quiereRecoleccion - Indica si el cliente desea recolección
-     * @param {boolean} datosFormulario.quiereProductosExtra - Indica si el cliente desea productos extra
-     * @param {number} datosFormulario.cubetasRecolectadas - Cantidad de cubetas que el cliente entregara
-     * @param {number} datosFormulario.cubetasEntregadas - Cantidad de cubetas vacías solicitadas
+     * @param {Object} firstSectionData - Datos de la primera sección.
+     * @param {number} firstSectionData.requestId - Id de la solicitud.
+     * @param {boolean} firstSectionData.wantsCollection - Indica si el cliente desea recolección.
+     * @param {boolean} firstSectionData.wantsExtraProducts - Indica si el cliente desea productos extra.
+     * @param {number} firstSectionData.collectedBuckets - Cantidad de cubetas que el cliente entregará.
+     * @param {number} firstSectionData.deliveredBuckets - Cantidad de cubetas vacías solicitadas.
+     * @returns {Promise<Object>} La solicitud actualizada.
      */
-    static async guardarSolicitudRecPrimeraSeccion({
-        idSolicitud,
-        quiereRecoleccion,
-        quiereProductosExtra,
-        cubetasRecolectadas,
-        cubetasEntregadas,
+    static async saveCollectionRequestFirstSection({
+        requestId,
+        wantsCollection,
+        wantsExtraProducts,
+        collectedBuckets,
+        deliveredBuckets,
     }) {
+        // Actualiza los campos capturados en la primera sección del formulario.
         return await prisma.solicitudes_recoleccion.update({
             where: {
-                id_solicitud: idSolicitud,
+                id_solicitud: requestId,
             },
             data: {
-                quiere_recoleccion: quiereRecoleccion,
-                quiere_productos_extra: quiereProductosExtra,
-                cubetas_recolectadas: cubetasRecolectadas,
-                cubetas_entregadas: cubetasEntregadas,
+                quiere_recoleccion: wantsCollection,
+                quiere_productos_extra: wantsExtraProducts,
+                cubetas_recolectadas: collectedBuckets,
+                cubetas_entregadas: deliveredBuckets,
             },
         });
     }
-
     static async getExtraProducts() {
         const extraProducts = await prisma.productos_extra.findMany({
             where: {
