@@ -160,7 +160,6 @@ const sendSheets = async (request, response) => {
         );
 
         dataClean = data.data.values;
-        console.log(dataClean)
         response.status(200).json({ data: dataClean });
 
     } catch (error) {
