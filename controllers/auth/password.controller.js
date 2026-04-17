@@ -84,15 +84,15 @@ const verifyOTP = async (req, res) => {
         const isExpired = user.codigo_expiracion && new Date() > new Date(user.codigo_expiracion);
 
         if (!isCodeValid || isExpired) {
-            const intentos = (user.intentos_fallidos || 0) + 1;
+            const attempts = (user.intentos_fallidos || 0) + 1;
             
-            if (intentos >= MAX_ATTEMPTS) {
+            if (attempts >= MAX_ATTEMPTS) {
                 await AuthModel.lockAccount(user.id_usuario);
                 await PasswordModel.setVerificationCode(user.id_usuario, null, null);
                 return res.status(401).json({ message: 'Cuenta bloqueada.' });
             }
 
-            await AuthModel.updateLoginTry(user.id_usuario, intentos);
+            await AuthModel.updateLoginTry(user.id_usuario, attempts);
             return res.status(401).json({ message: isExpired ? 'Código expirado.' : 'Código incorrecto.' });
         }
 
