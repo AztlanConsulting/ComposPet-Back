@@ -4,6 +4,9 @@
 ## Descripción
 <!--- Por favor explica cómo se puede acceder a esta funcionalidad -->
 
+## Matriz de trazabilidad de requqerimientos (RTM)
+- [Matriz de trazabilidad](https://docs.google.com/spreadsheets/d/1ATicmxAxY3uN-lOXKduDkvnTT7sftqaYMj1qZxj7tTo/edit?gid=0#gid=0)
+
 ## Tipos de cambios:
 <!--- ¿Qué tipo de cambios introduce tu código? Marca con una `x` todas las opciones que apliquen: -->
 - [ ] Corrección de error (cambio no disruptivo que soluciona un problema).
