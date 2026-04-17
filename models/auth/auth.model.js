@@ -51,7 +51,7 @@ const AuthModel = {
     },
 
     /**
-     * Bloquea la cuenta de un usuario por `BLOQUEO_MINUTOS` minutos (15 min).
+     * Bloquea la cuenta de un usuario por `LOCK_MINUTES` minutos (15 min).
      * Calcula la fecha de desbloqueo a partir del momento actual y reinicia
      * el contador de intentos fallidos a 0.
      *
