@@ -288,13 +288,6 @@ exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {
   id_pago: 'id_pago'
 };
 
-exports.Prisma.Tarjeta_lealtadScalarFieldEnum = {
-  id_tarjeta_lealtad: 'id_tarjeta_lealtad',
-  id_cliente: 'id_cliente',
-  id_nivel: 'id_nivel',
-  saldo: 'saldo'
-};
-
 exports.Prisma.Usuarios_cpScalarFieldEnum = {
   id_usuario: 'id_usuario',
   id_cp: 'id_cp',
@@ -318,6 +311,12 @@ exports.Prisma.ZonaScalarFieldEnum = {
   municipio: 'municipio',
   descripcion: 'descripcion',
   estado: 'estado'
+};
+
+exports.Prisma.SaldoScalarFieldEnum = {
+  id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+  id_cliente: 'id_cliente',
+  saldo: 'saldo'
 };
 
 exports.Prisma.SortOrder = {
@@ -368,9 +367,9 @@ exports.Prisma.ModelName = {
   ruta: 'ruta',
   solicitud_registro: 'solicitud_registro',
   solicitudes_recoleccion: 'solicitudes_recoleccion',
-  tarjeta_lealtad: 'tarjeta_lealtad',
   usuarios_cp: 'usuarios_cp',
-  zona: 'zona'
+  zona: 'zona',
+  saldo: 'saldo'
 };
 
 /**

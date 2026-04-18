@@ -109,4 +109,24 @@ module.exports = class CollectionRequest {
             },
         });
     }
+
+    /**
+     * Obtiene los productos extra asociados a una solicitud de recolección.
+     *
+     * @async
+     * @static
+     * @param {string} idCollection - Id de la recolección.
+     * @returns {Promise<Object|null>} Lista con los objetos de los productos extra.
+     */
+    static async getProductsByCollection(idCollection){
+        return await prisma.productos_solicitud.findMany({
+            where: {
+                id_solicitud: idCollection,
+            },
+            include: {
+                productos_extra: true,
+            }
+        });
+    }
+
 };
