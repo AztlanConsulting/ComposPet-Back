@@ -109,6 +109,11 @@ module.exports = class CollectionRequest {
             },
         });
     }
+
+    /**
+     * Obtiene todos los productos extra que están activos
+     * en la base de datos
+     * */
     static async getExtraProducts() {
         const extraProducts = await prisma.productos_extra.findMany({
             where: {
@@ -136,7 +141,6 @@ module.exports = class CollectionRequest {
     };
 
     static async saveSecondSection(requestID, products) {
-        console.log("PRODUCTS: ", products)
         const requestSecondSection = await prisma.solicitudes_recoleccion.findUnique({
             where: { id_solicitud: requestID }
         });
@@ -148,7 +152,6 @@ module.exports = class CollectionRequest {
         const deleteProductsRequest = await prisma.productos_solicitud.deleteMany({
             where: { id_solicitud: requestID }
         });
-        console.log("deleteProductsRequest", deleteProductsRequest);
 
         for (const product of products) {
             await prisma.productos_solicitud.create({
@@ -197,8 +200,14 @@ module.exports = class CollectionRequest {
     //     return { message: 'Solicitud cancelada correctamente' };
     // }
 
+     /**
+     * Obtiene el id de la última solicitud creada por el usuario
+     *
+     * @param {number} idClient - ID del cliente
+     * @returns {request} Id de la última solicitud
+     * creada por el usuario
+     * */
     static async getLastRequestPerClient(idClient) {
-        console.log("Obteniendo última solicitud para cliente con id:", idClient);
         const request = await prisma.solicitudes_recoleccion.findFirst({
             where: {
                 id_cliente : idClient
@@ -211,15 +220,13 @@ module.exports = class CollectionRequest {
             }
             });
 
-        console.log("Solicitud obtenida:", request);
-
         return request;
     }
 
-    static async getInfoAboutExtraProuctsSelected(idSolicitud){
+    static async getInfoAboutExtraProuctsSelected(requestID){
         const data = await prisma.productos_solicitud.findMany({
             where:{
-                id_solicitud: idSolicitud
+                id_solicitud: requestID,
             },
             select: {
                 id_producto: true,
@@ -231,8 +238,6 @@ module.exports = class CollectionRequest {
     }
 
     static async updateWantsRequestAttribute(requestID, value){
-        console.log("FALSE", value);
-        console.log("Requestid", requestID);
         const data = await prisma.solicitudes_recoleccion.update({
             where:{
                 id_solicitud: requestID
@@ -252,11 +257,9 @@ module.exports = class CollectionRequest {
                 }
             }
         })
-        console.log("DATA 1", data);
     }
 
     static async incrementInventory(product){
-        console.log("PRODUCTOOOOOOOOOOOOOO", product);
         const data = await prisma.productos_extra.update({
             where: { id_producto: product.id_producto},
             data: {
@@ -265,6 +268,5 @@ module.exports = class CollectionRequest {
                 }
             }
         })
-        console.log("DATA 2", data);
     }
 };

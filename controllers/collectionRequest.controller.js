@@ -174,20 +174,15 @@ const saveSecondSection = async (req, res) => {
         };
 
         const productsLastRequest = await CollectionRequest.getInfoAboutExtraProuctsSelected(requestIDReceived);
-        console.log("PRODUCT REQUESTED", productsLastRequest);
 
         if (productsLastRequest.length !== 0) {
             for (const product1 of productsLastRequest) {
-                console.log("ENTRO A SUMAR");
                 const add = await CollectionRequest.incrementInventory(product1);
-                console.log("Add", add);
             }
         }
 
         for (const product of products) {
-            console.log("ENTRO A RESTAR");
             const substract = await CollectionRequest.substractInventory(product);
-            console.log("RESTAR", substract)
         }
 
         const savedProducts = await CollectionRequest.saveSecondSection(
@@ -245,9 +240,7 @@ const getLastRequestPerClient = async (req, res) => {
 
 const getInfoAboutExtraProuctsSelected = async (req, res) => {
     try {
-        console.log("Obteniendo información de los productos extra seleccionados con body:", req.body);
         const requestId = req.body.requestID;
-        console.log("Id de solicitud recibido:", requestId);
 
         if (!requestId) {
             return res.status(400).json({
