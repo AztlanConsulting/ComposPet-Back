@@ -36,6 +36,7 @@ const getClientByUserId = async (req, res) => {
             });
         }
 
+        //respuesta para la Api
         return res.status(200).json({
             success: true,
             message: 'Cliente obtenido exitosamente.',
