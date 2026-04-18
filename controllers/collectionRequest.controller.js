@@ -123,7 +123,12 @@ const saveCollectionRequestFirstSection = async (req, res) => {
     }
 }
 
-
+/**
+ * Obtiene todos los productos extra disponibles
+ *
+ * @async
+ * @function getExtraProducts
+ */
 const getExtraProducts = async (req, res) => {
     try {
         const extraProducts = await CollectionRequest.getExtraProducts();
@@ -141,6 +146,22 @@ const getExtraProducts = async (req, res) => {
     }
 };
 
+/**
+ * Guarda la segunda sección de la solicitud (productos extra seleccionados)
+ *
+ * Flujo:
+ * 1. Validar datos de entrada
+ * 2. Actualizar flag si no hay productos
+ * 3. Recuperar productos previamente seleccionados
+ * 4. Regresar inventario anterior
+ * 5. Descontar nuevo inventario
+ * 6. Guardar nuevos productos
+ *
+ * @async
+ * @function saveSecondSection
+ * @param {string} req.body.requestIDReceived - ID de la solicitud de recolección
+ * @param {Array<Object>} req.body.products - Lista de productos seleccionados
+ */
 const saveSecondSection = async (req, res) => {
     console.log(req.body);
     try {
@@ -238,6 +259,13 @@ const getLastRequestPerClient = async (req, res) => {
     }
 };
 
+/**
+ * Obtiene los productos extra previamente seleccionados en una solicitud
+ *
+ * @async
+ * @function getInfoAboutExtraProuctsSelected
+ * @param {string} req.body.requestID - ID de la solicitud
+ */
 const getInfoAboutExtraProuctsSelected = async (req, res) => {
     try {
         const requestId = req.body.requestID;
