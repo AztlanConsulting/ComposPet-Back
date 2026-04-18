@@ -36,14 +36,14 @@ const getCurrentCollectionRequest = async (req, res) => {
 
         // Solicita al modelo la búsqueda o creación de la solicitud actual
         const currentCollectionRequest = await CollectionRequest.getCurrentCollectionRequest(
-            clientId, 
-            weekStartDate, 
+            clientId,
+            weekStartDate,
             weekEndDate
         );
 
-         // Si no existe una solicitud previa, crea el registro inicial para continuar el flujo
+        // Si no existe una solicitud previa, crea el registro inicial para continuar el flujo
         if (!currentCollectionRequest) {
-            currentCollectionRequest= await CollectionRequest.createInitialCollectionRequest(clientId);
+            currentCollectionRequest = await CollectionRequest.createInitialCollectionRequest(clientId);
         }
 
         res.status(200).json({
@@ -59,7 +59,7 @@ const getCurrentCollectionRequest = async (req, res) => {
             message: "Error servidor al obtener la solicitud de recolección.",
             error,
         });
-    }   
+    }
 };
 
 /**
@@ -80,7 +80,7 @@ const getCurrentCollectionRequest = async (req, res) => {
  * @throws {Error} Cuando ocurre un error inesperado al guardar la información.
  */
 
-const saveCollectionRequestFirstSection  = async (req, res) => {
+const saveCollectionRequestFirstSection = async (req, res) => {
     try {
         // Recupera los datos de la primera sección del formulario enviados por el cliente.
         const {
@@ -99,7 +99,7 @@ const saveCollectionRequestFirstSection  = async (req, res) => {
             });
         }
 
-         // Envía al modelo la información para actualizar la solicitud
+        // Envía al modelo la información para actualizar la solicitud
         const savedCollectionRequest = await CollectionRequest.saveCollectionRequestFirstSection({
             requestId,
             wantsCollection,
@@ -134,28 +134,17 @@ const getExtraProducts = async (req, res) => {
             data: extraProducts,
         });
     } catch (error) {
-        if (error.message === 'PRODUCTOS_EXTRA_NO_ENCONTRADOS') {
-            return res.status(404).json({
-                success: false,
-                message: 'No se encontraron productos extra.',
-            });
-        }
-
-        return res.status(500).json({
+        return res.status(404).json({
             success: false,
-            message: 'Error servidor al obtener productos extra.',
-            error,
+            message: 'No se encontraron productos extra.',
         });
     }
 };
 
 const saveSecondSection = async (req, res) => {
-    console.log("Guardando segunda sección de la solicitud de recolección con body:", req.body);
-
+    console.log(req.body);
     try {
         const { requestIDReceived, products } = req.body;
-        console.log("Productos recibidos:", products);
-        console.log("RequestID:", requestIDReceived);
 
         if (!requestIDReceived || !Array.isArray(products)) {
             return res.status(400).json({
@@ -167,7 +156,7 @@ const saveSecondSection = async (req, res) => {
         if (
             !products.every(
                 (product) =>
-                    product.id_producto !== undefined &&
+                    (product.id_producto !== undefined) &&
                     product.cantidad !== undefined
             )
         ) {
@@ -175,6 +164,30 @@ const saveSecondSection = async (req, res) => {
                 success: false,
                 message: 'Cada producto debe incluir id_producto y cantidad.',
             });
+        }
+
+        if (products.length === 0) {
+            const updateRequest = await CollectionRequest.updateWantsRequestAttribute(
+                requestIDReceived,
+                false,
+            )
+        };
+
+        const productsLastRequest = await CollectionRequest.getInfoAboutExtraProuctsSelected(requestIDReceived);
+        console.log("PRODUCT REQUESTED", productsLastRequest);
+
+        if (productsLastRequest.length !== 0) {
+            for (const product1 of productsLastRequest) {
+                console.log("ENTRO A SUMAR");
+                const add = await CollectionRequest.incrementInventory(product1);
+                console.log("Add", add);
+            }
+        }
+
+        for (const product of products) {
+            console.log("ENTRO A RESTAR");
+            const substract = await CollectionRequest.substractInventory(product);
+            console.log("RESTAR", substract)
         }
 
         const savedProducts = await CollectionRequest.saveSecondSection(
@@ -188,18 +201,9 @@ const saveSecondSection = async (req, res) => {
             data: savedProducts,
         });
     } catch (error) {
-        if (error.message === 'Solicitud no encontrada') {
-            return res.status(404).json({
-                success: false,
-                message: 'La solicitud de recolección no existe.',
-            });
-        }
-
-        console.error('Error al guardar la segunda sección de la solicitud de recolección:', error);
-
         return res.status(500).json({
             success: false,
-            message: 'Error servidor al guardar la segunda sección de la solicitud de recolección.',
+            message: 'Error de la aplicacion al guardar la segunda sección de la solicitud de recolección.',
             error,
         });
     }
@@ -216,11 +220,8 @@ const getLastRequestPerClient = async (req, res) => {
 
     try {
         const idClient = req.body.idClient;
-        console.log("Id de cliente recibido:", req.body);
-        console.log("LOL", req.body.idClient);
-        console.log("Obteniendo última solicitud para cliente con id:", idClient);
+
         if (!idClient) {
-            console.log("Entro donde")
             return res.status(400).json({
                 success: false,
                 message: 'El id del cliente es requerido.',
@@ -228,14 +229,12 @@ const getLastRequestPerClient = async (req, res) => {
         }
 
         const data = await CollectionRequest.getLastRequestPerClient(idClient);
-        console.log('Última solicitud encontrada:', data);
 
         return res.status(200).json({
             data,
         });
 
     } catch (error) {
-        console.error('Error al obtener la última solicitud:', error);
         return res.status(500).json({
             success: false,
             message: 'Error servidor al obtener la última solicitud.',
@@ -247,7 +246,7 @@ const getLastRequestPerClient = async (req, res) => {
 const getInfoAboutExtraProuctsSelected = async (req, res) => {
     try {
         console.log("Obteniendo información de los productos extra seleccionados con body:", req.body);
-        const requestId  = req.body.requestID;
+        const requestId = req.body.requestID;
         console.log("Id de solicitud recibido:", requestId);
 
         if (!requestId) {
@@ -262,9 +261,9 @@ const getInfoAboutExtraProuctsSelected = async (req, res) => {
         return res.status(200).json({
             data,
         });
-    } catch (error){
+    } catch (error) {
         return res.status(500).json({
-            success:false,
+            success: false,
             message: "Error al obtener la información de los productos extra",
             error,
         })

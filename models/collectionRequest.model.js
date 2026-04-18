@@ -136,6 +136,7 @@ module.exports = class CollectionRequest {
     };
 
     static async saveSecondSection(requestID, products) {
+        console.log("PRODUCTS: ", products)
         const requestSecondSection = await prisma.solicitudes_recoleccion.findUnique({
             where: { id_solicitud: requestID }
         });
@@ -144,9 +145,10 @@ module.exports = class CollectionRequest {
             throw new Error('Solicitud no encontrada');
         }
 
-        await prisma.productos_solicitud.deleteMany({
+        const deleteProductsRequest = await prisma.productos_solicitud.deleteMany({
             where: { id_solicitud: requestID }
         });
+        console.log("deleteProductsRequest", deleteProductsRequest);
 
         for (const product of products) {
             await prisma.productos_solicitud.create({
@@ -226,5 +228,43 @@ module.exports = class CollectionRequest {
         });
 
         return data;
+    }
+
+    static async updateWantsRequestAttribute(requestID, value){
+        console.log("FALSE", value);
+        console.log("Requestid", requestID);
+        const data = await prisma.solicitudes_recoleccion.update({
+            where:{
+                id_solicitud: requestID
+            },
+            data: {
+                quiere_productos_extra: value
+            }
+        })
+    }
+
+    static async substractInventory(product){
+        const data = await prisma.productos_extra.update({
+            where : { id_producto : product.id_producto},
+            data: {
+                cantidad:{
+                    decrement: product.cantidad
+                }
+            }
+        })
+        console.log("DATA 1", data);
+    }
+
+    static async incrementInventory(product){
+        console.log("PRODUCTOOOOOOOOOOOOOO", product);
+        const data = await prisma.productos_extra.update({
+            where: { id_producto: product.id_producto},
+            data: {
+                cantidad: {
+                    increment: product.cantidad
+                }
+            }
+        })
+        console.log("DATA 2", data);
     }
 };
