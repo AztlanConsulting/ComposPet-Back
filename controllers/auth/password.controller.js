@@ -8,9 +8,7 @@ const crypto = require('crypto');
 const GmailService = require('../../config/gmail.service');
 const { logIfAdmin } = require('../../utils/logIfAdmin');
 
-const MAX_INTENTOS = 5;
-const BLOQUEO_MINUTOS = 15;
-
+const MAX_ATTEMPTS = 5;
 
 /**
  * Controlador para la Fase 1 del primer inicio de sesión.
@@ -56,7 +54,7 @@ const requestOTP = async (req, res) => {
 
     } catch (error) {
         console.error('Error en requestFirstLoginOTP:', error);
-        return res.status(500).json({ message: 'Error interno del servidor.' });
+        return res.status(500).json({ message: 'Error del servidor, inténtalo más tarde.' });
     }
 };
 
@@ -86,15 +84,15 @@ const verifyOTP = async (req, res) => {
         const isExpired = user.codigo_expiracion && new Date() > new Date(user.codigo_expiracion);
 
         if (!isCodeValid || isExpired) {
-            const intentos = (user.intentos_fallidos || 0) + 1;
+            const attempts = (user.intentos_fallidos || 0) + 1;
             
-            if (intentos >= MAX_INTENTOS) {
+            if (attempts >= MAX_ATTEMPTS) {
                 await AuthModel.lockAccount(user.id_usuario);
                 await PasswordModel.setVerificationCode(user.id_usuario, null, null);
                 return res.status(401).json({ message: 'Cuenta bloqueada.' });
             }
 
-            await AuthModel.updateLoginTry(user.id_usuario, intentos);
+            await AuthModel.updateLoginTry(user.id_usuario, attempts);
             return res.status(401).json({ message: isExpired ? 'Código expirado.' : 'Código incorrecto.' });
         }
 
