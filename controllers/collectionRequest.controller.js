@@ -163,7 +163,6 @@ const getExtraProducts = async (req, res) => {
  * @param {Array<Object>} req.body.products - Lista de productos seleccionados
  */
 const saveSecondSection = async (req, res) => {
-    console.log(req.body);
     try {
         const { requestIDReceived, products } = req.body;
 
