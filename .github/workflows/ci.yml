@@ -25,7 +25,7 @@ jobs:
         run: npm ci
 
       - name: Setup test environment
-        run: cp .env.test.example .env.test
+        run: cp env.test.example .env.test
 
       - name: Copy env file
-        run: cp .env.test.example .env.test
+        run: cp env.test.example .env.test

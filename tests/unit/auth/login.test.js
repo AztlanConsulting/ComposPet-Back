@@ -5,12 +5,24 @@ const bcrypt = require('bcrypt');
 const jwtUtils = require('../../../utils/jwt.utils');
 const { logIfAdmin } = require('../../../utils/logIfAdmin');
 
-// 🔥 mocks
+/**
+ * Mocks de las dependencias externas del controlador.
+ * Se sustituyen para aislar la lógica del controlador de la base de datos,
+ * el cifrado y la generación de tokens durante las pruebas.
+ */
 jest.mock('../../../models/auth/auth.model');
 jest.mock('bcrypt');
 jest.mock('../../../utils/jwt.utils');
 jest.mock('../../../utils/logIfAdmin');
 
+/**
+ * Genera un objeto `res` simulado compatible con Express.
+ * Implementa los métodos `status`, `json` y `cookie` como espías de Jest,
+ * encadenando `status` para permitir el patrón `res.status(X).json(Y)`.
+ *
+ * @returns {{ status: jest.Mock, json: jest.Mock, cookie: jest.Mock }}
+ * Objeto de respuesta HTTP simulado.
+ */
 const mockResponse = () => {
     const res = {};
     res.status = jest.fn().mockReturnValue(res);
@@ -19,7 +31,16 @@ const mockResponse = () => {
     return res;
 };
 
+/**
+ * @group Autenticación
+ * Suite de pruebas del controlador `login`.
+ * Verifica el comportamiento del flujo de autenticación ante distintos
+ * escenarios: usuario inexistente, contraseña incorrecta, cuenta bloqueada,
+ * bloqueo por intentos excedidos y login exitoso.
+ */
+
 test('debe regresar 401 si el usuario no existe', async () => {
+    // findUserByEmail retorna null cuando el correo no está registrado o el usuario está inactivo
     AuthModel.findUserByEmail.mockResolvedValue(null);
 
     const req = {
@@ -54,6 +75,7 @@ test('debe fallar si la contraseña es incorrecta', async () => {
 
     await login(req, res);
 
+    // Con 1 intento fallido no se bloquea la cuenta, solo se incrementa el contador
     expect(bcrypt.compare).toHaveBeenCalled();
     expect(AuthModel.updateLoginTry).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(401);
@@ -82,11 +104,12 @@ test('debe hacer login correctamente', async () => {
 
     await login(req, res);
 
+    // El refresh token se envía como cookie HttpOnly; el access token va en el cuerpo
     expect(res.cookie).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(
         expect.objectContaining({
-        accessToken: 'access-token'
+            accessToken: 'access-token'
         })
     );
 });
@@ -94,7 +117,7 @@ test('debe hacer login correctamente', async () => {
 test('debe bloquear acceso si la cuenta está bloqueada', async () => {
     const fakeUser = {
         id_usuario: 1,
-        bloqueado_hasta: new Date(Date.now() + 10000), // futuro
+        bloqueado_hasta: new Date(Date.now() + 10000), // fecha en el futuro: bloqueo vigente
         roles: { nombre: 'admin' }
     };
 
@@ -107,6 +130,7 @@ test('debe bloquear acceso si la cuenta está bloqueada', async () => {
 
     await login(req, res);
 
+    // No se debe comparar la contraseña si la cuenta ya está bloqueada
     expect(res.status).toHaveBeenCalledWith(401);
 });
 
@@ -114,7 +138,7 @@ test('debe bloquear cuenta al superar intentos', async () => {
     const fakeUser = {
         id_usuario: 1,
         contrasena: 'hashed',
-        intentos_fallidos: 4,
+        intentos_fallidos: 4, // el siguiente intento fallido alcanza MAX_INTENTOS (5)
         roles: { nombre: 'admin' }
     };
 
