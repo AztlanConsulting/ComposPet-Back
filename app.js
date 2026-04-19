@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 });
 
 // Definición de las rutas de negocio de la aplicación
-app.use('/', routes);
+app.use('/api', routes);
 
 /**
  * Endpoint de verificación de estado (Health Check).

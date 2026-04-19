@@ -205,7 +205,7 @@ const refreshToken = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
 
     if (!refreshToken) {
-        return res.status(401).json({ message: 'No hay token de refresco.' });
+        return res.status(403).json({ message: 'No hay token de refresco.' });
     }
 
     try {

@@ -10188,70 +10188,52 @@ export namespace Prisma {
 
   export type AggregateFormas_pago = {
     _count: Formas_pagoCountAggregateOutputType | null
-    _avg: Formas_pagoAvgAggregateOutputType | null
-    _sum: Formas_pagoSumAggregateOutputType | null
     _min: Formas_pagoMinAggregateOutputType | null
     _max: Formas_pagoMaxAggregateOutputType | null
   }
 
-  export type Formas_pagoAvgAggregateOutputType = {
-    id_pago: number | null
-  }
-
-  export type Formas_pagoSumAggregateOutputType = {
-    id_pago: number | null
-  }
-
   export type Formas_pagoMinAggregateOutputType = {
+    id_pago: string | null
     tipo: string | null
     texto: string | null
     notas: string | null
-    id_pago: number | null
   }
 
   export type Formas_pagoMaxAggregateOutputType = {
+    id_pago: string | null
     tipo: string | null
     texto: string | null
     notas: string | null
-    id_pago: number | null
   }
 
   export type Formas_pagoCountAggregateOutputType = {
+    id_pago: number
     tipo: number
     texto: number
     notas: number
-    id_pago: number
     _all: number
   }
 
 
-  export type Formas_pagoAvgAggregateInputType = {
-    id_pago?: true
-  }
-
-  export type Formas_pagoSumAggregateInputType = {
-    id_pago?: true
-  }
-
   export type Formas_pagoMinAggregateInputType = {
+    id_pago?: true
     tipo?: true
     texto?: true
     notas?: true
-    id_pago?: true
   }
 
   export type Formas_pagoMaxAggregateInputType = {
+    id_pago?: true
     tipo?: true
     texto?: true
     notas?: true
-    id_pago?: true
   }
 
   export type Formas_pagoCountAggregateInputType = {
+    id_pago?: true
     tipo?: true
     texto?: true
     notas?: true
-    id_pago?: true
     _all?: true
   }
 
@@ -10293,18 +10275,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: Formas_pagoAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Formas_pagoSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: Formas_pagoMinAggregateInputType
@@ -10335,20 +10305,16 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: Formas_pagoCountAggregateInputType | true
-    _avg?: Formas_pagoAvgAggregateInputType
-    _sum?: Formas_pagoSumAggregateInputType
     _min?: Formas_pagoMinAggregateInputType
     _max?: Formas_pagoMaxAggregateInputType
   }
 
   export type Formas_pagoGroupByOutputType = {
+    id_pago: string
     tipo: string
     texto: string | null
     notas: string | null
-    id_pago: number
     _count: Formas_pagoCountAggregateOutputType | null
-    _avg: Formas_pagoAvgAggregateOutputType | null
-    _sum: Formas_pagoSumAggregateOutputType | null
     _min: Formas_pagoMinAggregateOutputType | null
     _max: Formas_pagoMaxAggregateOutputType | null
   }
@@ -10368,36 +10334,36 @@ export namespace Prisma {
 
 
   export type formas_pagoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
-    id_pago?: boolean
     solicitudes_recoleccion?: boolean | formas_pago$solicitudes_recoleccionArgs<ExtArgs>
     _count?: boolean | Formas_pagoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formas_pago"]>
 
   export type formas_pagoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
-    id_pago?: boolean
   }, ExtArgs["result"]["formas_pago"]>
 
   export type formas_pagoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
-    id_pago?: boolean
   }, ExtArgs["result"]["formas_pago"]>
 
   export type formas_pagoSelectScalar = {
+    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
-    id_pago?: boolean
   }
 
-  export type formas_pagoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"tipo" | "texto" | "notas" | "id_pago", ExtArgs["result"]["formas_pago"]>
+  export type formas_pagoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_pago" | "tipo" | "texto" | "notas", ExtArgs["result"]["formas_pago"]>
   export type formas_pagoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     solicitudes_recoleccion?: boolean | formas_pago$solicitudes_recoleccionArgs<ExtArgs>
     _count?: boolean | Formas_pagoCountOutputTypeDefaultArgs<ExtArgs>
@@ -10411,10 +10377,10 @@ export namespace Prisma {
       solicitudes_recoleccion: Prisma.$solicitudes_recoleccionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
+      id_pago: string
       tipo: string
       texto: string | null
       notas: string | null
-      id_pago: number
     }, ExtArgs["result"]["formas_pago"]>
     composites: {}
   }
@@ -10498,8 +10464,8 @@ export namespace Prisma {
      * // Get first 10 Formas_pagos
      * const formas_pagos = await prisma.formas_pago.findMany({ take: 10 })
      * 
-     * // Only select the `tipo`
-     * const formas_pagoWithTipoOnly = await prisma.formas_pago.findMany({ select: { tipo: true } })
+     * // Only select the `id_pago`
+     * const formas_pagoWithId_pagoOnly = await prisma.formas_pago.findMany({ select: { id_pago: true } })
      * 
      */
     findMany<T extends formas_pagoFindManyArgs>(args?: SelectSubset<T, formas_pagoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$formas_pagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -10543,9 +10509,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Formas_pagos and only return the `tipo`
-     * const formas_pagoWithTipoOnly = await prisma.formas_pago.createManyAndReturn({
-     *   select: { tipo: true },
+     * // Create many Formas_pagos and only return the `id_pago`
+     * const formas_pagoWithId_pagoOnly = await prisma.formas_pago.createManyAndReturn({
+     *   select: { id_pago: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -10634,9 +10600,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Formas_pagos and only return the `tipo`
-     * const formas_pagoWithTipoOnly = await prisma.formas_pago.updateManyAndReturn({
-     *   select: { tipo: true },
+     * // Update zero or more Formas_pagos and only return the `id_pago`
+     * const formas_pagoWithId_pagoOnly = await prisma.formas_pago.updateManyAndReturn({
+     *   select: { id_pago: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -10839,10 +10805,10 @@ export namespace Prisma {
    * Fields of the formas_pago model
    */
   interface formas_pagoFieldRefs {
+    readonly id_pago: FieldRef<"formas_pago", 'String'>
     readonly tipo: FieldRef<"formas_pago", 'String'>
     readonly texto: FieldRef<"formas_pago", 'String'>
     readonly notas: FieldRef<"formas_pago", 'String'>
-    readonly id_pago: FieldRef<"formas_pago", 'Int'>
   }
     
 
@@ -24456,7 +24422,6 @@ export namespace Prisma {
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
     total_pagado: number | null
-    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionSumAggregateOutputType = {
@@ -24464,12 +24429,12 @@ export namespace Prisma {
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
     total_pagado: number | null
-    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionMinAggregateOutputType = {
     id_solicitud: string | null
     id_cliente: string | null
+    id_pago: string | null
     cubetas_entregadas: number | null
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
@@ -24477,14 +24442,12 @@ export namespace Prisma {
     fecha: Date | null
     horario: Date | null
     notas: string | null
-    quiere_recoleccion: boolean | null
-    quiere_productos_extra: boolean | null
-    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionMaxAggregateOutputType = {
     id_solicitud: string | null
     id_cliente: string | null
+    id_pago: string | null
     cubetas_entregadas: number | null
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
@@ -24492,14 +24455,12 @@ export namespace Prisma {
     fecha: Date | null
     horario: Date | null
     notas: string | null
-    quiere_recoleccion: boolean | null
-    quiere_productos_extra: boolean | null
-    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionCountAggregateOutputType = {
     id_solicitud: number
     id_cliente: number
+    id_pago: number
     cubetas_entregadas: number
     cubetas_recolectadas: number
     total_a_pagar: number
@@ -24507,9 +24468,6 @@ export namespace Prisma {
     fecha: number
     horario: number
     notas: number
-    quiere_recoleccion: number
-    quiere_productos_extra: number
-    id_pago: number
     _all: number
   }
 
@@ -24519,7 +24477,6 @@ export namespace Prisma {
     cubetas_recolectadas?: true
     total_a_pagar?: true
     total_pagado?: true
-    id_pago?: true
   }
 
   export type Solicitudes_recoleccionSumAggregateInputType = {
@@ -24527,12 +24484,12 @@ export namespace Prisma {
     cubetas_recolectadas?: true
     total_a_pagar?: true
     total_pagado?: true
-    id_pago?: true
   }
 
   export type Solicitudes_recoleccionMinAggregateInputType = {
     id_solicitud?: true
     id_cliente?: true
+    id_pago?: true
     cubetas_entregadas?: true
     cubetas_recolectadas?: true
     total_a_pagar?: true
@@ -24540,14 +24497,12 @@ export namespace Prisma {
     fecha?: true
     horario?: true
     notas?: true
-    quiere_recoleccion?: true
-    quiere_productos_extra?: true
-    id_pago?: true
   }
 
   export type Solicitudes_recoleccionMaxAggregateInputType = {
     id_solicitud?: true
     id_cliente?: true
+    id_pago?: true
     cubetas_entregadas?: true
     cubetas_recolectadas?: true
     total_a_pagar?: true
@@ -24555,14 +24510,12 @@ export namespace Prisma {
     fecha?: true
     horario?: true
     notas?: true
-    quiere_recoleccion?: true
-    quiere_productos_extra?: true
-    id_pago?: true
   }
 
   export type Solicitudes_recoleccionCountAggregateInputType = {
     id_solicitud?: true
     id_cliente?: true
+    id_pago?: true
     cubetas_entregadas?: true
     cubetas_recolectadas?: true
     total_a_pagar?: true
@@ -24570,9 +24523,6 @@ export namespace Prisma {
     fecha?: true
     horario?: true
     notas?: true
-    quiere_recoleccion?: true
-    quiere_productos_extra?: true
-    id_pago?: true
     _all?: true
   }
 
@@ -24665,6 +24615,7 @@ export namespace Prisma {
   export type Solicitudes_recoleccionGroupByOutputType = {
     id_solicitud: string
     id_cliente: string
+    id_pago: string
     cubetas_entregadas: number | null
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
@@ -24672,9 +24623,6 @@ export namespace Prisma {
     fecha: Date
     horario: Date | null
     notas: string | null
-    quiere_recoleccion: boolean | null
-    quiere_productos_extra: boolean | null
-    id_pago: number | null
     _count: Solicitudes_recoleccionCountAggregateOutputType | null
     _avg: Solicitudes_recoleccionAvgAggregateOutputType | null
     _sum: Solicitudes_recoleccionSumAggregateOutputType | null
@@ -24699,6 +24647,7 @@ export namespace Prisma {
   export type solicitudes_recoleccionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_solicitud?: boolean
     id_cliente?: boolean
+    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24706,18 +24655,16 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
-    quiere_recoleccion?: boolean
-    quiere_productos_extra?: boolean
-    id_pago?: boolean
     productos_solicitud?: boolean | solicitudes_recoleccion$productos_solicitudArgs<ExtArgs>
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
+    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
     _count?: boolean | Solicitudes_recoleccionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["solicitudes_recoleccion"]>
 
   export type solicitudes_recoleccionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_solicitud?: boolean
     id_cliente?: boolean
+    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24725,16 +24672,14 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
-    quiere_recoleccion?: boolean
-    quiere_productos_extra?: boolean
-    id_pago?: boolean
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
+    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["solicitudes_recoleccion"]>
 
   export type solicitudes_recoleccionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_solicitud?: boolean
     id_cliente?: boolean
+    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24742,16 +24687,14 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
-    quiere_recoleccion?: boolean
-    quiere_productos_extra?: boolean
-    id_pago?: boolean
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
+    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["solicitudes_recoleccion"]>
 
   export type solicitudes_recoleccionSelectScalar = {
     id_solicitud?: boolean
     id_cliente?: boolean
+    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24759,25 +24702,22 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
-    quiere_recoleccion?: boolean
-    quiere_productos_extra?: boolean
-    id_pago?: boolean
   }
 
-  export type solicitudes_recoleccionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud" | "id_cliente" | "cubetas_entregadas" | "cubetas_recolectadas" | "total_a_pagar" | "total_pagado" | "fecha" | "horario" | "notas" | "quiere_recoleccion" | "quiere_productos_extra" | "id_pago", ExtArgs["result"]["solicitudes_recoleccion"]>
+  export type solicitudes_recoleccionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud" | "id_cliente" | "id_pago" | "cubetas_entregadas" | "cubetas_recolectadas" | "total_a_pagar" | "total_pagado" | "fecha" | "horario" | "notas", ExtArgs["result"]["solicitudes_recoleccion"]>
   export type solicitudes_recoleccionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | solicitudes_recoleccion$productos_solicitudArgs<ExtArgs>
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
+    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
     _count?: boolean | Solicitudes_recoleccionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type solicitudes_recoleccionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
+    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
   }
   export type solicitudes_recoleccionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
+    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
   }
 
   export type $solicitudes_recoleccionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24785,11 +24725,12 @@ export namespace Prisma {
     objects: {
       productos_solicitud: Prisma.$productos_solicitudPayload<ExtArgs>[]
       cliente: Prisma.$clientePayload<ExtArgs>
-      formas_pago: Prisma.$formas_pagoPayload<ExtArgs> | null
+      formas_pago: Prisma.$formas_pagoPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id_solicitud: string
       id_cliente: string
+      id_pago: string
       cubetas_entregadas: number | null
       cubetas_recolectadas: number | null
       total_a_pagar: number | null
@@ -24797,9 +24738,6 @@ export namespace Prisma {
       fecha: Date
       horario: Date | null
       notas: string | null
-      quiere_recoleccion: boolean | null
-      quiere_productos_extra: boolean | null
-      id_pago: number | null
     }, ExtArgs["result"]["solicitudes_recoleccion"]>
     composites: {}
   }
@@ -25196,7 +25134,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     productos_solicitud<T extends solicitudes_recoleccion$productos_solicitudArgs<ExtArgs> = {}>(args?: Subset<T, solicitudes_recoleccion$productos_solicitudArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$productos_solicitudPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cliente<T extends clienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clienteDefaultArgs<ExtArgs>>): Prisma__clienteClient<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    formas_pago<T extends solicitudes_recoleccion$formas_pagoArgs<ExtArgs> = {}>(args?: Subset<T, solicitudes_recoleccion$formas_pagoArgs<ExtArgs>>): Prisma__formas_pagoClient<$Result.GetResult<Prisma.$formas_pagoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    formas_pago<T extends formas_pagoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, formas_pagoDefaultArgs<ExtArgs>>): Prisma__formas_pagoClient<$Result.GetResult<Prisma.$formas_pagoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25228,6 +25166,7 @@ export namespace Prisma {
   interface solicitudes_recoleccionFieldRefs {
     readonly id_solicitud: FieldRef<"solicitudes_recoleccion", 'String'>
     readonly id_cliente: FieldRef<"solicitudes_recoleccion", 'String'>
+    readonly id_pago: FieldRef<"solicitudes_recoleccion", 'String'>
     readonly cubetas_entregadas: FieldRef<"solicitudes_recoleccion", 'Int'>
     readonly cubetas_recolectadas: FieldRef<"solicitudes_recoleccion", 'Int'>
     readonly total_a_pagar: FieldRef<"solicitudes_recoleccion", 'Float'>
@@ -25235,9 +25174,6 @@ export namespace Prisma {
     readonly fecha: FieldRef<"solicitudes_recoleccion", 'DateTime'>
     readonly horario: FieldRef<"solicitudes_recoleccion", 'DateTime'>
     readonly notas: FieldRef<"solicitudes_recoleccion", 'String'>
-    readonly quiere_recoleccion: FieldRef<"solicitudes_recoleccion", 'Boolean'>
-    readonly quiere_productos_extra: FieldRef<"solicitudes_recoleccion", 'Boolean'>
-    readonly id_pago: FieldRef<"solicitudes_recoleccion", 'Int'>
   }
     
 
@@ -25660,25 +25596,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Productos_solicitudScalarFieldEnum | Productos_solicitudScalarFieldEnum[]
-  }
-
-  /**
-   * solicitudes_recoleccion.formas_pago
-   */
-  export type solicitudes_recoleccion$formas_pagoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the formas_pago
-     */
-    select?: formas_pagoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the formas_pago
-     */
-    omit?: formas_pagoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: formas_pagoInclude<ExtArgs> | null
-    where?: formas_pagoWhereInput
   }
 
   /**
@@ -29316,10 +29233,10 @@ export namespace Prisma {
 
 
   export const Formas_pagoScalarFieldEnum: {
+    id_pago: 'id_pago',
     tipo: 'tipo',
     texto: 'texto',
-    notas: 'notas',
-    id_pago: 'id_pago'
+    notas: 'notas'
   };
 
   export type Formas_pagoScalarFieldEnum = (typeof Formas_pagoScalarFieldEnum)[keyof typeof Formas_pagoScalarFieldEnum]
@@ -29455,16 +29372,14 @@ export namespace Prisma {
   export const Solicitudes_recoleccionScalarFieldEnum: {
     id_solicitud: 'id_solicitud',
     id_cliente: 'id_cliente',
+    id_pago: 'id_pago',
     cubetas_entregadas: 'cubetas_entregadas',
     cubetas_recolectadas: 'cubetas_recolectadas',
     total_a_pagar: 'total_a_pagar',
     total_pagado: 'total_pagado',
     fecha: 'fecha',
     horario: 'horario',
-    notas: 'notas',
-    quiere_recoleccion: 'quiere_recoleccion',
-    quiere_productos_extra: 'quiere_productos_extra',
-    id_pago: 'id_pago'
+    notas: 'notas'
   };
 
   export type Solicitudes_recoleccionScalarFieldEnum = (typeof Solicitudes_recoleccionScalarFieldEnum)[keyof typeof Solicitudes_recoleccionScalarFieldEnum]
@@ -30056,23 +29971,23 @@ export namespace Prisma {
     AND?: formas_pagoWhereInput | formas_pagoWhereInput[]
     OR?: formas_pagoWhereInput[]
     NOT?: formas_pagoWhereInput | formas_pagoWhereInput[]
+    id_pago?: UuidFilter<"formas_pago"> | string
     tipo?: StringFilter<"formas_pago"> | string
     texto?: StringNullableFilter<"formas_pago"> | string | null
     notas?: StringNullableFilter<"formas_pago"> | string | null
-    id_pago?: IntFilter<"formas_pago"> | number
     solicitudes_recoleccion?: Solicitudes_recoleccionListRelationFilter
   }
 
   export type formas_pagoOrderByWithRelationInput = {
+    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
-    id_pago?: SortOrder
     solicitudes_recoleccion?: solicitudes_recoleccionOrderByRelationAggregateInput
   }
 
   export type formas_pagoWhereUniqueInput = Prisma.AtLeast<{
-    id_pago?: number
+    id_pago?: string
     AND?: formas_pagoWhereInput | formas_pagoWhereInput[]
     OR?: formas_pagoWhereInput[]
     NOT?: formas_pagoWhereInput | formas_pagoWhereInput[]
@@ -30083,25 +29998,23 @@ export namespace Prisma {
   }, "id_pago">
 
   export type formas_pagoOrderByWithAggregationInput = {
+    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
-    id_pago?: SortOrder
     _count?: formas_pagoCountOrderByAggregateInput
-    _avg?: formas_pagoAvgOrderByAggregateInput
     _max?: formas_pagoMaxOrderByAggregateInput
     _min?: formas_pagoMinOrderByAggregateInput
-    _sum?: formas_pagoSumOrderByAggregateInput
   }
 
   export type formas_pagoScalarWhereWithAggregatesInput = {
     AND?: formas_pagoScalarWhereWithAggregatesInput | formas_pagoScalarWhereWithAggregatesInput[]
     OR?: formas_pagoScalarWhereWithAggregatesInput[]
     NOT?: formas_pagoScalarWhereWithAggregatesInput | formas_pagoScalarWhereWithAggregatesInput[]
+    id_pago?: UuidWithAggregatesFilter<"formas_pago"> | string
     tipo?: StringWithAggregatesFilter<"formas_pago"> | string
     texto?: StringNullableWithAggregatesFilter<"formas_pago"> | string | null
     notas?: StringNullableWithAggregatesFilter<"formas_pago"> | string | null
-    id_pago?: IntWithAggregatesFilter<"formas_pago"> | number
   }
 
   export type metricasWhereInput = {
@@ -30782,6 +30695,7 @@ export namespace Prisma {
     NOT?: solicitudes_recoleccionWhereInput | solicitudes_recoleccionWhereInput[]
     id_solicitud?: UuidFilter<"solicitudes_recoleccion"> | string
     id_cliente?: UuidFilter<"solicitudes_recoleccion"> | string
+    id_pago?: UuidFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableFilter<"solicitudes_recoleccion"> | number | null
@@ -30789,17 +30703,15 @@ export namespace Prisma {
     fecha?: DateTimeFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableFilter<"solicitudes_recoleccion"> | string | null
-    quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
-    quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
-    id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-    formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
+    formas_pago?: XOR<Formas_pagoScalarRelationFilter, formas_pagoWhereInput>
   }
 
   export type solicitudes_recoleccionOrderByWithRelationInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
+    id_pago?: SortOrder
     cubetas_entregadas?: SortOrderInput | SortOrder
     cubetas_recolectadas?: SortOrderInput | SortOrder
     total_a_pagar?: SortOrderInput | SortOrder
@@ -30807,9 +30719,6 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
-    quiere_recoleccion?: SortOrderInput | SortOrder
-    quiere_productos_extra?: SortOrderInput | SortOrder
-    id_pago?: SortOrderInput | SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
     formas_pago?: formas_pagoOrderByWithRelationInput
@@ -30821,6 +30730,7 @@ export namespace Prisma {
     OR?: solicitudes_recoleccionWhereInput[]
     NOT?: solicitudes_recoleccionWhereInput | solicitudes_recoleccionWhereInput[]
     id_cliente?: UuidFilter<"solicitudes_recoleccion"> | string
+    id_pago?: UuidFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableFilter<"solicitudes_recoleccion"> | number | null
@@ -30828,17 +30738,15 @@ export namespace Prisma {
     fecha?: DateTimeFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableFilter<"solicitudes_recoleccion"> | string | null
-    quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
-    quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
-    id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-    formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
+    formas_pago?: XOR<Formas_pagoScalarRelationFilter, formas_pagoWhereInput>
   }, "id_solicitud">
 
   export type solicitudes_recoleccionOrderByWithAggregationInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
+    id_pago?: SortOrder
     cubetas_entregadas?: SortOrderInput | SortOrder
     cubetas_recolectadas?: SortOrderInput | SortOrder
     total_a_pagar?: SortOrderInput | SortOrder
@@ -30846,9 +30754,6 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
-    quiere_recoleccion?: SortOrderInput | SortOrder
-    quiere_productos_extra?: SortOrderInput | SortOrder
-    id_pago?: SortOrderInput | SortOrder
     _count?: solicitudes_recoleccionCountOrderByAggregateInput
     _avg?: solicitudes_recoleccionAvgOrderByAggregateInput
     _max?: solicitudes_recoleccionMaxOrderByAggregateInput
@@ -30862,6 +30767,7 @@ export namespace Prisma {
     NOT?: solicitudes_recoleccionScalarWhereWithAggregatesInput | solicitudes_recoleccionScalarWhereWithAggregatesInput[]
     id_solicitud?: UuidWithAggregatesFilter<"solicitudes_recoleccion"> | string
     id_cliente?: UuidWithAggregatesFilter<"solicitudes_recoleccion"> | string
+    id_pago?: UuidWithAggregatesFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
@@ -30869,9 +30775,6 @@ export namespace Prisma {
     fecha?: DateTimeWithAggregatesFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableWithAggregatesFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableWithAggregatesFilter<"solicitudes_recoleccion"> | string | null
-    quiere_recoleccion?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
-    quiere_productos_extra?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
-    id_pago?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
   }
 
   export type tarjeta_lealtadWhereInput = {
@@ -31515,56 +31418,56 @@ export namespace Prisma {
   }
 
   export type formas_pagoCreateInput = {
+    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
-    id_pago: number
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutFormas_pagoInput
   }
 
   export type formas_pagoUncheckedCreateInput = {
+    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
-    id_pago: number
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutFormas_pagoInput
   }
 
   export type formas_pagoUpdateInput = {
+    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    id_pago?: IntFieldUpdateOperationsInput | number
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutFormas_pagoNestedInput
   }
 
   export type formas_pagoUncheckedUpdateInput = {
+    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    id_pago?: IntFieldUpdateOperationsInput | number
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutFormas_pagoNestedInput
   }
 
   export type formas_pagoCreateManyInput = {
+    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
-    id_pago: number
   }
 
   export type formas_pagoUpdateManyMutationInput = {
+    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type formas_pagoUncheckedUpdateManyInput = {
+    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type metricasCreateInput = {
@@ -32237,16 +32140,15 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
-    formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
+    formas_pago: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
 
   export type solicitudes_recoleccionUncheckedCreateInput = {
     id_solicitud?: string
     id_cliente: string
+    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -32254,9 +32156,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
-    id_pago?: number | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -32269,16 +32168,15 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
-    formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
+    formas_pago?: formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
+    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -32286,15 +32184,13 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionCreateManyInput = {
     id_solicitud?: string
     id_cliente: string
+    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -32302,9 +32198,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
-    id_pago?: number | null
   }
 
   export type solicitudes_recoleccionUpdateManyMutationInput = {
@@ -32316,13 +32209,12 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type solicitudes_recoleccionUncheckedUpdateManyInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
+    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -32330,9 +32222,6 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type tarjeta_lealtadCreateInput = {
@@ -33179,32 +33068,24 @@ export namespace Prisma {
   }
 
   export type formas_pagoCountOrderByAggregateInput = {
+    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrder
     notas?: SortOrder
-    id_pago?: SortOrder
-  }
-
-  export type formas_pagoAvgOrderByAggregateInput = {
-    id_pago?: SortOrder
   }
 
   export type formas_pagoMaxOrderByAggregateInput = {
+    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrder
     notas?: SortOrder
-    id_pago?: SortOrder
   }
 
   export type formas_pagoMinOrderByAggregateInput = {
+    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrder
     notas?: SortOrder
-    id_pago?: SortOrder
-  }
-
-  export type formas_pagoSumOrderByAggregateInput = {
-    id_pago?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -33709,24 +33590,20 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
   export type ClienteScalarRelationFilter = {
     is?: clienteWhereInput
     isNot?: clienteWhereInput
   }
 
-  export type Formas_pagoNullableScalarRelationFilter = {
-    is?: formas_pagoWhereInput | null
-    isNot?: formas_pagoWhereInput | null
+  export type Formas_pagoScalarRelationFilter = {
+    is?: formas_pagoWhereInput
+    isNot?: formas_pagoWhereInput
   }
 
   export type solicitudes_recoleccionCountOrderByAggregateInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
+    id_pago?: SortOrder
     cubetas_entregadas?: SortOrder
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
@@ -33734,9 +33611,6 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrder
     notas?: SortOrder
-    quiere_recoleccion?: SortOrder
-    quiere_productos_extra?: SortOrder
-    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionAvgOrderByAggregateInput = {
@@ -33744,12 +33618,12 @@ export namespace Prisma {
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
     total_pagado?: SortOrder
-    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionMaxOrderByAggregateInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
+    id_pago?: SortOrder
     cubetas_entregadas?: SortOrder
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
@@ -33757,14 +33631,12 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrder
     notas?: SortOrder
-    quiere_recoleccion?: SortOrder
-    quiere_productos_extra?: SortOrder
-    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionMinOrderByAggregateInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
+    id_pago?: SortOrder
     cubetas_entregadas?: SortOrder
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
@@ -33772,9 +33644,6 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrder
     notas?: SortOrder
-    quiere_recoleccion?: SortOrder
-    quiere_productos_extra?: SortOrder
-    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionSumOrderByAggregateInput = {
@@ -33782,7 +33651,6 @@ export namespace Prisma {
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
     total_pagado?: SortOrder
-    id_pago?: SortOrder
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -33799,14 +33667,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type tarjeta_lealtadCountOrderByAggregateInput = {
@@ -34943,10 +34803,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
-  }
-
   export type productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput = {
     create?: XOR<productos_solicitudCreateWithoutSolicitudes_recoleccionInput, productos_solicitudUncheckedCreateWithoutSolicitudes_recoleccionInput> | productos_solicitudCreateWithoutSolicitudes_recoleccionInput[] | productos_solicitudUncheckedCreateWithoutSolicitudes_recoleccionInput[]
     connectOrCreate?: productos_solicitudCreateOrConnectWithoutSolicitudes_recoleccionInput | productos_solicitudCreateOrConnectWithoutSolicitudes_recoleccionInput[]
@@ -34969,12 +34825,10 @@ export namespace Prisma {
     update?: XOR<XOR<clienteUpdateToOneWithWhereWithoutSolicitudes_recoleccionInput, clienteUpdateWithoutSolicitudes_recoleccionInput>, clienteUncheckedUpdateWithoutSolicitudes_recoleccionInput>
   }
 
-  export type formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput = {
+  export type formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput = {
     create?: XOR<formas_pagoCreateWithoutSolicitudes_recoleccionInput, formas_pagoUncheckedCreateWithoutSolicitudes_recoleccionInput>
     connectOrCreate?: formas_pagoCreateOrConnectWithoutSolicitudes_recoleccionInput
     upsert?: formas_pagoUpsertWithoutSolicitudes_recoleccionInput
-    disconnect?: formas_pagoWhereInput | boolean
-    delete?: formas_pagoWhereInput | boolean
     connect?: formas_pagoWhereUniqueInput
     update?: XOR<XOR<formas_pagoUpdateToOneWithWhereWithoutSolicitudes_recoleccionInput, formas_pagoUpdateWithoutSolicitudes_recoleccionInput>, formas_pagoUncheckedUpdateWithoutSolicitudes_recoleccionInput>
   }
@@ -35556,11 +35410,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -35575,14 +35424,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type usuarios_cpCreateWithoutAdministradorInput = {
@@ -35952,14 +35793,13 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
-    formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
+    formas_pago: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
 
   export type solicitudes_recoleccionUncheckedCreateWithoutClienteInput = {
     id_solicitud?: string
+    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -35967,9 +35807,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
-    id_pago?: number | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -36098,6 +35935,7 @@ export namespace Prisma {
     NOT?: solicitudes_recoleccionScalarWhereInput | solicitudes_recoleccionScalarWhereInput[]
     id_solicitud?: UuidFilter<"solicitudes_recoleccion"> | string
     id_cliente?: UuidFilter<"solicitudes_recoleccion"> | string
+    id_pago?: UuidFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableFilter<"solicitudes_recoleccion"> | number | null
@@ -36105,9 +35943,6 @@ export namespace Prisma {
     fecha?: DateTimeFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableFilter<"solicitudes_recoleccion"> | string | null
-    quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
-    quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
-    id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
   }
 
   export type tarjeta_lealtadUpsertWithoutClienteInput = {
@@ -36425,8 +36260,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -36441,8 +36274,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -36860,15 +36691,14 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
-    formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
+    formas_pago: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
 
   export type solicitudes_recoleccionUncheckedCreateWithoutProductos_solicitudInput = {
     id_solicitud?: string
     id_cliente: string
+    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -36876,9 +36706,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
-    id_pago?: number | null
   }
 
   export type solicitudes_recoleccionCreateOrConnectWithoutProductos_solicitudInput = {
@@ -36939,15 +36766,14 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
-    formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
+    formas_pago?: formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateWithoutProductos_solicitudInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
+    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -36955,9 +36781,6 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type nivel_promocionesCreateWithoutPromocionesInput = {
@@ -37444,17 +37267,17 @@ export namespace Prisma {
   }
 
   export type formas_pagoCreateWithoutSolicitudes_recoleccionInput = {
+    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
-    id_pago: number
   }
 
   export type formas_pagoUncheckedCreateWithoutSolicitudes_recoleccionInput = {
+    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
-    id_pago: number
   }
 
   export type formas_pagoCreateOrConnectWithoutSolicitudes_recoleccionInput = {
@@ -37529,17 +37352,17 @@ export namespace Prisma {
   }
 
   export type formas_pagoUpdateWithoutSolicitudes_recoleccionInput = {
+    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type formas_pagoUncheckedUpdateWithoutSolicitudes_recoleccionInput = {
+    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type clienteCreateWithoutTarjeta_lealtadInput = {
@@ -38088,6 +37911,7 @@ export namespace Prisma {
 
   export type solicitudes_recoleccionCreateManyClienteInput = {
     id_solicitud?: string
+    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -38095,9 +37919,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
-    id_pago?: number | null
   }
 
   export type solicitudes_recoleccionUpdateWithoutClienteInput = {
@@ -38109,14 +37930,13 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
-    formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
+    formas_pago?: formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateWithoutClienteInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
+    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -38124,14 +37944,12 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateManyWithoutClienteInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
+    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -38139,9 +37957,6 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type faqCreateManyCompospetInput = {
@@ -38310,8 +38125,6 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
-    quiere_recoleccion?: boolean | null
-    quiere_productos_extra?: boolean | null
   }
 
   export type solicitudes_recoleccionUpdateWithoutFormas_pagoInput = {
@@ -38323,8 +38136,6 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
   }
@@ -38339,8 +38150,6 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -38354,8 +38163,6 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type nivel_promocionesCreateManyNivelesInput = {
