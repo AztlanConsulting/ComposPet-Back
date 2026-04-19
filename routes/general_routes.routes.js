@@ -8,7 +8,7 @@ const clientRoutes = require('./client.routes');
 
 const { authMiddleware } = require('../middlewares/auth')
 
-router.use('/api', authRoutes);
+router.use('/', authRoutes);
 
 router.use("/user", user_routes);
 
