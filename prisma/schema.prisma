@@ -77,10 +77,10 @@ model faq {
 }
 
 model formas_pago {
+  id_pago                 String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tipo                    String                    @db.VarChar
   texto                   String?
   notas                   String?
-  id_pago                 Int                       @id
   solicitudes_recoleccion solicitudes_recoleccion[]
 }
 
@@ -131,8 +131,6 @@ model productos_extra {
   precio              Float
   descripcion         String?               @db.VarChar
   cantidad            Int
-  estatus             Boolean               @default(true)
-  imagen_url          String?               @db.VarChar
   productos_solicitud productos_solicitud[]
 }
 
@@ -198,21 +196,19 @@ model solicitud_registro {
 }
 
 model solicitudes_recoleccion {
-  id_solicitud           String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_cliente             String                @db.Uuid
-  cubetas_entregadas     Int?
-  cubetas_recolectadas   Int?
-  total_a_pagar          Float?
-  total_pagado           Float?
-  fecha                  DateTime              @db.Date
-  horario                DateTime?             @db.Time(6)
-  notas                  String?
-  quiere_recoleccion     Boolean?              @default(false)
-  quiere_productos_extra Boolean?              @default(false)
-  id_pago                Int?
-  productos_solicitud    productos_solicitud[]
-  cliente                cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
-  formas_pago            formas_pago?          @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
+  id_solicitud         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente           String                @db.Uuid
+  id_pago              String                @db.Uuid
+  cubetas_entregadas   Int?
+  cubetas_recolectadas Int?
+  total_a_pagar        Float?
+  total_pagado         Float?
+  fecha                DateTime              @db.Date
+  horario              DateTime?             @db.Time(6)
+  notas                String?
+  productos_solicitud  productos_solicitud[]
+  cliente              cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
+  formas_pago          formas_pago           @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
 }
 
 model usuarios_cp {
