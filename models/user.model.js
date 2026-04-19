@@ -34,7 +34,6 @@ module.exports = class User {
     // Ejemplo: Obtiene todos los registros de niveles desde la base de datos usando Prisma
     static async getAllUsers2() {
         const x = prisma.niveles.findMany();
-        console.log(x);
         return await prisma.niveles.findMany();
     }
 
