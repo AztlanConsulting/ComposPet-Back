@@ -81,11 +81,10 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
         test('debe retornar 401 si el código es incorrecto', async () => {
             jwt.verify.mockReturnValue({ step: 'CAN_VERIFY_FIRST_LOGIN', email: 'test@test.com' });
             
-            // Simulamos que el código en DB es '654321' pero el usuario manda '123456'
             PasswordModel.findUserByStatus.mockResolvedValue({
                 id_usuario: 1,
                 correo: 'test@test.com',
-                codigo_verificacion: '654321', // El real
+                codigo_verificacion: '654321', 
                 intentos_fallidos: 0
             });
 
@@ -106,7 +105,7 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
             PasswordModel.findUserByStatus.mockResolvedValue({
                 id_usuario: 1,
                 codigo_verificacion: '654321',
-                intentos_fallidos: 4 // Ya tiene 4, este será el 5to
+                intentos_fallidos: 4 
             });
 
             const req = { body: { email: 'test@test.com', code: 'WRONG', seedToken: 'valid' } };
@@ -138,7 +137,6 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
             expect(PasswordModel.completeFirstLogin).toHaveBeenCalledWith(1, 'hashed');
         });
         test('debe retornar 403 si el flowToken no coincide con el email', async () => {
-            // El token dice ser de 'otro@test.com'
             jwt.verify.mockReturnValue({ step: 'VERIFIED_STEP', email: 'otro@test.com' });
             
             const req = { body: { email: 'test@test.com', password: 'new', flowToken: 'valid' } };
@@ -154,7 +152,6 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
             jwt.verify.mockReturnValue({ step: 'VERIFIED_STEP', email: 'test@test.com' });
             PasswordModel.findUserByStatus.mockResolvedValue({ id_usuario: 1 });
             
-            // Forzamos un error en bcrypt
             bcrypt.genSalt.mockRejectedValue(new Error('Bcrypt failed'));
 
             const req = { body: { email: 'test@test.com', password: 'new', flowToken: 'valid' } };

@@ -59,7 +59,7 @@ const requestOTP = async (req, res) => {
             { expiresIn: '15m' }
         );
 
-        await GmailService.sendStaticEmail(email, subject, code, emailOptions);
+        const subject = actuallyIsFirstLogin ? 'Activa tu cuenta de Compospet' : 'Recupera tu contraseña';
 
         const emailOptions = actuallyIsFirstLogin 
             ? {
@@ -71,7 +71,7 @@ const requestOTP = async (req, res) => {
                 message: 'Has solicitado restablecer tu acceso a <strong>Compospet</strong>. Utiliza el siguiente código para continuar con el proceso:'
               };
 
-        const subject = actuallyIsFirstLogin ? 'Activa tu cuenta de Compospet' : 'Recupera tu contraseña';
+        await GmailService.sendStaticEmail(email, subject, code, emailOptions);
         const actionLog = actuallyIsFirstLogin ? 'SOLICITUD_OTP_PRIMER_LOGIN' : 'SOLICITUD_OTP_RECOVERY';
         await logIfAdmin(user, actionLog, `Correo: ${email}`);
 
