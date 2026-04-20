@@ -139,7 +139,7 @@ module.exports = class CollectionRequest {
     static async getExtraProducts() {
         const extraProducts = await prisma.productos_extra.findMany({
             where: {
-                estatus: 'true',
+                estatus: true,
             },
             orderBy:{
                 orden: 'asc',

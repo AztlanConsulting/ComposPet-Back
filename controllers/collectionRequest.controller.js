@@ -139,6 +139,7 @@ const getExtraProducts = async (req, res) => {
             data: extraProducts,
         });
     } catch (error) {
+        console.log("ERROR: ", error);
         return res.status(404).json({
             success: false,
             message: 'No se encontraron productos extra.',

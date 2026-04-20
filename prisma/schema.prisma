@@ -132,7 +132,7 @@ model productos_extra {
   descripcion         String?               @db.VarChar
   cantidad            Int
   imagen_url          String?               @db.VarChar
-  estatus             String?               @default("activo") @db.VarChar(20)
+  estatus             Boolean?              @default(true)
   orden               Int?
   productos_solicitud productos_solicitud[]
 }
