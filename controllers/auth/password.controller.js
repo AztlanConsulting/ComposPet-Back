@@ -2,8 +2,6 @@ const AuthModel = require('../../models/auth/auth.model');
 const PasswordModel = require('../../models/auth/password.model');
 const jwt       = require('jsonwebtoken');
 const bcrypt    = require('bcrypt');
-const { google } = require('googleapis');
-const { callExternalApi } = require('../../middlewares/externalApiClient');
 const crypto = require('crypto');
 const GmailService = require('../../config/gmail.service');
 const { logIfAdmin } = require('../../utils/logIfAdmin');
@@ -60,7 +58,9 @@ const requestOTP = async (req, res) => {
             process.env.JWT_SECRET,
             { expiresIn: '15m' }
         );
-        
+
+        await GmailService.sendStaticEmail(email, subject, code, emailOptions);
+
         const emailOptions = actuallyIsFirstLogin 
             ? {
                 title: '¡Bienvenido!',
@@ -74,9 +74,6 @@ const requestOTP = async (req, res) => {
         const subject = actuallyIsFirstLogin ? 'Activa tu cuenta de Compospet' : 'Recupera tu contraseña';
         const actionLog = actuallyIsFirstLogin ? 'SOLICITUD_OTP_PRIMER_LOGIN' : 'SOLICITUD_OTP_RECOVERY';
         await logIfAdmin(user, actionLog, `Correo: ${email}`);
-
-        await GmailService.sendStaticEmail(email, subject, code, emailOptions);
-
 
         return res.status(200).json({ 
             success: true, 
