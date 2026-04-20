@@ -177,10 +177,10 @@ exports.Prisma.FaqScalarFieldEnum = {
 };
 
 exports.Prisma.Formas_pagoScalarFieldEnum = {
-  id_pago: 'id_pago',
   tipo: 'tipo',
   texto: 'texto',
-  notas: 'notas'
+  notas: 'notas',
+  id_pago: 'id_pago'
 };
 
 exports.Prisma.MetricasScalarFieldEnum = {
@@ -221,7 +221,10 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   nombre: 'nombre',
   precio: 'precio',
   descripcion: 'descripcion',
-  cantidad: 'cantidad'
+  cantidad: 'cantidad',
+  estatus: 'estatus',
+  imagen_url: 'imagen_url',
+  orden: 'orden'
 };
 
 exports.Prisma.Productos_solicitudScalarFieldEnum = {
@@ -274,21 +277,16 @@ exports.Prisma.Solicitud_registroScalarFieldEnum = {
 exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {
   id_solicitud: 'id_solicitud',
   id_cliente: 'id_cliente',
-  id_pago: 'id_pago',
   cubetas_entregadas: 'cubetas_entregadas',
   cubetas_recolectadas: 'cubetas_recolectadas',
   total_a_pagar: 'total_a_pagar',
   total_pagado: 'total_pagado',
   fecha: 'fecha',
   horario: 'horario',
-  notas: 'notas'
-};
-
-exports.Prisma.Tarjeta_lealtadScalarFieldEnum = {
-  id_tarjeta_lealtad: 'id_tarjeta_lealtad',
-  id_cliente: 'id_cliente',
-  id_nivel: 'id_nivel',
-  saldo: 'saldo'
+  notas: 'notas',
+  quiere_recoleccion: 'quiere_recoleccion',
+  quiere_productos_extra: 'quiere_productos_extra',
+  id_pago: 'id_pago'
 };
 
 exports.Prisma.Usuarios_cpScalarFieldEnum = {
@@ -303,9 +301,7 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   correo: 'correo',
   primer_inicio_sesion: 'primer_inicio_sesion',
   intentos_fallidos: 'intentos_fallidos',
-  bloqueado_hasta: 'bloqueado_hasta',
-  codigo_verificacion: 'codigo_verificacion',
-  codigo_expiracion: 'codigo_expiracion'
+  bloqueado_hasta: 'bloqueado_hasta'
 };
 
 exports.Prisma.ZonaScalarFieldEnum = {
@@ -314,6 +310,13 @@ exports.Prisma.ZonaScalarFieldEnum = {
   municipio: 'municipio',
   descripcion: 'descripcion',
   estado: 'estado'
+};
+
+exports.Prisma.TarjetaScalarFieldEnum = {
+  id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+  id_cliente: 'id_cliente',
+  id_nivel: 'id_nivel',
+  saldo: 'saldo'
 };
 
 exports.Prisma.SortOrder = {
@@ -364,9 +367,9 @@ exports.Prisma.ModelName = {
   ruta: 'ruta',
   solicitud_registro: 'solicitud_registro',
   solicitudes_recoleccion: 'solicitudes_recoleccion',
-  tarjeta_lealtad: 'tarjeta_lealtad',
   usuarios_cp: 'usuarios_cp',
-  zona: 'zona'
+  zona: 'zona',
+  tarjeta: 'tarjeta'
 };
 
 /**

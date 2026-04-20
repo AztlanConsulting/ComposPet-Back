@@ -114,11 +114,6 @@ export type solicitud_registro = $Result.DefaultSelection<Prisma.$solicitud_regi
  */
 export type solicitudes_recoleccion = $Result.DefaultSelection<Prisma.$solicitudes_recoleccionPayload>
 /**
- * Model tarjeta_lealtad
- * 
- */
-export type tarjeta_lealtad = $Result.DefaultSelection<Prisma.$tarjeta_lealtadPayload>
-/**
  * Model usuarios_cp
  * 
  */
@@ -128,6 +123,11 @@ export type usuarios_cp = $Result.DefaultSelection<Prisma.$usuarios_cpPayload>
  * 
  */
 export type zona = $Result.DefaultSelection<Prisma.$zonaPayload>
+/**
+ * Model tarjeta
+ * 
+ */
+export type tarjeta = $Result.DefaultSelection<Prisma.$tarjetaPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -451,16 +451,6 @@ export class PrismaClient<
   get solicitudes_recoleccion(): Prisma.solicitudes_recoleccionDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.tarjeta_lealtad`: Exposes CRUD operations for the **tarjeta_lealtad** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Tarjeta_lealtads
-    * const tarjeta_lealtads = await prisma.tarjeta_lealtad.findMany()
-    * ```
-    */
-  get tarjeta_lealtad(): Prisma.tarjeta_lealtadDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.usuarios_cp`: Exposes CRUD operations for the **usuarios_cp** model.
     * Example usage:
     * ```ts
@@ -479,6 +469,16 @@ export class PrismaClient<
     * ```
     */
   get zona(): Prisma.zonaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tarjeta`: Exposes CRUD operations for the **tarjeta** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tarjetas
+    * const tarjetas = await prisma.tarjeta.findMany()
+    * ```
+    */
+  get tarjeta(): Prisma.tarjetaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -933,9 +933,9 @@ export namespace Prisma {
     ruta: 'ruta',
     solicitud_registro: 'solicitud_registro',
     solicitudes_recoleccion: 'solicitudes_recoleccion',
-    tarjeta_lealtad: 'tarjeta_lealtad',
     usuarios_cp: 'usuarios_cp',
-    zona: 'zona'
+    zona: 'zona',
+    tarjeta: 'tarjeta'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -951,7 +951,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "nivel_promociones" | "niveles" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "promociones" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "tarjeta_lealtad" | "usuarios_cp" | "zona"
+      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "nivel_promociones" | "niveles" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "promociones" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "usuarios_cp" | "zona" | "tarjeta"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2435,80 +2435,6 @@ export namespace Prisma {
           }
         }
       }
-      tarjeta_lealtad: {
-        payload: Prisma.$tarjeta_lealtadPayload<ExtArgs>
-        fields: Prisma.tarjeta_lealtadFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.tarjeta_lealtadFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.tarjeta_lealtadFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>
-          }
-          findFirst: {
-            args: Prisma.tarjeta_lealtadFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.tarjeta_lealtadFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>
-          }
-          findMany: {
-            args: Prisma.tarjeta_lealtadFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>[]
-          }
-          create: {
-            args: Prisma.tarjeta_lealtadCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>
-          }
-          createMany: {
-            args: Prisma.tarjeta_lealtadCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.tarjeta_lealtadCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>[]
-          }
-          delete: {
-            args: Prisma.tarjeta_lealtadDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>
-          }
-          update: {
-            args: Prisma.tarjeta_lealtadUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>
-          }
-          deleteMany: {
-            args: Prisma.tarjeta_lealtadDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.tarjeta_lealtadUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.tarjeta_lealtadUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>[]
-          }
-          upsert: {
-            args: Prisma.tarjeta_lealtadUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$tarjeta_lealtadPayload>
-          }
-          aggregate: {
-            args: Prisma.Tarjeta_lealtadAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTarjeta_lealtad>
-          }
-          groupBy: {
-            args: Prisma.tarjeta_lealtadGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Tarjeta_lealtadGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.tarjeta_lealtadCountArgs<ExtArgs>
-            result: $Utils.Optional<Tarjeta_lealtadCountAggregateOutputType> | number
-          }
-        }
-      }
       usuarios_cp: {
         payload: Prisma.$usuarios_cpPayload<ExtArgs>
         fields: Prisma.usuarios_cpFieldRefs
@@ -2657,6 +2583,80 @@ export namespace Prisma {
           }
         }
       }
+      tarjeta: {
+        payload: Prisma.$tarjetaPayload<ExtArgs>
+        fields: Prisma.tarjetaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.tarjetaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.tarjetaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>
+          }
+          findFirst: {
+            args: Prisma.tarjetaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.tarjetaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>
+          }
+          findMany: {
+            args: Prisma.tarjetaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>[]
+          }
+          create: {
+            args: Prisma.tarjetaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>
+          }
+          createMany: {
+            args: Prisma.tarjetaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.tarjetaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>[]
+          }
+          delete: {
+            args: Prisma.tarjetaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>
+          }
+          update: {
+            args: Prisma.tarjetaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>
+          }
+          deleteMany: {
+            args: Prisma.tarjetaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.tarjetaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.tarjetaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>[]
+          }
+          upsert: {
+            args: Prisma.tarjetaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$tarjetaPayload>
+          }
+          aggregate: {
+            args: Prisma.TarjetaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTarjeta>
+          }
+          groupBy: {
+            args: Prisma.tarjetaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TarjetaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.tarjetaCountArgs<ExtArgs>
+            result: $Utils.Optional<TarjetaCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2785,9 +2785,9 @@ export namespace Prisma {
     ruta?: rutaOmit
     solicitud_registro?: solicitud_registroOmit
     solicitudes_recoleccion?: solicitudes_recoleccionOmit
-    tarjeta_lealtad?: tarjeta_lealtadOmit
     usuarios_cp?: usuarios_cpOmit
     zona?: zonaOmit
+    tarjeta?: tarjetaOmit
   }
 
   /* Types for Logging */
@@ -3020,12 +3020,12 @@ export namespace Prisma {
 
   export type NivelesCountOutputType = {
     nivel_promociones: number
-    tarjeta_lealtad: number
+    tarjeta: number
   }
 
   export type NivelesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     nivel_promociones?: boolean | NivelesCountOutputTypeCountNivel_promocionesArgs
-    tarjeta_lealtad?: boolean | NivelesCountOutputTypeCountTarjeta_lealtadArgs
+    tarjeta?: boolean | NivelesCountOutputTypeCountTarjetaArgs
   }
 
   // Custom InputTypes
@@ -3049,8 +3049,8 @@ export namespace Prisma {
   /**
    * NivelesCountOutputType without action
    */
-  export type NivelesCountOutputTypeCountTarjeta_lealtadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: tarjeta_lealtadWhereInput
+  export type NivelesCountOutputTypeCountTarjetaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tarjetaWhereInput
   }
 
 
@@ -7009,7 +7009,7 @@ export namespace Prisma {
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
     solicitudes_recoleccion?: boolean | cliente$solicitudes_recoleccionArgs<ExtArgs>
-    tarjeta_lealtad?: boolean | cliente$tarjeta_lealtadArgs<ExtArgs>
+    tarjeta?: boolean | cliente$tarjetaArgs<ExtArgs>
     _count?: boolean | ClienteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cliente"]>
 
@@ -7061,7 +7061,7 @@ export namespace Prisma {
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
     solicitudes_recoleccion?: boolean | cliente$solicitudes_recoleccionArgs<ExtArgs>
-    tarjeta_lealtad?: boolean | cliente$tarjeta_lealtadArgs<ExtArgs>
+    tarjeta?: boolean | cliente$tarjetaArgs<ExtArgs>
     _count?: boolean | ClienteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type clienteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7079,7 +7079,7 @@ export namespace Prisma {
       ruta: Prisma.$rutaPayload<ExtArgs>
       usuarios_cp: Prisma.$usuarios_cpPayload<ExtArgs>
       solicitudes_recoleccion: Prisma.$solicitudes_recoleccionPayload<ExtArgs>[]
-      tarjeta_lealtad: Prisma.$tarjeta_lealtadPayload<ExtArgs> | null
+      tarjeta: Prisma.$tarjetaPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id_cliente: string
@@ -7489,7 +7489,7 @@ export namespace Prisma {
     ruta<T extends rutaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, rutaDefaultArgs<ExtArgs>>): Prisma__rutaClient<$Result.GetResult<Prisma.$rutaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     usuarios_cp<T extends usuarios_cpDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuarios_cpDefaultArgs<ExtArgs>>): Prisma__usuarios_cpClient<$Result.GetResult<Prisma.$usuarios_cpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     solicitudes_recoleccion<T extends cliente$solicitudes_recoleccionArgs<ExtArgs> = {}>(args?: Subset<T, cliente$solicitudes_recoleccionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$solicitudes_recoleccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    tarjeta_lealtad<T extends cliente$tarjeta_lealtadArgs<ExtArgs> = {}>(args?: Subset<T, cliente$tarjeta_lealtadArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    tarjeta<T extends cliente$tarjetaArgs<ExtArgs> = {}>(args?: Subset<T, cliente$tarjetaArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7954,22 +7954,22 @@ export namespace Prisma {
   }
 
   /**
-   * cliente.tarjeta_lealtad
+   * cliente.tarjeta
    */
-  export type cliente$tarjeta_lealtadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type cliente$tarjetaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the tarjeta_lealtad
+     * Select specific fields to fetch from the tarjeta
      */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
+    select?: tarjetaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the tarjeta_lealtad
+     * Omit specific fields from the tarjeta
      */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
+    omit?: tarjetaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    where?: tarjeta_lealtadWhereInput
+    include?: tarjetaInclude<ExtArgs> | null
+    where?: tarjetaWhereInput
   }
 
   /**
@@ -10188,52 +10188,70 @@ export namespace Prisma {
 
   export type AggregateFormas_pago = {
     _count: Formas_pagoCountAggregateOutputType | null
+    _avg: Formas_pagoAvgAggregateOutputType | null
+    _sum: Formas_pagoSumAggregateOutputType | null
     _min: Formas_pagoMinAggregateOutputType | null
     _max: Formas_pagoMaxAggregateOutputType | null
   }
 
+  export type Formas_pagoAvgAggregateOutputType = {
+    id_pago: number | null
+  }
+
+  export type Formas_pagoSumAggregateOutputType = {
+    id_pago: number | null
+  }
+
   export type Formas_pagoMinAggregateOutputType = {
-    id_pago: string | null
     tipo: string | null
     texto: string | null
     notas: string | null
+    id_pago: number | null
   }
 
   export type Formas_pagoMaxAggregateOutputType = {
-    id_pago: string | null
     tipo: string | null
     texto: string | null
     notas: string | null
+    id_pago: number | null
   }
 
   export type Formas_pagoCountAggregateOutputType = {
-    id_pago: number
     tipo: number
     texto: number
     notas: number
+    id_pago: number
     _all: number
   }
 
 
-  export type Formas_pagoMinAggregateInputType = {
+  export type Formas_pagoAvgAggregateInputType = {
     id_pago?: true
+  }
+
+  export type Formas_pagoSumAggregateInputType = {
+    id_pago?: true
+  }
+
+  export type Formas_pagoMinAggregateInputType = {
     tipo?: true
     texto?: true
     notas?: true
+    id_pago?: true
   }
 
   export type Formas_pagoMaxAggregateInputType = {
-    id_pago?: true
     tipo?: true
     texto?: true
     notas?: true
+    id_pago?: true
   }
 
   export type Formas_pagoCountAggregateInputType = {
-    id_pago?: true
     tipo?: true
     texto?: true
     notas?: true
+    id_pago?: true
     _all?: true
   }
 
@@ -10275,6 +10293,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: Formas_pagoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Formas_pagoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: Formas_pagoMinAggregateInputType
@@ -10305,16 +10335,20 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: Formas_pagoCountAggregateInputType | true
+    _avg?: Formas_pagoAvgAggregateInputType
+    _sum?: Formas_pagoSumAggregateInputType
     _min?: Formas_pagoMinAggregateInputType
     _max?: Formas_pagoMaxAggregateInputType
   }
 
   export type Formas_pagoGroupByOutputType = {
-    id_pago: string
     tipo: string
     texto: string | null
     notas: string | null
+    id_pago: number
     _count: Formas_pagoCountAggregateOutputType | null
+    _avg: Formas_pagoAvgAggregateOutputType | null
+    _sum: Formas_pagoSumAggregateOutputType | null
     _min: Formas_pagoMinAggregateOutputType | null
     _max: Formas_pagoMaxAggregateOutputType | null
   }
@@ -10334,36 +10368,36 @@ export namespace Prisma {
 
 
   export type formas_pagoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
+    id_pago?: boolean
     solicitudes_recoleccion?: boolean | formas_pago$solicitudes_recoleccionArgs<ExtArgs>
     _count?: boolean | Formas_pagoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["formas_pago"]>
 
   export type formas_pagoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
+    id_pago?: boolean
   }, ExtArgs["result"]["formas_pago"]>
 
   export type formas_pagoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
+    id_pago?: boolean
   }, ExtArgs["result"]["formas_pago"]>
 
   export type formas_pagoSelectScalar = {
-    id_pago?: boolean
     tipo?: boolean
     texto?: boolean
     notas?: boolean
+    id_pago?: boolean
   }
 
-  export type formas_pagoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_pago" | "tipo" | "texto" | "notas", ExtArgs["result"]["formas_pago"]>
+  export type formas_pagoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"tipo" | "texto" | "notas" | "id_pago", ExtArgs["result"]["formas_pago"]>
   export type formas_pagoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     solicitudes_recoleccion?: boolean | formas_pago$solicitudes_recoleccionArgs<ExtArgs>
     _count?: boolean | Formas_pagoCountOutputTypeDefaultArgs<ExtArgs>
@@ -10377,10 +10411,10 @@ export namespace Prisma {
       solicitudes_recoleccion: Prisma.$solicitudes_recoleccionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      id_pago: string
       tipo: string
       texto: string | null
       notas: string | null
+      id_pago: number
     }, ExtArgs["result"]["formas_pago"]>
     composites: {}
   }
@@ -10464,8 +10498,8 @@ export namespace Prisma {
      * // Get first 10 Formas_pagos
      * const formas_pagos = await prisma.formas_pago.findMany({ take: 10 })
      * 
-     * // Only select the `id_pago`
-     * const formas_pagoWithId_pagoOnly = await prisma.formas_pago.findMany({ select: { id_pago: true } })
+     * // Only select the `tipo`
+     * const formas_pagoWithTipoOnly = await prisma.formas_pago.findMany({ select: { tipo: true } })
      * 
      */
     findMany<T extends formas_pagoFindManyArgs>(args?: SelectSubset<T, formas_pagoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$formas_pagoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -10509,9 +10543,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Formas_pagos and only return the `id_pago`
-     * const formas_pagoWithId_pagoOnly = await prisma.formas_pago.createManyAndReturn({
-     *   select: { id_pago: true },
+     * // Create many Formas_pagos and only return the `tipo`
+     * const formas_pagoWithTipoOnly = await prisma.formas_pago.createManyAndReturn({
+     *   select: { tipo: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -10600,9 +10634,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Formas_pagos and only return the `id_pago`
-     * const formas_pagoWithId_pagoOnly = await prisma.formas_pago.updateManyAndReturn({
-     *   select: { id_pago: true },
+     * // Update zero or more Formas_pagos and only return the `tipo`
+     * const formas_pagoWithTipoOnly = await prisma.formas_pago.updateManyAndReturn({
+     *   select: { tipo: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -10805,10 +10839,10 @@ export namespace Prisma {
    * Fields of the formas_pago model
    */
   interface formas_pagoFieldRefs {
-    readonly id_pago: FieldRef<"formas_pago", 'String'>
     readonly tipo: FieldRef<"formas_pago", 'String'>
     readonly texto: FieldRef<"formas_pago", 'String'>
     readonly notas: FieldRef<"formas_pago", 'String'>
+    readonly id_pago: FieldRef<"formas_pago", 'Int'>
   }
     
 
@@ -13552,7 +13586,7 @@ export namespace Prisma {
     id_nivel?: boolean
     nombre?: boolean
     nivel_promociones?: boolean | niveles$nivel_promocionesArgs<ExtArgs>
-    tarjeta_lealtad?: boolean | niveles$tarjeta_lealtadArgs<ExtArgs>
+    tarjeta?: boolean | niveles$tarjetaArgs<ExtArgs>
     _count?: boolean | NivelesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["niveles"]>
 
@@ -13574,7 +13608,7 @@ export namespace Prisma {
   export type nivelesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_nivel" | "nombre", ExtArgs["result"]["niveles"]>
   export type nivelesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     nivel_promociones?: boolean | niveles$nivel_promocionesArgs<ExtArgs>
-    tarjeta_lealtad?: boolean | niveles$tarjeta_lealtadArgs<ExtArgs>
+    tarjeta?: boolean | niveles$tarjetaArgs<ExtArgs>
     _count?: boolean | NivelesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type nivelesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -13584,7 +13618,7 @@ export namespace Prisma {
     name: "niveles"
     objects: {
       nivel_promociones: Prisma.$nivel_promocionesPayload<ExtArgs>[]
-      tarjeta_lealtad: Prisma.$tarjeta_lealtadPayload<ExtArgs>[]
+      tarjeta: Prisma.$tarjetaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id_nivel: string
@@ -13984,7 +14018,7 @@ export namespace Prisma {
   export interface Prisma__nivelesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     nivel_promociones<T extends niveles$nivel_promocionesArgs<ExtArgs> = {}>(args?: Subset<T, niveles$nivel_promocionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    tarjeta_lealtad<T extends niveles$tarjeta_lealtadArgs<ExtArgs> = {}>(args?: Subset<T, niveles$tarjeta_lealtadArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tarjeta<T extends niveles$tarjetaArgs<ExtArgs> = {}>(args?: Subset<T, niveles$tarjetaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14433,27 +14467,27 @@ export namespace Prisma {
   }
 
   /**
-   * niveles.tarjeta_lealtad
+   * niveles.tarjeta
    */
-  export type niveles$tarjeta_lealtadArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type niveles$tarjetaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the tarjeta_lealtad
+     * Select specific fields to fetch from the tarjeta
      */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
+    select?: tarjetaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the tarjeta_lealtad
+     * Omit specific fields from the tarjeta
      */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
+    omit?: tarjetaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    where?: tarjeta_lealtadWhereInput
-    orderBy?: tarjeta_lealtadOrderByWithRelationInput | tarjeta_lealtadOrderByWithRelationInput[]
-    cursor?: tarjeta_lealtadWhereUniqueInput
+    include?: tarjetaInclude<ExtArgs> | null
+    where?: tarjetaWhereInput
+    orderBy?: tarjetaOrderByWithRelationInput | tarjetaOrderByWithRelationInput[]
+    cursor?: tarjetaWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: Tarjeta_lealtadScalarFieldEnum | Tarjeta_lealtadScalarFieldEnum[]
+    distinct?: TarjetaScalarFieldEnum | TarjetaScalarFieldEnum[]
   }
 
   /**
@@ -16650,12 +16684,14 @@ export namespace Prisma {
     id_producto: number | null
     precio: number | null
     cantidad: number | null
+    orden: number | null
   }
 
   export type Productos_extraSumAggregateOutputType = {
     id_producto: number | null
     precio: number | null
     cantidad: number | null
+    orden: number | null
   }
 
   export type Productos_extraMinAggregateOutputType = {
@@ -16664,6 +16700,9 @@ export namespace Prisma {
     precio: number | null
     descripcion: string | null
     cantidad: number | null
+    estatus: boolean | null
+    imagen_url: string | null
+    orden: number | null
   }
 
   export type Productos_extraMaxAggregateOutputType = {
@@ -16672,6 +16711,9 @@ export namespace Prisma {
     precio: number | null
     descripcion: string | null
     cantidad: number | null
+    estatus: boolean | null
+    imagen_url: string | null
+    orden: number | null
   }
 
   export type Productos_extraCountAggregateOutputType = {
@@ -16680,6 +16722,9 @@ export namespace Prisma {
     precio: number
     descripcion: number
     cantidad: number
+    estatus: number
+    imagen_url: number
+    orden: number
     _all: number
   }
 
@@ -16688,12 +16733,14 @@ export namespace Prisma {
     id_producto?: true
     precio?: true
     cantidad?: true
+    orden?: true
   }
 
   export type Productos_extraSumAggregateInputType = {
     id_producto?: true
     precio?: true
     cantidad?: true
+    orden?: true
   }
 
   export type Productos_extraMinAggregateInputType = {
@@ -16702,6 +16749,9 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
+    estatus?: true
+    imagen_url?: true
+    orden?: true
   }
 
   export type Productos_extraMaxAggregateInputType = {
@@ -16710,6 +16760,9 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
+    estatus?: true
+    imagen_url?: true
+    orden?: true
   }
 
   export type Productos_extraCountAggregateInputType = {
@@ -16718,6 +16771,9 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
+    estatus?: true
+    imagen_url?: true
+    orden?: true
     _all?: true
   }
 
@@ -16813,6 +16869,9 @@ export namespace Prisma {
     precio: number
     descripcion: string | null
     cantidad: number
+    estatus: boolean
+    imagen_url: string | null
+    orden: number | null
     _count: Productos_extraCountAggregateOutputType | null
     _avg: Productos_extraAvgAggregateOutputType | null
     _sum: Productos_extraSumAggregateOutputType | null
@@ -16840,6 +16899,9 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    estatus?: boolean
+    imagen_url?: boolean
+    orden?: boolean
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productos_extra"]>
@@ -16850,6 +16912,9 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    estatus?: boolean
+    imagen_url?: boolean
+    orden?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16858,6 +16923,9 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    estatus?: boolean
+    imagen_url?: boolean
+    orden?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectScalar = {
@@ -16866,9 +16934,12 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    estatus?: boolean
+    imagen_url?: boolean
+    orden?: boolean
   }
 
-  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad", ExtArgs["result"]["productos_extra"]>
+  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "estatus" | "imagen_url" | "orden", ExtArgs["result"]["productos_extra"]>
   export type productos_extraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -16887,6 +16958,9 @@ export namespace Prisma {
       precio: number
       descripcion: string | null
       cantidad: number
+      estatus: boolean
+      imagen_url: string | null
+      orden: number | null
     }, ExtArgs["result"]["productos_extra"]>
     composites: {}
   }
@@ -17316,6 +17390,9 @@ export namespace Prisma {
     readonly precio: FieldRef<"productos_extra", 'Float'>
     readonly descripcion: FieldRef<"productos_extra", 'String'>
     readonly cantidad: FieldRef<"productos_extra", 'Int'>
+    readonly estatus: FieldRef<"productos_extra", 'Boolean'>
+    readonly imagen_url: FieldRef<"productos_extra", 'String'>
+    readonly orden: FieldRef<"productos_extra", 'Int'>
   }
     
 
@@ -24379,6 +24456,7 @@ export namespace Prisma {
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
     total_pagado: number | null
+    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionSumAggregateOutputType = {
@@ -24386,12 +24464,12 @@ export namespace Prisma {
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
     total_pagado: number | null
+    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionMinAggregateOutputType = {
     id_solicitud: string | null
     id_cliente: string | null
-    id_pago: string | null
     cubetas_entregadas: number | null
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
@@ -24399,12 +24477,14 @@ export namespace Prisma {
     fecha: Date | null
     horario: Date | null
     notas: string | null
+    quiere_recoleccion: boolean | null
+    quiere_productos_extra: boolean | null
+    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionMaxAggregateOutputType = {
     id_solicitud: string | null
     id_cliente: string | null
-    id_pago: string | null
     cubetas_entregadas: number | null
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
@@ -24412,12 +24492,14 @@ export namespace Prisma {
     fecha: Date | null
     horario: Date | null
     notas: string | null
+    quiere_recoleccion: boolean | null
+    quiere_productos_extra: boolean | null
+    id_pago: number | null
   }
 
   export type Solicitudes_recoleccionCountAggregateOutputType = {
     id_solicitud: number
     id_cliente: number
-    id_pago: number
     cubetas_entregadas: number
     cubetas_recolectadas: number
     total_a_pagar: number
@@ -24425,6 +24507,9 @@ export namespace Prisma {
     fecha: number
     horario: number
     notas: number
+    quiere_recoleccion: number
+    quiere_productos_extra: number
+    id_pago: number
     _all: number
   }
 
@@ -24434,6 +24519,7 @@ export namespace Prisma {
     cubetas_recolectadas?: true
     total_a_pagar?: true
     total_pagado?: true
+    id_pago?: true
   }
 
   export type Solicitudes_recoleccionSumAggregateInputType = {
@@ -24441,12 +24527,12 @@ export namespace Prisma {
     cubetas_recolectadas?: true
     total_a_pagar?: true
     total_pagado?: true
+    id_pago?: true
   }
 
   export type Solicitudes_recoleccionMinAggregateInputType = {
     id_solicitud?: true
     id_cliente?: true
-    id_pago?: true
     cubetas_entregadas?: true
     cubetas_recolectadas?: true
     total_a_pagar?: true
@@ -24454,12 +24540,14 @@ export namespace Prisma {
     fecha?: true
     horario?: true
     notas?: true
+    quiere_recoleccion?: true
+    quiere_productos_extra?: true
+    id_pago?: true
   }
 
   export type Solicitudes_recoleccionMaxAggregateInputType = {
     id_solicitud?: true
     id_cliente?: true
-    id_pago?: true
     cubetas_entregadas?: true
     cubetas_recolectadas?: true
     total_a_pagar?: true
@@ -24467,12 +24555,14 @@ export namespace Prisma {
     fecha?: true
     horario?: true
     notas?: true
+    quiere_recoleccion?: true
+    quiere_productos_extra?: true
+    id_pago?: true
   }
 
   export type Solicitudes_recoleccionCountAggregateInputType = {
     id_solicitud?: true
     id_cliente?: true
-    id_pago?: true
     cubetas_entregadas?: true
     cubetas_recolectadas?: true
     total_a_pagar?: true
@@ -24480,6 +24570,9 @@ export namespace Prisma {
     fecha?: true
     horario?: true
     notas?: true
+    quiere_recoleccion?: true
+    quiere_productos_extra?: true
+    id_pago?: true
     _all?: true
   }
 
@@ -24572,7 +24665,6 @@ export namespace Prisma {
   export type Solicitudes_recoleccionGroupByOutputType = {
     id_solicitud: string
     id_cliente: string
-    id_pago: string
     cubetas_entregadas: number | null
     cubetas_recolectadas: number | null
     total_a_pagar: number | null
@@ -24580,6 +24672,9 @@ export namespace Prisma {
     fecha: Date
     horario: Date | null
     notas: string | null
+    quiere_recoleccion: boolean | null
+    quiere_productos_extra: boolean | null
+    id_pago: number | null
     _count: Solicitudes_recoleccionCountAggregateOutputType | null
     _avg: Solicitudes_recoleccionAvgAggregateOutputType | null
     _sum: Solicitudes_recoleccionSumAggregateOutputType | null
@@ -24604,7 +24699,6 @@ export namespace Prisma {
   export type solicitudes_recoleccionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_solicitud?: boolean
     id_cliente?: boolean
-    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24612,16 +24706,18 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
+    quiere_recoleccion?: boolean
+    quiere_productos_extra?: boolean
+    id_pago?: boolean
     productos_solicitud?: boolean | solicitudes_recoleccion$productos_solicitudArgs<ExtArgs>
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
+    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
     _count?: boolean | Solicitudes_recoleccionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["solicitudes_recoleccion"]>
 
   export type solicitudes_recoleccionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_solicitud?: boolean
     id_cliente?: boolean
-    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24629,14 +24725,16 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
+    quiere_recoleccion?: boolean
+    quiere_productos_extra?: boolean
+    id_pago?: boolean
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
+    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
   }, ExtArgs["result"]["solicitudes_recoleccion"]>
 
   export type solicitudes_recoleccionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_solicitud?: boolean
     id_cliente?: boolean
-    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24644,14 +24742,16 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
+    quiere_recoleccion?: boolean
+    quiere_productos_extra?: boolean
+    id_pago?: boolean
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
+    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
   }, ExtArgs["result"]["solicitudes_recoleccion"]>
 
   export type solicitudes_recoleccionSelectScalar = {
     id_solicitud?: boolean
     id_cliente?: boolean
-    id_pago?: boolean
     cubetas_entregadas?: boolean
     cubetas_recolectadas?: boolean
     total_a_pagar?: boolean
@@ -24659,22 +24759,25 @@ export namespace Prisma {
     fecha?: boolean
     horario?: boolean
     notas?: boolean
+    quiere_recoleccion?: boolean
+    quiere_productos_extra?: boolean
+    id_pago?: boolean
   }
 
-  export type solicitudes_recoleccionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud" | "id_cliente" | "id_pago" | "cubetas_entregadas" | "cubetas_recolectadas" | "total_a_pagar" | "total_pagado" | "fecha" | "horario" | "notas", ExtArgs["result"]["solicitudes_recoleccion"]>
+  export type solicitudes_recoleccionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud" | "id_cliente" | "cubetas_entregadas" | "cubetas_recolectadas" | "total_a_pagar" | "total_pagado" | "fecha" | "horario" | "notas" | "quiere_recoleccion" | "quiere_productos_extra" | "id_pago", ExtArgs["result"]["solicitudes_recoleccion"]>
   export type solicitudes_recoleccionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | solicitudes_recoleccion$productos_solicitudArgs<ExtArgs>
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
+    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
     _count?: boolean | Solicitudes_recoleccionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type solicitudes_recoleccionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
+    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
   }
   export type solicitudes_recoleccionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    formas_pago?: boolean | formas_pagoDefaultArgs<ExtArgs>
+    formas_pago?: boolean | solicitudes_recoleccion$formas_pagoArgs<ExtArgs>
   }
 
   export type $solicitudes_recoleccionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24682,12 +24785,11 @@ export namespace Prisma {
     objects: {
       productos_solicitud: Prisma.$productos_solicitudPayload<ExtArgs>[]
       cliente: Prisma.$clientePayload<ExtArgs>
-      formas_pago: Prisma.$formas_pagoPayload<ExtArgs>
+      formas_pago: Prisma.$formas_pagoPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id_solicitud: string
       id_cliente: string
-      id_pago: string
       cubetas_entregadas: number | null
       cubetas_recolectadas: number | null
       total_a_pagar: number | null
@@ -24695,6 +24797,9 @@ export namespace Prisma {
       fecha: Date
       horario: Date | null
       notas: string | null
+      quiere_recoleccion: boolean | null
+      quiere_productos_extra: boolean | null
+      id_pago: number | null
     }, ExtArgs["result"]["solicitudes_recoleccion"]>
     composites: {}
   }
@@ -25091,7 +25196,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     productos_solicitud<T extends solicitudes_recoleccion$productos_solicitudArgs<ExtArgs> = {}>(args?: Subset<T, solicitudes_recoleccion$productos_solicitudArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$productos_solicitudPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cliente<T extends clienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clienteDefaultArgs<ExtArgs>>): Prisma__clienteClient<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    formas_pago<T extends formas_pagoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, formas_pagoDefaultArgs<ExtArgs>>): Prisma__formas_pagoClient<$Result.GetResult<Prisma.$formas_pagoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    formas_pago<T extends solicitudes_recoleccion$formas_pagoArgs<ExtArgs> = {}>(args?: Subset<T, solicitudes_recoleccion$formas_pagoArgs<ExtArgs>>): Prisma__formas_pagoClient<$Result.GetResult<Prisma.$formas_pagoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25123,7 +25228,6 @@ export namespace Prisma {
   interface solicitudes_recoleccionFieldRefs {
     readonly id_solicitud: FieldRef<"solicitudes_recoleccion", 'String'>
     readonly id_cliente: FieldRef<"solicitudes_recoleccion", 'String'>
-    readonly id_pago: FieldRef<"solicitudes_recoleccion", 'String'>
     readonly cubetas_entregadas: FieldRef<"solicitudes_recoleccion", 'Int'>
     readonly cubetas_recolectadas: FieldRef<"solicitudes_recoleccion", 'Int'>
     readonly total_a_pagar: FieldRef<"solicitudes_recoleccion", 'Float'>
@@ -25131,6 +25235,9 @@ export namespace Prisma {
     readonly fecha: FieldRef<"solicitudes_recoleccion", 'DateTime'>
     readonly horario: FieldRef<"solicitudes_recoleccion", 'DateTime'>
     readonly notas: FieldRef<"solicitudes_recoleccion", 'String'>
+    readonly quiere_recoleccion: FieldRef<"solicitudes_recoleccion", 'Boolean'>
+    readonly quiere_productos_extra: FieldRef<"solicitudes_recoleccion", 'Boolean'>
+    readonly id_pago: FieldRef<"solicitudes_recoleccion", 'Int'>
   }
     
 
@@ -25556,6 +25663,25 @@ export namespace Prisma {
   }
 
   /**
+   * solicitudes_recoleccion.formas_pago
+   */
+  export type solicitudes_recoleccion$formas_pagoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the formas_pago
+     */
+    select?: formas_pagoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the formas_pago
+     */
+    omit?: formas_pagoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: formas_pagoInclude<ExtArgs> | null
+    where?: formas_pagoWhereInput
+  }
+
+  /**
    * solicitudes_recoleccion without action
    */
   export type solicitudes_recoleccionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -25571,1098 +25697,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: solicitudes_recoleccionInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model tarjeta_lealtad
-   */
-
-  export type AggregateTarjeta_lealtad = {
-    _count: Tarjeta_lealtadCountAggregateOutputType | null
-    _avg: Tarjeta_lealtadAvgAggregateOutputType | null
-    _sum: Tarjeta_lealtadSumAggregateOutputType | null
-    _min: Tarjeta_lealtadMinAggregateOutputType | null
-    _max: Tarjeta_lealtadMaxAggregateOutputType | null
-  }
-
-  export type Tarjeta_lealtadAvgAggregateOutputType = {
-    saldo: number | null
-  }
-
-  export type Tarjeta_lealtadSumAggregateOutputType = {
-    saldo: number | null
-  }
-
-  export type Tarjeta_lealtadMinAggregateOutputType = {
-    id_tarjeta_lealtad: string | null
-    id_cliente: string | null
-    id_nivel: string | null
-    saldo: number | null
-  }
-
-  export type Tarjeta_lealtadMaxAggregateOutputType = {
-    id_tarjeta_lealtad: string | null
-    id_cliente: string | null
-    id_nivel: string | null
-    saldo: number | null
-  }
-
-  export type Tarjeta_lealtadCountAggregateOutputType = {
-    id_tarjeta_lealtad: number
-    id_cliente: number
-    id_nivel: number
-    saldo: number
-    _all: number
-  }
-
-
-  export type Tarjeta_lealtadAvgAggregateInputType = {
-    saldo?: true
-  }
-
-  export type Tarjeta_lealtadSumAggregateInputType = {
-    saldo?: true
-  }
-
-  export type Tarjeta_lealtadMinAggregateInputType = {
-    id_tarjeta_lealtad?: true
-    id_cliente?: true
-    id_nivel?: true
-    saldo?: true
-  }
-
-  export type Tarjeta_lealtadMaxAggregateInputType = {
-    id_tarjeta_lealtad?: true
-    id_cliente?: true
-    id_nivel?: true
-    saldo?: true
-  }
-
-  export type Tarjeta_lealtadCountAggregateInputType = {
-    id_tarjeta_lealtad?: true
-    id_cliente?: true
-    id_nivel?: true
-    saldo?: true
-    _all?: true
-  }
-
-  export type Tarjeta_lealtadAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which tarjeta_lealtad to aggregate.
-     */
-    where?: tarjeta_lealtadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tarjeta_lealtads to fetch.
-     */
-    orderBy?: tarjeta_lealtadOrderByWithRelationInput | tarjeta_lealtadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: tarjeta_lealtadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tarjeta_lealtads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tarjeta_lealtads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned tarjeta_lealtads
-    **/
-    _count?: true | Tarjeta_lealtadCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Tarjeta_lealtadAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Tarjeta_lealtadSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Tarjeta_lealtadMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Tarjeta_lealtadMaxAggregateInputType
-  }
-
-  export type GetTarjeta_lealtadAggregateType<T extends Tarjeta_lealtadAggregateArgs> = {
-        [P in keyof T & keyof AggregateTarjeta_lealtad]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateTarjeta_lealtad[P]>
-      : GetScalarType<T[P], AggregateTarjeta_lealtad[P]>
-  }
-
-
-
-
-  export type tarjeta_lealtadGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: tarjeta_lealtadWhereInput
-    orderBy?: tarjeta_lealtadOrderByWithAggregationInput | tarjeta_lealtadOrderByWithAggregationInput[]
-    by: Tarjeta_lealtadScalarFieldEnum[] | Tarjeta_lealtadScalarFieldEnum
-    having?: tarjeta_lealtadScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Tarjeta_lealtadCountAggregateInputType | true
-    _avg?: Tarjeta_lealtadAvgAggregateInputType
-    _sum?: Tarjeta_lealtadSumAggregateInputType
-    _min?: Tarjeta_lealtadMinAggregateInputType
-    _max?: Tarjeta_lealtadMaxAggregateInputType
-  }
-
-  export type Tarjeta_lealtadGroupByOutputType = {
-    id_tarjeta_lealtad: string
-    id_cliente: string
-    id_nivel: string
-    saldo: number
-    _count: Tarjeta_lealtadCountAggregateOutputType | null
-    _avg: Tarjeta_lealtadAvgAggregateOutputType | null
-    _sum: Tarjeta_lealtadSumAggregateOutputType | null
-    _min: Tarjeta_lealtadMinAggregateOutputType | null
-    _max: Tarjeta_lealtadMaxAggregateOutputType | null
-  }
-
-  type GetTarjeta_lealtadGroupByPayload<T extends tarjeta_lealtadGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Tarjeta_lealtadGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Tarjeta_lealtadGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Tarjeta_lealtadGroupByOutputType[P]>
-            : GetScalarType<T[P], Tarjeta_lealtadGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type tarjeta_lealtadSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
-    id_cliente?: boolean
-    id_nivel?: boolean
-    saldo?: boolean
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tarjeta_lealtad"]>
-
-  export type tarjeta_lealtadSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
-    id_cliente?: boolean
-    id_nivel?: boolean
-    saldo?: boolean
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tarjeta_lealtad"]>
-
-  export type tarjeta_lealtadSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
-    id_cliente?: boolean
-    id_nivel?: boolean
-    saldo?: boolean
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tarjeta_lealtad"]>
-
-  export type tarjeta_lealtadSelectScalar = {
-    id_tarjeta_lealtad?: boolean
-    id_cliente?: boolean
-    id_nivel?: boolean
-    saldo?: boolean
-  }
-
-  export type tarjeta_lealtadOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_tarjeta_lealtad" | "id_cliente" | "id_nivel" | "saldo", ExtArgs["result"]["tarjeta_lealtad"]>
-  export type tarjeta_lealtadInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-  }
-  export type tarjeta_lealtadIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-  }
-  export type tarjeta_lealtadIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-  }
-
-  export type $tarjeta_lealtadPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "tarjeta_lealtad"
-    objects: {
-      cliente: Prisma.$clientePayload<ExtArgs>
-      niveles: Prisma.$nivelesPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id_tarjeta_lealtad: string
-      id_cliente: string
-      id_nivel: string
-      saldo: number
-    }, ExtArgs["result"]["tarjeta_lealtad"]>
-    composites: {}
-  }
-
-  type tarjeta_lealtadGetPayload<S extends boolean | null | undefined | tarjeta_lealtadDefaultArgs> = $Result.GetResult<Prisma.$tarjeta_lealtadPayload, S>
-
-  type tarjeta_lealtadCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<tarjeta_lealtadFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Tarjeta_lealtadCountAggregateInputType | true
-    }
-
-  export interface tarjeta_lealtadDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tarjeta_lealtad'], meta: { name: 'tarjeta_lealtad' } }
-    /**
-     * Find zero or one Tarjeta_lealtad that matches the filter.
-     * @param {tarjeta_lealtadFindUniqueArgs} args - Arguments to find a Tarjeta_lealtad
-     * @example
-     * // Get one Tarjeta_lealtad
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends tarjeta_lealtadFindUniqueArgs>(args: SelectSubset<T, tarjeta_lealtadFindUniqueArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Tarjeta_lealtad that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {tarjeta_lealtadFindUniqueOrThrowArgs} args - Arguments to find a Tarjeta_lealtad
-     * @example
-     * // Get one Tarjeta_lealtad
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends tarjeta_lealtadFindUniqueOrThrowArgs>(args: SelectSubset<T, tarjeta_lealtadFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Tarjeta_lealtad that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tarjeta_lealtadFindFirstArgs} args - Arguments to find a Tarjeta_lealtad
-     * @example
-     * // Get one Tarjeta_lealtad
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends tarjeta_lealtadFindFirstArgs>(args?: SelectSubset<T, tarjeta_lealtadFindFirstArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Tarjeta_lealtad that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tarjeta_lealtadFindFirstOrThrowArgs} args - Arguments to find a Tarjeta_lealtad
-     * @example
-     * // Get one Tarjeta_lealtad
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends tarjeta_lealtadFindFirstOrThrowArgs>(args?: SelectSubset<T, tarjeta_lealtadFindFirstOrThrowArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Tarjeta_lealtads that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tarjeta_lealtadFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Tarjeta_lealtads
-     * const tarjeta_lealtads = await prisma.tarjeta_lealtad.findMany()
-     * 
-     * // Get first 10 Tarjeta_lealtads
-     * const tarjeta_lealtads = await prisma.tarjeta_lealtad.findMany({ take: 10 })
-     * 
-     * // Only select the `id_tarjeta_lealtad`
-     * const tarjeta_lealtadWithId_tarjeta_lealtadOnly = await prisma.tarjeta_lealtad.findMany({ select: { id_tarjeta_lealtad: true } })
-     * 
-     */
-    findMany<T extends tarjeta_lealtadFindManyArgs>(args?: SelectSubset<T, tarjeta_lealtadFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Tarjeta_lealtad.
-     * @param {tarjeta_lealtadCreateArgs} args - Arguments to create a Tarjeta_lealtad.
-     * @example
-     * // Create one Tarjeta_lealtad
-     * const Tarjeta_lealtad = await prisma.tarjeta_lealtad.create({
-     *   data: {
-     *     // ... data to create a Tarjeta_lealtad
-     *   }
-     * })
-     * 
-     */
-    create<T extends tarjeta_lealtadCreateArgs>(args: SelectSubset<T, tarjeta_lealtadCreateArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Tarjeta_lealtads.
-     * @param {tarjeta_lealtadCreateManyArgs} args - Arguments to create many Tarjeta_lealtads.
-     * @example
-     * // Create many Tarjeta_lealtads
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends tarjeta_lealtadCreateManyArgs>(args?: SelectSubset<T, tarjeta_lealtadCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Tarjeta_lealtads and returns the data saved in the database.
-     * @param {tarjeta_lealtadCreateManyAndReturnArgs} args - Arguments to create many Tarjeta_lealtads.
-     * @example
-     * // Create many Tarjeta_lealtads
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Tarjeta_lealtads and only return the `id_tarjeta_lealtad`
-     * const tarjeta_lealtadWithId_tarjeta_lealtadOnly = await prisma.tarjeta_lealtad.createManyAndReturn({
-     *   select: { id_tarjeta_lealtad: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends tarjeta_lealtadCreateManyAndReturnArgs>(args?: SelectSubset<T, tarjeta_lealtadCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Tarjeta_lealtad.
-     * @param {tarjeta_lealtadDeleteArgs} args - Arguments to delete one Tarjeta_lealtad.
-     * @example
-     * // Delete one Tarjeta_lealtad
-     * const Tarjeta_lealtad = await prisma.tarjeta_lealtad.delete({
-     *   where: {
-     *     // ... filter to delete one Tarjeta_lealtad
-     *   }
-     * })
-     * 
-     */
-    delete<T extends tarjeta_lealtadDeleteArgs>(args: SelectSubset<T, tarjeta_lealtadDeleteArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Tarjeta_lealtad.
-     * @param {tarjeta_lealtadUpdateArgs} args - Arguments to update one Tarjeta_lealtad.
-     * @example
-     * // Update one Tarjeta_lealtad
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends tarjeta_lealtadUpdateArgs>(args: SelectSubset<T, tarjeta_lealtadUpdateArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Tarjeta_lealtads.
-     * @param {tarjeta_lealtadDeleteManyArgs} args - Arguments to filter Tarjeta_lealtads to delete.
-     * @example
-     * // Delete a few Tarjeta_lealtads
-     * const { count } = await prisma.tarjeta_lealtad.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends tarjeta_lealtadDeleteManyArgs>(args?: SelectSubset<T, tarjeta_lealtadDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Tarjeta_lealtads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tarjeta_lealtadUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Tarjeta_lealtads
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends tarjeta_lealtadUpdateManyArgs>(args: SelectSubset<T, tarjeta_lealtadUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Tarjeta_lealtads and returns the data updated in the database.
-     * @param {tarjeta_lealtadUpdateManyAndReturnArgs} args - Arguments to update many Tarjeta_lealtads.
-     * @example
-     * // Update many Tarjeta_lealtads
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Tarjeta_lealtads and only return the `id_tarjeta_lealtad`
-     * const tarjeta_lealtadWithId_tarjeta_lealtadOnly = await prisma.tarjeta_lealtad.updateManyAndReturn({
-     *   select: { id_tarjeta_lealtad: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends tarjeta_lealtadUpdateManyAndReturnArgs>(args: SelectSubset<T, tarjeta_lealtadUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Tarjeta_lealtad.
-     * @param {tarjeta_lealtadUpsertArgs} args - Arguments to update or create a Tarjeta_lealtad.
-     * @example
-     * // Update or create a Tarjeta_lealtad
-     * const tarjeta_lealtad = await prisma.tarjeta_lealtad.upsert({
-     *   create: {
-     *     // ... data to create a Tarjeta_lealtad
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Tarjeta_lealtad we want to update
-     *   }
-     * })
-     */
-    upsert<T extends tarjeta_lealtadUpsertArgs>(args: SelectSubset<T, tarjeta_lealtadUpsertArgs<ExtArgs>>): Prisma__tarjeta_lealtadClient<$Result.GetResult<Prisma.$tarjeta_lealtadPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Tarjeta_lealtads.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tarjeta_lealtadCountArgs} args - Arguments to filter Tarjeta_lealtads to count.
-     * @example
-     * // Count the number of Tarjeta_lealtads
-     * const count = await prisma.tarjeta_lealtad.count({
-     *   where: {
-     *     // ... the filter for the Tarjeta_lealtads we want to count
-     *   }
-     * })
-    **/
-    count<T extends tarjeta_lealtadCountArgs>(
-      args?: Subset<T, tarjeta_lealtadCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Tarjeta_lealtadCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Tarjeta_lealtad.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Tarjeta_lealtadAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Tarjeta_lealtadAggregateArgs>(args: Subset<T, Tarjeta_lealtadAggregateArgs>): Prisma.PrismaPromise<GetTarjeta_lealtadAggregateType<T>>
-
-    /**
-     * Group by Tarjeta_lealtad.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {tarjeta_lealtadGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends tarjeta_lealtadGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: tarjeta_lealtadGroupByArgs['orderBy'] }
-        : { orderBy?: tarjeta_lealtadGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, tarjeta_lealtadGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTarjeta_lealtadGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the tarjeta_lealtad model
-   */
-  readonly fields: tarjeta_lealtadFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for tarjeta_lealtad.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__tarjeta_lealtadClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    cliente<T extends clienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clienteDefaultArgs<ExtArgs>>): Prisma__clienteClient<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    niveles<T extends nivelesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, nivelesDefaultArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the tarjeta_lealtad model
-   */
-  interface tarjeta_lealtadFieldRefs {
-    readonly id_tarjeta_lealtad: FieldRef<"tarjeta_lealtad", 'String'>
-    readonly id_cliente: FieldRef<"tarjeta_lealtad", 'String'>
-    readonly id_nivel: FieldRef<"tarjeta_lealtad", 'String'>
-    readonly saldo: FieldRef<"tarjeta_lealtad", 'Float'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * tarjeta_lealtad findUnique
-   */
-  export type tarjeta_lealtadFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * Filter, which tarjeta_lealtad to fetch.
-     */
-    where: tarjeta_lealtadWhereUniqueInput
-  }
-
-  /**
-   * tarjeta_lealtad findUniqueOrThrow
-   */
-  export type tarjeta_lealtadFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * Filter, which tarjeta_lealtad to fetch.
-     */
-    where: tarjeta_lealtadWhereUniqueInput
-  }
-
-  /**
-   * tarjeta_lealtad findFirst
-   */
-  export type tarjeta_lealtadFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * Filter, which tarjeta_lealtad to fetch.
-     */
-    where?: tarjeta_lealtadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tarjeta_lealtads to fetch.
-     */
-    orderBy?: tarjeta_lealtadOrderByWithRelationInput | tarjeta_lealtadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for tarjeta_lealtads.
-     */
-    cursor?: tarjeta_lealtadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tarjeta_lealtads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tarjeta_lealtads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of tarjeta_lealtads.
-     */
-    distinct?: Tarjeta_lealtadScalarFieldEnum | Tarjeta_lealtadScalarFieldEnum[]
-  }
-
-  /**
-   * tarjeta_lealtad findFirstOrThrow
-   */
-  export type tarjeta_lealtadFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * Filter, which tarjeta_lealtad to fetch.
-     */
-    where?: tarjeta_lealtadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tarjeta_lealtads to fetch.
-     */
-    orderBy?: tarjeta_lealtadOrderByWithRelationInput | tarjeta_lealtadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for tarjeta_lealtads.
-     */
-    cursor?: tarjeta_lealtadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tarjeta_lealtads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tarjeta_lealtads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of tarjeta_lealtads.
-     */
-    distinct?: Tarjeta_lealtadScalarFieldEnum | Tarjeta_lealtadScalarFieldEnum[]
-  }
-
-  /**
-   * tarjeta_lealtad findMany
-   */
-  export type tarjeta_lealtadFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * Filter, which tarjeta_lealtads to fetch.
-     */
-    where?: tarjeta_lealtadWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of tarjeta_lealtads to fetch.
-     */
-    orderBy?: tarjeta_lealtadOrderByWithRelationInput | tarjeta_lealtadOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing tarjeta_lealtads.
-     */
-    cursor?: tarjeta_lealtadWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` tarjeta_lealtads from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` tarjeta_lealtads.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of tarjeta_lealtads.
-     */
-    distinct?: Tarjeta_lealtadScalarFieldEnum | Tarjeta_lealtadScalarFieldEnum[]
-  }
-
-  /**
-   * tarjeta_lealtad create
-   */
-  export type tarjeta_lealtadCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * The data needed to create a tarjeta_lealtad.
-     */
-    data: XOR<tarjeta_lealtadCreateInput, tarjeta_lealtadUncheckedCreateInput>
-  }
-
-  /**
-   * tarjeta_lealtad createMany
-   */
-  export type tarjeta_lealtadCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many tarjeta_lealtads.
-     */
-    data: tarjeta_lealtadCreateManyInput | tarjeta_lealtadCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * tarjeta_lealtad createManyAndReturn
-   */
-  export type tarjeta_lealtadCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * The data used to create many tarjeta_lealtads.
-     */
-    data: tarjeta_lealtadCreateManyInput | tarjeta_lealtadCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * tarjeta_lealtad update
-   */
-  export type tarjeta_lealtadUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * The data needed to update a tarjeta_lealtad.
-     */
-    data: XOR<tarjeta_lealtadUpdateInput, tarjeta_lealtadUncheckedUpdateInput>
-    /**
-     * Choose, which tarjeta_lealtad to update.
-     */
-    where: tarjeta_lealtadWhereUniqueInput
-  }
-
-  /**
-   * tarjeta_lealtad updateMany
-   */
-  export type tarjeta_lealtadUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update tarjeta_lealtads.
-     */
-    data: XOR<tarjeta_lealtadUpdateManyMutationInput, tarjeta_lealtadUncheckedUpdateManyInput>
-    /**
-     * Filter which tarjeta_lealtads to update
-     */
-    where?: tarjeta_lealtadWhereInput
-    /**
-     * Limit how many tarjeta_lealtads to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * tarjeta_lealtad updateManyAndReturn
-   */
-  export type tarjeta_lealtadUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * The data used to update tarjeta_lealtads.
-     */
-    data: XOR<tarjeta_lealtadUpdateManyMutationInput, tarjeta_lealtadUncheckedUpdateManyInput>
-    /**
-     * Filter which tarjeta_lealtads to update
-     */
-    where?: tarjeta_lealtadWhereInput
-    /**
-     * Limit how many tarjeta_lealtads to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * tarjeta_lealtad upsert
-   */
-  export type tarjeta_lealtadUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * The filter to search for the tarjeta_lealtad to update in case it exists.
-     */
-    where: tarjeta_lealtadWhereUniqueInput
-    /**
-     * In case the tarjeta_lealtad found by the `where` argument doesn't exist, create a new tarjeta_lealtad with this data.
-     */
-    create: XOR<tarjeta_lealtadCreateInput, tarjeta_lealtadUncheckedCreateInput>
-    /**
-     * In case the tarjeta_lealtad was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<tarjeta_lealtadUpdateInput, tarjeta_lealtadUncheckedUpdateInput>
-  }
-
-  /**
-   * tarjeta_lealtad delete
-   */
-  export type tarjeta_lealtadDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
-    /**
-     * Filter which tarjeta_lealtad to delete.
-     */
-    where: tarjeta_lealtadWhereUniqueInput
-  }
-
-  /**
-   * tarjeta_lealtad deleteMany
-   */
-  export type tarjeta_lealtadDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which tarjeta_lealtads to delete
-     */
-    where?: tarjeta_lealtadWhereInput
-    /**
-     * Limit how many tarjeta_lealtads to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * tarjeta_lealtad without action
-   */
-  export type tarjeta_lealtadDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the tarjeta_lealtad
-     */
-    select?: tarjeta_lealtadSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the tarjeta_lealtad
-     */
-    omit?: tarjeta_lealtadOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: tarjeta_lealtadInclude<ExtArgs> | null
   }
 
 
@@ -26699,8 +25733,6 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-    codigo_verificacion: string | null
-    codigo_expiracion: Date | null
   }
 
   export type Usuarios_cpMaxAggregateOutputType = {
@@ -26716,8 +25748,6 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-    codigo_verificacion: string | null
-    codigo_expiracion: Date | null
   }
 
   export type Usuarios_cpCountAggregateOutputType = {
@@ -26733,8 +25763,6 @@ export namespace Prisma {
     primer_inicio_sesion: number
     intentos_fallidos: number
     bloqueado_hasta: number
-    codigo_verificacion: number
-    codigo_expiracion: number
     _all: number
   }
 
@@ -26760,8 +25788,6 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_verificacion?: true
-    codigo_expiracion?: true
   }
 
   export type Usuarios_cpMaxAggregateInputType = {
@@ -26777,8 +25803,6 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_verificacion?: true
-    codigo_expiracion?: true
   }
 
   export type Usuarios_cpCountAggregateInputType = {
@@ -26794,8 +25818,6 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_verificacion?: true
-    codigo_expiracion?: true
     _all?: true
   }
 
@@ -26898,8 +25920,6 @@ export namespace Prisma {
     primer_inicio_sesion: boolean
     intentos_fallidos: number
     bloqueado_hasta: Date | null
-    codigo_verificacion: string | null
-    codigo_expiracion: Date | null
     _count: Usuarios_cpCountAggregateOutputType | null
     _avg: Usuarios_cpAvgAggregateOutputType | null
     _sum: Usuarios_cpSumAggregateOutputType | null
@@ -26934,8 +25954,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
-    codigo_expiracion?: boolean
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
@@ -26958,8 +25976,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
-    codigo_expiracion?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -26977,8 +25993,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
-    codigo_expiracion?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -26996,11 +26010,9 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
-    codigo_expiracion?: boolean
   }
 
-  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta" | "codigo_verificacion" | "codigo_expiracion", ExtArgs["result"]["usuarios_cp"]>
+  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta", ExtArgs["result"]["usuarios_cp"]>
   export type usuarios_cpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
@@ -27042,8 +26054,6 @@ export namespace Prisma {
       primer_inicio_sesion: boolean
       intentos_fallidos: number
       bloqueado_hasta: Date | null
-      codigo_verificacion: string | null
-      codigo_expiracion: Date | null
     }, ExtArgs["result"]["usuarios_cp"]>
     composites: {}
   }
@@ -27485,8 +26495,6 @@ export namespace Prisma {
     readonly primer_inicio_sesion: FieldRef<"usuarios_cp", 'Boolean'>
     readonly intentos_fallidos: FieldRef<"usuarios_cp", 'Int'>
     readonly bloqueado_hasta: FieldRef<"usuarios_cp", 'DateTime'>
-    readonly codigo_verificacion: FieldRef<"usuarios_cp", 'String'>
-    readonly codigo_expiracion: FieldRef<"usuarios_cp", 'DateTime'>
   }
     
 
@@ -29102,6 +28110,1117 @@ export namespace Prisma {
 
 
   /**
+   * Model tarjeta
+   */
+
+  export type AggregateTarjeta = {
+    _count: TarjetaCountAggregateOutputType | null
+    _avg: TarjetaAvgAggregateOutputType | null
+    _sum: TarjetaSumAggregateOutputType | null
+    _min: TarjetaMinAggregateOutputType | null
+    _max: TarjetaMaxAggregateOutputType | null
+  }
+
+  export type TarjetaAvgAggregateOutputType = {
+    saldo: number | null
+  }
+
+  export type TarjetaSumAggregateOutputType = {
+    saldo: number | null
+  }
+
+  export type TarjetaMinAggregateOutputType = {
+    id_tarjeta_lealtad: string | null
+    id_cliente: string | null
+    id_nivel: string | null
+    saldo: number | null
+  }
+
+  export type TarjetaMaxAggregateOutputType = {
+    id_tarjeta_lealtad: string | null
+    id_cliente: string | null
+    id_nivel: string | null
+    saldo: number | null
+  }
+
+  export type TarjetaCountAggregateOutputType = {
+    id_tarjeta_lealtad: number
+    id_cliente: number
+    id_nivel: number
+    saldo: number
+    _all: number
+  }
+
+
+  export type TarjetaAvgAggregateInputType = {
+    saldo?: true
+  }
+
+  export type TarjetaSumAggregateInputType = {
+    saldo?: true
+  }
+
+  export type TarjetaMinAggregateInputType = {
+    id_tarjeta_lealtad?: true
+    id_cliente?: true
+    id_nivel?: true
+    saldo?: true
+  }
+
+  export type TarjetaMaxAggregateInputType = {
+    id_tarjeta_lealtad?: true
+    id_cliente?: true
+    id_nivel?: true
+    saldo?: true
+  }
+
+  export type TarjetaCountAggregateInputType = {
+    id_tarjeta_lealtad?: true
+    id_cliente?: true
+    id_nivel?: true
+    saldo?: true
+    _all?: true
+  }
+
+  export type TarjetaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tarjeta to aggregate.
+     */
+    where?: tarjetaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tarjetas to fetch.
+     */
+    orderBy?: tarjetaOrderByWithRelationInput | tarjetaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: tarjetaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tarjetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tarjetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned tarjetas
+    **/
+    _count?: true | TarjetaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TarjetaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TarjetaSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TarjetaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TarjetaMaxAggregateInputType
+  }
+
+  export type GetTarjetaAggregateType<T extends TarjetaAggregateArgs> = {
+        [P in keyof T & keyof AggregateTarjeta]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTarjeta[P]>
+      : GetScalarType<T[P], AggregateTarjeta[P]>
+  }
+
+
+
+
+  export type tarjetaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: tarjetaWhereInput
+    orderBy?: tarjetaOrderByWithAggregationInput | tarjetaOrderByWithAggregationInput[]
+    by: TarjetaScalarFieldEnum[] | TarjetaScalarFieldEnum
+    having?: tarjetaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TarjetaCountAggregateInputType | true
+    _avg?: TarjetaAvgAggregateInputType
+    _sum?: TarjetaSumAggregateInputType
+    _min?: TarjetaMinAggregateInputType
+    _max?: TarjetaMaxAggregateInputType
+  }
+
+  export type TarjetaGroupByOutputType = {
+    id_tarjeta_lealtad: string
+    id_cliente: string
+    id_nivel: string | null
+    saldo: number
+    _count: TarjetaCountAggregateOutputType | null
+    _avg: TarjetaAvgAggregateOutputType | null
+    _sum: TarjetaSumAggregateOutputType | null
+    _min: TarjetaMinAggregateOutputType | null
+    _max: TarjetaMaxAggregateOutputType | null
+  }
+
+  type GetTarjetaGroupByPayload<T extends tarjetaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TarjetaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TarjetaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TarjetaGroupByOutputType[P]>
+            : GetScalarType<T[P], TarjetaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type tarjetaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_tarjeta_lealtad?: boolean
+    id_cliente?: boolean
+    id_nivel?: boolean
+    saldo?: boolean
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+    niveles?: boolean | tarjeta$nivelesArgs<ExtArgs>
+  }, ExtArgs["result"]["tarjeta"]>
+
+  export type tarjetaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_tarjeta_lealtad?: boolean
+    id_cliente?: boolean
+    id_nivel?: boolean
+    saldo?: boolean
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+    niveles?: boolean | tarjeta$nivelesArgs<ExtArgs>
+  }, ExtArgs["result"]["tarjeta"]>
+
+  export type tarjetaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_tarjeta_lealtad?: boolean
+    id_cliente?: boolean
+    id_nivel?: boolean
+    saldo?: boolean
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+    niveles?: boolean | tarjeta$nivelesArgs<ExtArgs>
+  }, ExtArgs["result"]["tarjeta"]>
+
+  export type tarjetaSelectScalar = {
+    id_tarjeta_lealtad?: boolean
+    id_cliente?: boolean
+    id_nivel?: boolean
+    saldo?: boolean
+  }
+
+  export type tarjetaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_tarjeta_lealtad" | "id_cliente" | "id_nivel" | "saldo", ExtArgs["result"]["tarjeta"]>
+  export type tarjetaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+    niveles?: boolean | tarjeta$nivelesArgs<ExtArgs>
+  }
+  export type tarjetaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+    niveles?: boolean | tarjeta$nivelesArgs<ExtArgs>
+  }
+  export type tarjetaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+    niveles?: boolean | tarjeta$nivelesArgs<ExtArgs>
+  }
+
+  export type $tarjetaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "tarjeta"
+    objects: {
+      cliente: Prisma.$clientePayload<ExtArgs>
+      niveles: Prisma.$nivelesPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_tarjeta_lealtad: string
+      id_cliente: string
+      id_nivel: string | null
+      saldo: number
+    }, ExtArgs["result"]["tarjeta"]>
+    composites: {}
+  }
+
+  type tarjetaGetPayload<S extends boolean | null | undefined | tarjetaDefaultArgs> = $Result.GetResult<Prisma.$tarjetaPayload, S>
+
+  type tarjetaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<tarjetaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TarjetaCountAggregateInputType | true
+    }
+
+  export interface tarjetaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['tarjeta'], meta: { name: 'tarjeta' } }
+    /**
+     * Find zero or one Tarjeta that matches the filter.
+     * @param {tarjetaFindUniqueArgs} args - Arguments to find a Tarjeta
+     * @example
+     * // Get one Tarjeta
+     * const tarjeta = await prisma.tarjeta.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends tarjetaFindUniqueArgs>(args: SelectSubset<T, tarjetaFindUniqueArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tarjeta that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {tarjetaFindUniqueOrThrowArgs} args - Arguments to find a Tarjeta
+     * @example
+     * // Get one Tarjeta
+     * const tarjeta = await prisma.tarjeta.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends tarjetaFindUniqueOrThrowArgs>(args: SelectSubset<T, tarjetaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tarjeta that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tarjetaFindFirstArgs} args - Arguments to find a Tarjeta
+     * @example
+     * // Get one Tarjeta
+     * const tarjeta = await prisma.tarjeta.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends tarjetaFindFirstArgs>(args?: SelectSubset<T, tarjetaFindFirstArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tarjeta that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tarjetaFindFirstOrThrowArgs} args - Arguments to find a Tarjeta
+     * @example
+     * // Get one Tarjeta
+     * const tarjeta = await prisma.tarjeta.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends tarjetaFindFirstOrThrowArgs>(args?: SelectSubset<T, tarjetaFindFirstOrThrowArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tarjetas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tarjetaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tarjetas
+     * const tarjetas = await prisma.tarjeta.findMany()
+     * 
+     * // Get first 10 Tarjetas
+     * const tarjetas = await prisma.tarjeta.findMany({ take: 10 })
+     * 
+     * // Only select the `id_tarjeta_lealtad`
+     * const tarjetaWithId_tarjeta_lealtadOnly = await prisma.tarjeta.findMany({ select: { id_tarjeta_lealtad: true } })
+     * 
+     */
+    findMany<T extends tarjetaFindManyArgs>(args?: SelectSubset<T, tarjetaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tarjeta.
+     * @param {tarjetaCreateArgs} args - Arguments to create a Tarjeta.
+     * @example
+     * // Create one Tarjeta
+     * const Tarjeta = await prisma.tarjeta.create({
+     *   data: {
+     *     // ... data to create a Tarjeta
+     *   }
+     * })
+     * 
+     */
+    create<T extends tarjetaCreateArgs>(args: SelectSubset<T, tarjetaCreateArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tarjetas.
+     * @param {tarjetaCreateManyArgs} args - Arguments to create many Tarjetas.
+     * @example
+     * // Create many Tarjetas
+     * const tarjeta = await prisma.tarjeta.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends tarjetaCreateManyArgs>(args?: SelectSubset<T, tarjetaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tarjetas and returns the data saved in the database.
+     * @param {tarjetaCreateManyAndReturnArgs} args - Arguments to create many Tarjetas.
+     * @example
+     * // Create many Tarjetas
+     * const tarjeta = await prisma.tarjeta.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tarjetas and only return the `id_tarjeta_lealtad`
+     * const tarjetaWithId_tarjeta_lealtadOnly = await prisma.tarjeta.createManyAndReturn({
+     *   select: { id_tarjeta_lealtad: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends tarjetaCreateManyAndReturnArgs>(args?: SelectSubset<T, tarjetaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Tarjeta.
+     * @param {tarjetaDeleteArgs} args - Arguments to delete one Tarjeta.
+     * @example
+     * // Delete one Tarjeta
+     * const Tarjeta = await prisma.tarjeta.delete({
+     *   where: {
+     *     // ... filter to delete one Tarjeta
+     *   }
+     * })
+     * 
+     */
+    delete<T extends tarjetaDeleteArgs>(args: SelectSubset<T, tarjetaDeleteArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tarjeta.
+     * @param {tarjetaUpdateArgs} args - Arguments to update one Tarjeta.
+     * @example
+     * // Update one Tarjeta
+     * const tarjeta = await prisma.tarjeta.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends tarjetaUpdateArgs>(args: SelectSubset<T, tarjetaUpdateArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tarjetas.
+     * @param {tarjetaDeleteManyArgs} args - Arguments to filter Tarjetas to delete.
+     * @example
+     * // Delete a few Tarjetas
+     * const { count } = await prisma.tarjeta.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends tarjetaDeleteManyArgs>(args?: SelectSubset<T, tarjetaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tarjetas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tarjetaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tarjetas
+     * const tarjeta = await prisma.tarjeta.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends tarjetaUpdateManyArgs>(args: SelectSubset<T, tarjetaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tarjetas and returns the data updated in the database.
+     * @param {tarjetaUpdateManyAndReturnArgs} args - Arguments to update many Tarjetas.
+     * @example
+     * // Update many Tarjetas
+     * const tarjeta = await prisma.tarjeta.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tarjetas and only return the `id_tarjeta_lealtad`
+     * const tarjetaWithId_tarjeta_lealtadOnly = await prisma.tarjeta.updateManyAndReturn({
+     *   select: { id_tarjeta_lealtad: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends tarjetaUpdateManyAndReturnArgs>(args: SelectSubset<T, tarjetaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Tarjeta.
+     * @param {tarjetaUpsertArgs} args - Arguments to update or create a Tarjeta.
+     * @example
+     * // Update or create a Tarjeta
+     * const tarjeta = await prisma.tarjeta.upsert({
+     *   create: {
+     *     // ... data to create a Tarjeta
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tarjeta we want to update
+     *   }
+     * })
+     */
+    upsert<T extends tarjetaUpsertArgs>(args: SelectSubset<T, tarjetaUpsertArgs<ExtArgs>>): Prisma__tarjetaClient<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tarjetas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tarjetaCountArgs} args - Arguments to filter Tarjetas to count.
+     * @example
+     * // Count the number of Tarjetas
+     * const count = await prisma.tarjeta.count({
+     *   where: {
+     *     // ... the filter for the Tarjetas we want to count
+     *   }
+     * })
+    **/
+    count<T extends tarjetaCountArgs>(
+      args?: Subset<T, tarjetaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TarjetaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tarjeta.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarjetaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TarjetaAggregateArgs>(args: Subset<T, TarjetaAggregateArgs>): Prisma.PrismaPromise<GetTarjetaAggregateType<T>>
+
+    /**
+     * Group by Tarjeta.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {tarjetaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends tarjetaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: tarjetaGroupByArgs['orderBy'] }
+        : { orderBy?: tarjetaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, tarjetaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTarjetaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the tarjeta model
+   */
+  readonly fields: tarjetaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for tarjeta.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__tarjetaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cliente<T extends clienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clienteDefaultArgs<ExtArgs>>): Prisma__clienteClient<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    niveles<T extends tarjeta$nivelesArgs<ExtArgs> = {}>(args?: Subset<T, tarjeta$nivelesArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the tarjeta model
+   */
+  interface tarjetaFieldRefs {
+    readonly id_tarjeta_lealtad: FieldRef<"tarjeta", 'String'>
+    readonly id_cliente: FieldRef<"tarjeta", 'String'>
+    readonly id_nivel: FieldRef<"tarjeta", 'String'>
+    readonly saldo: FieldRef<"tarjeta", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * tarjeta findUnique
+   */
+  export type tarjetaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * Filter, which tarjeta to fetch.
+     */
+    where: tarjetaWhereUniqueInput
+  }
+
+  /**
+   * tarjeta findUniqueOrThrow
+   */
+  export type tarjetaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * Filter, which tarjeta to fetch.
+     */
+    where: tarjetaWhereUniqueInput
+  }
+
+  /**
+   * tarjeta findFirst
+   */
+  export type tarjetaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * Filter, which tarjeta to fetch.
+     */
+    where?: tarjetaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tarjetas to fetch.
+     */
+    orderBy?: tarjetaOrderByWithRelationInput | tarjetaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tarjetas.
+     */
+    cursor?: tarjetaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tarjetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tarjetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tarjetas.
+     */
+    distinct?: TarjetaScalarFieldEnum | TarjetaScalarFieldEnum[]
+  }
+
+  /**
+   * tarjeta findFirstOrThrow
+   */
+  export type tarjetaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * Filter, which tarjeta to fetch.
+     */
+    where?: tarjetaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tarjetas to fetch.
+     */
+    orderBy?: tarjetaOrderByWithRelationInput | tarjetaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for tarjetas.
+     */
+    cursor?: tarjetaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tarjetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tarjetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tarjetas.
+     */
+    distinct?: TarjetaScalarFieldEnum | TarjetaScalarFieldEnum[]
+  }
+
+  /**
+   * tarjeta findMany
+   */
+  export type tarjetaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * Filter, which tarjetas to fetch.
+     */
+    where?: tarjetaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of tarjetas to fetch.
+     */
+    orderBy?: tarjetaOrderByWithRelationInput | tarjetaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing tarjetas.
+     */
+    cursor?: tarjetaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` tarjetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` tarjetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of tarjetas.
+     */
+    distinct?: TarjetaScalarFieldEnum | TarjetaScalarFieldEnum[]
+  }
+
+  /**
+   * tarjeta create
+   */
+  export type tarjetaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a tarjeta.
+     */
+    data: XOR<tarjetaCreateInput, tarjetaUncheckedCreateInput>
+  }
+
+  /**
+   * tarjeta createMany
+   */
+  export type tarjetaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many tarjetas.
+     */
+    data: tarjetaCreateManyInput | tarjetaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * tarjeta createManyAndReturn
+   */
+  export type tarjetaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * The data used to create many tarjetas.
+     */
+    data: tarjetaCreateManyInput | tarjetaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * tarjeta update
+   */
+  export type tarjetaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a tarjeta.
+     */
+    data: XOR<tarjetaUpdateInput, tarjetaUncheckedUpdateInput>
+    /**
+     * Choose, which tarjeta to update.
+     */
+    where: tarjetaWhereUniqueInput
+  }
+
+  /**
+   * tarjeta updateMany
+   */
+  export type tarjetaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update tarjetas.
+     */
+    data: XOR<tarjetaUpdateManyMutationInput, tarjetaUncheckedUpdateManyInput>
+    /**
+     * Filter which tarjetas to update
+     */
+    where?: tarjetaWhereInput
+    /**
+     * Limit how many tarjetas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * tarjeta updateManyAndReturn
+   */
+  export type tarjetaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * The data used to update tarjetas.
+     */
+    data: XOR<tarjetaUpdateManyMutationInput, tarjetaUncheckedUpdateManyInput>
+    /**
+     * Filter which tarjetas to update
+     */
+    where?: tarjetaWhereInput
+    /**
+     * Limit how many tarjetas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * tarjeta upsert
+   */
+  export type tarjetaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the tarjeta to update in case it exists.
+     */
+    where: tarjetaWhereUniqueInput
+    /**
+     * In case the tarjeta found by the `where` argument doesn't exist, create a new tarjeta with this data.
+     */
+    create: XOR<tarjetaCreateInput, tarjetaUncheckedCreateInput>
+    /**
+     * In case the tarjeta was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<tarjetaUpdateInput, tarjetaUncheckedUpdateInput>
+  }
+
+  /**
+   * tarjeta delete
+   */
+  export type tarjetaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+    /**
+     * Filter which tarjeta to delete.
+     */
+    where: tarjetaWhereUniqueInput
+  }
+
+  /**
+   * tarjeta deleteMany
+   */
+  export type tarjetaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which tarjetas to delete
+     */
+    where?: tarjetaWhereInput
+    /**
+     * Limit how many tarjetas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * tarjeta.niveles
+   */
+  export type tarjeta$nivelesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the niveles
+     */
+    select?: nivelesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the niveles
+     */
+    omit?: nivelesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: nivelesInclude<ExtArgs> | null
+    where?: nivelesWhereInput
+  }
+
+  /**
+   * tarjeta without action
+   */
+  export type tarjetaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the tarjeta
+     */
+    select?: tarjetaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the tarjeta
+     */
+    omit?: tarjetaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: tarjetaInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -29190,10 +29309,10 @@ export namespace Prisma {
 
 
   export const Formas_pagoScalarFieldEnum: {
-    id_pago: 'id_pago',
     tipo: 'tipo',
     texto: 'texto',
-    notas: 'notas'
+    notas: 'notas',
+    id_pago: 'id_pago'
   };
 
   export type Formas_pagoScalarFieldEnum = (typeof Formas_pagoScalarFieldEnum)[keyof typeof Formas_pagoScalarFieldEnum]
@@ -29252,7 +29371,10 @@ export namespace Prisma {
     nombre: 'nombre',
     precio: 'precio',
     descripcion: 'descripcion',
-    cantidad: 'cantidad'
+    cantidad: 'cantidad',
+    estatus: 'estatus',
+    imagen_url: 'imagen_url',
+    orden: 'orden'
   };
 
   export type Productos_extraScalarFieldEnum = (typeof Productos_extraScalarFieldEnum)[keyof typeof Productos_extraScalarFieldEnum]
@@ -29326,27 +29448,19 @@ export namespace Prisma {
   export const Solicitudes_recoleccionScalarFieldEnum: {
     id_solicitud: 'id_solicitud',
     id_cliente: 'id_cliente',
-    id_pago: 'id_pago',
     cubetas_entregadas: 'cubetas_entregadas',
     cubetas_recolectadas: 'cubetas_recolectadas',
     total_a_pagar: 'total_a_pagar',
     total_pagado: 'total_pagado',
     fecha: 'fecha',
     horario: 'horario',
-    notas: 'notas'
+    notas: 'notas',
+    quiere_recoleccion: 'quiere_recoleccion',
+    quiere_productos_extra: 'quiere_productos_extra',
+    id_pago: 'id_pago'
   };
 
   export type Solicitudes_recoleccionScalarFieldEnum = (typeof Solicitudes_recoleccionScalarFieldEnum)[keyof typeof Solicitudes_recoleccionScalarFieldEnum]
-
-
-  export const Tarjeta_lealtadScalarFieldEnum: {
-    id_tarjeta_lealtad: 'id_tarjeta_lealtad',
-    id_cliente: 'id_cliente',
-    id_nivel: 'id_nivel',
-    saldo: 'saldo'
-  };
-
-  export type Tarjeta_lealtadScalarFieldEnum = (typeof Tarjeta_lealtadScalarFieldEnum)[keyof typeof Tarjeta_lealtadScalarFieldEnum]
 
 
   export const Usuarios_cpScalarFieldEnum: {
@@ -29361,9 +29475,7 @@ export namespace Prisma {
     correo: 'correo',
     primer_inicio_sesion: 'primer_inicio_sesion',
     intentos_fallidos: 'intentos_fallidos',
-    bloqueado_hasta: 'bloqueado_hasta',
-    codigo_verificacion: 'codigo_verificacion',
-    codigo_expiracion: 'codigo_expiracion'
+    bloqueado_hasta: 'bloqueado_hasta'
   };
 
   export type Usuarios_cpScalarFieldEnum = (typeof Usuarios_cpScalarFieldEnum)[keyof typeof Usuarios_cpScalarFieldEnum]
@@ -29378,6 +29490,16 @@ export namespace Prisma {
   };
 
   export type ZonaScalarFieldEnum = (typeof ZonaScalarFieldEnum)[keyof typeof ZonaScalarFieldEnum]
+
+
+  export const TarjetaScalarFieldEnum: {
+    id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+    id_cliente: 'id_cliente',
+    id_nivel: 'id_nivel',
+    saldo: 'saldo'
+  };
+
+  export type TarjetaScalarFieldEnum = (typeof TarjetaScalarFieldEnum)[keyof typeof TarjetaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -29751,7 +29873,7 @@ export namespace Prisma {
     ruta?: XOR<RutaScalarRelationFilter, rutaWhereInput>
     usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
     solicitudes_recoleccion?: Solicitudes_recoleccionListRelationFilter
-    tarjeta_lealtad?: XOR<Tarjeta_lealtadNullableScalarRelationFilter, tarjeta_lealtadWhereInput> | null
+    tarjeta?: XOR<TarjetaNullableScalarRelationFilter, tarjetaWhereInput> | null
   }
 
   export type clienteOrderByWithRelationInput = {
@@ -29768,7 +29890,7 @@ export namespace Prisma {
     ruta?: rutaOrderByWithRelationInput
     usuarios_cp?: usuarios_cpOrderByWithRelationInput
     solicitudes_recoleccion?: solicitudes_recoleccionOrderByRelationAggregateInput
-    tarjeta_lealtad?: tarjeta_lealtadOrderByWithRelationInput
+    tarjeta?: tarjetaOrderByWithRelationInput
   }
 
   export type clienteWhereUniqueInput = Prisma.AtLeast<{
@@ -29788,7 +29910,7 @@ export namespace Prisma {
     ruta?: XOR<RutaScalarRelationFilter, rutaWhereInput>
     usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
     solicitudes_recoleccion?: Solicitudes_recoleccionListRelationFilter
-    tarjeta_lealtad?: XOR<Tarjeta_lealtadNullableScalarRelationFilter, tarjeta_lealtadWhereInput> | null
+    tarjeta?: XOR<TarjetaNullableScalarRelationFilter, tarjetaWhereInput> | null
   }, "id_cliente" | "id_usuario">
 
   export type clienteOrderByWithAggregationInput = {
@@ -29925,23 +30047,23 @@ export namespace Prisma {
     AND?: formas_pagoWhereInput | formas_pagoWhereInput[]
     OR?: formas_pagoWhereInput[]
     NOT?: formas_pagoWhereInput | formas_pagoWhereInput[]
-    id_pago?: UuidFilter<"formas_pago"> | string
     tipo?: StringFilter<"formas_pago"> | string
     texto?: StringNullableFilter<"formas_pago"> | string | null
     notas?: StringNullableFilter<"formas_pago"> | string | null
+    id_pago?: IntFilter<"formas_pago"> | number
     solicitudes_recoleccion?: Solicitudes_recoleccionListRelationFilter
   }
 
   export type formas_pagoOrderByWithRelationInput = {
-    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
+    id_pago?: SortOrder
     solicitudes_recoleccion?: solicitudes_recoleccionOrderByRelationAggregateInput
   }
 
   export type formas_pagoWhereUniqueInput = Prisma.AtLeast<{
-    id_pago?: string
+    id_pago?: number
     AND?: formas_pagoWhereInput | formas_pagoWhereInput[]
     OR?: formas_pagoWhereInput[]
     NOT?: formas_pagoWhereInput | formas_pagoWhereInput[]
@@ -29952,23 +30074,25 @@ export namespace Prisma {
   }, "id_pago">
 
   export type formas_pagoOrderByWithAggregationInput = {
-    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
+    id_pago?: SortOrder
     _count?: formas_pagoCountOrderByAggregateInput
+    _avg?: formas_pagoAvgOrderByAggregateInput
     _max?: formas_pagoMaxOrderByAggregateInput
     _min?: formas_pagoMinOrderByAggregateInput
+    _sum?: formas_pagoSumOrderByAggregateInput
   }
 
   export type formas_pagoScalarWhereWithAggregatesInput = {
     AND?: formas_pagoScalarWhereWithAggregatesInput | formas_pagoScalarWhereWithAggregatesInput[]
     OR?: formas_pagoScalarWhereWithAggregatesInput[]
     NOT?: formas_pagoScalarWhereWithAggregatesInput | formas_pagoScalarWhereWithAggregatesInput[]
-    id_pago?: UuidWithAggregatesFilter<"formas_pago"> | string
     tipo?: StringWithAggregatesFilter<"formas_pago"> | string
     texto?: StringNullableWithAggregatesFilter<"formas_pago"> | string | null
     notas?: StringNullableWithAggregatesFilter<"formas_pago"> | string | null
+    id_pago?: IntWithAggregatesFilter<"formas_pago"> | number
   }
 
   export type metricasWhereInput = {
@@ -30081,14 +30205,14 @@ export namespace Prisma {
     id_nivel?: UuidFilter<"niveles"> | string
     nombre?: StringFilter<"niveles"> | string
     nivel_promociones?: Nivel_promocionesListRelationFilter
-    tarjeta_lealtad?: Tarjeta_lealtadListRelationFilter
+    tarjeta?: TarjetaListRelationFilter
   }
 
   export type nivelesOrderByWithRelationInput = {
     id_nivel?: SortOrder
     nombre?: SortOrder
     nivel_promociones?: nivel_promocionesOrderByRelationAggregateInput
-    tarjeta_lealtad?: tarjeta_lealtadOrderByRelationAggregateInput
+    tarjeta?: tarjetaOrderByRelationAggregateInput
   }
 
   export type nivelesWhereUniqueInput = Prisma.AtLeast<{
@@ -30098,7 +30222,7 @@ export namespace Prisma {
     NOT?: nivelesWhereInput | nivelesWhereInput[]
     nombre?: StringFilter<"niveles"> | string
     nivel_promociones?: Nivel_promocionesListRelationFilter
-    tarjeta_lealtad?: Tarjeta_lealtadListRelationFilter
+    tarjeta?: TarjetaListRelationFilter
   }, "id_nivel">
 
   export type nivelesOrderByWithAggregationInput = {
@@ -30233,6 +30357,9 @@ export namespace Prisma {
     precio?: FloatFilter<"productos_extra"> | number
     descripcion?: StringNullableFilter<"productos_extra"> | string | null
     cantidad?: IntFilter<"productos_extra"> | number
+    estatus?: BoolFilter<"productos_extra"> | boolean
+    imagen_url?: StringNullableFilter<"productos_extra"> | string | null
+    orden?: IntNullableFilter<"productos_extra"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }
 
@@ -30242,6 +30369,9 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     cantidad?: SortOrder
+    estatus?: SortOrder
+    imagen_url?: SortOrderInput | SortOrder
+    orden?: SortOrderInput | SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
   }
 
@@ -30254,6 +30384,9 @@ export namespace Prisma {
     precio?: FloatFilter<"productos_extra"> | number
     descripcion?: StringNullableFilter<"productos_extra"> | string | null
     cantidad?: IntFilter<"productos_extra"> | number
+    estatus?: BoolFilter<"productos_extra"> | boolean
+    imagen_url?: StringNullableFilter<"productos_extra"> | string | null
+    orden?: IntNullableFilter<"productos_extra"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }, "id_producto">
 
@@ -30263,6 +30396,9 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     cantidad?: SortOrder
+    estatus?: SortOrder
+    imagen_url?: SortOrderInput | SortOrder
+    orden?: SortOrderInput | SortOrder
     _count?: productos_extraCountOrderByAggregateInput
     _avg?: productos_extraAvgOrderByAggregateInput
     _max?: productos_extraMaxOrderByAggregateInput
@@ -30279,6 +30415,9 @@ export namespace Prisma {
     precio?: FloatWithAggregatesFilter<"productos_extra"> | number
     descripcion?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
     cantidad?: IntWithAggregatesFilter<"productos_extra"> | number
+    estatus?: BoolWithAggregatesFilter<"productos_extra"> | boolean
+    imagen_url?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
+    orden?: IntNullableWithAggregatesFilter<"productos_extra"> | number | null
   }
 
   export type productos_solicitudWhereInput = {
@@ -30634,7 +30773,6 @@ export namespace Prisma {
     NOT?: solicitudes_recoleccionWhereInput | solicitudes_recoleccionWhereInput[]
     id_solicitud?: UuidFilter<"solicitudes_recoleccion"> | string
     id_cliente?: UuidFilter<"solicitudes_recoleccion"> | string
-    id_pago?: UuidFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableFilter<"solicitudes_recoleccion"> | number | null
@@ -30642,15 +30780,17 @@ export namespace Prisma {
     fecha?: DateTimeFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableFilter<"solicitudes_recoleccion"> | string | null
+    quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-    formas_pago?: XOR<Formas_pagoScalarRelationFilter, formas_pagoWhereInput>
+    formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
   }
 
   export type solicitudes_recoleccionOrderByWithRelationInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
-    id_pago?: SortOrder
     cubetas_entregadas?: SortOrderInput | SortOrder
     cubetas_recolectadas?: SortOrderInput | SortOrder
     total_a_pagar?: SortOrderInput | SortOrder
@@ -30658,6 +30798,9 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
+    quiere_recoleccion?: SortOrderInput | SortOrder
+    quiere_productos_extra?: SortOrderInput | SortOrder
+    id_pago?: SortOrderInput | SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
     formas_pago?: formas_pagoOrderByWithRelationInput
@@ -30669,7 +30812,6 @@ export namespace Prisma {
     OR?: solicitudes_recoleccionWhereInput[]
     NOT?: solicitudes_recoleccionWhereInput | solicitudes_recoleccionWhereInput[]
     id_cliente?: UuidFilter<"solicitudes_recoleccion"> | string
-    id_pago?: UuidFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableFilter<"solicitudes_recoleccion"> | number | null
@@ -30677,15 +30819,17 @@ export namespace Prisma {
     fecha?: DateTimeFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableFilter<"solicitudes_recoleccion"> | string | null
+    quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-    formas_pago?: XOR<Formas_pagoScalarRelationFilter, formas_pagoWhereInput>
+    formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
   }, "id_solicitud">
 
   export type solicitudes_recoleccionOrderByWithAggregationInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
-    id_pago?: SortOrder
     cubetas_entregadas?: SortOrderInput | SortOrder
     cubetas_recolectadas?: SortOrderInput | SortOrder
     total_a_pagar?: SortOrderInput | SortOrder
@@ -30693,6 +30837,9 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
+    quiere_recoleccion?: SortOrderInput | SortOrder
+    quiere_productos_extra?: SortOrderInput | SortOrder
+    id_pago?: SortOrderInput | SortOrder
     _count?: solicitudes_recoleccionCountOrderByAggregateInput
     _avg?: solicitudes_recoleccionAvgOrderByAggregateInput
     _max?: solicitudes_recoleccionMaxOrderByAggregateInput
@@ -30706,7 +30853,6 @@ export namespace Prisma {
     NOT?: solicitudes_recoleccionScalarWhereWithAggregatesInput | solicitudes_recoleccionScalarWhereWithAggregatesInput[]
     id_solicitud?: UuidWithAggregatesFilter<"solicitudes_recoleccion"> | string
     id_cliente?: UuidWithAggregatesFilter<"solicitudes_recoleccion"> | string
-    id_pago?: UuidWithAggregatesFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
@@ -30714,61 +30860,9 @@ export namespace Prisma {
     fecha?: DateTimeWithAggregatesFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableWithAggregatesFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableWithAggregatesFilter<"solicitudes_recoleccion"> | string | null
-  }
-
-  export type tarjeta_lealtadWhereInput = {
-    AND?: tarjeta_lealtadWhereInput | tarjeta_lealtadWhereInput[]
-    OR?: tarjeta_lealtadWhereInput[]
-    NOT?: tarjeta_lealtadWhereInput | tarjeta_lealtadWhereInput[]
-    id_tarjeta_lealtad?: UuidFilter<"tarjeta_lealtad"> | string
-    id_cliente?: UuidFilter<"tarjeta_lealtad"> | string
-    id_nivel?: UuidFilter<"tarjeta_lealtad"> | string
-    saldo?: FloatFilter<"tarjeta_lealtad"> | number
-    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-    niveles?: XOR<NivelesScalarRelationFilter, nivelesWhereInput>
-  }
-
-  export type tarjeta_lealtadOrderByWithRelationInput = {
-    id_tarjeta_lealtad?: SortOrder
-    id_cliente?: SortOrder
-    id_nivel?: SortOrder
-    saldo?: SortOrder
-    cliente?: clienteOrderByWithRelationInput
-    niveles?: nivelesOrderByWithRelationInput
-  }
-
-  export type tarjeta_lealtadWhereUniqueInput = Prisma.AtLeast<{
-    id_tarjeta_lealtad?: string
-    id_cliente?: string
-    AND?: tarjeta_lealtadWhereInput | tarjeta_lealtadWhereInput[]
-    OR?: tarjeta_lealtadWhereInput[]
-    NOT?: tarjeta_lealtadWhereInput | tarjeta_lealtadWhereInput[]
-    id_nivel?: UuidFilter<"tarjeta_lealtad"> | string
-    saldo?: FloatFilter<"tarjeta_lealtad"> | number
-    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-    niveles?: XOR<NivelesScalarRelationFilter, nivelesWhereInput>
-  }, "id_tarjeta_lealtad" | "id_cliente">
-
-  export type tarjeta_lealtadOrderByWithAggregationInput = {
-    id_tarjeta_lealtad?: SortOrder
-    id_cliente?: SortOrder
-    id_nivel?: SortOrder
-    saldo?: SortOrder
-    _count?: tarjeta_lealtadCountOrderByAggregateInput
-    _avg?: tarjeta_lealtadAvgOrderByAggregateInput
-    _max?: tarjeta_lealtadMaxOrderByAggregateInput
-    _min?: tarjeta_lealtadMinOrderByAggregateInput
-    _sum?: tarjeta_lealtadSumOrderByAggregateInput
-  }
-
-  export type tarjeta_lealtadScalarWhereWithAggregatesInput = {
-    AND?: tarjeta_lealtadScalarWhereWithAggregatesInput | tarjeta_lealtadScalarWhereWithAggregatesInput[]
-    OR?: tarjeta_lealtadScalarWhereWithAggregatesInput[]
-    NOT?: tarjeta_lealtadScalarWhereWithAggregatesInput | tarjeta_lealtadScalarWhereWithAggregatesInput[]
-    id_tarjeta_lealtad?: UuidWithAggregatesFilter<"tarjeta_lealtad"> | string
-    id_cliente?: UuidWithAggregatesFilter<"tarjeta_lealtad"> | string
-    id_nivel?: UuidWithAggregatesFilter<"tarjeta_lealtad"> | string
-    saldo?: FloatWithAggregatesFilter<"tarjeta_lealtad"> | number
+    quiere_recoleccion?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
+    quiere_productos_extra?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
+    id_pago?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
   }
 
   export type usuarios_cpWhereInput = {
@@ -30787,8 +30881,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
-    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30810,8 +30902,6 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-    codigo_verificacion?: SortOrderInput | SortOrder
-    codigo_expiracion?: SortOrderInput | SortOrder
     administrador?: administradorOrderByWithRelationInput
     bitacora?: bitacoraOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
@@ -30836,8 +30926,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
-    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30859,8 +30947,6 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-    codigo_verificacion?: SortOrderInput | SortOrder
-    codigo_expiracion?: SortOrderInput | SortOrder
     _count?: usuarios_cpCountOrderByAggregateInput
     _avg?: usuarios_cpAvgOrderByAggregateInput
     _max?: usuarios_cpMaxOrderByAggregateInput
@@ -30884,8 +30970,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolWithAggregatesFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntWithAggregatesFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableWithAggregatesFilter<"usuarios_cp"> | string | null
-    codigo_expiracion?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
   }
 
   export type zonaWhereInput = {
@@ -30943,6 +31027,61 @@ export namespace Prisma {
     municipio?: StringWithAggregatesFilter<"zona"> | string
     descripcion?: StringNullableWithAggregatesFilter<"zona"> | string | null
     estado?: StringWithAggregatesFilter<"zona"> | string
+  }
+
+  export type tarjetaWhereInput = {
+    AND?: tarjetaWhereInput | tarjetaWhereInput[]
+    OR?: tarjetaWhereInput[]
+    NOT?: tarjetaWhereInput | tarjetaWhereInput[]
+    id_tarjeta_lealtad?: UuidFilter<"tarjeta"> | string
+    id_cliente?: UuidFilter<"tarjeta"> | string
+    id_nivel?: UuidNullableFilter<"tarjeta"> | string | null
+    saldo?: FloatFilter<"tarjeta"> | number
+    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
+    niveles?: XOR<NivelesNullableScalarRelationFilter, nivelesWhereInput> | null
+  }
+
+  export type tarjetaOrderByWithRelationInput = {
+    id_tarjeta_lealtad?: SortOrder
+    id_cliente?: SortOrder
+    id_nivel?: SortOrderInput | SortOrder
+    saldo?: SortOrder
+    cliente?: clienteOrderByWithRelationInput
+    niveles?: nivelesOrderByWithRelationInput
+  }
+
+  export type tarjetaWhereUniqueInput = Prisma.AtLeast<{
+    id_tarjeta_lealtad?: string
+    id_cliente?: string
+    AND?: tarjetaWhereInput | tarjetaWhereInput[]
+    OR?: tarjetaWhereInput[]
+    NOT?: tarjetaWhereInput | tarjetaWhereInput[]
+    id_nivel?: UuidNullableFilter<"tarjeta"> | string | null
+    saldo?: FloatFilter<"tarjeta"> | number
+    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
+    niveles?: XOR<NivelesNullableScalarRelationFilter, nivelesWhereInput> | null
+  }, "id_tarjeta_lealtad" | "id_cliente">
+
+  export type tarjetaOrderByWithAggregationInput = {
+    id_tarjeta_lealtad?: SortOrder
+    id_cliente?: SortOrder
+    id_nivel?: SortOrderInput | SortOrder
+    saldo?: SortOrder
+    _count?: tarjetaCountOrderByAggregateInput
+    _avg?: tarjetaAvgOrderByAggregateInput
+    _max?: tarjetaMaxOrderByAggregateInput
+    _min?: tarjetaMinOrderByAggregateInput
+    _sum?: tarjetaSumOrderByAggregateInput
+  }
+
+  export type tarjetaScalarWhereWithAggregatesInput = {
+    AND?: tarjetaScalarWhereWithAggregatesInput | tarjetaScalarWhereWithAggregatesInput[]
+    OR?: tarjetaScalarWhereWithAggregatesInput[]
+    NOT?: tarjetaScalarWhereWithAggregatesInput | tarjetaScalarWhereWithAggregatesInput[]
+    id_tarjeta_lealtad?: UuidWithAggregatesFilter<"tarjeta"> | string
+    id_cliente?: UuidWithAggregatesFilter<"tarjeta"> | string
+    id_nivel?: UuidNullableWithAggregatesFilter<"tarjeta"> | string | null
+    saldo?: FloatWithAggregatesFilter<"tarjeta"> | number
   }
 
   export type administradorCreateInput = {
@@ -31179,7 +31318,7 @@ export namespace Prisma {
     ruta: rutaCreateNestedOneWithoutClienteInput
     usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
-    tarjeta_lealtad?: tarjeta_lealtadCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaCreateNestedOneWithoutClienteInput
   }
 
   export type clienteUncheckedCreateInput = {
@@ -31194,7 +31333,7 @@ export namespace Prisma {
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaUncheckedCreateNestedOneWithoutClienteInput
   }
 
   export type clienteUpdateInput = {
@@ -31209,7 +31348,7 @@ export namespace Prisma {
     ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
     usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUpdateOneWithoutClienteNestedInput
   }
 
   export type clienteUncheckedUpdateInput = {
@@ -31224,7 +31363,7 @@ export namespace Prisma {
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUncheckedUpdateOneWithoutClienteNestedInput
   }
 
   export type clienteCreateManyInput = {
@@ -31357,56 +31496,56 @@ export namespace Prisma {
   }
 
   export type formas_pagoCreateInput = {
-    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
+    id_pago: number
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutFormas_pagoInput
   }
 
   export type formas_pagoUncheckedCreateInput = {
-    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
+    id_pago: number
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutFormas_pagoInput
   }
 
   export type formas_pagoUpdateInput = {
-    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    id_pago?: IntFieldUpdateOperationsInput | number
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutFormas_pagoNestedInput
   }
 
   export type formas_pagoUncheckedUpdateInput = {
-    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    id_pago?: IntFieldUpdateOperationsInput | number
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutFormas_pagoNestedInput
   }
 
   export type formas_pagoCreateManyInput = {
-    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
+    id_pago: number
   }
 
   export type formas_pagoUpdateManyMutationInput = {
-    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type formas_pagoUncheckedUpdateManyInput = {
-    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type metricasCreateInput = {
@@ -31502,28 +31641,28 @@ export namespace Prisma {
     id_nivel?: string
     nombre: string
     nivel_promociones?: nivel_promocionesCreateNestedManyWithoutNivelesInput
-    tarjeta_lealtad?: tarjeta_lealtadCreateNestedManyWithoutNivelesInput
+    tarjeta?: tarjetaCreateNestedManyWithoutNivelesInput
   }
 
   export type nivelesUncheckedCreateInput = {
     id_nivel?: string
     nombre: string
     nivel_promociones?: nivel_promocionesUncheckedCreateNestedManyWithoutNivelesInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedCreateNestedManyWithoutNivelesInput
+    tarjeta?: tarjetaUncheckedCreateNestedManyWithoutNivelesInput
   }
 
   export type nivelesUpdateInput = {
     id_nivel?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     nivel_promociones?: nivel_promocionesUpdateManyWithoutNivelesNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUpdateManyWithoutNivelesNestedInput
+    tarjeta?: tarjetaUpdateManyWithoutNivelesNestedInput
   }
 
   export type nivelesUncheckedUpdateInput = {
     id_nivel?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     nivel_promociones?: nivel_promocionesUncheckedUpdateManyWithoutNivelesNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedUpdateManyWithoutNivelesNestedInput
+    tarjeta?: tarjetaUncheckedUpdateManyWithoutNivelesNestedInput
   }
 
   export type nivelesCreateManyInput = {
@@ -31655,6 +31794,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    estatus?: boolean
+    imagen_url?: string | null
+    orden?: number | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -31664,6 +31806,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    estatus?: boolean
+    imagen_url?: string | null
+    orden?: number | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -31673,6 +31818,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -31682,6 +31830,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -31691,6 +31842,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    estatus?: boolean
+    imagen_url?: string | null
+    orden?: number | null
   }
 
   export type productos_extraUpdateManyMutationInput = {
@@ -31699,6 +31853,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type productos_extraUncheckedUpdateManyInput = {
@@ -31707,6 +31864,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type productos_solicitudCreateInput = {
@@ -32058,15 +32218,16 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
-    formas_pago: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
+    formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
 
   export type solicitudes_recoleccionUncheckedCreateInput = {
     id_solicitud?: string
     id_cliente: string
-    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -32074,6 +32235,9 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
+    id_pago?: number | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -32086,15 +32250,16 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
-    formas_pago?: formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
+    formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
-    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -32102,13 +32267,15 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionCreateManyInput = {
     id_solicitud?: string
     id_cliente: string
-    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -32116,6 +32283,9 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
+    id_pago?: number | null
   }
 
   export type solicitudes_recoleccionUpdateManyMutationInput = {
@@ -32127,12 +32297,13 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type solicitudes_recoleccionUncheckedUpdateManyInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
-    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -32140,53 +32311,9 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type tarjeta_lealtadCreateInput = {
-    id_tarjeta_lealtad?: string
-    saldo?: number
-    cliente: clienteCreateNestedOneWithoutTarjeta_lealtadInput
-    niveles: nivelesCreateNestedOneWithoutTarjeta_lealtadInput
-  }
-
-  export type tarjeta_lealtadUncheckedCreateInput = {
-    id_tarjeta_lealtad?: string
-    id_cliente: string
-    id_nivel: string
-    saldo?: number
-  }
-
-  export type tarjeta_lealtadUpdateInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-    cliente?: clienteUpdateOneRequiredWithoutTarjeta_lealtadNestedInput
-    niveles?: nivelesUpdateOneRequiredWithoutTarjeta_lealtadNestedInput
-  }
-
-  export type tarjeta_lealtadUncheckedUpdateInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type tarjeta_lealtadCreateManyInput = {
-    id_tarjeta_lealtad?: string
-    id_cliente: string
-    id_nivel: string
-    saldo?: number
-  }
-
-  export type tarjeta_lealtadUpdateManyMutationInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type tarjeta_lealtadUncheckedUpdateManyInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type usuarios_cpCreateInput = {
@@ -32200,8 +32327,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -32223,8 +32348,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -32242,8 +32365,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -32265,8 +32386,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -32286,8 +32405,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
   }
 
   export type usuarios_cpUpdateManyMutationInput = {
@@ -32301,8 +32418,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type usuarios_cpUncheckedUpdateManyInput = {
@@ -32318,8 +32433,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type zonaCreateInput = {
@@ -32380,6 +32493,53 @@ export namespace Prisma {
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type tarjetaCreateInput = {
+    id_tarjeta_lealtad?: string
+    saldo?: number
+    cliente: clienteCreateNestedOneWithoutTarjetaInput
+    niveles?: nivelesCreateNestedOneWithoutTarjetaInput
+  }
+
+  export type tarjetaUncheckedCreateInput = {
+    id_tarjeta_lealtad?: string
+    id_cliente: string
+    id_nivel?: string | null
+    saldo?: number
+  }
+
+  export type tarjetaUpdateInput = {
+    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    cliente?: clienteUpdateOneRequiredWithoutTarjetaNestedInput
+    niveles?: nivelesUpdateOneWithoutTarjetaNestedInput
+  }
+
+  export type tarjetaUncheckedUpdateInput = {
+    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    id_nivel?: NullableStringFieldUpdateOperationsInput | string | null
+    saldo?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type tarjetaCreateManyInput = {
+    id_tarjeta_lealtad?: string
+    id_cliente: string
+    id_nivel?: string | null
+    saldo?: number
+  }
+
+  export type tarjetaUpdateManyMutationInput = {
+    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type tarjetaUncheckedUpdateManyInput = {
+    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    id_nivel?: NullableStringFieldUpdateOperationsInput | string | null
+    saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -32809,9 +32969,9 @@ export namespace Prisma {
     none?: solicitudes_recoleccionWhereInput
   }
 
-  export type Tarjeta_lealtadNullableScalarRelationFilter = {
-    is?: tarjeta_lealtadWhereInput | null
-    isNot?: tarjeta_lealtadWhereInput | null
+  export type TarjetaNullableScalarRelationFilter = {
+    is?: tarjetaWhereInput | null
+    isNot?: tarjetaWhereInput | null
   }
 
   export type solicitudes_recoleccionOrderByRelationAggregateInput = {
@@ -32986,24 +33146,32 @@ export namespace Prisma {
   }
 
   export type formas_pagoCountOrderByAggregateInput = {
-    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrder
     notas?: SortOrder
+    id_pago?: SortOrder
+  }
+
+  export type formas_pagoAvgOrderByAggregateInput = {
+    id_pago?: SortOrder
   }
 
   export type formas_pagoMaxOrderByAggregateInput = {
-    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrder
     notas?: SortOrder
+    id_pago?: SortOrder
   }
 
   export type formas_pagoMinOrderByAggregateInput = {
-    id_pago?: SortOrder
     tipo?: SortOrder
     texto?: SortOrder
     notas?: SortOrder
+    id_pago?: SortOrder
+  }
+
+  export type formas_pagoSumOrderByAggregateInput = {
+    id_pago?: SortOrder
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -33111,17 +33279,17 @@ export namespace Prisma {
     none?: nivel_promocionesWhereInput
   }
 
-  export type Tarjeta_lealtadListRelationFilter = {
-    every?: tarjeta_lealtadWhereInput
-    some?: tarjeta_lealtadWhereInput
-    none?: tarjeta_lealtadWhereInput
+  export type TarjetaListRelationFilter = {
+    every?: tarjetaWhereInput
+    some?: tarjetaWhereInput
+    none?: tarjetaWhereInput
   }
 
   export type nivel_promocionesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type tarjeta_lealtadOrderByRelationAggregateInput = {
+  export type tarjetaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -33203,6 +33371,11 @@ export namespace Prisma {
     id_personas_equipo?: SortOrder
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type Productos_solicitudListRelationFilter = {
     every?: productos_solicitudWhereInput
     some?: productos_solicitudWhereInput
@@ -33219,12 +33392,16 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
+    estatus?: SortOrder
+    imagen_url?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraAvgOrderByAggregateInput = {
     id_producto?: SortOrder
     precio?: SortOrder
     cantidad?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraMaxOrderByAggregateInput = {
@@ -33233,6 +33410,9 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
+    estatus?: SortOrder
+    imagen_url?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraMinOrderByAggregateInput = {
@@ -33241,12 +33421,24 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
+    estatus?: SortOrder
+    imagen_url?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraSumOrderByAggregateInput = {
     id_producto?: SortOrder
     precio?: SortOrder
     cantidad?: SortOrder
+    orden?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type Productos_extraScalarRelationFilter = {
@@ -33417,11 +33609,6 @@ export namespace Prisma {
     id_zona?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type solicitud_registroCountOrderByAggregateInput = {
     id_solicitud_registro?: SortOrder
     id_usuario?: SortOrder
@@ -33478,14 +33665,6 @@ export namespace Prisma {
     cantidad_familia?: SortOrder
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -33497,20 +33676,24 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type ClienteScalarRelationFilter = {
     is?: clienteWhereInput
     isNot?: clienteWhereInput
   }
 
-  export type Formas_pagoScalarRelationFilter = {
-    is?: formas_pagoWhereInput
-    isNot?: formas_pagoWhereInput
+  export type Formas_pagoNullableScalarRelationFilter = {
+    is?: formas_pagoWhereInput | null
+    isNot?: formas_pagoWhereInput | null
   }
 
   export type solicitudes_recoleccionCountOrderByAggregateInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
-    id_pago?: SortOrder
     cubetas_entregadas?: SortOrder
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
@@ -33518,6 +33701,9 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrder
     notas?: SortOrder
+    quiere_recoleccion?: SortOrder
+    quiere_productos_extra?: SortOrder
+    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionAvgOrderByAggregateInput = {
@@ -33525,12 +33711,12 @@ export namespace Prisma {
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
     total_pagado?: SortOrder
+    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionMaxOrderByAggregateInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
-    id_pago?: SortOrder
     cubetas_entregadas?: SortOrder
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
@@ -33538,12 +33724,14 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrder
     notas?: SortOrder
+    quiere_recoleccion?: SortOrder
+    quiere_productos_extra?: SortOrder
+    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionMinOrderByAggregateInput = {
     id_solicitud?: SortOrder
     id_cliente?: SortOrder
-    id_pago?: SortOrder
     cubetas_entregadas?: SortOrder
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
@@ -33551,6 +33739,9 @@ export namespace Prisma {
     fecha?: SortOrder
     horario?: SortOrder
     notas?: SortOrder
+    quiere_recoleccion?: SortOrder
+    quiere_productos_extra?: SortOrder
+    id_pago?: SortOrder
   }
 
   export type solicitudes_recoleccionSumOrderByAggregateInput = {
@@ -33558,6 +33749,7 @@ export namespace Prisma {
     cubetas_recolectadas?: SortOrder
     total_a_pagar?: SortOrder
     total_pagado?: SortOrder
+    id_pago?: SortOrder
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -33576,33 +33768,12 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-  export type tarjeta_lealtadCountOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
-    id_cliente?: SortOrder
-    id_nivel?: SortOrder
-    saldo?: SortOrder
-  }
-
-  export type tarjeta_lealtadAvgOrderByAggregateInput = {
-    saldo?: SortOrder
-  }
-
-  export type tarjeta_lealtadMaxOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
-    id_cliente?: SortOrder
-    id_nivel?: SortOrder
-    saldo?: SortOrder
-  }
-
-  export type tarjeta_lealtadMinOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
-    id_cliente?: SortOrder
-    id_nivel?: SortOrder
-    saldo?: SortOrder
-  }
-
-  export type tarjeta_lealtadSumOrderByAggregateInput = {
-    saldo?: SortOrder
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type AdministradorNullableScalarRelationFilter = {
@@ -33648,8 +33819,6 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_verificacion?: SortOrder
-    codigo_expiracion?: SortOrder
   }
 
   export type usuarios_cpAvgOrderByAggregateInput = {
@@ -33669,8 +33838,6 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_verificacion?: SortOrder
-    codigo_expiracion?: SortOrder
   }
 
   export type usuarios_cpMinOrderByAggregateInput = {
@@ -33686,8 +33853,6 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_verificacion?: SortOrder
-    codigo_expiracion?: SortOrder
   }
 
   export type usuarios_cpSumOrderByAggregateInput = {
@@ -33734,6 +33899,40 @@ export namespace Prisma {
 
   export type zonaSumOrderByAggregateInput = {
     id_zona?: SortOrder
+  }
+
+  export type NivelesNullableScalarRelationFilter = {
+    is?: nivelesWhereInput | null
+    isNot?: nivelesWhereInput | null
+  }
+
+  export type tarjetaCountOrderByAggregateInput = {
+    id_tarjeta_lealtad?: SortOrder
+    id_cliente?: SortOrder
+    id_nivel?: SortOrder
+    saldo?: SortOrder
+  }
+
+  export type tarjetaAvgOrderByAggregateInput = {
+    saldo?: SortOrder
+  }
+
+  export type tarjetaMaxOrderByAggregateInput = {
+    id_tarjeta_lealtad?: SortOrder
+    id_cliente?: SortOrder
+    id_nivel?: SortOrder
+    saldo?: SortOrder
+  }
+
+  export type tarjetaMinOrderByAggregateInput = {
+    id_tarjeta_lealtad?: SortOrder
+    id_cliente?: SortOrder
+    id_nivel?: SortOrder
+    saldo?: SortOrder
+  }
+
+  export type tarjetaSumOrderByAggregateInput = {
+    saldo?: SortOrder
   }
 
   export type usuarios_cpCreateNestedOneWithoutAdministradorInput = {
@@ -33869,10 +34068,10 @@ export namespace Prisma {
     connect?: solicitudes_recoleccionWhereUniqueInput | solicitudes_recoleccionWhereUniqueInput[]
   }
 
-  export type tarjeta_lealtadCreateNestedOneWithoutClienteInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutClienteInput, tarjeta_lealtadUncheckedCreateWithoutClienteInput>
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutClienteInput
-    connect?: tarjeta_lealtadWhereUniqueInput
+  export type tarjetaCreateNestedOneWithoutClienteInput = {
+    create?: XOR<tarjetaCreateWithoutClienteInput, tarjetaUncheckedCreateWithoutClienteInput>
+    connectOrCreate?: tarjetaCreateOrConnectWithoutClienteInput
+    connect?: tarjetaWhereUniqueInput
   }
 
   export type solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput = {
@@ -33882,10 +34081,10 @@ export namespace Prisma {
     connect?: solicitudes_recoleccionWhereUniqueInput | solicitudes_recoleccionWhereUniqueInput[]
   }
 
-  export type tarjeta_lealtadUncheckedCreateNestedOneWithoutClienteInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutClienteInput, tarjeta_lealtadUncheckedCreateWithoutClienteInput>
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutClienteInput
-    connect?: tarjeta_lealtadWhereUniqueInput
+  export type tarjetaUncheckedCreateNestedOneWithoutClienteInput = {
+    create?: XOR<tarjetaCreateWithoutClienteInput, tarjetaUncheckedCreateWithoutClienteInput>
+    connectOrCreate?: tarjetaCreateOrConnectWithoutClienteInput
+    connect?: tarjetaWhereUniqueInput
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -33930,14 +34129,14 @@ export namespace Prisma {
     deleteMany?: solicitudes_recoleccionScalarWhereInput | solicitudes_recoleccionScalarWhereInput[]
   }
 
-  export type tarjeta_lealtadUpdateOneWithoutClienteNestedInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutClienteInput, tarjeta_lealtadUncheckedCreateWithoutClienteInput>
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutClienteInput
-    upsert?: tarjeta_lealtadUpsertWithoutClienteInput
-    disconnect?: tarjeta_lealtadWhereInput | boolean
-    delete?: tarjeta_lealtadWhereInput | boolean
-    connect?: tarjeta_lealtadWhereUniqueInput
-    update?: XOR<XOR<tarjeta_lealtadUpdateToOneWithWhereWithoutClienteInput, tarjeta_lealtadUpdateWithoutClienteInput>, tarjeta_lealtadUncheckedUpdateWithoutClienteInput>
+  export type tarjetaUpdateOneWithoutClienteNestedInput = {
+    create?: XOR<tarjetaCreateWithoutClienteInput, tarjetaUncheckedCreateWithoutClienteInput>
+    connectOrCreate?: tarjetaCreateOrConnectWithoutClienteInput
+    upsert?: tarjetaUpsertWithoutClienteInput
+    disconnect?: tarjetaWhereInput | boolean
+    delete?: tarjetaWhereInput | boolean
+    connect?: tarjetaWhereUniqueInput
+    update?: XOR<XOR<tarjetaUpdateToOneWithWhereWithoutClienteInput, tarjetaUpdateWithoutClienteInput>, tarjetaUncheckedUpdateWithoutClienteInput>
   }
 
   export type solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput = {
@@ -33954,14 +34153,14 @@ export namespace Prisma {
     deleteMany?: solicitudes_recoleccionScalarWhereInput | solicitudes_recoleccionScalarWhereInput[]
   }
 
-  export type tarjeta_lealtadUncheckedUpdateOneWithoutClienteNestedInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutClienteInput, tarjeta_lealtadUncheckedCreateWithoutClienteInput>
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutClienteInput
-    upsert?: tarjeta_lealtadUpsertWithoutClienteInput
-    disconnect?: tarjeta_lealtadWhereInput | boolean
-    delete?: tarjeta_lealtadWhereInput | boolean
-    connect?: tarjeta_lealtadWhereUniqueInput
-    update?: XOR<XOR<tarjeta_lealtadUpdateToOneWithWhereWithoutClienteInput, tarjeta_lealtadUpdateWithoutClienteInput>, tarjeta_lealtadUncheckedUpdateWithoutClienteInput>
+  export type tarjetaUncheckedUpdateOneWithoutClienteNestedInput = {
+    create?: XOR<tarjetaCreateWithoutClienteInput, tarjetaUncheckedCreateWithoutClienteInput>
+    connectOrCreate?: tarjetaCreateOrConnectWithoutClienteInput
+    upsert?: tarjetaUpsertWithoutClienteInput
+    disconnect?: tarjetaWhereInput | boolean
+    delete?: tarjetaWhereInput | boolean
+    connect?: tarjetaWhereUniqueInput
+    update?: XOR<XOR<tarjetaUpdateToOneWithWhereWithoutClienteInput, tarjetaUpdateWithoutClienteInput>, tarjetaUncheckedUpdateWithoutClienteInput>
   }
 
   export type faqCreateNestedManyWithoutCompospetInput = {
@@ -34245,11 +34444,11 @@ export namespace Prisma {
     connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
   }
 
-  export type tarjeta_lealtadCreateNestedManyWithoutNivelesInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutNivelesInput, tarjeta_lealtadUncheckedCreateWithoutNivelesInput> | tarjeta_lealtadCreateWithoutNivelesInput[] | tarjeta_lealtadUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutNivelesInput | tarjeta_lealtadCreateOrConnectWithoutNivelesInput[]
-    createMany?: tarjeta_lealtadCreateManyNivelesInputEnvelope
-    connect?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
+  export type tarjetaCreateNestedManyWithoutNivelesInput = {
+    create?: XOR<tarjetaCreateWithoutNivelesInput, tarjetaUncheckedCreateWithoutNivelesInput> | tarjetaCreateWithoutNivelesInput[] | tarjetaUncheckedCreateWithoutNivelesInput[]
+    connectOrCreate?: tarjetaCreateOrConnectWithoutNivelesInput | tarjetaCreateOrConnectWithoutNivelesInput[]
+    createMany?: tarjetaCreateManyNivelesInputEnvelope
+    connect?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
   }
 
   export type nivel_promocionesUncheckedCreateNestedManyWithoutNivelesInput = {
@@ -34259,11 +34458,11 @@ export namespace Prisma {
     connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
   }
 
-  export type tarjeta_lealtadUncheckedCreateNestedManyWithoutNivelesInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutNivelesInput, tarjeta_lealtadUncheckedCreateWithoutNivelesInput> | tarjeta_lealtadCreateWithoutNivelesInput[] | tarjeta_lealtadUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutNivelesInput | tarjeta_lealtadCreateOrConnectWithoutNivelesInput[]
-    createMany?: tarjeta_lealtadCreateManyNivelesInputEnvelope
-    connect?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
+  export type tarjetaUncheckedCreateNestedManyWithoutNivelesInput = {
+    create?: XOR<tarjetaCreateWithoutNivelesInput, tarjetaUncheckedCreateWithoutNivelesInput> | tarjetaCreateWithoutNivelesInput[] | tarjetaUncheckedCreateWithoutNivelesInput[]
+    connectOrCreate?: tarjetaCreateOrConnectWithoutNivelesInput | tarjetaCreateOrConnectWithoutNivelesInput[]
+    createMany?: tarjetaCreateManyNivelesInputEnvelope
+    connect?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
   }
 
   export type nivel_promocionesUpdateManyWithoutNivelesNestedInput = {
@@ -34280,18 +34479,18 @@ export namespace Prisma {
     deleteMany?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
   }
 
-  export type tarjeta_lealtadUpdateManyWithoutNivelesNestedInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutNivelesInput, tarjeta_lealtadUncheckedCreateWithoutNivelesInput> | tarjeta_lealtadCreateWithoutNivelesInput[] | tarjeta_lealtadUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutNivelesInput | tarjeta_lealtadCreateOrConnectWithoutNivelesInput[]
-    upsert?: tarjeta_lealtadUpsertWithWhereUniqueWithoutNivelesInput | tarjeta_lealtadUpsertWithWhereUniqueWithoutNivelesInput[]
-    createMany?: tarjeta_lealtadCreateManyNivelesInputEnvelope
-    set?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    disconnect?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    delete?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    connect?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    update?: tarjeta_lealtadUpdateWithWhereUniqueWithoutNivelesInput | tarjeta_lealtadUpdateWithWhereUniqueWithoutNivelesInput[]
-    updateMany?: tarjeta_lealtadUpdateManyWithWhereWithoutNivelesInput | tarjeta_lealtadUpdateManyWithWhereWithoutNivelesInput[]
-    deleteMany?: tarjeta_lealtadScalarWhereInput | tarjeta_lealtadScalarWhereInput[]
+  export type tarjetaUpdateManyWithoutNivelesNestedInput = {
+    create?: XOR<tarjetaCreateWithoutNivelesInput, tarjetaUncheckedCreateWithoutNivelesInput> | tarjetaCreateWithoutNivelesInput[] | tarjetaUncheckedCreateWithoutNivelesInput[]
+    connectOrCreate?: tarjetaCreateOrConnectWithoutNivelesInput | tarjetaCreateOrConnectWithoutNivelesInput[]
+    upsert?: tarjetaUpsertWithWhereUniqueWithoutNivelesInput | tarjetaUpsertWithWhereUniqueWithoutNivelesInput[]
+    createMany?: tarjetaCreateManyNivelesInputEnvelope
+    set?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    disconnect?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    delete?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    connect?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    update?: tarjetaUpdateWithWhereUniqueWithoutNivelesInput | tarjetaUpdateWithWhereUniqueWithoutNivelesInput[]
+    updateMany?: tarjetaUpdateManyWithWhereWithoutNivelesInput | tarjetaUpdateManyWithWhereWithoutNivelesInput[]
+    deleteMany?: tarjetaScalarWhereInput | tarjetaScalarWhereInput[]
   }
 
   export type nivel_promocionesUncheckedUpdateManyWithoutNivelesNestedInput = {
@@ -34308,18 +34507,18 @@ export namespace Prisma {
     deleteMany?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
   }
 
-  export type tarjeta_lealtadUncheckedUpdateManyWithoutNivelesNestedInput = {
-    create?: XOR<tarjeta_lealtadCreateWithoutNivelesInput, tarjeta_lealtadUncheckedCreateWithoutNivelesInput> | tarjeta_lealtadCreateWithoutNivelesInput[] | tarjeta_lealtadUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: tarjeta_lealtadCreateOrConnectWithoutNivelesInput | tarjeta_lealtadCreateOrConnectWithoutNivelesInput[]
-    upsert?: tarjeta_lealtadUpsertWithWhereUniqueWithoutNivelesInput | tarjeta_lealtadUpsertWithWhereUniqueWithoutNivelesInput[]
-    createMany?: tarjeta_lealtadCreateManyNivelesInputEnvelope
-    set?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    disconnect?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    delete?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    connect?: tarjeta_lealtadWhereUniqueInput | tarjeta_lealtadWhereUniqueInput[]
-    update?: tarjeta_lealtadUpdateWithWhereUniqueWithoutNivelesInput | tarjeta_lealtadUpdateWithWhereUniqueWithoutNivelesInput[]
-    updateMany?: tarjeta_lealtadUpdateManyWithWhereWithoutNivelesInput | tarjeta_lealtadUpdateManyWithWhereWithoutNivelesInput[]
-    deleteMany?: tarjeta_lealtadScalarWhereInput | tarjeta_lealtadScalarWhereInput[]
+  export type tarjetaUncheckedUpdateManyWithoutNivelesNestedInput = {
+    create?: XOR<tarjetaCreateWithoutNivelesInput, tarjetaUncheckedCreateWithoutNivelesInput> | tarjetaCreateWithoutNivelesInput[] | tarjetaUncheckedCreateWithoutNivelesInput[]
+    connectOrCreate?: tarjetaCreateOrConnectWithoutNivelesInput | tarjetaCreateOrConnectWithoutNivelesInput[]
+    upsert?: tarjetaUpsertWithWhereUniqueWithoutNivelesInput | tarjetaUpsertWithWhereUniqueWithoutNivelesInput[]
+    createMany?: tarjetaCreateManyNivelesInputEnvelope
+    set?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    disconnect?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    delete?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    connect?: tarjetaWhereUniqueInput | tarjetaWhereUniqueInput[]
+    update?: tarjetaUpdateWithWhereUniqueWithoutNivelesInput | tarjetaUpdateWithWhereUniqueWithoutNivelesInput[]
+    updateMany?: tarjetaUpdateManyWithWhereWithoutNivelesInput | tarjetaUpdateManyWithWhereWithoutNivelesInput[]
+    deleteMany?: tarjetaScalarWhereInput | tarjetaScalarWhereInput[]
   }
 
   export type roles_permisosCreateNestedManyWithoutPermisosInput = {
@@ -34390,6 +34589,10 @@ export namespace Prisma {
     connectOrCreate?: productos_solicitudCreateOrConnectWithoutProductos_extraInput | productos_solicitudCreateOrConnectWithoutProductos_extraInput[]
     createMany?: productos_solicitudCreateManyProductos_extraInputEnvelope
     connect?: productos_solicitudWhereUniqueInput | productos_solicitudWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type productos_solicitudUpdateManyWithoutProductos_extraNestedInput = {
@@ -34664,10 +34867,6 @@ export namespace Prisma {
     connect?: usuarios_cpWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type usuarios_cpUpdateOneRequiredWithoutSolicitud_registroNestedInput = {
     create?: XOR<usuarios_cpCreateWithoutSolicitud_registroInput, usuarios_cpUncheckedCreateWithoutSolicitud_registroInput>
     connectOrCreate?: usuarios_cpCreateOrConnectWithoutSolicitud_registroInput
@@ -34710,6 +34909,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
   export type productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput = {
     create?: XOR<productos_solicitudCreateWithoutSolicitudes_recoleccionInput, productos_solicitudUncheckedCreateWithoutSolicitudes_recoleccionInput> | productos_solicitudCreateWithoutSolicitudes_recoleccionInput[] | productos_solicitudUncheckedCreateWithoutSolicitudes_recoleccionInput[]
     connectOrCreate?: productos_solicitudCreateOrConnectWithoutSolicitudes_recoleccionInput | productos_solicitudCreateOrConnectWithoutSolicitudes_recoleccionInput[]
@@ -34732,10 +34935,12 @@ export namespace Prisma {
     update?: XOR<XOR<clienteUpdateToOneWithWhereWithoutSolicitudes_recoleccionInput, clienteUpdateWithoutSolicitudes_recoleccionInput>, clienteUncheckedUpdateWithoutSolicitudes_recoleccionInput>
   }
 
-  export type formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput = {
+  export type formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput = {
     create?: XOR<formas_pagoCreateWithoutSolicitudes_recoleccionInput, formas_pagoUncheckedCreateWithoutSolicitudes_recoleccionInput>
     connectOrCreate?: formas_pagoCreateOrConnectWithoutSolicitudes_recoleccionInput
     upsert?: formas_pagoUpsertWithoutSolicitudes_recoleccionInput
+    disconnect?: formas_pagoWhereInput | boolean
+    delete?: formas_pagoWhereInput | boolean
     connect?: formas_pagoWhereUniqueInput
     update?: XOR<XOR<formas_pagoUpdateToOneWithWhereWithoutSolicitudes_recoleccionInput, formas_pagoUpdateWithoutSolicitudes_recoleccionInput>, formas_pagoUncheckedUpdateWithoutSolicitudes_recoleccionInput>
   }
@@ -34752,34 +34957,6 @@ export namespace Prisma {
     update?: productos_solicitudUpdateWithWhereUniqueWithoutSolicitudes_recoleccionInput | productos_solicitudUpdateWithWhereUniqueWithoutSolicitudes_recoleccionInput[]
     updateMany?: productos_solicitudUpdateManyWithWhereWithoutSolicitudes_recoleccionInput | productos_solicitudUpdateManyWithWhereWithoutSolicitudes_recoleccionInput[]
     deleteMany?: productos_solicitudScalarWhereInput | productos_solicitudScalarWhereInput[]
-  }
-
-  export type clienteCreateNestedOneWithoutTarjeta_lealtadInput = {
-    create?: XOR<clienteCreateWithoutTarjeta_lealtadInput, clienteUncheckedCreateWithoutTarjeta_lealtadInput>
-    connectOrCreate?: clienteCreateOrConnectWithoutTarjeta_lealtadInput
-    connect?: clienteWhereUniqueInput
-  }
-
-  export type nivelesCreateNestedOneWithoutTarjeta_lealtadInput = {
-    create?: XOR<nivelesCreateWithoutTarjeta_lealtadInput, nivelesUncheckedCreateWithoutTarjeta_lealtadInput>
-    connectOrCreate?: nivelesCreateOrConnectWithoutTarjeta_lealtadInput
-    connect?: nivelesWhereUniqueInput
-  }
-
-  export type clienteUpdateOneRequiredWithoutTarjeta_lealtadNestedInput = {
-    create?: XOR<clienteCreateWithoutTarjeta_lealtadInput, clienteUncheckedCreateWithoutTarjeta_lealtadInput>
-    connectOrCreate?: clienteCreateOrConnectWithoutTarjeta_lealtadInput
-    upsert?: clienteUpsertWithoutTarjeta_lealtadInput
-    connect?: clienteWhereUniqueInput
-    update?: XOR<XOR<clienteUpdateToOneWithWhereWithoutTarjeta_lealtadInput, clienteUpdateWithoutTarjeta_lealtadInput>, clienteUncheckedUpdateWithoutTarjeta_lealtadInput>
-  }
-
-  export type nivelesUpdateOneRequiredWithoutTarjeta_lealtadNestedInput = {
-    create?: XOR<nivelesCreateWithoutTarjeta_lealtadInput, nivelesUncheckedCreateWithoutTarjeta_lealtadInput>
-    connectOrCreate?: nivelesCreateOrConnectWithoutTarjeta_lealtadInput
-    upsert?: nivelesUpsertWithoutTarjeta_lealtadInput
-    connect?: nivelesWhereUniqueInput
-    update?: XOR<XOR<nivelesUpdateToOneWithWhereWithoutTarjeta_lealtadInput, nivelesUpdateWithoutTarjeta_lealtadInput>, nivelesUncheckedUpdateWithoutTarjeta_lealtadInput>
   }
 
   export type administradorCreateNestedOneWithoutUsuarios_cpInput = {
@@ -34998,6 +35175,36 @@ export namespace Prisma {
     update?: rutaUpdateWithWhereUniqueWithoutZonaInput | rutaUpdateWithWhereUniqueWithoutZonaInput[]
     updateMany?: rutaUpdateManyWithWhereWithoutZonaInput | rutaUpdateManyWithWhereWithoutZonaInput[]
     deleteMany?: rutaScalarWhereInput | rutaScalarWhereInput[]
+  }
+
+  export type clienteCreateNestedOneWithoutTarjetaInput = {
+    create?: XOR<clienteCreateWithoutTarjetaInput, clienteUncheckedCreateWithoutTarjetaInput>
+    connectOrCreate?: clienteCreateOrConnectWithoutTarjetaInput
+    connect?: clienteWhereUniqueInput
+  }
+
+  export type nivelesCreateNestedOneWithoutTarjetaInput = {
+    create?: XOR<nivelesCreateWithoutTarjetaInput, nivelesUncheckedCreateWithoutTarjetaInput>
+    connectOrCreate?: nivelesCreateOrConnectWithoutTarjetaInput
+    connect?: nivelesWhereUniqueInput
+  }
+
+  export type clienteUpdateOneRequiredWithoutTarjetaNestedInput = {
+    create?: XOR<clienteCreateWithoutTarjetaInput, clienteUncheckedCreateWithoutTarjetaInput>
+    connectOrCreate?: clienteCreateOrConnectWithoutTarjetaInput
+    upsert?: clienteUpsertWithoutTarjetaInput
+    connect?: clienteWhereUniqueInput
+    update?: XOR<XOR<clienteUpdateToOneWithWhereWithoutTarjetaInput, clienteUpdateWithoutTarjetaInput>, clienteUncheckedUpdateWithoutTarjetaInput>
+  }
+
+  export type nivelesUpdateOneWithoutTarjetaNestedInput = {
+    create?: XOR<nivelesCreateWithoutTarjetaInput, nivelesUncheckedCreateWithoutTarjetaInput>
+    connectOrCreate?: nivelesCreateOrConnectWithoutTarjetaInput
+    upsert?: nivelesUpsertWithoutTarjetaInput
+    disconnect?: nivelesWhereInput | boolean
+    delete?: nivelesWhereInput | boolean
+    connect?: nivelesWhereUniqueInput
+    update?: XOR<XOR<nivelesUpdateToOneWithWhereWithoutTarjetaInput, nivelesUpdateWithoutTarjetaInput>, nivelesUncheckedUpdateWithoutTarjetaInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -35317,6 +35524,11 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -35333,6 +35545,14 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type usuarios_cpCreateWithoutAdministradorInput = {
     id_usuario?: string
     nombre: string
@@ -35344,8 +35564,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35366,8 +35584,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35426,8 +35642,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35448,8 +35662,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35542,8 +35754,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35564,8 +35774,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35598,8 +35806,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35620,8 +35826,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35657,8 +35861,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35679,8 +35881,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35700,13 +35900,14 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
-    formas_pago: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
+    formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
 
   export type solicitudes_recoleccionUncheckedCreateWithoutClienteInput = {
     id_solicitud?: string
-    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -35714,6 +35915,9 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
+    id_pago?: number | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -35727,21 +35931,21 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type tarjeta_lealtadCreateWithoutClienteInput = {
+  export type tarjetaCreateWithoutClienteInput = {
     id_tarjeta_lealtad?: string
     saldo?: number
-    niveles: nivelesCreateNestedOneWithoutTarjeta_lealtadInput
+    niveles?: nivelesCreateNestedOneWithoutTarjetaInput
   }
 
-  export type tarjeta_lealtadUncheckedCreateWithoutClienteInput = {
+  export type tarjetaUncheckedCreateWithoutClienteInput = {
     id_tarjeta_lealtad?: string
-    id_nivel: string
+    id_nivel?: string | null
     saldo?: number
   }
 
-  export type tarjeta_lealtadCreateOrConnectWithoutClienteInput = {
-    where: tarjeta_lealtadWhereUniqueInput
-    create: XOR<tarjeta_lealtadCreateWithoutClienteInput, tarjeta_lealtadUncheckedCreateWithoutClienteInput>
+  export type tarjetaCreateOrConnectWithoutClienteInput = {
+    where: tarjetaWhereUniqueInput
+    create: XOR<tarjetaCreateWithoutClienteInput, tarjetaUncheckedCreateWithoutClienteInput>
   }
 
   export type rutaUpsertWithoutClienteInput = {
@@ -35791,8 +35995,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35813,8 +36015,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35842,7 +36042,6 @@ export namespace Prisma {
     NOT?: solicitudes_recoleccionScalarWhereInput | solicitudes_recoleccionScalarWhereInput[]
     id_solicitud?: UuidFilter<"solicitudes_recoleccion"> | string
     id_cliente?: UuidFilter<"solicitudes_recoleccion"> | string
-    id_pago?: UuidFilter<"solicitudes_recoleccion"> | string
     cubetas_entregadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     cubetas_recolectadas?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
     total_a_pagar?: FloatNullableFilter<"solicitudes_recoleccion"> | number | null
@@ -35850,28 +36049,31 @@ export namespace Prisma {
     fecha?: DateTimeFilter<"solicitudes_recoleccion"> | Date | string
     horario?: DateTimeNullableFilter<"solicitudes_recoleccion"> | Date | string | null
     notas?: StringNullableFilter<"solicitudes_recoleccion"> | string | null
+    quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
   }
 
-  export type tarjeta_lealtadUpsertWithoutClienteInput = {
-    update: XOR<tarjeta_lealtadUpdateWithoutClienteInput, tarjeta_lealtadUncheckedUpdateWithoutClienteInput>
-    create: XOR<tarjeta_lealtadCreateWithoutClienteInput, tarjeta_lealtadUncheckedCreateWithoutClienteInput>
-    where?: tarjeta_lealtadWhereInput
+  export type tarjetaUpsertWithoutClienteInput = {
+    update: XOR<tarjetaUpdateWithoutClienteInput, tarjetaUncheckedUpdateWithoutClienteInput>
+    create: XOR<tarjetaCreateWithoutClienteInput, tarjetaUncheckedCreateWithoutClienteInput>
+    where?: tarjetaWhereInput
   }
 
-  export type tarjeta_lealtadUpdateToOneWithWhereWithoutClienteInput = {
-    where?: tarjeta_lealtadWhereInput
-    data: XOR<tarjeta_lealtadUpdateWithoutClienteInput, tarjeta_lealtadUncheckedUpdateWithoutClienteInput>
+  export type tarjetaUpdateToOneWithWhereWithoutClienteInput = {
+    where?: tarjetaWhereInput
+    data: XOR<tarjetaUpdateWithoutClienteInput, tarjetaUncheckedUpdateWithoutClienteInput>
   }
 
-  export type tarjeta_lealtadUpdateWithoutClienteInput = {
+  export type tarjetaUpdateWithoutClienteInput = {
     id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
-    niveles?: nivelesUpdateOneRequiredWithoutTarjeta_lealtadNestedInput
+    niveles?: nivelesUpdateOneWithoutTarjetaNestedInput
   }
 
-  export type tarjeta_lealtadUncheckedUpdateWithoutClienteInput = {
+  export type tarjetaUncheckedUpdateWithoutClienteInput = {
     id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
-    id_nivel?: StringFieldUpdateOperationsInput | string
+    id_nivel?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
@@ -35958,8 +36160,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -35979,8 +36179,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -36110,8 +36308,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
-    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
   }
 
   export type compospetCreateWithoutFaqInput = {
@@ -36167,6 +36363,8 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -36181,6 +36379,8 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -36257,13 +36457,13 @@ export namespace Prisma {
   export type nivelesCreateWithoutNivel_promocionesInput = {
     id_nivel?: string
     nombre: string
-    tarjeta_lealtad?: tarjeta_lealtadCreateNestedManyWithoutNivelesInput
+    tarjeta?: tarjetaCreateNestedManyWithoutNivelesInput
   }
 
   export type nivelesUncheckedCreateWithoutNivel_promocionesInput = {
     id_nivel?: string
     nombre: string
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedCreateNestedManyWithoutNivelesInput
+    tarjeta?: tarjetaUncheckedCreateNestedManyWithoutNivelesInput
   }
 
   export type nivelesCreateOrConnectWithoutNivel_promocionesInput = {
@@ -36304,13 +36504,13 @@ export namespace Prisma {
   export type nivelesUpdateWithoutNivel_promocionesInput = {
     id_nivel?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
-    tarjeta_lealtad?: tarjeta_lealtadUpdateManyWithoutNivelesNestedInput
+    tarjeta?: tarjetaUpdateManyWithoutNivelesNestedInput
   }
 
   export type nivelesUncheckedUpdateWithoutNivel_promocionesInput = {
     id_nivel?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedUpdateManyWithoutNivelesNestedInput
+    tarjeta?: tarjetaUncheckedUpdateManyWithoutNivelesNestedInput
   }
 
   export type promocionesUpsertWithoutNivel_promocionesInput = {
@@ -36356,25 +36556,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type tarjeta_lealtadCreateWithoutNivelesInput = {
+  export type tarjetaCreateWithoutNivelesInput = {
     id_tarjeta_lealtad?: string
     saldo?: number
-    cliente: clienteCreateNestedOneWithoutTarjeta_lealtadInput
+    cliente: clienteCreateNestedOneWithoutTarjetaInput
   }
 
-  export type tarjeta_lealtadUncheckedCreateWithoutNivelesInput = {
+  export type tarjetaUncheckedCreateWithoutNivelesInput = {
     id_tarjeta_lealtad?: string
     id_cliente: string
     saldo?: number
   }
 
-  export type tarjeta_lealtadCreateOrConnectWithoutNivelesInput = {
-    where: tarjeta_lealtadWhereUniqueInput
-    create: XOR<tarjeta_lealtadCreateWithoutNivelesInput, tarjeta_lealtadUncheckedCreateWithoutNivelesInput>
+  export type tarjetaCreateOrConnectWithoutNivelesInput = {
+    where: tarjetaWhereUniqueInput
+    create: XOR<tarjetaCreateWithoutNivelesInput, tarjetaUncheckedCreateWithoutNivelesInput>
   }
 
-  export type tarjeta_lealtadCreateManyNivelesInputEnvelope = {
-    data: tarjeta_lealtadCreateManyNivelesInput | tarjeta_lealtadCreateManyNivelesInput[]
+  export type tarjetaCreateManyNivelesInputEnvelope = {
+    data: tarjetaCreateManyNivelesInput | tarjetaCreateManyNivelesInput[]
     skipDuplicates?: boolean
   }
 
@@ -36402,30 +36602,30 @@ export namespace Prisma {
     id_promociones?: IntFilter<"nivel_promociones"> | number
   }
 
-  export type tarjeta_lealtadUpsertWithWhereUniqueWithoutNivelesInput = {
-    where: tarjeta_lealtadWhereUniqueInput
-    update: XOR<tarjeta_lealtadUpdateWithoutNivelesInput, tarjeta_lealtadUncheckedUpdateWithoutNivelesInput>
-    create: XOR<tarjeta_lealtadCreateWithoutNivelesInput, tarjeta_lealtadUncheckedCreateWithoutNivelesInput>
+  export type tarjetaUpsertWithWhereUniqueWithoutNivelesInput = {
+    where: tarjetaWhereUniqueInput
+    update: XOR<tarjetaUpdateWithoutNivelesInput, tarjetaUncheckedUpdateWithoutNivelesInput>
+    create: XOR<tarjetaCreateWithoutNivelesInput, tarjetaUncheckedCreateWithoutNivelesInput>
   }
 
-  export type tarjeta_lealtadUpdateWithWhereUniqueWithoutNivelesInput = {
-    where: tarjeta_lealtadWhereUniqueInput
-    data: XOR<tarjeta_lealtadUpdateWithoutNivelesInput, tarjeta_lealtadUncheckedUpdateWithoutNivelesInput>
+  export type tarjetaUpdateWithWhereUniqueWithoutNivelesInput = {
+    where: tarjetaWhereUniqueInput
+    data: XOR<tarjetaUpdateWithoutNivelesInput, tarjetaUncheckedUpdateWithoutNivelesInput>
   }
 
-  export type tarjeta_lealtadUpdateManyWithWhereWithoutNivelesInput = {
-    where: tarjeta_lealtadScalarWhereInput
-    data: XOR<tarjeta_lealtadUpdateManyMutationInput, tarjeta_lealtadUncheckedUpdateManyWithoutNivelesInput>
+  export type tarjetaUpdateManyWithWhereWithoutNivelesInput = {
+    where: tarjetaScalarWhereInput
+    data: XOR<tarjetaUpdateManyMutationInput, tarjetaUncheckedUpdateManyWithoutNivelesInput>
   }
 
-  export type tarjeta_lealtadScalarWhereInput = {
-    AND?: tarjeta_lealtadScalarWhereInput | tarjeta_lealtadScalarWhereInput[]
-    OR?: tarjeta_lealtadScalarWhereInput[]
-    NOT?: tarjeta_lealtadScalarWhereInput | tarjeta_lealtadScalarWhereInput[]
-    id_tarjeta_lealtad?: UuidFilter<"tarjeta_lealtad"> | string
-    id_cliente?: UuidFilter<"tarjeta_lealtad"> | string
-    id_nivel?: UuidFilter<"tarjeta_lealtad"> | string
-    saldo?: FloatFilter<"tarjeta_lealtad"> | number
+  export type tarjetaScalarWhereInput = {
+    AND?: tarjetaScalarWhereInput | tarjetaScalarWhereInput[]
+    OR?: tarjetaScalarWhereInput[]
+    NOT?: tarjetaScalarWhereInput | tarjetaScalarWhereInput[]
+    id_tarjeta_lealtad?: UuidFilter<"tarjeta"> | string
+    id_cliente?: UuidFilter<"tarjeta"> | string
+    id_nivel?: UuidNullableFilter<"tarjeta"> | string | null
+    saldo?: FloatFilter<"tarjeta"> | number
   }
 
   export type roles_permisosCreateWithoutPermisosInput = {
@@ -36568,6 +36768,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    estatus?: boolean
+    imagen_url?: string | null
+    orden?: number | null
   }
 
   export type productos_extraUncheckedCreateWithoutProductos_solicitudInput = {
@@ -36576,6 +36779,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    estatus?: boolean
+    imagen_url?: string | null
+    orden?: number | null
   }
 
   export type productos_extraCreateOrConnectWithoutProductos_solicitudInput = {
@@ -36592,14 +36798,15 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
-    formas_pago: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
+    formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
 
   export type solicitudes_recoleccionUncheckedCreateWithoutProductos_solicitudInput = {
     id_solicitud?: string
     id_cliente: string
-    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -36607,6 +36814,9 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
+    id_pago?: number | null
   }
 
   export type solicitudes_recoleccionCreateOrConnectWithoutProductos_solicitudInput = {
@@ -36631,6 +36841,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type productos_extraUncheckedUpdateWithoutProductos_solicitudInput = {
@@ -36639,6 +36852,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type solicitudes_recoleccionUpsertWithoutProductos_solicitudInput = {
@@ -36661,14 +36877,15 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
-    formas_pago?: formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
+    formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateWithoutProductos_solicitudInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
-    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -36676,6 +36893,9 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type nivel_promocionesCreateWithoutPromocionesInput = {
@@ -36741,8 +36961,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -36762,8 +36980,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -36903,7 +37119,7 @@ export namespace Prisma {
     fecha_salida?: Date | string | null
     usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
-    tarjeta_lealtad?: tarjeta_lealtadCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaCreateNestedOneWithoutClienteInput
   }
 
   export type clienteUncheckedCreateWithoutRutaInput = {
@@ -36917,7 +37133,7 @@ export namespace Prisma {
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaUncheckedCreateNestedOneWithoutClienteInput
   }
 
   export type clienteCreateOrConnectWithoutRutaInput = {
@@ -37021,8 +37237,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -37043,8 +37257,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -37077,8 +37289,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -37099,8 +37309,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -37139,7 +37347,7 @@ export namespace Prisma {
     fecha_salida?: Date | string | null
     ruta: rutaCreateNestedOneWithoutClienteInput
     usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
-    tarjeta_lealtad?: tarjeta_lealtadCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaCreateNestedOneWithoutClienteInput
   }
 
   export type clienteUncheckedCreateWithoutSolicitudes_recoleccionInput = {
@@ -37153,7 +37361,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaUncheckedCreateNestedOneWithoutClienteInput
   }
 
   export type clienteCreateOrConnectWithoutSolicitudes_recoleccionInput = {
@@ -37162,17 +37370,17 @@ export namespace Prisma {
   }
 
   export type formas_pagoCreateWithoutSolicitudes_recoleccionInput = {
-    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
+    id_pago: number
   }
 
   export type formas_pagoUncheckedCreateWithoutSolicitudes_recoleccionInput = {
-    id_pago?: string
     tipo: string
     texto?: string | null
     notas?: string | null
+    id_pago: number
   }
 
   export type formas_pagoCreateOrConnectWithoutSolicitudes_recoleccionInput = {
@@ -37218,7 +37426,7 @@ export namespace Prisma {
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
     usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUpdateOneWithoutClienteNestedInput
   }
 
   export type clienteUncheckedUpdateWithoutSolicitudes_recoleccionInput = {
@@ -37232,7 +37440,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUncheckedUpdateOneWithoutClienteNestedInput
   }
 
   export type formas_pagoUpsertWithoutSolicitudes_recoleccionInput = {
@@ -37247,129 +37455,17 @@ export namespace Prisma {
   }
 
   export type formas_pagoUpdateWithoutSolicitudes_recoleccionInput = {
-    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type formas_pagoUncheckedUpdateWithoutSolicitudes_recoleccionInput = {
-    id_pago?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type clienteCreateWithoutTarjeta_lealtadInput = {
-    id_cliente?: string
-    mascotas?: string | null
-    cantidad_familia?: number | null
-    direccion?: string | null
-    orden_horario?: number | null
-    notas?: string | null
-    fecha_entrada?: Date | string | null
-    fecha_salida?: Date | string | null
-    ruta: rutaCreateNestedOneWithoutClienteInput
-    usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
-    solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
-  }
-
-  export type clienteUncheckedCreateWithoutTarjeta_lealtadInput = {
-    id_cliente?: string
-    id_usuario: string
-    id_ruta: number
-    mascotas?: string | null
-    cantidad_familia?: number | null
-    direccion?: string | null
-    orden_horario?: number | null
-    notas?: string | null
-    fecha_entrada?: Date | string | null
-    fecha_salida?: Date | string | null
-    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
-  }
-
-  export type clienteCreateOrConnectWithoutTarjeta_lealtadInput = {
-    where: clienteWhereUniqueInput
-    create: XOR<clienteCreateWithoutTarjeta_lealtadInput, clienteUncheckedCreateWithoutTarjeta_lealtadInput>
-  }
-
-  export type nivelesCreateWithoutTarjeta_lealtadInput = {
-    id_nivel?: string
-    nombre: string
-    nivel_promociones?: nivel_promocionesCreateNestedManyWithoutNivelesInput
-  }
-
-  export type nivelesUncheckedCreateWithoutTarjeta_lealtadInput = {
-    id_nivel?: string
-    nombre: string
-    nivel_promociones?: nivel_promocionesUncheckedCreateNestedManyWithoutNivelesInput
-  }
-
-  export type nivelesCreateOrConnectWithoutTarjeta_lealtadInput = {
-    where: nivelesWhereUniqueInput
-    create: XOR<nivelesCreateWithoutTarjeta_lealtadInput, nivelesUncheckedCreateWithoutTarjeta_lealtadInput>
-  }
-
-  export type clienteUpsertWithoutTarjeta_lealtadInput = {
-    update: XOR<clienteUpdateWithoutTarjeta_lealtadInput, clienteUncheckedUpdateWithoutTarjeta_lealtadInput>
-    create: XOR<clienteCreateWithoutTarjeta_lealtadInput, clienteUncheckedCreateWithoutTarjeta_lealtadInput>
-    where?: clienteWhereInput
-  }
-
-  export type clienteUpdateToOneWithWhereWithoutTarjeta_lealtadInput = {
-    where?: clienteWhereInput
-    data: XOR<clienteUpdateWithoutTarjeta_lealtadInput, clienteUncheckedUpdateWithoutTarjeta_lealtadInput>
-  }
-
-  export type clienteUpdateWithoutTarjeta_lealtadInput = {
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
-    usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
-    solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
-  }
-
-  export type clienteUncheckedUpdateWithoutTarjeta_lealtadInput = {
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    id_ruta?: IntFieldUpdateOperationsInput | number
-    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
-  }
-
-  export type nivelesUpsertWithoutTarjeta_lealtadInput = {
-    update: XOR<nivelesUpdateWithoutTarjeta_lealtadInput, nivelesUncheckedUpdateWithoutTarjeta_lealtadInput>
-    create: XOR<nivelesCreateWithoutTarjeta_lealtadInput, nivelesUncheckedCreateWithoutTarjeta_lealtadInput>
-    where?: nivelesWhereInput
-  }
-
-  export type nivelesUpdateToOneWithWhereWithoutTarjeta_lealtadInput = {
-    where?: nivelesWhereInput
-    data: XOR<nivelesUpdateWithoutTarjeta_lealtadInput, nivelesUncheckedUpdateWithoutTarjeta_lealtadInput>
-  }
-
-  export type nivelesUpdateWithoutTarjeta_lealtadInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    nivel_promociones?: nivel_promocionesUpdateManyWithoutNivelesNestedInput
-  }
-
-  export type nivelesUncheckedUpdateWithoutTarjeta_lealtadInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    nivel_promociones?: nivel_promocionesUncheckedUpdateManyWithoutNivelesNestedInput
+    id_pago?: IntFieldUpdateOperationsInput | number
   }
 
   export type administradorCreateWithoutUsuarios_cpInput = {
@@ -37441,7 +37537,7 @@ export namespace Prisma {
     fecha_salida?: Date | string | null
     ruta: rutaCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
-    tarjeta_lealtad?: tarjeta_lealtadCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaCreateNestedOneWithoutClienteInput
   }
 
   export type clienteUncheckedCreateWithoutUsuarios_cpInput = {
@@ -37455,7 +37551,7 @@ export namespace Prisma {
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedCreateNestedOneWithoutClienteInput
+    tarjeta?: tarjetaUncheckedCreateNestedOneWithoutClienteInput
   }
 
   export type clienteCreateOrConnectWithoutUsuarios_cpInput = {
@@ -37622,7 +37718,7 @@ export namespace Prisma {
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUpdateOneWithoutClienteNestedInput
   }
 
   export type clienteUncheckedUpdateWithoutUsuarios_cpInput = {
@@ -37636,7 +37732,7 @@ export namespace Prisma {
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUncheckedUpdateOneWithoutClienteNestedInput
   }
 
   export type solicitud_registroUpsertWithWhereUniqueWithoutUsuarios_cpInput = {
@@ -37772,6 +37868,118 @@ export namespace Prisma {
     turno_ruta?: StringFilter<"ruta"> | string
   }
 
+  export type clienteCreateWithoutTarjetaInput = {
+    id_cliente?: string
+    mascotas?: string | null
+    cantidad_familia?: number | null
+    direccion?: string | null
+    orden_horario?: number | null
+    notas?: string | null
+    fecha_entrada?: Date | string | null
+    fecha_salida?: Date | string | null
+    ruta: rutaCreateNestedOneWithoutClienteInput
+    usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
+    solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
+  }
+
+  export type clienteUncheckedCreateWithoutTarjetaInput = {
+    id_cliente?: string
+    id_usuario: string
+    id_ruta: number
+    mascotas?: string | null
+    cantidad_familia?: number | null
+    direccion?: string | null
+    orden_horario?: number | null
+    notas?: string | null
+    fecha_entrada?: Date | string | null
+    fecha_salida?: Date | string | null
+    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
+  }
+
+  export type clienteCreateOrConnectWithoutTarjetaInput = {
+    where: clienteWhereUniqueInput
+    create: XOR<clienteCreateWithoutTarjetaInput, clienteUncheckedCreateWithoutTarjetaInput>
+  }
+
+  export type nivelesCreateWithoutTarjetaInput = {
+    id_nivel?: string
+    nombre: string
+    nivel_promociones?: nivel_promocionesCreateNestedManyWithoutNivelesInput
+  }
+
+  export type nivelesUncheckedCreateWithoutTarjetaInput = {
+    id_nivel?: string
+    nombre: string
+    nivel_promociones?: nivel_promocionesUncheckedCreateNestedManyWithoutNivelesInput
+  }
+
+  export type nivelesCreateOrConnectWithoutTarjetaInput = {
+    where: nivelesWhereUniqueInput
+    create: XOR<nivelesCreateWithoutTarjetaInput, nivelesUncheckedCreateWithoutTarjetaInput>
+  }
+
+  export type clienteUpsertWithoutTarjetaInput = {
+    update: XOR<clienteUpdateWithoutTarjetaInput, clienteUncheckedUpdateWithoutTarjetaInput>
+    create: XOR<clienteCreateWithoutTarjetaInput, clienteUncheckedCreateWithoutTarjetaInput>
+    where?: clienteWhereInput
+  }
+
+  export type clienteUpdateToOneWithWhereWithoutTarjetaInput = {
+    where?: clienteWhereInput
+    data: XOR<clienteUpdateWithoutTarjetaInput, clienteUncheckedUpdateWithoutTarjetaInput>
+  }
+
+  export type clienteUpdateWithoutTarjetaInput = {
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
+    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
+    usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
+    solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
+  }
+
+  export type clienteUncheckedUpdateWithoutTarjetaInput = {
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    id_usuario?: StringFieldUpdateOperationsInput | string
+    id_ruta?: IntFieldUpdateOperationsInput | number
+    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
+    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
+  }
+
+  export type nivelesUpsertWithoutTarjetaInput = {
+    update: XOR<nivelesUpdateWithoutTarjetaInput, nivelesUncheckedUpdateWithoutTarjetaInput>
+    create: XOR<nivelesCreateWithoutTarjetaInput, nivelesUncheckedCreateWithoutTarjetaInput>
+    where?: nivelesWhereInput
+  }
+
+  export type nivelesUpdateToOneWithWhereWithoutTarjetaInput = {
+    where?: nivelesWhereInput
+    data: XOR<nivelesUpdateWithoutTarjetaInput, nivelesUncheckedUpdateWithoutTarjetaInput>
+  }
+
+  export type nivelesUpdateWithoutTarjetaInput = {
+    id_nivel?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel_promociones?: nivel_promocionesUpdateManyWithoutNivelesNestedInput
+  }
+
+  export type nivelesUncheckedUpdateWithoutTarjetaInput = {
+    id_nivel?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    nivel_promociones?: nivel_promocionesUncheckedUpdateManyWithoutNivelesNestedInput
+  }
+
   export type avisosCreateManyAdministradorInput = {
     id_aviso: number
     titulo: string
@@ -37806,7 +38014,6 @@ export namespace Prisma {
 
   export type solicitudes_recoleccionCreateManyClienteInput = {
     id_solicitud?: string
-    id_pago: string
     cubetas_entregadas?: number | null
     cubetas_recolectadas?: number | null
     total_a_pagar?: number | null
@@ -37814,6 +38021,9 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
+    id_pago?: number | null
   }
 
   export type solicitudes_recoleccionUpdateWithoutClienteInput = {
@@ -37825,13 +38035,14 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
-    formas_pago?: formas_pagoUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
+    formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateWithoutClienteInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
-    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -37839,12 +38050,14 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
   export type solicitudes_recoleccionUncheckedUpdateManyWithoutClienteInput = {
     id_solicitud?: StringFieldUpdateOperationsInput | string
-    id_pago?: StringFieldUpdateOperationsInput | string
     cubetas_entregadas?: NullableIntFieldUpdateOperationsInput | number | null
     cubetas_recolectadas?: NullableIntFieldUpdateOperationsInput | number | null
     total_a_pagar?: NullableFloatFieldUpdateOperationsInput | number | null
@@ -37852,6 +38065,9 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    id_pago?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type faqCreateManyCompospetInput = {
@@ -37887,8 +38103,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
   }
 
   export type faqUpdateWithoutCompospetInput = {
@@ -37965,8 +38179,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -37986,8 +38198,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -38006,8 +38216,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type solicitudes_recoleccionCreateManyFormas_pagoInput = {
@@ -38020,6 +38228,8 @@ export namespace Prisma {
     fecha: Date | string
     horario?: Date | string | null
     notas?: string | null
+    quiere_recoleccion?: boolean | null
+    quiere_productos_extra?: boolean | null
   }
 
   export type solicitudes_recoleccionUpdateWithoutFormas_pagoInput = {
@@ -38031,6 +38241,8 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
   }
@@ -38045,6 +38257,8 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -38058,13 +38272,15 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     horario?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
+    quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
   export type nivel_promocionesCreateManyNivelesInput = {
     id_promociones: number
   }
 
-  export type tarjeta_lealtadCreateManyNivelesInput = {
+  export type tarjetaCreateManyNivelesInput = {
     id_tarjeta_lealtad?: string
     id_cliente: string
     saldo?: number
@@ -38082,19 +38298,19 @@ export namespace Prisma {
     id_promociones?: IntFieldUpdateOperationsInput | number
   }
 
-  export type tarjeta_lealtadUpdateWithoutNivelesInput = {
+  export type tarjetaUpdateWithoutNivelesInput = {
     id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
-    cliente?: clienteUpdateOneRequiredWithoutTarjeta_lealtadNestedInput
+    cliente?: clienteUpdateOneRequiredWithoutTarjetaNestedInput
   }
 
-  export type tarjeta_lealtadUncheckedUpdateWithoutNivelesInput = {
+  export type tarjetaUncheckedUpdateWithoutNivelesInput = {
     id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
-  export type tarjeta_lealtadUncheckedUpdateManyWithoutNivelesInput = {
+  export type tarjetaUncheckedUpdateManyWithoutNivelesInput = {
     id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
@@ -38172,8 +38388,6 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
-    codigo_expiracion?: Date | string | null
   }
 
   export type roles_permisosUpdateWithoutRolesInput = {
@@ -38199,8 +38413,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -38220,8 +38432,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -38240,8 +38450,6 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type clienteCreateManyRutaInput = {
@@ -38267,7 +38475,7 @@ export namespace Prisma {
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUpdateOneWithoutClienteNestedInput
   }
 
   export type clienteUncheckedUpdateWithoutRutaInput = {
@@ -38281,7 +38489,7 @@ export namespace Prisma {
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
-    tarjeta_lealtad?: tarjeta_lealtadUncheckedUpdateOneWithoutClienteNestedInput
+    tarjeta?: tarjetaUncheckedUpdateOneWithoutClienteNestedInput
   }
 
   export type clienteUncheckedUpdateManyWithoutRutaInput = {
