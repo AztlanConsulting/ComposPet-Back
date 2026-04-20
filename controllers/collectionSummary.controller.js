@@ -29,9 +29,9 @@ const getSummary = async (req, res) => {
         idClient, weekStartDate, weekEndDate
     );
 
-    const productsList = await CollectionRequest.getProductsByCollection(collectionObject.id_solicitud)
+    const productsList = await CollectionRequest.getProductsByCollection(collectionObject.id_solicitud);
 
-    const collectionTotal = calculateCollectionTotal(collectionObject, productsList)
+    const collectionTotal = calculateCollectionTotal(collectionObject, productsList);
 
     const balanceObject = await Client.getClientBalance(idClient);
 
@@ -51,6 +51,35 @@ const getSummary = async (req, res) => {
 }
 
 const deleteProduct = async (req, res) => {
+    try {
+        const {
+            idProduct,
+            idRequest
+        } = req.params;
+
+        if(!idProduct || !idRequest){
+            return res.status(400).json({
+                success: false,
+                message: "Datos insuficientes para borrar el producto"
+            });
+        }
+
+        await CollectionRequest.deleteProduct(parseInt(idProduct), idRequest);
+
+        return res.status(200).json({
+            success: true,
+            message: "Producto eliminado",
+        })
+    }
+    catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Error al eliminar producto",
+        });
+    }
+
 
 }
 

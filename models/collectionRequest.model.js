@@ -129,4 +129,21 @@ module.exports = class CollectionRequest {
         });
     }
 
+    static async getById(idRequest) {
+        return await prisma.solicitudes_recoleccion.findUnique({
+            where: {
+                id_solicitud: idRequest,
+            }
+        })
+    }
+
+    static async deleteProduct(idProduct, idRequest) {
+        return await prisma.productos_solicitud.deleteMany({
+            where: {
+                id_solicitud: idRequest,
+                id_producto: idProduct,
+            }
+        })
+    }
+
 };
