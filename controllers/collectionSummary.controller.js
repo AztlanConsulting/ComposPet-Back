@@ -85,6 +85,28 @@ const deleteProduct = async (req, res) => {
 
 const updateCollectionTotal = async(req, res) => {
 
+    try {
+        const {
+            idRequest,
+            collectionTotal,
+            idPayment,
+        } = req.body;
+
+        await CollectionRequest.updateCollectionTotal(idRequest, collectionTotal, idPayment);
+
+        return res.status(200).json({
+            success: true,
+            message: "Total actualizado",
+        })
+    }
+    catch (error) {
+        console.log(error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Error al actualizar el total",
+        })
+    }
 }
 
 const calculateCollectionTotal = (collectionObject, productsList) => {

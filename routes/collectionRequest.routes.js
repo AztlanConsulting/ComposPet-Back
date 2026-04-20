@@ -9,6 +9,6 @@ router.post('/form02/obtener', collectionRequestController.getCurrentCollectionR
 router.post('/form02/guardar', collectionRequestController.saveCollectionRequestFirstSection);
 router.post('/collection-summary', collectionSummaryController.getSummary);
 router.delete('/collection-summary/product/:idProduct/request/:idRequest', collectionSummaryController.deleteProduct);
-router.put('/collection/payment', collectionSummaryController.updateCollectionTotal);
+router.put('/collection-summary/payment', collectionSummaryController.updateCollectionTotal);
 
 module.exports = router;
