@@ -221,7 +221,10 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   nombre: 'nombre',
   precio: 'precio',
   descripcion: 'descripcion',
-  cantidad: 'cantidad'
+  cantidad: 'cantidad',
+  imagen_url: 'imagen_url',
+  estatus: 'estatus',
+  orden: 'orden'
 };
 
 exports.Prisma.Productos_solicitudScalarFieldEnum = {
@@ -304,8 +307,8 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   primer_inicio_sesion: 'primer_inicio_sesion',
   intentos_fallidos: 'intentos_fallidos',
   bloqueado_hasta: 'bloqueado_hasta',
-  codigo_verificacion: 'codigo_verificacion',
-  codigo_expiracion: 'codigo_expiracion'
+  codigo_expiracion: 'codigo_expiracion',
+  codigo_verificacion: 'codigo_verificacion'
 };
 
 exports.Prisma.ZonaScalarFieldEnum = {

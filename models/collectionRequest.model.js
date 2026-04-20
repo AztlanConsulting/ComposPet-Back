@@ -109,4 +109,183 @@ module.exports = class CollectionRequest {
             },
         });
     }
+
+    /**
+     * Obtiene todos los productos extra que están activos
+     * en la base de datos.
+     *
+     * @async
+     * @function getExtraProducts
+     * @returns {Array<Object>} Lista de productos extra disponibles
+     */
+    static async getExtraProducts() {
+        const extraProducts = await prisma.productos_extra.findMany({
+            where: {
+                estatus: 'true',
+            },
+            orderBy:{
+                orden: 'asc',
+            },
+            select: {
+                id_producto: true,
+                nombre: true,
+                precio: true,
+                descripcion: true,
+                cantidad: true,
+                imagen_url: true,
+                estatus: true,
+            }
+        });
+
+        if (!extraProducts || extraProducts.length === 0) {
+            throw new Error('PRODUCTOS_EXTRA_NO_ENCONTRADOS');
+        }
+
+        return extraProducts;
+    };
+
+    /**
+     * Guarda la segunda sección de la solicitud de recolección.
+     *
+     * Flujo:
+     * 1. Verifica que la solicitud exista
+     * 2. Elimina productos previamente guardados
+     * 3. Registra la nueva selección de productos
+     *
+     * @async
+     * @function saveSecondSection
+     * @param {string} requestID - ID de la solicitud de recolección
+     * @param {Array<Object>} products - Lista de productos seleccionados
+     * @param {number} products[].id_producto - ID del producto
+     * @param {number} products[].cantidad - Cantidad seleccionada
+     * @returns {Object} Mensaje de confirmación del guardado
+     */
+    static async saveSecondSection(requestID, products) {
+        const requestSecondSection = await prisma.solicitudes_recoleccion.findUnique({
+            where: { id_solicitud: requestID }
+        });
+
+        if (!requestSecondSection) {
+            throw new Error('Solicitud no encontrada');
+        }
+
+        const deleteProductsRequest = await prisma.productos_solicitud.deleteMany({
+            where: { id_solicitud: requestID }
+        });
+
+        for (const product of products) {
+            await prisma.productos_solicitud.create({
+                data: {
+                    id_solicitud: requestID,
+                    id_producto: product.id_producto,
+                    fecha: new Date(),
+                    cantidad: product.cantidad,
+                }
+            });
+        }
+
+        return { message: 'Productos guardados correctamente' };
+    }
+
+     /**
+     * Obtiene el id de la última solicitud creada por el usuario
+     *
+     * @param {number} idClient - ID del cliente
+     * @returns {request} Id de la última solicitud
+     * creada por el usuario
+     * */
+    static async getLastRequestPerClient(idClient) {
+        return await prisma.solicitudes_recoleccion.findFirst({
+            where: {
+                id_cliente : idClient
+            },
+            orderBy: {
+                fecha: 'desc'
+            },
+            select: {
+                id_solicitud: true
+            }
+            });
+    }
+
+    /**
+     * Obtiene los productos extra previamente seleccionados
+     * para una solicitud específica.
+     *
+     * @async
+     * @function getInfoAboutExtraProuctsSelected
+     * @param {string} requestID - ID de la solicitud
+     * @returns {Array<Object>} Lista de productos seleccionados con su cantidad
+     */
+    static async getInfoAboutExtraProuctsSelected(requestID){
+        return await prisma.productos_solicitud.findMany({
+            where:{
+                id_solicitud: requestID,
+            },
+            select: {
+                id_producto: true,
+                cantidad: true,
+            }
+        });
+    }
+
+    /**
+     * Actualiza el atributo que indica si la solicitud
+     * incluye productos extra.
+     *
+     * @async
+     * @function updateWantsRequestAttribute
+     * @param {string} requestID - ID de la solicitud
+     * @param {boolean} value - Valor a asignar al atributo quiere_productos_extra
+     */
+    static async updateWantsRequestAttribute(requestID, value){
+        return await prisma.solicitudes_recoleccion.update({
+            where:{
+                id_solicitud: requestID
+            },
+            data: {
+                quiere_productos_extra: value
+            }
+        })
+    }
+
+    /**
+     * Descuenta inventario de un producto extra.
+     *
+     * @async
+     * @function substractInventory
+     * @param {Object} product - Producto a actualizar
+     * @param {number} product.id_producto - ID del producto
+     * @param {number} product.cantidad - Cantidad a descontar
+     */
+    static async substractInventory(product){
+        return await prisma.productos_extra.update({
+            where : { id_producto : product.id_producto},
+            data: {
+                cantidad:{
+                    decrement: product.cantidad
+                }
+            }
+        })
+    }
+
+    /**
+     * Regresa inventario de un producto extra.
+     *
+     * @async
+     * @function incrementInventory
+     * @param {Object} product - Producto a actualizar
+     * @param {number} product.id_producto - ID del producto
+     * @param {number} product.cantidad - Cantidad a incrementar
+     */
+    static async incrementInventory(product){
+        return await prisma.productos_extra.update({
+            where: { id_producto: product.id_producto},
+            data: {
+                cantidad: {
+                    increment: product.cantidad
+                }
+            }
+        })
+    }
 };

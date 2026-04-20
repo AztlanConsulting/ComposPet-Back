@@ -16650,12 +16650,14 @@ export namespace Prisma {
     id_producto: number | null
     precio: number | null
     cantidad: number | null
+    orden: number | null
   }
 
   export type Productos_extraSumAggregateOutputType = {
     id_producto: number | null
     precio: number | null
     cantidad: number | null
+    orden: number | null
   }
 
   export type Productos_extraMinAggregateOutputType = {
@@ -16664,6 +16666,9 @@ export namespace Prisma {
     precio: number | null
     descripcion: string | null
     cantidad: number | null
+    imagen_url: string | null
+    estatus: string | null
+    orden: number | null
   }
 
   export type Productos_extraMaxAggregateOutputType = {
@@ -16672,6 +16677,9 @@ export namespace Prisma {
     precio: number | null
     descripcion: string | null
     cantidad: number | null
+    imagen_url: string | null
+    estatus: string | null
+    orden: number | null
   }
 
   export type Productos_extraCountAggregateOutputType = {
@@ -16680,6 +16688,9 @@ export namespace Prisma {
     precio: number
     descripcion: number
     cantidad: number
+    imagen_url: number
+    estatus: number
+    orden: number
     _all: number
   }
 
@@ -16688,12 +16699,14 @@ export namespace Prisma {
     id_producto?: true
     precio?: true
     cantidad?: true
+    orden?: true
   }
 
   export type Productos_extraSumAggregateInputType = {
     id_producto?: true
     precio?: true
     cantidad?: true
+    orden?: true
   }
 
   export type Productos_extraMinAggregateInputType = {
@@ -16702,6 +16715,9 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
+    imagen_url?: true
+    estatus?: true
+    orden?: true
   }
 
   export type Productos_extraMaxAggregateInputType = {
@@ -16710,6 +16726,9 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
+    imagen_url?: true
+    estatus?: true
+    orden?: true
   }
 
   export type Productos_extraCountAggregateInputType = {
@@ -16718,6 +16737,9 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
+    imagen_url?: true
+    estatus?: true
+    orden?: true
     _all?: true
   }
 
@@ -16813,6 +16835,9 @@ export namespace Prisma {
     precio: number
     descripcion: string | null
     cantidad: number
+    imagen_url: string | null
+    estatus: string | null
+    orden: number | null
     _count: Productos_extraCountAggregateOutputType | null
     _avg: Productos_extraAvgAggregateOutputType | null
     _sum: Productos_extraSumAggregateOutputType | null
@@ -16840,6 +16865,9 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    imagen_url?: boolean
+    estatus?: boolean
+    orden?: boolean
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productos_extra"]>
@@ -16850,6 +16878,9 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    imagen_url?: boolean
+    estatus?: boolean
+    orden?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -16858,6 +16889,9 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    imagen_url?: boolean
+    estatus?: boolean
+    orden?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectScalar = {
@@ -16866,9 +16900,12 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
+    imagen_url?: boolean
+    estatus?: boolean
+    orden?: boolean
   }
 
-  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad", ExtArgs["result"]["productos_extra"]>
+  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "estatus" | "orden", ExtArgs["result"]["productos_extra"]>
   export type productos_extraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -16887,6 +16924,9 @@ export namespace Prisma {
       precio: number
       descripcion: string | null
       cantidad: number
+      imagen_url: string | null
+      estatus: string | null
+      orden: number | null
     }, ExtArgs["result"]["productos_extra"]>
     composites: {}
   }
@@ -17316,6 +17356,9 @@ export namespace Prisma {
     readonly precio: FieldRef<"productos_extra", 'Float'>
     readonly descripcion: FieldRef<"productos_extra", 'String'>
     readonly cantidad: FieldRef<"productos_extra", 'Int'>
+    readonly imagen_url: FieldRef<"productos_extra", 'String'>
+    readonly estatus: FieldRef<"productos_extra", 'String'>
+    readonly orden: FieldRef<"productos_extra", 'Int'>
   }
     
 
@@ -26699,8 +26742,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-    codigo_verificacion: string | null
     codigo_expiracion: Date | null
+    codigo_verificacion: string | null
   }
 
   export type Usuarios_cpMaxAggregateOutputType = {
@@ -26716,8 +26759,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-    codigo_verificacion: string | null
     codigo_expiracion: Date | null
+    codigo_verificacion: string | null
   }
 
   export type Usuarios_cpCountAggregateOutputType = {
@@ -26733,8 +26776,8 @@ export namespace Prisma {
     primer_inicio_sesion: number
     intentos_fallidos: number
     bloqueado_hasta: number
-    codigo_verificacion: number
     codigo_expiracion: number
+    codigo_verificacion: number
     _all: number
   }
 
@@ -26760,8 +26803,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_verificacion?: true
     codigo_expiracion?: true
+    codigo_verificacion?: true
   }
 
   export type Usuarios_cpMaxAggregateInputType = {
@@ -26777,8 +26820,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_verificacion?: true
     codigo_expiracion?: true
+    codigo_verificacion?: true
   }
 
   export type Usuarios_cpCountAggregateInputType = {
@@ -26794,8 +26837,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_verificacion?: true
     codigo_expiracion?: true
+    codigo_verificacion?: true
     _all?: true
   }
 
@@ -26898,8 +26941,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean
     intentos_fallidos: number
     bloqueado_hasta: Date | null
-    codigo_verificacion: string | null
     codigo_expiracion: Date | null
+    codigo_verificacion: string | null
     _count: Usuarios_cpCountAggregateOutputType | null
     _avg: Usuarios_cpAvgAggregateOutputType | null
     _sum: Usuarios_cpSumAggregateOutputType | null
@@ -26934,8 +26977,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
     codigo_expiracion?: boolean
+    codigo_verificacion?: boolean
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
@@ -26958,8 +27001,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
     codigo_expiracion?: boolean
+    codigo_verificacion?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -26977,8 +27020,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
     codigo_expiracion?: boolean
+    codigo_verificacion?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -26996,11 +27039,11 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_verificacion?: boolean
     codigo_expiracion?: boolean
+    codigo_verificacion?: boolean
   }
 
-  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta" | "codigo_verificacion" | "codigo_expiracion", ExtArgs["result"]["usuarios_cp"]>
+  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta" | "codigo_expiracion" | "codigo_verificacion", ExtArgs["result"]["usuarios_cp"]>
   export type usuarios_cpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
@@ -27042,8 +27085,8 @@ export namespace Prisma {
       primer_inicio_sesion: boolean
       intentos_fallidos: number
       bloqueado_hasta: Date | null
-      codigo_verificacion: string | null
       codigo_expiracion: Date | null
+      codigo_verificacion: string | null
     }, ExtArgs["result"]["usuarios_cp"]>
     composites: {}
   }
@@ -27485,8 +27528,8 @@ export namespace Prisma {
     readonly primer_inicio_sesion: FieldRef<"usuarios_cp", 'Boolean'>
     readonly intentos_fallidos: FieldRef<"usuarios_cp", 'Int'>
     readonly bloqueado_hasta: FieldRef<"usuarios_cp", 'DateTime'>
-    readonly codigo_verificacion: FieldRef<"usuarios_cp", 'String'>
     readonly codigo_expiracion: FieldRef<"usuarios_cp", 'DateTime'>
+    readonly codigo_verificacion: FieldRef<"usuarios_cp", 'String'>
   }
     
 
@@ -29252,7 +29295,10 @@ export namespace Prisma {
     nombre: 'nombre',
     precio: 'precio',
     descripcion: 'descripcion',
-    cantidad: 'cantidad'
+    cantidad: 'cantidad',
+    imagen_url: 'imagen_url',
+    estatus: 'estatus',
+    orden: 'orden'
   };
 
   export type Productos_extraScalarFieldEnum = (typeof Productos_extraScalarFieldEnum)[keyof typeof Productos_extraScalarFieldEnum]
@@ -29362,8 +29408,8 @@ export namespace Prisma {
     primer_inicio_sesion: 'primer_inicio_sesion',
     intentos_fallidos: 'intentos_fallidos',
     bloqueado_hasta: 'bloqueado_hasta',
-    codigo_verificacion: 'codigo_verificacion',
-    codigo_expiracion: 'codigo_expiracion'
+    codigo_expiracion: 'codigo_expiracion',
+    codigo_verificacion: 'codigo_verificacion'
   };
 
   export type Usuarios_cpScalarFieldEnum = (typeof Usuarios_cpScalarFieldEnum)[keyof typeof Usuarios_cpScalarFieldEnum]
@@ -30233,6 +30279,9 @@ export namespace Prisma {
     precio?: FloatFilter<"productos_extra"> | number
     descripcion?: StringNullableFilter<"productos_extra"> | string | null
     cantidad?: IntFilter<"productos_extra"> | number
+    imagen_url?: StringNullableFilter<"productos_extra"> | string | null
+    estatus?: StringNullableFilter<"productos_extra"> | string | null
+    orden?: IntNullableFilter<"productos_extra"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }
 
@@ -30242,6 +30291,9 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     cantidad?: SortOrder
+    imagen_url?: SortOrderInput | SortOrder
+    estatus?: SortOrderInput | SortOrder
+    orden?: SortOrderInput | SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
   }
 
@@ -30254,6 +30306,9 @@ export namespace Prisma {
     precio?: FloatFilter<"productos_extra"> | number
     descripcion?: StringNullableFilter<"productos_extra"> | string | null
     cantidad?: IntFilter<"productos_extra"> | number
+    imagen_url?: StringNullableFilter<"productos_extra"> | string | null
+    estatus?: StringNullableFilter<"productos_extra"> | string | null
+    orden?: IntNullableFilter<"productos_extra"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }, "id_producto">
 
@@ -30263,6 +30318,9 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     cantidad?: SortOrder
+    imagen_url?: SortOrderInput | SortOrder
+    estatus?: SortOrderInput | SortOrder
+    orden?: SortOrderInput | SortOrder
     _count?: productos_extraCountOrderByAggregateInput
     _avg?: productos_extraAvgOrderByAggregateInput
     _max?: productos_extraMaxOrderByAggregateInput
@@ -30279,6 +30337,9 @@ export namespace Prisma {
     precio?: FloatWithAggregatesFilter<"productos_extra"> | number
     descripcion?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
     cantidad?: IntWithAggregatesFilter<"productos_extra"> | number
+    imagen_url?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
+    estatus?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
+    orden?: IntNullableWithAggregatesFilter<"productos_extra"> | number | null
   }
 
   export type productos_solicitudWhereInput = {
@@ -30787,8 +30848,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
     codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
+    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30810,8 +30871,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-    codigo_verificacion?: SortOrderInput | SortOrder
     codigo_expiracion?: SortOrderInput | SortOrder
+    codigo_verificacion?: SortOrderInput | SortOrder
     administrador?: administradorOrderByWithRelationInput
     bitacora?: bitacoraOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
@@ -30836,8 +30897,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
     codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
+    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30859,8 +30920,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-    codigo_verificacion?: SortOrderInput | SortOrder
     codigo_expiracion?: SortOrderInput | SortOrder
+    codigo_verificacion?: SortOrderInput | SortOrder
     _count?: usuarios_cpCountOrderByAggregateInput
     _avg?: usuarios_cpAvgOrderByAggregateInput
     _max?: usuarios_cpMaxOrderByAggregateInput
@@ -30884,8 +30945,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolWithAggregatesFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntWithAggregatesFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableWithAggregatesFilter<"usuarios_cp"> | string | null
     codigo_expiracion?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
+    codigo_verificacion?: StringNullableWithAggregatesFilter<"usuarios_cp"> | string | null
   }
 
   export type zonaWhereInput = {
@@ -31655,6 +31716,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    imagen_url?: string | null
+    estatus?: string | null
+    orden?: number | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -31664,6 +31728,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    imagen_url?: string | null
+    estatus?: string | null
+    orden?: number | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -31673,6 +31740,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -31682,6 +31752,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -31691,6 +31764,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    imagen_url?: string | null
+    estatus?: string | null
+    orden?: number | null
   }
 
   export type productos_extraUpdateManyMutationInput = {
@@ -31699,6 +31775,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type productos_extraUncheckedUpdateManyInput = {
@@ -31707,6 +31786,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type productos_solicitudCreateInput = {
@@ -32200,8 +32282,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -32223,8 +32305,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -32242,8 +32324,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -32265,8 +32347,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -32286,8 +32368,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
   }
 
   export type usuarios_cpUpdateManyMutationInput = {
@@ -32301,8 +32383,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usuarios_cpUncheckedUpdateManyInput = {
@@ -32318,8 +32400,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type zonaCreateInput = {
@@ -33219,12 +33301,16 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
+    imagen_url?: SortOrder
+    estatus?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraAvgOrderByAggregateInput = {
     id_producto?: SortOrder
     precio?: SortOrder
     cantidad?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraMaxOrderByAggregateInput = {
@@ -33233,6 +33319,9 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
+    imagen_url?: SortOrder
+    estatus?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraMinOrderByAggregateInput = {
@@ -33241,12 +33330,16 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
+    imagen_url?: SortOrder
+    estatus?: SortOrder
+    orden?: SortOrder
   }
 
   export type productos_extraSumOrderByAggregateInput = {
     id_producto?: SortOrder
     precio?: SortOrder
     cantidad?: SortOrder
+    orden?: SortOrder
   }
 
   export type Productos_extraScalarRelationFilter = {
@@ -33648,8 +33741,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_verificacion?: SortOrder
     codigo_expiracion?: SortOrder
+    codigo_verificacion?: SortOrder
   }
 
   export type usuarios_cpAvgOrderByAggregateInput = {
@@ -33669,8 +33762,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_verificacion?: SortOrder
     codigo_expiracion?: SortOrder
+    codigo_verificacion?: SortOrder
   }
 
   export type usuarios_cpMinOrderByAggregateInput = {
@@ -33686,8 +33779,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_verificacion?: SortOrder
     codigo_expiracion?: SortOrder
+    codigo_verificacion?: SortOrder
   }
 
   export type usuarios_cpSumOrderByAggregateInput = {
@@ -35344,8 +35437,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35366,8 +35459,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35426,8 +35519,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35448,8 +35541,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35542,8 +35635,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35564,8 +35657,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35598,8 +35691,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35620,8 +35713,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35657,8 +35750,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35679,8 +35772,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35791,8 +35884,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35813,8 +35906,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35958,8 +36051,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -35979,8 +36072,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -36110,8 +36203,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
     codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
+    codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
   }
 
   export type compospetCreateWithoutFaqInput = {
@@ -36568,6 +36661,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    imagen_url?: string | null
+    estatus?: string | null
+    orden?: number | null
   }
 
   export type productos_extraUncheckedCreateWithoutProductos_solicitudInput = {
@@ -36576,6 +36672,9 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
+    imagen_url?: string | null
+    estatus?: string | null
+    orden?: number | null
   }
 
   export type productos_extraCreateOrConnectWithoutProductos_solicitudInput = {
@@ -36631,6 +36730,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type productos_extraUncheckedUpdateWithoutProductos_solicitudInput = {
@@ -36639,6 +36741,9 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
+    imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableStringFieldUpdateOperationsInput | string | null
+    orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type solicitudes_recoleccionUpsertWithoutProductos_solicitudInput = {
@@ -36741,8 +36846,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -36762,8 +36867,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -37021,8 +37126,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -37043,8 +37148,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -37077,8 +37182,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -37099,8 +37204,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -37887,8 +37992,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
   }
 
   export type faqUpdateWithoutCompospetInput = {
@@ -37965,8 +38070,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -37986,8 +38091,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -38006,8 +38111,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_recoleccionCreateManyFormas_pagoInput = {
@@ -38172,8 +38277,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_verificacion?: string | null
     codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
   }
 
   export type roles_permisosUpdateWithoutRolesInput = {
@@ -38199,8 +38304,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -38220,8 +38325,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -38240,8 +38345,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type clienteCreateManyRutaInput = {

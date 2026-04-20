@@ -183,3 +183,53 @@ INSERT INTO public.solicitudes_recoleccion (
     true,
     NULL
 );
+
+INSERT INTO public.productos_extra (
+  id_producto,
+  nombre,
+  precio,
+  descripcion,
+  cantidad,
+  imagen_url
+) VALUES
+(1, 'Composta 5kg', 120.00, 'Bolsa de composta orgánica', 50, '/images/productos/composta.jpg'),
+(2, 'Tierra preparada', 90.00, 'Tierra lista para plantas', 30, '/images/productos/tierra.jpg'),
+(3, 'Fertilizante líquido', 150.00, 'Fertilizante natural', 20, '/images/productos/fertilizante.jpg'),
+(4, 'Humus de lombriz', 180.00, 'Abono orgánico premium', 25, '/images/productos/humus.jpg'),
+(5, 'Maceta reciclada', 70.00, 'Maceta ecológica', 40, '/images/productos/maceta.jpg');
+
+INSERT INTO public.productos_extra
+(id_producto, nombre, precio, descripcion, cantidad, imagen_url, estatus, orden)
+VALUES
+(1, 'Aserrin', 0, 'Pendiente de definir', 0, '/img/products/aserrin.jpg', true, 1),
+
+(2, 'Composta (en cubeta)', 50, 'Cubetita de 4lt adicional', 0, '/img/products/composta_cubeta_4lt.jpg', true, 2),
+
+(3, 'Composta (costal)', 150, 'Cubeta de 19lt adicional', 0, '/img/products/composta_costal_19lt.jpg', true, 3),
+
+(4, 'Hojas Poopis', 55, 'Paquete de hojas Poopis (50 pzas)', 0, '/img/products/hojas_poopis.jpg', true, 4),
+
+(5, 'Arena en pellet Cocopet 5kg', 225, 'Arena en pellet Cocopet 5kg', 0, '/img/products/arena_pellet_cocopet_5kg.jpg', true, 5),
+
+(6, 'Fibra de Coco 15lt', 110, 'Fibra de coco Cocopet 15lt', 0, '/img/products/fibra_coco_15lt.jpg', true, 6),
+
+(7, 'Fibra de Coco 50lt', 300, 'Fibra de coco Cocopet 50lt', 0, '/img/products/fibra_coco_50lt.jpg', true, 7),
+
+(8, 'Servilleta de tela 1 pza', 80, '1 servilleta de tela', 0, '/img/products/servilleta_tela_1pza.jpg', true, 8),
+
+(9, 'Servilletas de tela 4 pzas', 300, 'Paquete de 4 servilletas de tela', 0, '/img/products/servilletas_tela_4pzas.jpg', true, 9),
+
+(10, 'Rascador gato CH', 80, 'Rascador para gato CH', 0, '/img/products/rascador_gato_ch.jpg', true, 10),
+
+(11, 'Rascador gato GDE', 120, 'Rascador para gato GDE', 0, '/img/products/rascador_gato_gde.jpg', true, 11);
+
+
+-- Paso 1: mover productos_extra a IDs temporales para evitar choques
+UPDATE public.productos_extra SET id_producto = 3, orden = 3 WHERE id_producto = -3;
+UPDATE public.productos_extra SET id_producto = 4, orden = 4 WHERE id_producto = -4;
+UPDATE public.productos_extra SET id_producto = 5, orden = 5 WHERE id_producto = -5;
+UPDATE public.productos_extra SET id_producto = 6, orden = 6 WHERE id_producto = -6;
+UPDATE public.productos_extra SET id_producto = 7, orden = 7 WHERE id_producto = -7;
+UPDATE public.productos_extra SET id_producto = 8, orden = 8 WHERE id_producto = -8;
+UPDATE public.productos_extra SET id_producto = 9, orden = 9 WHERE id_producto = -9;
+UPDATE public.productos_extra SET id_producto = 10, orden = 10 WHERE id_producto = -10;

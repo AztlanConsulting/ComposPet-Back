@@ -13,7 +13,7 @@ router.use('/', authRoutes);
 router.use("/user", user_routes);
 
 // Agrega las rutas de solicitudes_rec
-router.use('/solicitudes_rec', authMiddleware, collectionRequesrRoutes); 
+router.use('/solicitudes-rec', authMiddleware, collectionRequesrRoutes);
 
 // Agrega las rutas de cliente
 router.use('/cliente', authMiddleware, clientRoutes);
