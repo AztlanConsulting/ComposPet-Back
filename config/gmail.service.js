@@ -60,11 +60,11 @@ const GmailService = {
      * @param {string} message - Contenido del mensaje.
      * @throws {Error} Si ocurre un fallo en la autenticación o en la comunicación con Google.
      */
-    sendStaticEmail: async (to, subject, message) => {
+    sendStaticEmail: async (to, subject, message, options) => {
         try {
             const auth = GmailService.getAuthClient();
             const gmail = google.gmail({ version: 'v1', auth });
-            const otpContent = getOtpContent(message);
+            const otpContent = getOtpContent(message, options);
             const raw = GmailService.encodeMessage(to, subject, otpContent);
 
             await callExternalApi(
