@@ -191,7 +191,12 @@ const saveSecondSection = async (req, res) => {
                 requestIDReceived,
                 false,
             )
-        };
+        } else {
+            const updateRequest = await CollectionRequest.updateWantsRequestAttribute(
+                requestIDReceived,
+                true,
+            )
+        }
 
         const productsLastRequest = await CollectionRequest.getInfoAboutExtraProuctsSelected(requestIDReceived);
 

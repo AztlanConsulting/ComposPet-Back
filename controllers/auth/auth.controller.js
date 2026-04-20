@@ -49,7 +49,6 @@ const cookieOptions = {
  */
 
 const login = async(req, res) => {
-    console.log("Entro al login");
 
     const {email, password} = req.body;
     try{

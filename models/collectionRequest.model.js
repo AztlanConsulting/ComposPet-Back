@@ -195,7 +195,7 @@ module.exports = class CollectionRequest {
      * creada por el usuario
      * */
     static async getLastRequestPerClient(idClient) {
-        const request = await prisma.solicitudes_recoleccion.findFirst({
+        return await prisma.solicitudes_recoleccion.findFirst({
             where: {
                 id_cliente : idClient
             },
@@ -206,8 +206,6 @@ module.exports = class CollectionRequest {
                 id_solicitud: true
             }
             });
-
-        return request;
     }
 
     /**
@@ -220,7 +218,7 @@ module.exports = class CollectionRequest {
      * @returns {Array<Object>} Lista de productos seleccionados con su cantidad
      */
     static async getInfoAboutExtraProuctsSelected(requestID){
-        const data = await prisma.productos_solicitud.findMany({
+        return await prisma.productos_solicitud.findMany({
             where:{
                 id_solicitud: requestID,
             },
@@ -229,8 +227,6 @@ module.exports = class CollectionRequest {
                 cantidad: true,
             }
         });
-
-        return data;
     }
 
     /**
@@ -243,7 +239,7 @@ module.exports = class CollectionRequest {
      * @param {boolean} value - Valor a asignar al atributo quiere_productos_extra
      */
     static async updateWantsRequestAttribute(requestID, value){
-        const data = await prisma.solicitudes_recoleccion.update({
+        return await prisma.solicitudes_recoleccion.update({
             where:{
                 id_solicitud: requestID
             },
@@ -263,7 +259,7 @@ module.exports = class CollectionRequest {
      * @param {number} product.cantidad - Cantidad a descontar
      */
     static async substractInventory(product){
-        const data = await prisma.productos_extra.update({
+        return await prisma.productos_extra.update({
             where : { id_producto : product.id_producto},
             data: {
                 cantidad:{
@@ -283,7 +279,7 @@ module.exports = class CollectionRequest {
      * @param {number} product.cantidad - Cantidad a incrementar
      */
     static async incrementInventory(product){
-        const data = await prisma.productos_extra.update({
+        return await prisma.productos_extra.update({
             where: { id_producto: product.id_producto},
             data: {
                 cantidad: {
