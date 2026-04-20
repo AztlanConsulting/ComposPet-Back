@@ -2,17 +2,15 @@ const prisma = require('../../config/prisma')
 
 const Password = {
     /**
-     * Busca un usuario que esté pendiente de su primer inicio de sesión.
-     * Se utiliza para validar que el flujo de creación de contraseña solo sea
-     * accesible para usuarios nuevos o reseteados por un administrador.
-     * * @param {string} correo - Correo electrónico del usuario.
-     * @returns {Promise<object|null>} Datos del usuario si cumple la condición, null en caso contrario.
+     * Busca un usuario por correo y filtra por su estado de primer inicio.
+     * @param {string} correo 
+     * @param {boolean} isFirstLogin - true para nuevos, false para recuperación normal.
      */
-    findUserForFirstLogin: async (correo) => {
+    findUserByStatus: async (correo, isFirstLogin) => {
         return await prisma.usuarios_cp.findUnique({
             where: {
                 correo: correo.trim(),
-                primer_inicio_sesion: true,
+                primer_inicio_sesion: isFirstLogin,
             }
         });
     },
@@ -56,6 +54,23 @@ const Password = {
                 intentos_fallidos: 0,
                 bloqueado_hasta: null
             }
+        });
+    },
+
+    /**
+     * Actualiza exclusivamente la contraseña de un usuario.
+     * Se utiliza en el flujo de recuperación de contraseña para usuarios que 
+     * ya tienen su cuenta activa.
+     * * @async
+     * @function updateOnlyPassword
+     * @param {number} id - Identificador único del usuario (id_usuario).
+     * @param {string} hashedPassword - Hash de la nueva contraseña ya encriptada.
+     * @returns {Promise<Object>} Promesa que resuelve con el objeto del usuario actualizado.
+     */
+    updateOnlyPassword: async (id, hashedPassword) => {
+        return await prisma.usuarios_cp.update({
+            where: { id_usuario: id },
+            data: { contrasena: hashedPassword }
         });
     },
 };
