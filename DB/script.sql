@@ -452,3 +452,9 @@ AS $function$
 	END;
 $function$
 ;
+
+ALTER TABLE public.productos_extra
+ADD COLUMN imagen_url character varying;
+
+ALTER TABLE public.productos_extra
+ADD COLUMN orden INT;

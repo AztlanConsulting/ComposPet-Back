@@ -13,13 +13,13 @@ const firstLoginController = require('../../controllers/auth/password.controller
  */
 
 /**
- * @route POST /login
+ * @route POST /inicio-sesion
  * @description Autentica al usuario con correo y contraseña.
  * Aplica protección contra fuerza bruta mediante bloqueo temporal por intentos fallidos.
  * @access Público
  */
 
-router.post('/login', authController.login);
+router.post('/inicio-sesion', authController.login);
 
 /**
  * @route POST /auth/google

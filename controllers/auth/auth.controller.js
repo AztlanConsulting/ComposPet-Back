@@ -6,8 +6,8 @@ const { callExternalApi } = require('../../middlewares/externalApiClient');
 const { verifyRefreshToken, generateAccessToken, generateRefreshToken } = require('../../utils/jwt.utils');
 const { logIfAdmin } = require('../../utils/logIfAdmin');
 
-const MAX_INTENTOS = 5;
-const BLOQUEO_MINUTOS = 15;
+const MAX_ATTEMPTS = 5;
+const LOCK_MINUTES = 15;
 
 /**
  * Configuración de las cookies de sesión.
@@ -33,7 +33,7 @@ const cookieOptions = {
  * 1. Existencia del usuario por correo (solo usuarios con `estatus: true`).
  * 2. Verificación de bloqueo temporal por intentos fallidos previos.
  * 3. Comparación de contraseña con hash almacenado en base de datos.
- * 4. Incremento de intentos fallidos y bloqueo automático al alcanzar `MAX_INTENTOS`.
+ * 4. Incremento de intentos fallidos y bloqueo automático al alcanzar `MAX_ATTEMPTS`.
  *
  * Tras una autenticación exitosa, resetea los intentos fallidos, registra el evento
  * en bitácora y emite un JWT con vigencia de 8 horas.
@@ -63,29 +63,29 @@ const login = async(req, res) => {
             await logIfAdmin(user, 'INTENTO_LOGIN_CUENTA_BLOQUEADA');
 
             return res.status(401).json(
-                {message: `Cuenta bloqueda. Intente en ${BLOQUEO_MINUTOS} minutos.`}
+                {message: `Cuenta bloqueda. Intente en ${LOCK_MINUTES} minutos.`}
             );
         }
 
         const passwordOK = await bcrypt.compare(password, user.contrasena);
 
         if (!passwordOK) {
-            const intentos = (user.intentos_fallidos || 0) + 1;
+            const attempts = (user.intentos_fallidos || 0) + 1;
 
             // Al alcanzar el límite se bloquea la cuenta y se reinician los intentos en BD
-            if (intentos >= MAX_INTENTOS){
+            if (attempts >= MAX_ATTEMPTS){
                 await AuthModel.lockAccount(user.id_usuario);
 
                 await logIfAdmin(user, 'CUENTA_BLOQUEDA_POR_INTENTOS');
 
                 return res.status(401).json({
-                    message: `Cuenta bloqueda por ${BLOQUEO_MINUTOS} minutos.`
+                    message: `Cuenta bloqueda por ${LOCK_MINUTES} minutos.`
                 });
             }
 
-            await AuthModel.updateLoginTry(user.id_usuario, intentos);
+            await AuthModel.updateLoginTry(user.id_usuario, attempts);
 
-            await logIfAdmin(user, 'INTENTO_LOGIN_FALLIDO', `Intentos: ${intentos}`);
+            await logIfAdmin(user, 'INTENTO_LOGIN_FALLIDO', `Intentos: ${attempts}`);
 
             return res.status(401).json(
                 {message: `Credenciales incorrectas.`}
@@ -117,7 +117,7 @@ const login = async(req, res) => {
 
     } catch (error) {
         console.error('Error en login:', error);
-        return res.status(500).json({ message: 'Error interno del servidor.' });
+        return res.status(500).json({ message: 'Error del servidor, inténtalo más tarde.' });
     }
 };
 
