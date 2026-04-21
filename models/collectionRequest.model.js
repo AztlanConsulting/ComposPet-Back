@@ -264,7 +264,7 @@ module.exports = class CollectionRequest {
         })
     }
 
-    static async updateCollectionTotal(idRequest, collectionTotal, idPayment) {
+    static async updateCollectionTotal(idRequest, collectionTotal, idPayment, notes) {
         return await prisma.solicitudes_recoleccion.update({
             where: {
                 id_solicitud: idRequest,
@@ -272,6 +272,7 @@ module.exports = class CollectionRequest {
             data: {
                 total_a_pagar: collectionTotal,
                 id_pago: idPayment,
+                notas: notes,
             }
         })
     }

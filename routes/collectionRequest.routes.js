@@ -8,7 +8,7 @@ const collectionSummaryController = require('../controllers/collectionSummary.co
 router.post('/form02/obtener', collectionRequestController.getCurrentCollectionRequest);
 router.post('/form02/guardar', collectionRequestController.saveCollectionRequestFirstSection);
 router.post('/collection-summary', collectionSummaryController.getSummary);
-router.delete('/collection-summary/product/:idProduct/request/:idRequest', collectionSummaryController.deleteProduct);
+router.delete('/collection-summary/product/:idProduct/request/:idRequest/:quantity', collectionSummaryController.deleteProduct);
 router.put('/collection-summary/payment', collectionSummaryController.updateCollectionTotal);
 
 // Ruta que obtiene la solicitud de recolección actual del cliente para la semana indicada

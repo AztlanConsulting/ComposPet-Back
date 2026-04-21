@@ -54,7 +54,8 @@ const deleteProduct = async (req, res) => {
     try {
         const {
             idProduct,
-            idRequest
+            idRequest,
+            quantity,
         } = req.params;
 
         if(!idProduct || !idRequest){
@@ -65,6 +66,13 @@ const deleteProduct = async (req, res) => {
         }
 
         await CollectionRequest.deleteProduct(parseInt(idProduct), idRequest);
+
+        const product = {
+            id_producto: parseInt(idProduct),
+            cantidad: parseInt(quantity),
+        }
+
+        await CollectionRequest.incrementInventory(product);
 
         return res.status(200).json({
             success: true,
@@ -90,9 +98,10 @@ const updateCollectionTotal = async(req, res) => {
             idRequest,
             collectionTotal,
             idPayment,
+            notes,
         } = req.body;
 
-        await CollectionRequest.updateCollectionTotal(idRequest, collectionTotal, idPayment);
+        await CollectionRequest.updateCollectionTotal(idRequest, collectionTotal, idPayment, notes);
 
         return res.status(200).json({
             success: true,
