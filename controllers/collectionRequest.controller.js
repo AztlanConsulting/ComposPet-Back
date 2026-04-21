@@ -36,14 +36,14 @@ const getCurrentCollectionRequest = async (req, res) => {
 
         // Solicita al modelo la búsqueda
         const currentCollectionRequest = await CollectionRequest.getCurrentCollectionRequest(
-            clientId, 
-            weekStartDate, 
+            clientId,
+            weekStartDate,
             weekEndDate
         );
 
-         // Si no existe una solicitud previa, crea el registro inicial para continuar el flujo
+        // Si no existe una solicitud previa, crea el registro inicial para continuar el flujo
         if (!currentCollectionRequest) {
-            currentCollectionRequest= await CollectionRequest.createInitialCollectionRequest(clientId);
+            currentCollectionRequest = await CollectionRequest.createInitialCollectionRequest(clientId);
         }
 
         res.status(200).json({
@@ -59,7 +59,7 @@ const getCurrentCollectionRequest = async (req, res) => {
             message: "Error servidor al obtener la solicitud de recolección.",
             error,
         });
-    }   
+    }
 };
 
 /**
@@ -80,7 +80,7 @@ const getCurrentCollectionRequest = async (req, res) => {
  * @throws {Error} Cuando ocurre un error inesperado al guardar la información.
  */
 
-const saveCollectionRequestFirstSection  = async (req, res) => {
+const saveCollectionRequestFirstSection = async (req, res) => {
     try {
         // Recupera los datos de la primera sección del formulario enviados por el cliente.
         const {
@@ -99,7 +99,7 @@ const saveCollectionRequestFirstSection  = async (req, res) => {
             });
         }
 
-         // Envía al modelo la información para actualizar la solicitud
+        // Envía al modelo la información para actualizar la solicitud
         const savedCollectionRequest = await CollectionRequest.saveCollectionRequestFirstSection({
             requestId,
             wantsCollection,
@@ -123,7 +123,184 @@ const saveCollectionRequestFirstSection  = async (req, res) => {
     }
 }
 
+/**
+ * Obtiene todos los productos extra disponibles
+ *
+ * @async
+ * @function getExtraProducts
+ */
+const getExtraProducts = async (req, res) => {
+    try {
+        const extraProducts = await CollectionRequest.getExtraProducts();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Productos extra obtenidos exitosamente.',
+            data: extraProducts,
+        });
+    } catch (error) {
+        return res.status(404).json({
+            success: false,
+            message: 'No se encontraron productos extra.',
+        });
+    }
+};
+
+/**
+ * Guarda la segunda sección de la solicitud (productos extra seleccionados)
+ *
+ * Flujo:
+ * 1. Validar datos de entrada
+ * 2. Actualizar flag si no hay productos
+ * 3. Recuperar productos previamente seleccionados
+ * 4. Regresar inventario anterior
+ * 5. Descontar nuevo inventario
+ * 6. Guardar nuevos productos
+ *
+ * @async
+ * @function saveSecondSection
+ * @param {string} req.body.requestIDReceived - ID de la solicitud de recolección
+ * @param {Array<Object>} req.body.products - Lista de productos seleccionados
+ */
+const saveSecondSection = async (req, res) => {
+    try {
+        const { requestIDReceived, products } = req.body;
+
+        if (!requestIDReceived || !Array.isArray(products)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Faltan datos requeridos para guardar la segunda sección de la solicitud de recolección.',
+            });
+        }
+
+        if (
+            !products.every(
+                (product) =>
+                    (product.id_producto !== undefined) &&
+                    product.cantidad !== undefined
+            )
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: 'Cada producto debe incluir id_producto y cantidad.',
+            });
+        }
+
+        if (products.length === 0) {
+            const updateRequest = await CollectionRequest.updateWantsRequestAttribute(
+                requestIDReceived,
+                false,
+            )
+        } else {
+            const updateRequest = await CollectionRequest.updateWantsRequestAttribute(
+                requestIDReceived,
+                true,
+            )
+        }
+
+        const productsLastRequest = await CollectionRequest.getInfoAboutExtraProuctsSelected(requestIDReceived);
+
+        if (productsLastRequest.length !== 0) {
+            for (const product1 of productsLastRequest) {
+                const add = await CollectionRequest.incrementInventory(product1);
+            }
+        }
+
+        for (const product of products) {
+            const substract = await CollectionRequest.substractInventory(product);
+        }
+
+        const savedProducts = await CollectionRequest.saveSecondSection(
+            requestIDReceived,
+            products
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: 'Segunda sección de la solicitud de recolección guardada exitosamente.',
+            data: savedProducts,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error de la aplicacion al guardar la segunda sección de la solicitud de recolección.',
+            error,
+        });
+    }
+};
+
+/**
+ * Obtiene el id de la última solicitud de recolección de un cliente
+ *
+ * @async
+ * @function obtenerUltimaSolicitudPorCliente
+ * @param {string} req.body.id_cliente - Id del cliente
+ */
+const getLastRequestPerClient = async (req, res) => {
+
+    try {
+        const idClient = req.body.idClient;
+
+        if (!idClient) {
+            return res.status(400).json({
+                success: false,
+                message: 'El id del cliente es requerido.',
+            });
+        }
+
+        const data = await CollectionRequest.getLastRequestPerClient(idClient);
+
+        return res.status(200).json({
+            data,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error servidor al obtener la última solicitud.',
+            error,
+        });
+    }
+};
+
+/**
+ * Obtiene los productos extra previamente seleccionados en una solicitud
+ *
+ * @async
+ * @function getInfoAboutExtraProuctsSelected
+ * @param {string} req.body.requestID - ID de la solicitud
+ */
+const getInfoAboutExtraProuctsSelected = async (req, res) => {
+    try {
+        const requestId = req.body.requestID;
+
+        if (!requestId) {
+            return res.status(400).json({
+                success: false,
+                message: "El id de la solicitud es requerido para obtener la información de los productos extra seleccionados.",
+            });
+        }
+
+        const data = await CollectionRequest.getInfoAboutExtraProuctsSelected(requestId);
+
+        return res.status(200).json({
+            data,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error al obtener la información de los productos extra",
+            error,
+        })
+    }
+};
+
+
 module.exports = {
     getCurrentCollectionRequest,
     saveCollectionRequestFirstSection,
+    getExtraProducts,
+    saveSecondSection,
+    getLastRequestPerClient,
+    getInfoAboutExtraProuctsSelected
 };

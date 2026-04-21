@@ -16714,10 +16714,6 @@ export namespace Prisma {
     estatus: boolean | null
     imagen_url: string | null
     orden: number | null
-  }
-
-  export type Productos_extraCountAggregateOutputType = {
-    id_producto: number
     nombre: number
     precio: number
     descripcion: number
@@ -33424,10 +33420,6 @@ export namespace Prisma {
     estatus?: SortOrder
     imagen_url?: SortOrder
     orden?: SortOrder
-  }
-
-  export type productos_extraSumOrderByAggregateInput = {
-    id_producto?: SortOrder
     precio?: SortOrder
     cantidad?: SortOrder
     orden?: SortOrder

@@ -44,6 +44,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 app.use(express.json());
 
+// Utilizar imagenes estáticas desde la carpeta 'public/images' para servirlas a través de la ruta '/images'
+app.use('/images', express.static('public/images'));
+
 // Inyecta el interceptor de métricas en todas las peticiones entrantes
 app.use(monitorMiddleware);
 
