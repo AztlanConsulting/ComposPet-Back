@@ -28130,21 +28130,21 @@ export namespace Prisma {
   }
 
   export type TarjetaMinAggregateOutputType = {
-    id_tarjeta_lealtad: string | null
+    id_tarjeta: string | null
     id_cliente: string | null
     id_nivel: string | null
     saldo: number | null
   }
 
   export type TarjetaMaxAggregateOutputType = {
-    id_tarjeta_lealtad: string | null
+    id_tarjeta: string | null
     id_cliente: string | null
     id_nivel: string | null
     saldo: number | null
   }
 
   export type TarjetaCountAggregateOutputType = {
-    id_tarjeta_lealtad: number
+    id_tarjeta: number
     id_cliente: number
     id_nivel: number
     saldo: number
@@ -28161,21 +28161,21 @@ export namespace Prisma {
   }
 
   export type TarjetaMinAggregateInputType = {
-    id_tarjeta_lealtad?: true
+    id_tarjeta?: true
     id_cliente?: true
     id_nivel?: true
     saldo?: true
   }
 
   export type TarjetaMaxAggregateInputType = {
-    id_tarjeta_lealtad?: true
+    id_tarjeta?: true
     id_cliente?: true
     id_nivel?: true
     saldo?: true
   }
 
   export type TarjetaCountAggregateInputType = {
-    id_tarjeta_lealtad?: true
+    id_tarjeta?: true
     id_cliente?: true
     id_nivel?: true
     saldo?: true
@@ -28269,7 +28269,7 @@ export namespace Prisma {
   }
 
   export type TarjetaGroupByOutputType = {
-    id_tarjeta_lealtad: string
+    id_tarjeta: string
     id_cliente: string
     id_nivel: string | null
     saldo: number
@@ -28295,7 +28295,7 @@ export namespace Prisma {
 
 
   export type tarjetaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
+    id_tarjeta?: boolean
     id_cliente?: boolean
     id_nivel?: boolean
     saldo?: boolean
@@ -28304,7 +28304,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["tarjeta"]>
 
   export type tarjetaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
+    id_tarjeta?: boolean
     id_cliente?: boolean
     id_nivel?: boolean
     saldo?: boolean
@@ -28313,7 +28313,7 @@ export namespace Prisma {
   }, ExtArgs["result"]["tarjeta"]>
 
   export type tarjetaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
+    id_tarjeta?: boolean
     id_cliente?: boolean
     id_nivel?: boolean
     saldo?: boolean
@@ -28322,13 +28322,13 @@ export namespace Prisma {
   }, ExtArgs["result"]["tarjeta"]>
 
   export type tarjetaSelectScalar = {
-    id_tarjeta_lealtad?: boolean
+    id_tarjeta?: boolean
     id_cliente?: boolean
     id_nivel?: boolean
     saldo?: boolean
   }
 
-  export type tarjetaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_tarjeta_lealtad" | "id_cliente" | "id_nivel" | "saldo", ExtArgs["result"]["tarjeta"]>
+  export type tarjetaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_tarjeta" | "id_cliente" | "id_nivel" | "saldo", ExtArgs["result"]["tarjeta"]>
   export type tarjetaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
     niveles?: boolean | tarjeta$nivelesArgs<ExtArgs>
@@ -28349,7 +28349,7 @@ export namespace Prisma {
       niveles: Prisma.$nivelesPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
-      id_tarjeta_lealtad: string
+      id_tarjeta: string
       id_cliente: string
       id_nivel: string | null
       saldo: number
@@ -28436,8 +28436,8 @@ export namespace Prisma {
      * // Get first 10 Tarjetas
      * const tarjetas = await prisma.tarjeta.findMany({ take: 10 })
      * 
-     * // Only select the `id_tarjeta_lealtad`
-     * const tarjetaWithId_tarjeta_lealtadOnly = await prisma.tarjeta.findMany({ select: { id_tarjeta_lealtad: true } })
+     * // Only select the `id_tarjeta`
+     * const tarjetaWithId_tarjetaOnly = await prisma.tarjeta.findMany({ select: { id_tarjeta: true } })
      * 
      */
     findMany<T extends tarjetaFindManyArgs>(args?: SelectSubset<T, tarjetaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$tarjetaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -28481,9 +28481,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Tarjetas and only return the `id_tarjeta_lealtad`
-     * const tarjetaWithId_tarjeta_lealtadOnly = await prisma.tarjeta.createManyAndReturn({
-     *   select: { id_tarjeta_lealtad: true },
+     * // Create many Tarjetas and only return the `id_tarjeta`
+     * const tarjetaWithId_tarjetaOnly = await prisma.tarjeta.createManyAndReturn({
+     *   select: { id_tarjeta: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -28572,9 +28572,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Tarjetas and only return the `id_tarjeta_lealtad`
-     * const tarjetaWithId_tarjeta_lealtadOnly = await prisma.tarjeta.updateManyAndReturn({
-     *   select: { id_tarjeta_lealtad: true },
+     * // Update zero or more Tarjetas and only return the `id_tarjeta`
+     * const tarjetaWithId_tarjetaOnly = await prisma.tarjeta.updateManyAndReturn({
+     *   select: { id_tarjeta: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -28778,7 +28778,7 @@ export namespace Prisma {
    * Fields of the tarjeta model
    */
   interface tarjetaFieldRefs {
-    readonly id_tarjeta_lealtad: FieldRef<"tarjeta", 'String'>
+    readonly id_tarjeta: FieldRef<"tarjeta", 'String'>
     readonly id_cliente: FieldRef<"tarjeta", 'String'>
     readonly id_nivel: FieldRef<"tarjeta", 'String'>
     readonly saldo: FieldRef<"tarjeta", 'Float'>
@@ -29493,7 +29493,7 @@ export namespace Prisma {
 
 
   export const TarjetaScalarFieldEnum: {
-    id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+    id_tarjeta: 'id_tarjeta',
     id_cliente: 'id_cliente',
     id_nivel: 'id_nivel',
     saldo: 'saldo'
@@ -31033,7 +31033,7 @@ export namespace Prisma {
     AND?: tarjetaWhereInput | tarjetaWhereInput[]
     OR?: tarjetaWhereInput[]
     NOT?: tarjetaWhereInput | tarjetaWhereInput[]
-    id_tarjeta_lealtad?: UuidFilter<"tarjeta"> | string
+    id_tarjeta?: UuidFilter<"tarjeta"> | string
     id_cliente?: UuidFilter<"tarjeta"> | string
     id_nivel?: UuidNullableFilter<"tarjeta"> | string | null
     saldo?: FloatFilter<"tarjeta"> | number
@@ -31042,7 +31042,7 @@ export namespace Prisma {
   }
 
   export type tarjetaOrderByWithRelationInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_tarjeta?: SortOrder
     id_cliente?: SortOrder
     id_nivel?: SortOrderInput | SortOrder
     saldo?: SortOrder
@@ -31051,7 +31051,7 @@ export namespace Prisma {
   }
 
   export type tarjetaWhereUniqueInput = Prisma.AtLeast<{
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     id_cliente?: string
     AND?: tarjetaWhereInput | tarjetaWhereInput[]
     OR?: tarjetaWhereInput[]
@@ -31060,10 +31060,10 @@ export namespace Prisma {
     saldo?: FloatFilter<"tarjeta"> | number
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
     niveles?: XOR<NivelesNullableScalarRelationFilter, nivelesWhereInput> | null
-  }, "id_tarjeta_lealtad" | "id_cliente">
+  }, "id_tarjeta" | "id_cliente">
 
   export type tarjetaOrderByWithAggregationInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_tarjeta?: SortOrder
     id_cliente?: SortOrder
     id_nivel?: SortOrderInput | SortOrder
     saldo?: SortOrder
@@ -31078,7 +31078,7 @@ export namespace Prisma {
     AND?: tarjetaScalarWhereWithAggregatesInput | tarjetaScalarWhereWithAggregatesInput[]
     OR?: tarjetaScalarWhereWithAggregatesInput[]
     NOT?: tarjetaScalarWhereWithAggregatesInput | tarjetaScalarWhereWithAggregatesInput[]
-    id_tarjeta_lealtad?: UuidWithAggregatesFilter<"tarjeta"> | string
+    id_tarjeta?: UuidWithAggregatesFilter<"tarjeta"> | string
     id_cliente?: UuidWithAggregatesFilter<"tarjeta"> | string
     id_nivel?: UuidNullableWithAggregatesFilter<"tarjeta"> | string | null
     saldo?: FloatWithAggregatesFilter<"tarjeta"> | number
@@ -32496,47 +32496,47 @@ export namespace Prisma {
   }
 
   export type tarjetaCreateInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     saldo?: number
     cliente: clienteCreateNestedOneWithoutTarjetaInput
     niveles?: nivelesCreateNestedOneWithoutTarjetaInput
   }
 
   export type tarjetaUncheckedCreateInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     id_cliente: string
     id_nivel?: string | null
     saldo?: number
   }
 
   export type tarjetaUpdateInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
     cliente?: clienteUpdateOneRequiredWithoutTarjetaNestedInput
     niveles?: nivelesUpdateOneWithoutTarjetaNestedInput
   }
 
   export type tarjetaUncheckedUpdateInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_nivel?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type tarjetaCreateManyInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     id_cliente: string
     id_nivel?: string | null
     saldo?: number
   }
 
   export type tarjetaUpdateManyMutationInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type tarjetaUncheckedUpdateManyInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_nivel?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: FloatFieldUpdateOperationsInput | number
@@ -33907,7 +33907,7 @@ export namespace Prisma {
   }
 
   export type tarjetaCountOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_tarjeta?: SortOrder
     id_cliente?: SortOrder
     id_nivel?: SortOrder
     saldo?: SortOrder
@@ -33918,14 +33918,14 @@ export namespace Prisma {
   }
 
   export type tarjetaMaxOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_tarjeta?: SortOrder
     id_cliente?: SortOrder
     id_nivel?: SortOrder
     saldo?: SortOrder
   }
 
   export type tarjetaMinOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_tarjeta?: SortOrder
     id_cliente?: SortOrder
     id_nivel?: SortOrder
     saldo?: SortOrder
@@ -35932,13 +35932,13 @@ export namespace Prisma {
   }
 
   export type tarjetaCreateWithoutClienteInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     saldo?: number
     niveles?: nivelesCreateNestedOneWithoutTarjetaInput
   }
 
   export type tarjetaUncheckedCreateWithoutClienteInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     id_nivel?: string | null
     saldo?: number
   }
@@ -36066,13 +36066,13 @@ export namespace Prisma {
   }
 
   export type tarjetaUpdateWithoutClienteInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
     niveles?: nivelesUpdateOneWithoutTarjetaNestedInput
   }
 
   export type tarjetaUncheckedUpdateWithoutClienteInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     id_nivel?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: FloatFieldUpdateOperationsInput | number
   }
@@ -36557,13 +36557,13 @@ export namespace Prisma {
   }
 
   export type tarjetaCreateWithoutNivelesInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     saldo?: number
     cliente: clienteCreateNestedOneWithoutTarjetaInput
   }
 
   export type tarjetaUncheckedCreateWithoutNivelesInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     id_cliente: string
     saldo?: number
   }
@@ -36622,7 +36622,7 @@ export namespace Prisma {
     AND?: tarjetaScalarWhereInput | tarjetaScalarWhereInput[]
     OR?: tarjetaScalarWhereInput[]
     NOT?: tarjetaScalarWhereInput | tarjetaScalarWhereInput[]
-    id_tarjeta_lealtad?: UuidFilter<"tarjeta"> | string
+    id_tarjeta?: UuidFilter<"tarjeta"> | string
     id_cliente?: UuidFilter<"tarjeta"> | string
     id_nivel?: UuidNullableFilter<"tarjeta"> | string | null
     saldo?: FloatFilter<"tarjeta"> | number
@@ -38281,7 +38281,7 @@ export namespace Prisma {
   }
 
   export type tarjetaCreateManyNivelesInput = {
-    id_tarjeta_lealtad?: string
+    id_tarjeta?: string
     id_cliente: string
     saldo?: number
   }
@@ -38299,19 +38299,19 @@ export namespace Prisma {
   }
 
   export type tarjetaUpdateWithoutNivelesInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
     cliente?: clienteUpdateOneRequiredWithoutTarjetaNestedInput
   }
 
   export type tarjetaUncheckedUpdateWithoutNivelesInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type tarjetaUncheckedUpdateManyWithoutNivelesInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_tarjeta?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }

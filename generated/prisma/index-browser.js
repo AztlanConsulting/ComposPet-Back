@@ -313,7 +313,7 @@ exports.Prisma.ZonaScalarFieldEnum = {
 };
 
 exports.Prisma.TarjetaScalarFieldEnum = {
-  id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+  id_tarjeta: 'id_tarjeta',
   id_cliente: 'id_cliente',
   id_nivel: 'id_nivel',
   saldo: 'saldo'
