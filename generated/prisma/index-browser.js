@@ -169,6 +169,11 @@ exports.Prisma.CompospetScalarFieldEnum = {
   id_cp: 'id_cp'
 };
 
+exports.Prisma.EstadosScalarFieldEnum = {
+  id_estado: 'id_estado',
+  estado: 'estado'
+};
+
 exports.Prisma.FaqScalarFieldEnum = {
   id_faq: 'id_faq',
   id_cp: 'id_cp',
@@ -191,14 +196,9 @@ exports.Prisma.MetricasScalarFieldEnum = {
   fecha: 'fecha'
 };
 
-exports.Prisma.Nivel_promocionesScalarFieldEnum = {
-  id_nivel: 'id_nivel',
-  id_promociones: 'id_promociones'
-};
-
-exports.Prisma.NivelesScalarFieldEnum = {
-  id_nivel: 'id_nivel',
-  nombre: 'nombre'
+exports.Prisma.MunicipiosScalarFieldEnum = {
+  id_municipio: 'id_municipio',
+  municipio: 'municipio'
 };
 
 exports.Prisma.PermisosScalarFieldEnum = {
@@ -232,13 +232,6 @@ exports.Prisma.Productos_solicitudScalarFieldEnum = {
   id_producto: 'id_producto',
   fecha: 'fecha',
   cantidad: 'cantidad'
-};
-
-exports.Prisma.PromocionesScalarFieldEnum = {
-  id_promociones: 'id_promociones',
-  nombre: 'nombre',
-  descripcion: 'descripcion',
-  valor_descuento: 'valor_descuento'
 };
 
 exports.Prisma.RolesScalarFieldEnum = {
@@ -287,10 +280,9 @@ exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {
   notas: 'notas'
 };
 
-exports.Prisma.Tarjeta_lealtadScalarFieldEnum = {
-  id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+exports.Prisma.SaldoScalarFieldEnum = {
+  id_saldo: 'id_saldo',
   id_cliente: 'id_cliente',
-  id_nivel: 'id_nivel',
   saldo: 'saldo'
 };
 
@@ -313,10 +305,9 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
 
 exports.Prisma.ZonaScalarFieldEnum = {
   id_zona: 'id_zona',
-  nombre_zona: 'nombre_zona',
-  municipio: 'municipio',
   descripcion: 'descripcion',
-  estado: 'estado'
+  id_estado: 'id_estado',
+  id_municipio: 'id_municipio'
 };
 
 exports.Prisma.SortOrder = {
@@ -352,22 +343,21 @@ exports.Prisma.ModelName = {
   bitacora: 'bitacora',
   cliente: 'cliente',
   compospet: 'compospet',
+  estados: 'estados',
   faq: 'faq',
   formas_pago: 'formas_pago',
   metricas: 'metricas',
-  nivel_promociones: 'nivel_promociones',
-  niveles: 'niveles',
+  municipios: 'municipios',
   permisos: 'permisos',
   personas_equipo: 'personas_equipo',
   productos_extra: 'productos_extra',
   productos_solicitud: 'productos_solicitud',
-  promociones: 'promociones',
   roles: 'roles',
   roles_permisos: 'roles_permisos',
   ruta: 'ruta',
   solicitud_registro: 'solicitud_registro',
   solicitudes_recoleccion: 'solicitudes_recoleccion',
-  tarjeta_lealtad: 'tarjeta_lealtad',
+  saldo: 'saldo',
   usuarios_cp: 'usuarios_cp',
   zona: 'zona'
 };
