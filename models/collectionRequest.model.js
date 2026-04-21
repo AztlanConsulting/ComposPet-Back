@@ -67,8 +67,8 @@ module.exports = class CollectionRequest {
                 total_pagado: 0,
                 fecha: new Date(),
                 notas: null,
-                quiere_recoleccion: false,
-                quiere_productos_extra: false,
+                quiere_recoleccion: true,
+                quiere_productos_extra: true,
             },
         });
 

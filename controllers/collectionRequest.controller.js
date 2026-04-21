@@ -35,7 +35,7 @@ const getCurrentCollectionRequest = async (req, res) => {
         }
 
         // Solicita al modelo la búsqueda
-        const currentCollectionRequest = await CollectionRequest.getCurrentCollectionRequest(
+        let currentCollectionRequest = await CollectionRequest.getCurrentCollectionRequest(
             clientId,
             weekStartDate,
             weekEndDate

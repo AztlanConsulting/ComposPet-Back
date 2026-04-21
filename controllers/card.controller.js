@@ -14,21 +14,22 @@ const Card = require('../models/card.model');
  * @throws {Error} Cuando ocurre un error inesperado al obtener la solicitud.
  */
 
-const getCardBalance= async (res, req) => {
+const getCardBalance= async (req, res) => {
     try{
 
-        const { clientId } = req.body
+        console.log(req.body)
+        const { clientId } = req.body;
 
         // Validación de que lleguen los datos
         if(!clientId){
             return res.status(400).json({
-                succes:false,
+                success:false,
                 message: 'Falta id del cliente para obtener el balance de tarjeta',
             });
         }
 
         // Solicita al modelo la búsqueda
-        const cardBalance = await Card.getCardBalance(clientId);
+        let cardBalance = await Card.getCardBalance(clientId);
 
         // Si no existe una tarjeta previa, crea una para continuar
         if (!cardBalance){
