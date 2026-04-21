@@ -16700,8 +16700,8 @@ export namespace Prisma {
     precio: number | null
     descripcion: string | null
     cantidad: number | null
-    estatus: boolean | null
     imagen_url: string | null
+    estatus: boolean | null
     orden: number | null
   }
 
@@ -16711,15 +16711,19 @@ export namespace Prisma {
     precio: number | null
     descripcion: string | null
     cantidad: number | null
-    estatus: boolean | null
     imagen_url: string | null
+    estatus: boolean | null
     orden: number | null
+  }
+
+  export type Productos_extraCountAggregateOutputType = {
+    id_producto: number
     nombre: number
     precio: number
     descripcion: number
     cantidad: number
-    estatus: number
     imagen_url: number
+    estatus: number
     orden: number
     _all: number
   }
@@ -16745,8 +16749,8 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
-    estatus?: true
     imagen_url?: true
+    estatus?: true
     orden?: true
   }
 
@@ -16756,8 +16760,8 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
-    estatus?: true
     imagen_url?: true
+    estatus?: true
     orden?: true
   }
 
@@ -16767,8 +16771,8 @@ export namespace Prisma {
     precio?: true
     descripcion?: true
     cantidad?: true
-    estatus?: true
     imagen_url?: true
+    estatus?: true
     orden?: true
     _all?: true
   }
@@ -16865,8 +16869,8 @@ export namespace Prisma {
     precio: number
     descripcion: string | null
     cantidad: number
-    estatus: boolean
     imagen_url: string | null
+    estatus: boolean | null
     orden: number | null
     _count: Productos_extraCountAggregateOutputType | null
     _avg: Productos_extraAvgAggregateOutputType | null
@@ -16895,8 +16899,8 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
-    estatus?: boolean
     imagen_url?: boolean
+    estatus?: boolean
     orden?: boolean
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -16908,8 +16912,8 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
-    estatus?: boolean
     imagen_url?: boolean
+    estatus?: boolean
     orden?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
@@ -16919,8 +16923,8 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
-    estatus?: boolean
     imagen_url?: boolean
+    estatus?: boolean
     orden?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
@@ -16930,12 +16934,12 @@ export namespace Prisma {
     precio?: boolean
     descripcion?: boolean
     cantidad?: boolean
-    estatus?: boolean
     imagen_url?: boolean
+    estatus?: boolean
     orden?: boolean
   }
 
-  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "estatus" | "imagen_url" | "orden", ExtArgs["result"]["productos_extra"]>
+  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "estatus" | "orden", ExtArgs["result"]["productos_extra"]>
   export type productos_extraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -16954,8 +16958,8 @@ export namespace Prisma {
       precio: number
       descripcion: string | null
       cantidad: number
-      estatus: boolean
       imagen_url: string | null
+      estatus: boolean | null
       orden: number | null
     }, ExtArgs["result"]["productos_extra"]>
     composites: {}
@@ -17386,8 +17390,8 @@ export namespace Prisma {
     readonly precio: FieldRef<"productos_extra", 'Float'>
     readonly descripcion: FieldRef<"productos_extra", 'String'>
     readonly cantidad: FieldRef<"productos_extra", 'Int'>
-    readonly estatus: FieldRef<"productos_extra", 'Boolean'>
     readonly imagen_url: FieldRef<"productos_extra", 'String'>
+    readonly estatus: FieldRef<"productos_extra", 'Boolean'>
     readonly orden: FieldRef<"productos_extra", 'Int'>
   }
     
@@ -29368,8 +29372,8 @@ export namespace Prisma {
     precio: 'precio',
     descripcion: 'descripcion',
     cantidad: 'cantidad',
-    estatus: 'estatus',
     imagen_url: 'imagen_url',
+    estatus: 'estatus',
     orden: 'orden'
   };
 
@@ -30353,8 +30357,8 @@ export namespace Prisma {
     precio?: FloatFilter<"productos_extra"> | number
     descripcion?: StringNullableFilter<"productos_extra"> | string | null
     cantidad?: IntFilter<"productos_extra"> | number
-    estatus?: BoolFilter<"productos_extra"> | boolean
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
+    estatus?: BoolNullableFilter<"productos_extra"> | boolean | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }
@@ -30365,8 +30369,8 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     cantidad?: SortOrder
-    estatus?: SortOrder
     imagen_url?: SortOrderInput | SortOrder
+    estatus?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
   }
@@ -30380,8 +30384,8 @@ export namespace Prisma {
     precio?: FloatFilter<"productos_extra"> | number
     descripcion?: StringNullableFilter<"productos_extra"> | string | null
     cantidad?: IntFilter<"productos_extra"> | number
-    estatus?: BoolFilter<"productos_extra"> | boolean
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
+    estatus?: BoolNullableFilter<"productos_extra"> | boolean | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }, "id_producto">
@@ -30392,8 +30396,8 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     cantidad?: SortOrder
-    estatus?: SortOrder
     imagen_url?: SortOrderInput | SortOrder
+    estatus?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     _count?: productos_extraCountOrderByAggregateInput
     _avg?: productos_extraAvgOrderByAggregateInput
@@ -30411,8 +30415,8 @@ export namespace Prisma {
     precio?: FloatWithAggregatesFilter<"productos_extra"> | number
     descripcion?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
     cantidad?: IntWithAggregatesFilter<"productos_extra"> | number
-    estatus?: BoolWithAggregatesFilter<"productos_extra"> | boolean
     imagen_url?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
+    estatus?: BoolNullableWithAggregatesFilter<"productos_extra"> | boolean | null
     orden?: IntNullableWithAggregatesFilter<"productos_extra"> | number | null
   }
 
@@ -31790,8 +31794,8 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
-    estatus?: boolean
     imagen_url?: string | null
+    estatus?: boolean | null
     orden?: number | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutProductos_extraInput
   }
@@ -31802,8 +31806,8 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
-    estatus?: boolean
     imagen_url?: string | null
+    estatus?: boolean | null
     orden?: number | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutProductos_extraInput
   }
@@ -31814,8 +31818,8 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
-    estatus?: BoolFieldUpdateOperationsInput | boolean
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutProductos_extraNestedInput
   }
@@ -31826,8 +31830,8 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
-    estatus?: BoolFieldUpdateOperationsInput | boolean
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutProductos_extraNestedInput
   }
@@ -31838,8 +31842,8 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
-    estatus?: boolean
     imagen_url?: string | null
+    estatus?: boolean | null
     orden?: number | null
   }
 
@@ -31849,8 +31853,8 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
-    estatus?: BoolFieldUpdateOperationsInput | boolean
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -31860,8 +31864,8 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
-    estatus?: BoolFieldUpdateOperationsInput | boolean
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -33367,9 +33371,9 @@ export namespace Prisma {
     id_personas_equipo?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type Productos_solicitudListRelationFilter = {
@@ -33388,8 +33392,8 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
-    estatus?: SortOrder
     imagen_url?: SortOrder
+    estatus?: SortOrder
     orden?: SortOrder
   }
 
@@ -33406,8 +33410,8 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
-    estatus?: SortOrder
     imagen_url?: SortOrder
+    estatus?: SortOrder
     orden?: SortOrder
   }
 
@@ -33417,20 +33421,24 @@ export namespace Prisma {
     precio?: SortOrder
     descripcion?: SortOrder
     cantidad?: SortOrder
-    estatus?: SortOrder
     imagen_url?: SortOrder
+    estatus?: SortOrder
     orden?: SortOrder
+  }
+
+  export type productos_extraSumOrderByAggregateInput = {
+    id_producto?: SortOrder
     precio?: SortOrder
     cantidad?: SortOrder
     orden?: SortOrder
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type Productos_extraScalarRelationFilter = {
@@ -33601,6 +33609,11 @@ export namespace Prisma {
     id_zona?: SortOrder
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type solicitud_registroCountOrderByAggregateInput = {
     id_solicitud_registro?: SortOrder
     id_usuario?: SortOrder
@@ -33657,6 +33670,14 @@ export namespace Prisma {
     cantidad_familia?: SortOrder
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type FloatNullableFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -33666,11 +33687,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type ClienteScalarRelationFilter = {
@@ -33758,14 +33774,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type AdministradorNullableScalarRelationFilter = {
@@ -34583,8 +34591,8 @@ export namespace Prisma {
     connect?: productos_solicitudWhereUniqueInput | productos_solicitudWhereUniqueInput[]
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
   }
 
   export type productos_solicitudUpdateManyWithoutProductos_extraNestedInput = {
@@ -34859,6 +34867,10 @@ export namespace Prisma {
     connect?: usuarios_cpWhereUniqueInput
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type usuarios_cpUpdateOneRequiredWithoutSolicitud_registroNestedInput = {
     create?: XOR<usuarios_cpCreateWithoutSolicitud_registroInput, usuarios_cpUncheckedCreateWithoutSolicitud_registroInput>
     connectOrCreate?: usuarios_cpCreateOrConnectWithoutSolicitud_registroInput
@@ -34899,10 +34911,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
   }
 
   export type productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput = {
@@ -35503,6 +35511,19 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -35514,11 +35535,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -35535,14 +35551,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type usuarios_cpCreateWithoutAdministradorInput = {
@@ -36760,8 +36768,8 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
-    estatus?: boolean
     imagen_url?: string | null
+    estatus?: boolean | null
     orden?: number | null
   }
 
@@ -36771,8 +36779,8 @@ export namespace Prisma {
     precio: number
     descripcion?: string | null
     cantidad: number
-    estatus?: boolean
     imagen_url?: string | null
+    estatus?: boolean | null
     orden?: number | null
   }
 
@@ -36833,8 +36841,8 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
-    estatus?: BoolFieldUpdateOperationsInput | boolean
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -36844,8 +36852,8 @@ export namespace Prisma {
     precio?: FloatFieldUpdateOperationsInput | number
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
-    estatus?: BoolFieldUpdateOperationsInput | boolean
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
+    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
   }
 

@@ -222,8 +222,8 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   precio: 'precio',
   descripcion: 'descripcion',
   cantidad: 'cantidad',
-  estatus: 'estatus',
   imagen_url: 'imagen_url',
+  estatus: 'estatus',
   orden: 'orden'
 };
 

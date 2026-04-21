@@ -132,8 +132,8 @@ model productos_extra {
   precio              Float
   descripcion         String?               @db.VarChar
   cantidad            Int
-  estatus             Boolean               @default(true)
   imagen_url          String?               @db.VarChar
+  estatus             Boolean?
   orden               Int?
   productos_solicitud productos_solicitud[]
 }
