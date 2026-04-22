@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
@@ -29,3 +29,23 @@ jobs:
 
       - name: Copy env file
         run: cp env.test.example .env.test
+
+      - name: Inject secrets into .env.test
+        run: |
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL_TEST }}" >> .env.test
+          echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env.test
+          echo "JWT_ACCESS_SECRET=${{ secrets.JWT_ACCESS_SECRET }}" >> .env.test
+          echo "JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }}" >> .env.test
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.test
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.test
+          echo "GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }}" >> .env.test
+
+      - name: Run Prisma migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
+
+      - name: Run tests
+        run: npm test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
