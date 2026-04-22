@@ -1,4 +1,4 @@
-const Card = require('../models/card.model');
+const Credit = require('../models/credit.model');
 
 /**
  * Obtiene el saldo de la tarjeta de lealtad del cliente
@@ -14,7 +14,7 @@ const Card = require('../models/card.model');
  * @throws {Error} Cuando ocurre un error inesperado al obtener la solicitud.
  */
 
-const getCardBalance= async (req, res) => {
+const getCreditBalance= async (req, res) => {
     try{
 
         console.log(req.body)
@@ -29,17 +29,17 @@ const getCardBalance= async (req, res) => {
         }
 
         // Solicita al modelo la búsqueda
-        let cardBalance = await Card.getCardBalance(clientId);
+        let creditBalance = await Credit.getCreditBalance(clientId);
 
         // Si no existe una tarjeta previa, crea una para continuar
-        if (!cardBalance){
-            cardBalance = await Card.createInitialCard(clientId);            
+        if (!creditBalance){
+            creditBalance = await Credit.createInitialCredit(clientId);            
         }
 
         res.status(200).json({
             success: true,
             message: "Saldo de tarjeta obtenido exitosamente",
-            data: cardBalance
+            data: creditBalance
         });
     }catch(error){
         console.error("Error al obtener el saldo de la tarjeta:", error);
@@ -53,5 +53,5 @@ const getCardBalance= async (req, res) => {
 };
 
 module.exports = {
-    getCardBalance,
+    getCreditBalance,
 };

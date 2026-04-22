@@ -7,12 +7,12 @@
  * Todas las operaciones son realizadas mediante el cliente Prisma configurado
  * en `config/prisma`
  *
- * @namespace Card
+ * @namespace Credit
  */
 
 const prisma = require("../config/prisma");
 
-module.exports = class Card {
+module.exports = class Credit {
 
     /**
      * Obtiene el saldo del cliente.
@@ -22,17 +22,17 @@ module.exports = class Card {
      * @param {string} clientId - Id del cliente.
      * @returns {Promise<Object|null>} La saldo encontrado o `null` si no existe.
      */
-    static async getCardBalance(clientId){
+    static async getCreditBalance(clientId){
 
         // Busca el saldo del cliente.
-        const cardBalance = await prisma.tarjeta.findFirst({
+        const creditBalance = await prisma.saldo.findFirst({
             where: {
                 id_cliente: clientId,
             },
         });
 
         // Si existe regresa el saldo del cliente
-        return cardBalance;
+        return creditBalance;
     }
 
     /**
@@ -43,8 +43,8 @@ module.exports = class Card {
      * @param {string} clientId - Id del cliente.
      * @returns {Promise<Object>} La tarjeta creada.
      */
-    static async createInitialCard(clientId) {
-        const newCard = await prisma.tarjeta.create({
+    static async createInitialCredit(clientId) {
+        const newCredit = await prisma.saldo.create({
             data:{
                 cliente: {
                     connect:{
@@ -55,6 +55,6 @@ module.exports = class Card {
             },
         });
 
-        return newCard;
+        return newCredit;
     }
 };

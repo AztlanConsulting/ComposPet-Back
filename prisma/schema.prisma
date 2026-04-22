@@ -56,8 +56,8 @@ model cliente {
   fecha_salida            DateTime?                 @db.Date
   ruta                    ruta                      @relation(fields: [id_ruta], references: [id_ruta], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_ruta")
   usuarios_cp             usuarios_cp               @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_usuario")
+  saldo                   saldo?
   solicitudes_recoleccion solicitudes_recoleccion[]
-  tarjeta                 tarjeta?
 }
 
 model compospet {
@@ -91,22 +91,6 @@ model metricas {
   nombre     String    @db.VarChar
   fecha      DateTime  @db.Date
   compospet  compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_metricas_compospet")
-}
-
-model nivel_promociones {
-  id_nivel       String      @db.Uuid
-  id_promociones Int
-  niveles        niveles     @relation(fields: [id_nivel], references: [id_nivel], onDelete: NoAction, onUpdate: NoAction, map: "fk_nivel_promociones_nivel")
-  promociones    promociones @relation(fields: [id_promociones], references: [id_promociones], onDelete: NoAction, onUpdate: NoAction, map: "fk_nivel_promociones_promocion")
-
-  @@id([id_nivel, id_promociones])
-}
-
-model niveles {
-  id_nivel          String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  nombre            String              @db.VarChar
-  nivel_promociones nivel_promociones[]
-  tarjeta           tarjeta[]
 }
 
 model permisos {
@@ -147,14 +131,6 @@ model productos_solicitud {
   solicitudes_recoleccion solicitudes_recoleccion @relation(fields: [id_solicitud], references: [id_solicitud], onDelete: NoAction, onUpdate: NoAction, map: "fk_productos_solicitud_solicitud")
 
   @@id([id_solicitud, id_producto])
-}
-
-model promociones {
-  id_promociones    Int                 @id
-  nombre            String              @db.VarChar
-  descripcion       String?
-  valor_descuento   Int?
-  nivel_promociones nivel_promociones[]
 }
 
 model roles {
@@ -230,6 +206,8 @@ model usuarios_cp {
   primer_inicio_sesion Boolean              @default(true)
   intentos_fallidos    Int                  @default(0)
   bloqueado_hasta      DateTime?            @db.Timestamp(6)
+  codigo_verificacion  String?              @db.VarChar
+  codigo_expiracion    DateTime?            @db.Timestamp(6)
   administrador        administrador?
   bitacora             bitacora[]
   cliente              cliente?
@@ -240,18 +218,15 @@ model usuarios_cp {
 
 model zona {
   id_zona     Int     @id
-  nombre_zona String  @db.VarChar
   municipio   String  @db.VarChar
   descripcion String? @db.VarChar
   estado      String  @db.VarChar
   ruta        ruta[]
 }
 
-model tarjeta {
-  id_tarjeta String   @id(map: "tarjeta_lealtad_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_cliente String   @unique(map: "tarjeta_lealtad_id_cliente_key") @db.Uuid
-  id_nivel   String?  @db.Uuid
-  saldo      Float    @default(0)
-  cliente    cliente  @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_tarjeta_lealtad_cliente")
-  niveles    niveles? @relation(fields: [id_nivel], references: [id_nivel], onDelete: NoAction, onUpdate: NoAction, map: "fk_tarjeta_lealtad_nivel")
+model saldo {
+  id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente String  @unique @db.Uuid
+  saldo      Float   @default(0)
+  cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
 }
