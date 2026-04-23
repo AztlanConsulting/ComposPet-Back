@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "jest",
+    "test": "dotenv -e .env.test -- jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:unit": "jest tests/unit",
@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@types/pg": "^8.20.0",
+    "dotenv-cli": "^11.0.0",
     "jest": "^30.3.0",
     "nodemon": "^3.1.14",
     "prisma": "^7.6.0",
