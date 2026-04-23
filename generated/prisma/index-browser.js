@@ -157,7 +157,7 @@ exports.Prisma.ClienteScalarFieldEnum = {
   id_usuario: 'id_usuario',
   id_ruta: 'id_ruta',
   mascotas: 'mascotas',
-  cantidad_familia: 'cantidad_familia',
+  familia: 'familia',
   direccion: 'direccion',
   orden_horario: 'orden_horario',
   notas: 'notas',
@@ -261,7 +261,7 @@ exports.Prisma.Solicitud_registroScalarFieldEnum = {
   direccion: 'direccion',
   zona: 'zona',
   mascotas: 'mascotas',
-  cantidad_familia: 'cantidad_familia',
+  familia: 'familia',
   notas: 'notas',
   fecha: 'fecha',
   estatus: 'estatus'

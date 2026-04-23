@@ -6674,13 +6674,11 @@ export namespace Prisma {
 
   export type ClienteAvgAggregateOutputType = {
     id_ruta: number | null
-    cantidad_familia: number | null
     orden_horario: number | null
   }
 
   export type ClienteSumAggregateOutputType = {
     id_ruta: number | null
-    cantidad_familia: number | null
     orden_horario: number | null
   }
 
@@ -6689,7 +6687,7 @@ export namespace Prisma {
     id_usuario: string | null
     id_ruta: number | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: string | null
     direccion: string | null
     orden_horario: number | null
     notas: string | null
@@ -6702,7 +6700,7 @@ export namespace Prisma {
     id_usuario: string | null
     id_ruta: number | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: string | null
     direccion: string | null
     orden_horario: number | null
     notas: string | null
@@ -6715,7 +6713,7 @@ export namespace Prisma {
     id_usuario: number
     id_ruta: number
     mascotas: number
-    cantidad_familia: number
+    familia: number
     direccion: number
     orden_horario: number
     notas: number
@@ -6727,13 +6725,11 @@ export namespace Prisma {
 
   export type ClienteAvgAggregateInputType = {
     id_ruta?: true
-    cantidad_familia?: true
     orden_horario?: true
   }
 
   export type ClienteSumAggregateInputType = {
     id_ruta?: true
-    cantidad_familia?: true
     orden_horario?: true
   }
 
@@ -6742,7 +6738,7 @@ export namespace Prisma {
     id_usuario?: true
     id_ruta?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     direccion?: true
     orden_horario?: true
     notas?: true
@@ -6755,7 +6751,7 @@ export namespace Prisma {
     id_usuario?: true
     id_ruta?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     direccion?: true
     orden_horario?: true
     notas?: true
@@ -6768,7 +6764,7 @@ export namespace Prisma {
     id_usuario?: true
     id_ruta?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     direccion?: true
     orden_horario?: true
     notas?: true
@@ -6868,7 +6864,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: string | null
     direccion: string | null
     orden_horario: number | null
     notas: string | null
@@ -6900,7 +6896,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6918,7 +6914,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6933,7 +6929,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6948,7 +6944,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6956,7 +6952,7 @@ export namespace Prisma {
     fecha_salida?: boolean
   }
 
-  export type clienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_cliente" | "id_usuario" | "id_ruta" | "mascotas" | "cantidad_familia" | "direccion" | "orden_horario" | "notas" | "fecha_entrada" | "fecha_salida", ExtArgs["result"]["cliente"]>
+  export type clienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_cliente" | "id_usuario" | "id_ruta" | "mascotas" | "familia" | "direccion" | "orden_horario" | "notas" | "fecha_entrada" | "fecha_salida", ExtArgs["result"]["cliente"]>
   export type clienteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
@@ -6986,7 +6982,7 @@ export namespace Prisma {
       id_usuario: string
       id_ruta: number
       mascotas: string | null
-      cantidad_familia: number | null
+      familia: string | null
       direccion: string | null
       orden_horario: number | null
       notas: string | null
@@ -7423,7 +7419,7 @@ export namespace Prisma {
     readonly id_usuario: FieldRef<"cliente", 'String'>
     readonly id_ruta: FieldRef<"cliente", 'Int'>
     readonly mascotas: FieldRef<"cliente", 'String'>
-    readonly cantidad_familia: FieldRef<"cliente", 'Int'>
+    readonly familia: FieldRef<"cliente", 'String'>
     readonly direccion: FieldRef<"cliente", 'String'>
     readonly orden_horario: FieldRef<"cliente", 'Int'>
     readonly notas: FieldRef<"cliente", 'String'>
@@ -22020,18 +22016,8 @@ export namespace Prisma {
 
   export type AggregateSolicitud_registro = {
     _count: Solicitud_registroCountAggregateOutputType | null
-    _avg: Solicitud_registroAvgAggregateOutputType | null
-    _sum: Solicitud_registroSumAggregateOutputType | null
     _min: Solicitud_registroMinAggregateOutputType | null
     _max: Solicitud_registroMaxAggregateOutputType | null
-  }
-
-  export type Solicitud_registroAvgAggregateOutputType = {
-    cantidad_familia: number | null
-  }
-
-  export type Solicitud_registroSumAggregateOutputType = {
-    cantidad_familia: number | null
   }
 
   export type Solicitud_registroMinAggregateOutputType = {
@@ -22044,7 +22030,7 @@ export namespace Prisma {
     direccion: string | null
     zona: string | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: string | null
     notas: string | null
     fecha: Date | null
     estatus: boolean | null
@@ -22060,7 +22046,7 @@ export namespace Prisma {
     direccion: string | null
     zona: string | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: string | null
     notas: string | null
     fecha: Date | null
     estatus: boolean | null
@@ -22076,21 +22062,13 @@ export namespace Prisma {
     direccion: number
     zona: number
     mascotas: number
-    cantidad_familia: number
+    familia: number
     notas: number
     fecha: number
     estatus: number
     _all: number
   }
 
-
-  export type Solicitud_registroAvgAggregateInputType = {
-    cantidad_familia?: true
-  }
-
-  export type Solicitud_registroSumAggregateInputType = {
-    cantidad_familia?: true
-  }
 
   export type Solicitud_registroMinAggregateInputType = {
     id_solicitud_registro?: true
@@ -22102,7 +22080,7 @@ export namespace Prisma {
     direccion?: true
     zona?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     notas?: true
     fecha?: true
     estatus?: true
@@ -22118,7 +22096,7 @@ export namespace Prisma {
     direccion?: true
     zona?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     notas?: true
     fecha?: true
     estatus?: true
@@ -22134,7 +22112,7 @@ export namespace Prisma {
     direccion?: true
     zona?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     notas?: true
     fecha?: true
     estatus?: true
@@ -22179,18 +22157,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: Solicitud_registroAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Solicitud_registroSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: Solicitud_registroMinAggregateInputType
@@ -22221,8 +22187,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: Solicitud_registroCountAggregateInputType | true
-    _avg?: Solicitud_registroAvgAggregateInputType
-    _sum?: Solicitud_registroSumAggregateInputType
     _min?: Solicitud_registroMinAggregateInputType
     _max?: Solicitud_registroMaxAggregateInputType
   }
@@ -22237,13 +22201,11 @@ export namespace Prisma {
     direccion: string | null
     zona: string | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: string | null
     notas: string | null
     fecha: Date
     estatus: boolean
     _count: Solicitud_registroCountAggregateOutputType | null
-    _avg: Solicitud_registroAvgAggregateOutputType | null
-    _sum: Solicitud_registroSumAggregateOutputType | null
     _min: Solicitud_registroMinAggregateOutputType | null
     _max: Solicitud_registroMaxAggregateOutputType | null
   }
@@ -22272,7 +22234,7 @@ export namespace Prisma {
     direccion?: boolean
     zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
@@ -22289,7 +22251,7 @@ export namespace Prisma {
     direccion?: boolean
     zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
@@ -22306,7 +22268,7 @@ export namespace Prisma {
     direccion?: boolean
     zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
@@ -22323,13 +22285,13 @@ export namespace Prisma {
     direccion?: boolean
     zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
   }
 
-  export type solicitud_registroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud_registro" | "id_usuario" | "nombre" | "apellido" | "telefono" | "correo" | "direccion" | "zona" | "mascotas" | "cantidad_familia" | "notas" | "fecha" | "estatus", ExtArgs["result"]["solicitud_registro"]>
+  export type solicitud_registroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud_registro" | "id_usuario" | "nombre" | "apellido" | "telefono" | "correo" | "direccion" | "zona" | "mascotas" | "familia" | "notas" | "fecha" | "estatus", ExtArgs["result"]["solicitud_registro"]>
   export type solicitud_registroInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
   }
@@ -22355,7 +22317,7 @@ export namespace Prisma {
       direccion: string | null
       zona: string | null
       mascotas: string | null
-      cantidad_familia: number | null
+      familia: string | null
       notas: string | null
       fecha: Date
       estatus: boolean
@@ -22792,7 +22754,7 @@ export namespace Prisma {
     readonly direccion: FieldRef<"solicitud_registro", 'String'>
     readonly zona: FieldRef<"solicitud_registro", 'String'>
     readonly mascotas: FieldRef<"solicitud_registro", 'String'>
-    readonly cantidad_familia: FieldRef<"solicitud_registro", 'Int'>
+    readonly familia: FieldRef<"solicitud_registro", 'String'>
     readonly notas: FieldRef<"solicitud_registro", 'String'>
     readonly fecha: FieldRef<"solicitud_registro", 'DateTime'>
     readonly estatus: FieldRef<"solicitud_registro", 'Boolean'>
@@ -28014,7 +27976,7 @@ export namespace Prisma {
     id_usuario: 'id_usuario',
     id_ruta: 'id_ruta',
     mascotas: 'mascotas',
-    cantidad_familia: 'cantidad_familia',
+    familia: 'familia',
     direccion: 'direccion',
     orden_horario: 'orden_horario',
     notas: 'notas',
@@ -28160,7 +28122,7 @@ export namespace Prisma {
     direccion: 'direccion',
     zona: 'zona',
     mascotas: 'mascotas',
-    cantidad_familia: 'cantidad_familia',
+    familia: 'familia',
     notas: 'notas',
     fecha: 'fecha',
     estatus: 'estatus'
@@ -28586,7 +28548,7 @@ export namespace Prisma {
     id_usuario?: UuidFilter<"cliente"> | string
     id_ruta?: IntFilter<"cliente"> | number
     mascotas?: StringNullableFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableFilter<"cliente"> | number | null
+    familia?: StringNullableFilter<"cliente"> | string | null
     direccion?: StringNullableFilter<"cliente"> | string | null
     orden_horario?: IntNullableFilter<"cliente"> | number | null
     notas?: StringNullableFilter<"cliente"> | string | null
@@ -28603,7 +28565,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     orden_horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
@@ -28623,7 +28585,7 @@ export namespace Prisma {
     NOT?: clienteWhereInput | clienteWhereInput[]
     id_ruta?: IntFilter<"cliente"> | number
     mascotas?: StringNullableFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableFilter<"cliente"> | number | null
+    familia?: StringNullableFilter<"cliente"> | string | null
     direccion?: StringNullableFilter<"cliente"> | string | null
     orden_horario?: IntNullableFilter<"cliente"> | number | null
     notas?: StringNullableFilter<"cliente"> | string | null
@@ -28640,7 +28602,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     orden_horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
@@ -28661,7 +28623,7 @@ export namespace Prisma {
     id_usuario?: UuidWithAggregatesFilter<"cliente"> | string
     id_ruta?: IntWithAggregatesFilter<"cliente"> | number
     mascotas?: StringNullableWithAggregatesFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableWithAggregatesFilter<"cliente"> | number | null
+    familia?: StringNullableWithAggregatesFilter<"cliente"> | string | null
     direccion?: StringNullableWithAggregatesFilter<"cliente"> | string | null
     orden_horario?: IntNullableWithAggregatesFilter<"cliente"> | number | null
     notas?: StringNullableWithAggregatesFilter<"cliente"> | string | null
@@ -29346,7 +29308,7 @@ export namespace Prisma {
     direccion?: StringNullableFilter<"solicitud_registro"> | string | null
     zona?: StringNullableFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableFilter<"solicitud_registro"> | number | null
+    familia?: StringNullableFilter<"solicitud_registro"> | string | null
     notas?: StringNullableFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeFilter<"solicitud_registro"> | Date | string
     estatus?: BoolFilter<"solicitud_registro"> | boolean
@@ -29363,7 +29325,7 @@ export namespace Prisma {
     direccion?: SortOrderInput | SortOrder
     zona?: SortOrderInput | SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
@@ -29383,7 +29345,7 @@ export namespace Prisma {
     direccion?: StringNullableFilter<"solicitud_registro"> | string | null
     zona?: StringNullableFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableFilter<"solicitud_registro"> | number | null
+    familia?: StringNullableFilter<"solicitud_registro"> | string | null
     notas?: StringNullableFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeFilter<"solicitud_registro"> | Date | string
     estatus?: BoolFilter<"solicitud_registro"> | boolean
@@ -29400,15 +29362,13 @@ export namespace Prisma {
     direccion?: SortOrderInput | SortOrder
     zona?: SortOrderInput | SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
     _count?: solicitud_registroCountOrderByAggregateInput
-    _avg?: solicitud_registroAvgOrderByAggregateInput
     _max?: solicitud_registroMaxOrderByAggregateInput
     _min?: solicitud_registroMinOrderByAggregateInput
-    _sum?: solicitud_registroSumOrderByAggregateInput
   }
 
   export type solicitud_registroScalarWhereWithAggregatesInput = {
@@ -29424,7 +29384,7 @@ export namespace Prisma {
     direccion?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
     zona?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableWithAggregatesFilter<"solicitud_registro"> | number | null
+    familia?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
     notas?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeWithAggregatesFilter<"solicitud_registro"> | Date | string
     estatus?: BoolWithAggregatesFilter<"solicitud_registro"> | boolean
@@ -29965,7 +29925,7 @@ export namespace Prisma {
   export type clienteCreateInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -29982,7 +29942,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -29995,7 +29955,7 @@ export namespace Prisma {
   export type clienteUpdateInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30012,7 +29972,7 @@ export namespace Prisma {
     id_usuario?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30027,7 +29987,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -30038,7 +29998,7 @@ export namespace Prisma {
   export type clienteUpdateManyMutationInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30051,7 +30011,7 @@ export namespace Prisma {
     id_usuario?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -30711,7 +30671,7 @@ export namespace Prisma {
     direccion?: string | null
     zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -30728,7 +30688,7 @@ export namespace Prisma {
     direccion?: string | null
     zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -30743,7 +30703,7 @@ export namespace Prisma {
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -30760,7 +30720,7 @@ export namespace Prisma {
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -30776,7 +30736,7 @@ export namespace Prisma {
     direccion?: string | null
     zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -30791,7 +30751,7 @@ export namespace Prisma {
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -30807,7 +30767,7 @@ export namespace Prisma {
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -31572,7 +31532,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     direccion?: SortOrder
     orden_horario?: SortOrder
     notas?: SortOrder
@@ -31582,7 +31542,6 @@ export namespace Prisma {
 
   export type clienteAvgOrderByAggregateInput = {
     id_ruta?: SortOrder
-    cantidad_familia?: SortOrder
     orden_horario?: SortOrder
   }
 
@@ -31591,7 +31550,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     direccion?: SortOrder
     orden_horario?: SortOrder
     notas?: SortOrder
@@ -31604,7 +31563,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     direccion?: SortOrder
     orden_horario?: SortOrder
     notas?: SortOrder
@@ -31614,7 +31573,6 @@ export namespace Prisma {
 
   export type clienteSumOrderByAggregateInput = {
     id_ruta?: SortOrder
-    cantidad_familia?: SortOrder
     orden_horario?: SortOrder
   }
 
@@ -32144,14 +32102,10 @@ export namespace Prisma {
     direccion?: SortOrder
     zona?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     notas?: SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
-  }
-
-  export type solicitud_registroAvgOrderByAggregateInput = {
-    cantidad_familia?: SortOrder
   }
 
   export type solicitud_registroMaxOrderByAggregateInput = {
@@ -32164,7 +32118,7 @@ export namespace Prisma {
     direccion?: SortOrder
     zona?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     notas?: SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
@@ -32180,14 +32134,10 @@ export namespace Prisma {
     direccion?: SortOrder
     zona?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     notas?: SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
-  }
-
-  export type solicitud_registroSumOrderByAggregateInput = {
-    cantidad_familia?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -35449,7 +35399,7 @@ export namespace Prisma {
   export type clienteCreateWithoutRutaInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35464,7 +35414,7 @@ export namespace Prisma {
     id_cliente?: string
     id_usuario: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35527,7 +35477,7 @@ export namespace Prisma {
     id_usuario?: UuidFilter<"cliente"> | string
     id_ruta?: IntFilter<"cliente"> | number
     mascotas?: StringNullableFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableFilter<"cliente"> | number | null
+    familia?: StringNullableFilter<"cliente"> | string | null
     direccion?: StringNullableFilter<"cliente"> | string | null
     orden_horario?: IntNullableFilter<"cliente"> | number | null
     notas?: StringNullableFilter<"cliente"> | string | null
@@ -35681,7 +35631,7 @@ export namespace Prisma {
   export type clienteCreateWithoutSolicitudes_recoleccionInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35697,7 +35647,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35760,7 +35710,7 @@ export namespace Prisma {
   export type clienteUpdateWithoutSolicitudes_recoleccionInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35776,7 +35726,7 @@ export namespace Prisma {
     id_usuario?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35813,7 +35763,7 @@ export namespace Prisma {
   export type clienteCreateWithoutSaldoInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35829,7 +35779,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35857,7 +35807,7 @@ export namespace Prisma {
   export type clienteUpdateWithoutSaldoInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35873,7 +35823,7 @@ export namespace Prisma {
     id_usuario?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -35943,7 +35893,7 @@ export namespace Prisma {
   export type clienteCreateWithoutUsuarios_cpInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35958,7 +35908,7 @@ export namespace Prisma {
     id_cliente?: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -35982,7 +35932,7 @@ export namespace Prisma {
     direccion?: string | null
     zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -35997,7 +35947,7 @@ export namespace Prisma {
     direccion?: string | null
     zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -36124,7 +36074,7 @@ export namespace Prisma {
   export type clienteUpdateWithoutUsuarios_cpInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36139,7 +36089,7 @@ export namespace Prisma {
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36178,7 +36128,7 @@ export namespace Prisma {
     direccion?: StringNullableFilter<"solicitud_registro"> | string | null
     zona?: StringNullableFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableFilter<"solicitud_registro"> | number | null
+    familia?: StringNullableFilter<"solicitud_registro"> | string | null
     notas?: StringNullableFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeFilter<"solicitud_registro"> | Date | string
     estatus?: BoolFilter<"solicitud_registro"> | boolean
@@ -36826,7 +36776,7 @@ export namespace Prisma {
     id_cliente?: string
     id_usuario: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -36837,7 +36787,7 @@ export namespace Prisma {
   export type clienteUpdateWithoutRutaInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36852,7 +36802,7 @@ export namespace Prisma {
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_usuario?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36866,7 +36816,7 @@ export namespace Prisma {
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_usuario?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -36921,7 +36871,7 @@ export namespace Prisma {
     direccion?: string | null
     zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: string | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -36977,7 +36927,7 @@ export namespace Prisma {
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -36992,7 +36942,7 @@ export namespace Prisma {
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -37007,7 +36957,7 @@ export namespace Prisma {
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
