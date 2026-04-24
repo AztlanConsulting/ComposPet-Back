@@ -1,9 +1,8 @@
 
-export default {
-  preset: 'ts-jest',
+module.exports = {
   testEnvironment: 'node',
-  roots: ['<rootDir>/__tests__'],
-  moduleFileExtensions: ['ts', 'js'],
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  roots: ['<rootDir>/tests'],
+  moduleFileExtensions: ['js', 'ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
   clearMocks: true,
 };
