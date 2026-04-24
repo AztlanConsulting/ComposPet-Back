@@ -29685,11 +29685,6 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type BoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
   export type ClienteScalarRelationFilter = {
     is?: clienteWhereInput
     isNot?: clienteWhereInput
@@ -30755,10 +30750,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type NullableBoolFieldUpdateOperationsInput = {
-    set?: boolean | null
-  }
-
   export type productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput = {
     create?: XOR<productos_solicitudCreateWithoutSolicitudes_recoleccionInput, productos_solicitudUncheckedCreateWithoutSolicitudes_recoleccionInput> | productos_solicitudCreateWithoutSolicitudes_recoleccionInput[] | productos_solicitudUncheckedCreateWithoutSolicitudes_recoleccionInput[]
     connectOrCreate?: productos_solicitudCreateOrConnectWithoutSolicitudes_recoleccionInput | productos_solicitudCreateOrConnectWithoutSolicitudes_recoleccionInput[]
@@ -31367,11 +31358,6 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
-  export type NestedBoolNullableFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
-  }
-
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel> | null
     in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
@@ -31386,14 +31372,6 @@ export namespace Prisma {
     _sum?: NestedFloatNullableFilter<$PrismaModel>
     _min?: NestedFloatNullableFilter<$PrismaModel>
     _max?: NestedFloatNullableFilter<$PrismaModel>
-  }
-
-  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
-    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedBoolNullableFilter<$PrismaModel>
-    _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
   export type usuarios_cpCreateWithoutAdministradorInput = {
