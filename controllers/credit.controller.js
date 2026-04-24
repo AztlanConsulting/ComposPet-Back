@@ -42,8 +42,6 @@ const getCreditBalance= async (req, res) => {
             data: creditBalance
         });
     }catch(error){
-        console.error("Error al obtener el saldo de la tarjeta:", error);
-
         res.status(500).json({
             success: false,
             message: "Error servidor al obtener el saldo del cliente.", 

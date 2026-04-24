@@ -9,7 +9,7 @@ describe('Controller - getCreditBalance', () => {
 
     beforeEach(()=>{
         req = {
-            bosy: {},
+            body: {},
         };
 
         res = {
@@ -25,9 +25,9 @@ describe('Controller - getCreditBalance', () => {
 
         await creditController.getCreditBalance(req, res);
 
-        expect(res.status).toHaveBeenCalled(400);
-        expect(res.jason).toHaveBeenCalled({
-            succes: false,
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            success: false,
             message: 'Falta id del cliente para obtener el balance de tarjeta',
         });
 
@@ -51,8 +51,8 @@ describe('Controller - getCreditBalance', () => {
         expect(Credit.getCreditBalance).toHaveBeenCalledWith("11111111-1111-1111-1111-111111111111");
         expect(Credit.getCreditBalance).toHaveBeenCalled();
 
-        expect(res.status).toHaveBeenCalled(200);
-        expect(res.json).toHaveBeenCalled({
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({
             success: true,
             message: "Saldo de tarjeta obtenido exitosamente",
             data: mockCreditBalance,
@@ -94,7 +94,7 @@ describe('Controller - getCreditBalance', () => {
         await creditController.getCreditBalance(req, res);
 
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalled({
+        expect(res.json).toHaveBeenCalledWith({
             success: false,
             message: "Error servidor al obtener el saldo del cliente.",
             error: expect.any(Error),
