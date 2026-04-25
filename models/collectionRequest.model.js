@@ -20,7 +20,7 @@ module.exports = class CollectionRequest {
      *
      * @async
      * @static
-     * @param {number} clientId - Id del cliente.
+     * @param {string} clientId - Id del cliente.
      * @param {string} weekStartDate - Fecha inicial del rango semanal.
      * @param {string} weekEndDate - Fecha final del rango semanal.
      * @returns {Promise<Object|null>} La solicitud encontrada o `null` si no existe.
@@ -48,7 +48,7 @@ module.exports = class CollectionRequest {
      *
      * @async
      * @static
-     * @param {number} clientId - Id del cliente.
+     * @param {string} clientId - Id del cliente.
      * @returns {Promise<Object>} La solicitud inicial creada.
      */
     static async createInitialCollectionRequest(clientId) {
@@ -67,8 +67,8 @@ module.exports = class CollectionRequest {
                 total_pagado: 0,
                 fecha: new Date(),
                 notas: null,
-                quiere_recoleccion: false,
-                quiere_productos_extra: false,
+                quiere_recoleccion: true,
+                quiere_productos_extra: true,
             },
         });
 

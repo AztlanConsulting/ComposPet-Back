@@ -407,7 +407,7 @@ CREATE TABLE public.solicitudes_recoleccion (
 
 -- DROP TABLE public.tarjeta_lealtad;
 
-CREATE TABLE public.tarjeta_lealtad (
+CREATE TABLE public.tarjeta (
 	id_tarjeta_lealtad uuid DEFAULT gen_random_uuid() NOT NULL,
 	id_cliente uuid NOT NULL,
 	id_nivel uuid NOT NULL,
