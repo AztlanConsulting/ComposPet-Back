@@ -54,16 +54,6 @@ export type formas_pago = $Result.DefaultSelection<Prisma.$formas_pagoPayload>
  */
 export type metricas = $Result.DefaultSelection<Prisma.$metricasPayload>
 /**
- * Model nivel_promociones
- * 
- */
-export type nivel_promociones = $Result.DefaultSelection<Prisma.$nivel_promocionesPayload>
-/**
- * Model niveles
- * 
- */
-export type niveles = $Result.DefaultSelection<Prisma.$nivelesPayload>
-/**
  * Model permisos
  * 
  */
@@ -83,11 +73,6 @@ export type productos_extra = $Result.DefaultSelection<Prisma.$productos_extraPa
  * 
  */
 export type productos_solicitud = $Result.DefaultSelection<Prisma.$productos_solicitudPayload>
-/**
- * Model promociones
- * 
- */
-export type promociones = $Result.DefaultSelection<Prisma.$promocionesPayload>
 /**
  * Model roles
  * 
@@ -331,26 +316,6 @@ export class PrismaClient<
   get metricas(): Prisma.metricasDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.nivel_promociones`: Exposes CRUD operations for the **nivel_promociones** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Nivel_promociones
-    * const nivel_promociones = await prisma.nivel_promociones.findMany()
-    * ```
-    */
-  get nivel_promociones(): Prisma.nivel_promocionesDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.niveles`: Exposes CRUD operations for the **niveles** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Niveles
-    * const niveles = await prisma.niveles.findMany()
-    * ```
-    */
-  get niveles(): Prisma.nivelesDelegate<ExtArgs, ClientOptions>;
-
-  /**
    * `prisma.permisos`: Exposes CRUD operations for the **permisos** model.
     * Example usage:
     * ```ts
@@ -389,16 +354,6 @@ export class PrismaClient<
     * ```
     */
   get productos_solicitud(): Prisma.productos_solicitudDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.promociones`: Exposes CRUD operations for the **promociones** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Promociones
-    * const promociones = await prisma.promociones.findMany()
-    * ```
-    */
-  get promociones(): Prisma.promocionesDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.roles`: Exposes CRUD operations for the **roles** model.
@@ -921,13 +876,10 @@ export namespace Prisma {
     faq: 'faq',
     formas_pago: 'formas_pago',
     metricas: 'metricas',
-    nivel_promociones: 'nivel_promociones',
-    niveles: 'niveles',
     permisos: 'permisos',
     personas_equipo: 'personas_equipo',
     productos_extra: 'productos_extra',
     productos_solicitud: 'productos_solicitud',
-    promociones: 'promociones',
     roles: 'roles',
     roles_permisos: 'roles_permisos',
     ruta: 'ruta',
@@ -951,7 +903,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "nivel_promociones" | "niveles" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "promociones" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "usuarios_cp" | "zona" | "saldo"
+      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "usuarios_cp" | "zona" | "saldo"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1547,154 +1499,6 @@ export namespace Prisma {
           }
         }
       }
-      nivel_promociones: {
-        payload: Prisma.$nivel_promocionesPayload<ExtArgs>
-        fields: Prisma.nivel_promocionesFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.nivel_promocionesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.nivel_promocionesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>
-          }
-          findFirst: {
-            args: Prisma.nivel_promocionesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.nivel_promocionesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>
-          }
-          findMany: {
-            args: Prisma.nivel_promocionesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>[]
-          }
-          create: {
-            args: Prisma.nivel_promocionesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>
-          }
-          createMany: {
-            args: Prisma.nivel_promocionesCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.nivel_promocionesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>[]
-          }
-          delete: {
-            args: Prisma.nivel_promocionesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>
-          }
-          update: {
-            args: Prisma.nivel_promocionesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>
-          }
-          deleteMany: {
-            args: Prisma.nivel_promocionesDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.nivel_promocionesUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.nivel_promocionesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>[]
-          }
-          upsert: {
-            args: Prisma.nivel_promocionesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivel_promocionesPayload>
-          }
-          aggregate: {
-            args: Prisma.Nivel_promocionesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateNivel_promociones>
-          }
-          groupBy: {
-            args: Prisma.nivel_promocionesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Nivel_promocionesGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.nivel_promocionesCountArgs<ExtArgs>
-            result: $Utils.Optional<Nivel_promocionesCountAggregateOutputType> | number
-          }
-        }
-      }
-      niveles: {
-        payload: Prisma.$nivelesPayload<ExtArgs>
-        fields: Prisma.nivelesFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.nivelesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.nivelesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>
-          }
-          findFirst: {
-            args: Prisma.nivelesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.nivelesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>
-          }
-          findMany: {
-            args: Prisma.nivelesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>[]
-          }
-          create: {
-            args: Prisma.nivelesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>
-          }
-          createMany: {
-            args: Prisma.nivelesCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.nivelesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>[]
-          }
-          delete: {
-            args: Prisma.nivelesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>
-          }
-          update: {
-            args: Prisma.nivelesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>
-          }
-          deleteMany: {
-            args: Prisma.nivelesDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.nivelesUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.nivelesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>[]
-          }
-          upsert: {
-            args: Prisma.nivelesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$nivelesPayload>
-          }
-          aggregate: {
-            args: Prisma.NivelesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateNiveles>
-          }
-          groupBy: {
-            args: Prisma.nivelesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<NivelesGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.nivelesCountArgs<ExtArgs>
-            result: $Utils.Optional<NivelesCountAggregateOutputType> | number
-          }
-        }
-      }
       permisos: {
         payload: Prisma.$permisosPayload<ExtArgs>
         fields: Prisma.permisosFieldRefs
@@ -1988,80 +1792,6 @@ export namespace Prisma {
           count: {
             args: Prisma.productos_solicitudCountArgs<ExtArgs>
             result: $Utils.Optional<Productos_solicitudCountAggregateOutputType> | number
-          }
-        }
-      }
-      promociones: {
-        payload: Prisma.$promocionesPayload<ExtArgs>
-        fields: Prisma.promocionesFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.promocionesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.promocionesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>
-          }
-          findFirst: {
-            args: Prisma.promocionesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.promocionesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>
-          }
-          findMany: {
-            args: Prisma.promocionesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>[]
-          }
-          create: {
-            args: Prisma.promocionesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>
-          }
-          createMany: {
-            args: Prisma.promocionesCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.promocionesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>[]
-          }
-          delete: {
-            args: Prisma.promocionesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>
-          }
-          update: {
-            args: Prisma.promocionesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>
-          }
-          deleteMany: {
-            args: Prisma.promocionesDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.promocionesUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.promocionesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>[]
-          }
-          upsert: {
-            args: Prisma.promocionesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$promocionesPayload>
-          }
-          aggregate: {
-            args: Prisma.PromocionesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePromociones>
-          }
-          groupBy: {
-            args: Prisma.promocionesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<PromocionesGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.promocionesCountArgs<ExtArgs>
-            result: $Utils.Optional<PromocionesCountAggregateOutputType> | number
           }
         }
       }
@@ -2773,13 +2503,10 @@ export namespace Prisma {
     faq?: faqOmit
     formas_pago?: formas_pagoOmit
     metricas?: metricasOmit
-    nivel_promociones?: nivel_promocionesOmit
-    niveles?: nivelesOmit
     permisos?: permisosOmit
     personas_equipo?: personas_equipoOmit
     productos_extra?: productos_extraOmit
     productos_solicitud?: productos_solicitudOmit
-    promociones?: promocionesOmit
     roles?: rolesOmit
     roles_permisos?: roles_permisosOmit
     ruta?: rutaOmit
@@ -3015,37 +2742,6 @@ export namespace Prisma {
 
 
   /**
-   * Count Type NivelesCountOutputType
-   */
-
-  export type NivelesCountOutputType = {
-    nivel_promociones: number
-  }
-
-  export type NivelesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    nivel_promociones?: boolean | NivelesCountOutputTypeCountNivel_promocionesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * NivelesCountOutputType without action
-   */
-  export type NivelesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the NivelesCountOutputType
-     */
-    select?: NivelesCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * NivelesCountOutputType without action
-   */
-  export type NivelesCountOutputTypeCountNivel_promocionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: nivel_promocionesWhereInput
-  }
-
-
-  /**
    * Count Type PermisosCountOutputType
    */
 
@@ -3104,37 +2800,6 @@ export namespace Prisma {
    */
   export type Productos_extraCountOutputTypeCountProductos_solicitudArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: productos_solicitudWhereInput
-  }
-
-
-  /**
-   * Count Type PromocionesCountOutputType
-   */
-
-  export type PromocionesCountOutputType = {
-    nivel_promociones: number
-  }
-
-  export type PromocionesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    nivel_promociones?: boolean | PromocionesCountOutputTypeCountNivel_promocionesArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * PromocionesCountOutputType without action
-   */
-  export type PromocionesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the PromocionesCountOutputType
-     */
-    select?: PromocionesCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * PromocionesCountOutputType without action
-   */
-  export type PromocionesCountOutputTypeCountNivel_promocionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: nivel_promocionesWhereInput
   }
 
 
@@ -12371,2108 +12036,6 @@ export namespace Prisma {
 
 
   /**
-   * Model nivel_promociones
-   */
-
-  export type AggregateNivel_promociones = {
-    _count: Nivel_promocionesCountAggregateOutputType | null
-    _avg: Nivel_promocionesAvgAggregateOutputType | null
-    _sum: Nivel_promocionesSumAggregateOutputType | null
-    _min: Nivel_promocionesMinAggregateOutputType | null
-    _max: Nivel_promocionesMaxAggregateOutputType | null
-  }
-
-  export type Nivel_promocionesAvgAggregateOutputType = {
-    id_promociones: number | null
-  }
-
-  export type Nivel_promocionesSumAggregateOutputType = {
-    id_promociones: number | null
-  }
-
-  export type Nivel_promocionesMinAggregateOutputType = {
-    id_nivel: string | null
-    id_promociones: number | null
-  }
-
-  export type Nivel_promocionesMaxAggregateOutputType = {
-    id_nivel: string | null
-    id_promociones: number | null
-  }
-
-  export type Nivel_promocionesCountAggregateOutputType = {
-    id_nivel: number
-    id_promociones: number
-    _all: number
-  }
-
-
-  export type Nivel_promocionesAvgAggregateInputType = {
-    id_promociones?: true
-  }
-
-  export type Nivel_promocionesSumAggregateInputType = {
-    id_promociones?: true
-  }
-
-  export type Nivel_promocionesMinAggregateInputType = {
-    id_nivel?: true
-    id_promociones?: true
-  }
-
-  export type Nivel_promocionesMaxAggregateInputType = {
-    id_nivel?: true
-    id_promociones?: true
-  }
-
-  export type Nivel_promocionesCountAggregateInputType = {
-    id_nivel?: true
-    id_promociones?: true
-    _all?: true
-  }
-
-  export type Nivel_promocionesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which nivel_promociones to aggregate.
-     */
-    where?: nivel_promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of nivel_promociones to fetch.
-     */
-    orderBy?: nivel_promocionesOrderByWithRelationInput | nivel_promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: nivel_promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` nivel_promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` nivel_promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned nivel_promociones
-    **/
-    _count?: true | Nivel_promocionesCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: Nivel_promocionesAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Nivel_promocionesSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Nivel_promocionesMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Nivel_promocionesMaxAggregateInputType
-  }
-
-  export type GetNivel_promocionesAggregateType<T extends Nivel_promocionesAggregateArgs> = {
-        [P in keyof T & keyof AggregateNivel_promociones]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateNivel_promociones[P]>
-      : GetScalarType<T[P], AggregateNivel_promociones[P]>
-  }
-
-
-
-
-  export type nivel_promocionesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: nivel_promocionesWhereInput
-    orderBy?: nivel_promocionesOrderByWithAggregationInput | nivel_promocionesOrderByWithAggregationInput[]
-    by: Nivel_promocionesScalarFieldEnum[] | Nivel_promocionesScalarFieldEnum
-    having?: nivel_promocionesScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Nivel_promocionesCountAggregateInputType | true
-    _avg?: Nivel_promocionesAvgAggregateInputType
-    _sum?: Nivel_promocionesSumAggregateInputType
-    _min?: Nivel_promocionesMinAggregateInputType
-    _max?: Nivel_promocionesMaxAggregateInputType
-  }
-
-  export type Nivel_promocionesGroupByOutputType = {
-    id_nivel: string
-    id_promociones: number
-    _count: Nivel_promocionesCountAggregateOutputType | null
-    _avg: Nivel_promocionesAvgAggregateOutputType | null
-    _sum: Nivel_promocionesSumAggregateOutputType | null
-    _min: Nivel_promocionesMinAggregateOutputType | null
-    _max: Nivel_promocionesMaxAggregateOutputType | null
-  }
-
-  type GetNivel_promocionesGroupByPayload<T extends nivel_promocionesGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Nivel_promocionesGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Nivel_promocionesGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Nivel_promocionesGroupByOutputType[P]>
-            : GetScalarType<T[P], Nivel_promocionesGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type nivel_promocionesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_nivel?: boolean
-    id_promociones?: boolean
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-    promociones?: boolean | promocionesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["nivel_promociones"]>
-
-  export type nivel_promocionesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_nivel?: boolean
-    id_promociones?: boolean
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-    promociones?: boolean | promocionesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["nivel_promociones"]>
-
-  export type nivel_promocionesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_nivel?: boolean
-    id_promociones?: boolean
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-    promociones?: boolean | promocionesDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["nivel_promociones"]>
-
-  export type nivel_promocionesSelectScalar = {
-    id_nivel?: boolean
-    id_promociones?: boolean
-  }
-
-  export type nivel_promocionesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_nivel" | "id_promociones", ExtArgs["result"]["nivel_promociones"]>
-  export type nivel_promocionesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-    promociones?: boolean | promocionesDefaultArgs<ExtArgs>
-  }
-  export type nivel_promocionesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-    promociones?: boolean | promocionesDefaultArgs<ExtArgs>
-  }
-  export type nivel_promocionesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    niveles?: boolean | nivelesDefaultArgs<ExtArgs>
-    promociones?: boolean | promocionesDefaultArgs<ExtArgs>
-  }
-
-  export type $nivel_promocionesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "nivel_promociones"
-    objects: {
-      niveles: Prisma.$nivelesPayload<ExtArgs>
-      promociones: Prisma.$promocionesPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id_nivel: string
-      id_promociones: number
-    }, ExtArgs["result"]["nivel_promociones"]>
-    composites: {}
-  }
-
-  type nivel_promocionesGetPayload<S extends boolean | null | undefined | nivel_promocionesDefaultArgs> = $Result.GetResult<Prisma.$nivel_promocionesPayload, S>
-
-  type nivel_promocionesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<nivel_promocionesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Nivel_promocionesCountAggregateInputType | true
-    }
-
-  export interface nivel_promocionesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['nivel_promociones'], meta: { name: 'nivel_promociones' } }
-    /**
-     * Find zero or one Nivel_promociones that matches the filter.
-     * @param {nivel_promocionesFindUniqueArgs} args - Arguments to find a Nivel_promociones
-     * @example
-     * // Get one Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends nivel_promocionesFindUniqueArgs>(args: SelectSubset<T, nivel_promocionesFindUniqueArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Nivel_promociones that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {nivel_promocionesFindUniqueOrThrowArgs} args - Arguments to find a Nivel_promociones
-     * @example
-     * // Get one Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends nivel_promocionesFindUniqueOrThrowArgs>(args: SelectSubset<T, nivel_promocionesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Nivel_promociones that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivel_promocionesFindFirstArgs} args - Arguments to find a Nivel_promociones
-     * @example
-     * // Get one Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends nivel_promocionesFindFirstArgs>(args?: SelectSubset<T, nivel_promocionesFindFirstArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Nivel_promociones that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivel_promocionesFindFirstOrThrowArgs} args - Arguments to find a Nivel_promociones
-     * @example
-     * // Get one Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends nivel_promocionesFindFirstOrThrowArgs>(args?: SelectSubset<T, nivel_promocionesFindFirstOrThrowArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Nivel_promociones that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivel_promocionesFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.findMany()
-     * 
-     * // Get first 10 Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.findMany({ take: 10 })
-     * 
-     * // Only select the `id_nivel`
-     * const nivel_promocionesWithId_nivelOnly = await prisma.nivel_promociones.findMany({ select: { id_nivel: true } })
-     * 
-     */
-    findMany<T extends nivel_promocionesFindManyArgs>(args?: SelectSubset<T, nivel_promocionesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Nivel_promociones.
-     * @param {nivel_promocionesCreateArgs} args - Arguments to create a Nivel_promociones.
-     * @example
-     * // Create one Nivel_promociones
-     * const Nivel_promociones = await prisma.nivel_promociones.create({
-     *   data: {
-     *     // ... data to create a Nivel_promociones
-     *   }
-     * })
-     * 
-     */
-    create<T extends nivel_promocionesCreateArgs>(args: SelectSubset<T, nivel_promocionesCreateArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Nivel_promociones.
-     * @param {nivel_promocionesCreateManyArgs} args - Arguments to create many Nivel_promociones.
-     * @example
-     * // Create many Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends nivel_promocionesCreateManyArgs>(args?: SelectSubset<T, nivel_promocionesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Nivel_promociones and returns the data saved in the database.
-     * @param {nivel_promocionesCreateManyAndReturnArgs} args - Arguments to create many Nivel_promociones.
-     * @example
-     * // Create many Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Nivel_promociones and only return the `id_nivel`
-     * const nivel_promocionesWithId_nivelOnly = await prisma.nivel_promociones.createManyAndReturn({
-     *   select: { id_nivel: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends nivel_promocionesCreateManyAndReturnArgs>(args?: SelectSubset<T, nivel_promocionesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Nivel_promociones.
-     * @param {nivel_promocionesDeleteArgs} args - Arguments to delete one Nivel_promociones.
-     * @example
-     * // Delete one Nivel_promociones
-     * const Nivel_promociones = await prisma.nivel_promociones.delete({
-     *   where: {
-     *     // ... filter to delete one Nivel_promociones
-     *   }
-     * })
-     * 
-     */
-    delete<T extends nivel_promocionesDeleteArgs>(args: SelectSubset<T, nivel_promocionesDeleteArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Nivel_promociones.
-     * @param {nivel_promocionesUpdateArgs} args - Arguments to update one Nivel_promociones.
-     * @example
-     * // Update one Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends nivel_promocionesUpdateArgs>(args: SelectSubset<T, nivel_promocionesUpdateArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Nivel_promociones.
-     * @param {nivel_promocionesDeleteManyArgs} args - Arguments to filter Nivel_promociones to delete.
-     * @example
-     * // Delete a few Nivel_promociones
-     * const { count } = await prisma.nivel_promociones.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends nivel_promocionesDeleteManyArgs>(args?: SelectSubset<T, nivel_promocionesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Nivel_promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivel_promocionesUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends nivel_promocionesUpdateManyArgs>(args: SelectSubset<T, nivel_promocionesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Nivel_promociones and returns the data updated in the database.
-     * @param {nivel_promocionesUpdateManyAndReturnArgs} args - Arguments to update many Nivel_promociones.
-     * @example
-     * // Update many Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Nivel_promociones and only return the `id_nivel`
-     * const nivel_promocionesWithId_nivelOnly = await prisma.nivel_promociones.updateManyAndReturn({
-     *   select: { id_nivel: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends nivel_promocionesUpdateManyAndReturnArgs>(args: SelectSubset<T, nivel_promocionesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Nivel_promociones.
-     * @param {nivel_promocionesUpsertArgs} args - Arguments to update or create a Nivel_promociones.
-     * @example
-     * // Update or create a Nivel_promociones
-     * const nivel_promociones = await prisma.nivel_promociones.upsert({
-     *   create: {
-     *     // ... data to create a Nivel_promociones
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Nivel_promociones we want to update
-     *   }
-     * })
-     */
-    upsert<T extends nivel_promocionesUpsertArgs>(args: SelectSubset<T, nivel_promocionesUpsertArgs<ExtArgs>>): Prisma__nivel_promocionesClient<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Nivel_promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivel_promocionesCountArgs} args - Arguments to filter Nivel_promociones to count.
-     * @example
-     * // Count the number of Nivel_promociones
-     * const count = await prisma.nivel_promociones.count({
-     *   where: {
-     *     // ... the filter for the Nivel_promociones we want to count
-     *   }
-     * })
-    **/
-    count<T extends nivel_promocionesCountArgs>(
-      args?: Subset<T, nivel_promocionesCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Nivel_promocionesCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Nivel_promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Nivel_promocionesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Nivel_promocionesAggregateArgs>(args: Subset<T, Nivel_promocionesAggregateArgs>): Prisma.PrismaPromise<GetNivel_promocionesAggregateType<T>>
-
-    /**
-     * Group by Nivel_promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivel_promocionesGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends nivel_promocionesGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: nivel_promocionesGroupByArgs['orderBy'] }
-        : { orderBy?: nivel_promocionesGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, nivel_promocionesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNivel_promocionesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the nivel_promociones model
-   */
-  readonly fields: nivel_promocionesFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for nivel_promociones.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__nivel_promocionesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    niveles<T extends nivelesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, nivelesDefaultArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    promociones<T extends promocionesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, promocionesDefaultArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the nivel_promociones model
-   */
-  interface nivel_promocionesFieldRefs {
-    readonly id_nivel: FieldRef<"nivel_promociones", 'String'>
-    readonly id_promociones: FieldRef<"nivel_promociones", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * nivel_promociones findUnique
-   */
-  export type nivel_promocionesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which nivel_promociones to fetch.
-     */
-    where: nivel_promocionesWhereUniqueInput
-  }
-
-  /**
-   * nivel_promociones findUniqueOrThrow
-   */
-  export type nivel_promocionesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which nivel_promociones to fetch.
-     */
-    where: nivel_promocionesWhereUniqueInput
-  }
-
-  /**
-   * nivel_promociones findFirst
-   */
-  export type nivel_promocionesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which nivel_promociones to fetch.
-     */
-    where?: nivel_promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of nivel_promociones to fetch.
-     */
-    orderBy?: nivel_promocionesOrderByWithRelationInput | nivel_promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for nivel_promociones.
-     */
-    cursor?: nivel_promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` nivel_promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` nivel_promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of nivel_promociones.
-     */
-    distinct?: Nivel_promocionesScalarFieldEnum | Nivel_promocionesScalarFieldEnum[]
-  }
-
-  /**
-   * nivel_promociones findFirstOrThrow
-   */
-  export type nivel_promocionesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which nivel_promociones to fetch.
-     */
-    where?: nivel_promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of nivel_promociones to fetch.
-     */
-    orderBy?: nivel_promocionesOrderByWithRelationInput | nivel_promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for nivel_promociones.
-     */
-    cursor?: nivel_promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` nivel_promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` nivel_promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of nivel_promociones.
-     */
-    distinct?: Nivel_promocionesScalarFieldEnum | Nivel_promocionesScalarFieldEnum[]
-  }
-
-  /**
-   * nivel_promociones findMany
-   */
-  export type nivel_promocionesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which nivel_promociones to fetch.
-     */
-    where?: nivel_promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of nivel_promociones to fetch.
-     */
-    orderBy?: nivel_promocionesOrderByWithRelationInput | nivel_promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing nivel_promociones.
-     */
-    cursor?: nivel_promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` nivel_promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` nivel_promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of nivel_promociones.
-     */
-    distinct?: Nivel_promocionesScalarFieldEnum | Nivel_promocionesScalarFieldEnum[]
-  }
-
-  /**
-   * nivel_promociones create
-   */
-  export type nivel_promocionesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * The data needed to create a nivel_promociones.
-     */
-    data: XOR<nivel_promocionesCreateInput, nivel_promocionesUncheckedCreateInput>
-  }
-
-  /**
-   * nivel_promociones createMany
-   */
-  export type nivel_promocionesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many nivel_promociones.
-     */
-    data: nivel_promocionesCreateManyInput | nivel_promocionesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * nivel_promociones createManyAndReturn
-   */
-  export type nivel_promocionesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * The data used to create many nivel_promociones.
-     */
-    data: nivel_promocionesCreateManyInput | nivel_promocionesCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * nivel_promociones update
-   */
-  export type nivel_promocionesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * The data needed to update a nivel_promociones.
-     */
-    data: XOR<nivel_promocionesUpdateInput, nivel_promocionesUncheckedUpdateInput>
-    /**
-     * Choose, which nivel_promociones to update.
-     */
-    where: nivel_promocionesWhereUniqueInput
-  }
-
-  /**
-   * nivel_promociones updateMany
-   */
-  export type nivel_promocionesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update nivel_promociones.
-     */
-    data: XOR<nivel_promocionesUpdateManyMutationInput, nivel_promocionesUncheckedUpdateManyInput>
-    /**
-     * Filter which nivel_promociones to update
-     */
-    where?: nivel_promocionesWhereInput
-    /**
-     * Limit how many nivel_promociones to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * nivel_promociones updateManyAndReturn
-   */
-  export type nivel_promocionesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * The data used to update nivel_promociones.
-     */
-    data: XOR<nivel_promocionesUpdateManyMutationInput, nivel_promocionesUncheckedUpdateManyInput>
-    /**
-     * Filter which nivel_promociones to update
-     */
-    where?: nivel_promocionesWhereInput
-    /**
-     * Limit how many nivel_promociones to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * nivel_promociones upsert
-   */
-  export type nivel_promocionesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * The filter to search for the nivel_promociones to update in case it exists.
-     */
-    where: nivel_promocionesWhereUniqueInput
-    /**
-     * In case the nivel_promociones found by the `where` argument doesn't exist, create a new nivel_promociones with this data.
-     */
-    create: XOR<nivel_promocionesCreateInput, nivel_promocionesUncheckedCreateInput>
-    /**
-     * In case the nivel_promociones was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<nivel_promocionesUpdateInput, nivel_promocionesUncheckedUpdateInput>
-  }
-
-  /**
-   * nivel_promociones delete
-   */
-  export type nivel_promocionesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    /**
-     * Filter which nivel_promociones to delete.
-     */
-    where: nivel_promocionesWhereUniqueInput
-  }
-
-  /**
-   * nivel_promociones deleteMany
-   */
-  export type nivel_promocionesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which nivel_promociones to delete
-     */
-    where?: nivel_promocionesWhereInput
-    /**
-     * Limit how many nivel_promociones to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * nivel_promociones without action
-   */
-  export type nivel_promocionesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model niveles
-   */
-
-  export type AggregateNiveles = {
-    _count: NivelesCountAggregateOutputType | null
-    _min: NivelesMinAggregateOutputType | null
-    _max: NivelesMaxAggregateOutputType | null
-  }
-
-  export type NivelesMinAggregateOutputType = {
-    id_nivel: string | null
-    nombre: string | null
-  }
-
-  export type NivelesMaxAggregateOutputType = {
-    id_nivel: string | null
-    nombre: string | null
-  }
-
-  export type NivelesCountAggregateOutputType = {
-    id_nivel: number
-    nombre: number
-    _all: number
-  }
-
-
-  export type NivelesMinAggregateInputType = {
-    id_nivel?: true
-    nombre?: true
-  }
-
-  export type NivelesMaxAggregateInputType = {
-    id_nivel?: true
-    nombre?: true
-  }
-
-  export type NivelesCountAggregateInputType = {
-    id_nivel?: true
-    nombre?: true
-    _all?: true
-  }
-
-  export type NivelesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which niveles to aggregate.
-     */
-    where?: nivelesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of niveles to fetch.
-     */
-    orderBy?: nivelesOrderByWithRelationInput | nivelesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: nivelesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` niveles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` niveles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned niveles
-    **/
-    _count?: true | NivelesCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: NivelesMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: NivelesMaxAggregateInputType
-  }
-
-  export type GetNivelesAggregateType<T extends NivelesAggregateArgs> = {
-        [P in keyof T & keyof AggregateNiveles]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateNiveles[P]>
-      : GetScalarType<T[P], AggregateNiveles[P]>
-  }
-
-
-
-
-  export type nivelesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: nivelesWhereInput
-    orderBy?: nivelesOrderByWithAggregationInput | nivelesOrderByWithAggregationInput[]
-    by: NivelesScalarFieldEnum[] | NivelesScalarFieldEnum
-    having?: nivelesScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: NivelesCountAggregateInputType | true
-    _min?: NivelesMinAggregateInputType
-    _max?: NivelesMaxAggregateInputType
-  }
-
-  export type NivelesGroupByOutputType = {
-    id_nivel: string
-    nombre: string
-    _count: NivelesCountAggregateOutputType | null
-    _min: NivelesMinAggregateOutputType | null
-    _max: NivelesMaxAggregateOutputType | null
-  }
-
-  type GetNivelesGroupByPayload<T extends nivelesGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<NivelesGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof NivelesGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], NivelesGroupByOutputType[P]>
-            : GetScalarType<T[P], NivelesGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type nivelesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_nivel?: boolean
-    nombre?: boolean
-    nivel_promociones?: boolean | niveles$nivel_promocionesArgs<ExtArgs>
-    _count?: boolean | NivelesCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["niveles"]>
-
-  export type nivelesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_nivel?: boolean
-    nombre?: boolean
-  }, ExtArgs["result"]["niveles"]>
-
-  export type nivelesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_nivel?: boolean
-    nombre?: boolean
-  }, ExtArgs["result"]["niveles"]>
-
-  export type nivelesSelectScalar = {
-    id_nivel?: boolean
-    nombre?: boolean
-  }
-
-  export type nivelesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_nivel" | "nombre", ExtArgs["result"]["niveles"]>
-  export type nivelesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    nivel_promociones?: boolean | niveles$nivel_promocionesArgs<ExtArgs>
-    _count?: boolean | NivelesCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type nivelesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type nivelesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $nivelesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "niveles"
-    objects: {
-      nivel_promociones: Prisma.$nivel_promocionesPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id_nivel: string
-      nombre: string
-    }, ExtArgs["result"]["niveles"]>
-    composites: {}
-  }
-
-  type nivelesGetPayload<S extends boolean | null | undefined | nivelesDefaultArgs> = $Result.GetResult<Prisma.$nivelesPayload, S>
-
-  type nivelesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<nivelesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: NivelesCountAggregateInputType | true
-    }
-
-  export interface nivelesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['niveles'], meta: { name: 'niveles' } }
-    /**
-     * Find zero or one Niveles that matches the filter.
-     * @param {nivelesFindUniqueArgs} args - Arguments to find a Niveles
-     * @example
-     * // Get one Niveles
-     * const niveles = await prisma.niveles.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends nivelesFindUniqueArgs>(args: SelectSubset<T, nivelesFindUniqueArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Niveles that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {nivelesFindUniqueOrThrowArgs} args - Arguments to find a Niveles
-     * @example
-     * // Get one Niveles
-     * const niveles = await prisma.niveles.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends nivelesFindUniqueOrThrowArgs>(args: SelectSubset<T, nivelesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Niveles that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivelesFindFirstArgs} args - Arguments to find a Niveles
-     * @example
-     * // Get one Niveles
-     * const niveles = await prisma.niveles.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends nivelesFindFirstArgs>(args?: SelectSubset<T, nivelesFindFirstArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Niveles that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivelesFindFirstOrThrowArgs} args - Arguments to find a Niveles
-     * @example
-     * // Get one Niveles
-     * const niveles = await prisma.niveles.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends nivelesFindFirstOrThrowArgs>(args?: SelectSubset<T, nivelesFindFirstOrThrowArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Niveles that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivelesFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Niveles
-     * const niveles = await prisma.niveles.findMany()
-     * 
-     * // Get first 10 Niveles
-     * const niveles = await prisma.niveles.findMany({ take: 10 })
-     * 
-     * // Only select the `id_nivel`
-     * const nivelesWithId_nivelOnly = await prisma.niveles.findMany({ select: { id_nivel: true } })
-     * 
-     */
-    findMany<T extends nivelesFindManyArgs>(args?: SelectSubset<T, nivelesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Niveles.
-     * @param {nivelesCreateArgs} args - Arguments to create a Niveles.
-     * @example
-     * // Create one Niveles
-     * const Niveles = await prisma.niveles.create({
-     *   data: {
-     *     // ... data to create a Niveles
-     *   }
-     * })
-     * 
-     */
-    create<T extends nivelesCreateArgs>(args: SelectSubset<T, nivelesCreateArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Niveles.
-     * @param {nivelesCreateManyArgs} args - Arguments to create many Niveles.
-     * @example
-     * // Create many Niveles
-     * const niveles = await prisma.niveles.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends nivelesCreateManyArgs>(args?: SelectSubset<T, nivelesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Niveles and returns the data saved in the database.
-     * @param {nivelesCreateManyAndReturnArgs} args - Arguments to create many Niveles.
-     * @example
-     * // Create many Niveles
-     * const niveles = await prisma.niveles.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Niveles and only return the `id_nivel`
-     * const nivelesWithId_nivelOnly = await prisma.niveles.createManyAndReturn({
-     *   select: { id_nivel: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends nivelesCreateManyAndReturnArgs>(args?: SelectSubset<T, nivelesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Niveles.
-     * @param {nivelesDeleteArgs} args - Arguments to delete one Niveles.
-     * @example
-     * // Delete one Niveles
-     * const Niveles = await prisma.niveles.delete({
-     *   where: {
-     *     // ... filter to delete one Niveles
-     *   }
-     * })
-     * 
-     */
-    delete<T extends nivelesDeleteArgs>(args: SelectSubset<T, nivelesDeleteArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Niveles.
-     * @param {nivelesUpdateArgs} args - Arguments to update one Niveles.
-     * @example
-     * // Update one Niveles
-     * const niveles = await prisma.niveles.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends nivelesUpdateArgs>(args: SelectSubset<T, nivelesUpdateArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Niveles.
-     * @param {nivelesDeleteManyArgs} args - Arguments to filter Niveles to delete.
-     * @example
-     * // Delete a few Niveles
-     * const { count } = await prisma.niveles.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends nivelesDeleteManyArgs>(args?: SelectSubset<T, nivelesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Niveles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivelesUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Niveles
-     * const niveles = await prisma.niveles.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends nivelesUpdateManyArgs>(args: SelectSubset<T, nivelesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Niveles and returns the data updated in the database.
-     * @param {nivelesUpdateManyAndReturnArgs} args - Arguments to update many Niveles.
-     * @example
-     * // Update many Niveles
-     * const niveles = await prisma.niveles.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Niveles and only return the `id_nivel`
-     * const nivelesWithId_nivelOnly = await prisma.niveles.updateManyAndReturn({
-     *   select: { id_nivel: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends nivelesUpdateManyAndReturnArgs>(args: SelectSubset<T, nivelesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Niveles.
-     * @param {nivelesUpsertArgs} args - Arguments to update or create a Niveles.
-     * @example
-     * // Update or create a Niveles
-     * const niveles = await prisma.niveles.upsert({
-     *   create: {
-     *     // ... data to create a Niveles
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Niveles we want to update
-     *   }
-     * })
-     */
-    upsert<T extends nivelesUpsertArgs>(args: SelectSubset<T, nivelesUpsertArgs<ExtArgs>>): Prisma__nivelesClient<$Result.GetResult<Prisma.$nivelesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Niveles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivelesCountArgs} args - Arguments to filter Niveles to count.
-     * @example
-     * // Count the number of Niveles
-     * const count = await prisma.niveles.count({
-     *   where: {
-     *     // ... the filter for the Niveles we want to count
-     *   }
-     * })
-    **/
-    count<T extends nivelesCountArgs>(
-      args?: Subset<T, nivelesCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], NivelesCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Niveles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {NivelesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends NivelesAggregateArgs>(args: Subset<T, NivelesAggregateArgs>): Prisma.PrismaPromise<GetNivelesAggregateType<T>>
-
-    /**
-     * Group by Niveles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {nivelesGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends nivelesGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: nivelesGroupByArgs['orderBy'] }
-        : { orderBy?: nivelesGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, nivelesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNivelesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the niveles model
-   */
-  readonly fields: nivelesFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for niveles.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__nivelesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    nivel_promociones<T extends niveles$nivel_promocionesArgs<ExtArgs> = {}>(args?: Subset<T, niveles$nivel_promocionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the niveles model
-   */
-  interface nivelesFieldRefs {
-    readonly id_nivel: FieldRef<"niveles", 'String'>
-    readonly nombre: FieldRef<"niveles", 'String'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * niveles findUnique
-   */
-  export type nivelesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * Filter, which niveles to fetch.
-     */
-    where: nivelesWhereUniqueInput
-  }
-
-  /**
-   * niveles findUniqueOrThrow
-   */
-  export type nivelesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * Filter, which niveles to fetch.
-     */
-    where: nivelesWhereUniqueInput
-  }
-
-  /**
-   * niveles findFirst
-   */
-  export type nivelesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * Filter, which niveles to fetch.
-     */
-    where?: nivelesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of niveles to fetch.
-     */
-    orderBy?: nivelesOrderByWithRelationInput | nivelesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for niveles.
-     */
-    cursor?: nivelesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` niveles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` niveles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of niveles.
-     */
-    distinct?: NivelesScalarFieldEnum | NivelesScalarFieldEnum[]
-  }
-
-  /**
-   * niveles findFirstOrThrow
-   */
-  export type nivelesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * Filter, which niveles to fetch.
-     */
-    where?: nivelesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of niveles to fetch.
-     */
-    orderBy?: nivelesOrderByWithRelationInput | nivelesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for niveles.
-     */
-    cursor?: nivelesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` niveles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` niveles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of niveles.
-     */
-    distinct?: NivelesScalarFieldEnum | NivelesScalarFieldEnum[]
-  }
-
-  /**
-   * niveles findMany
-   */
-  export type nivelesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * Filter, which niveles to fetch.
-     */
-    where?: nivelesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of niveles to fetch.
-     */
-    orderBy?: nivelesOrderByWithRelationInput | nivelesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing niveles.
-     */
-    cursor?: nivelesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` niveles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` niveles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of niveles.
-     */
-    distinct?: NivelesScalarFieldEnum | NivelesScalarFieldEnum[]
-  }
-
-  /**
-   * niveles create
-   */
-  export type nivelesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * The data needed to create a niveles.
-     */
-    data: XOR<nivelesCreateInput, nivelesUncheckedCreateInput>
-  }
-
-  /**
-   * niveles createMany
-   */
-  export type nivelesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many niveles.
-     */
-    data: nivelesCreateManyInput | nivelesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * niveles createManyAndReturn
-   */
-  export type nivelesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * The data used to create many niveles.
-     */
-    data: nivelesCreateManyInput | nivelesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * niveles update
-   */
-  export type nivelesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * The data needed to update a niveles.
-     */
-    data: XOR<nivelesUpdateInput, nivelesUncheckedUpdateInput>
-    /**
-     * Choose, which niveles to update.
-     */
-    where: nivelesWhereUniqueInput
-  }
-
-  /**
-   * niveles updateMany
-   */
-  export type nivelesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update niveles.
-     */
-    data: XOR<nivelesUpdateManyMutationInput, nivelesUncheckedUpdateManyInput>
-    /**
-     * Filter which niveles to update
-     */
-    where?: nivelesWhereInput
-    /**
-     * Limit how many niveles to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * niveles updateManyAndReturn
-   */
-  export type nivelesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * The data used to update niveles.
-     */
-    data: XOR<nivelesUpdateManyMutationInput, nivelesUncheckedUpdateManyInput>
-    /**
-     * Filter which niveles to update
-     */
-    where?: nivelesWhereInput
-    /**
-     * Limit how many niveles to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * niveles upsert
-   */
-  export type nivelesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * The filter to search for the niveles to update in case it exists.
-     */
-    where: nivelesWhereUniqueInput
-    /**
-     * In case the niveles found by the `where` argument doesn't exist, create a new niveles with this data.
-     */
-    create: XOR<nivelesCreateInput, nivelesUncheckedCreateInput>
-    /**
-     * In case the niveles was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<nivelesUpdateInput, nivelesUncheckedUpdateInput>
-  }
-
-  /**
-   * niveles delete
-   */
-  export type nivelesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-    /**
-     * Filter which niveles to delete.
-     */
-    where: nivelesWhereUniqueInput
-  }
-
-  /**
-   * niveles deleteMany
-   */
-  export type nivelesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which niveles to delete
-     */
-    where?: nivelesWhereInput
-    /**
-     * Limit how many niveles to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * niveles.nivel_promociones
-   */
-  export type niveles$nivel_promocionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    where?: nivel_promocionesWhereInput
-    orderBy?: nivel_promocionesOrderByWithRelationInput | nivel_promocionesOrderByWithRelationInput[]
-    cursor?: nivel_promocionesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Nivel_promocionesScalarFieldEnum | Nivel_promocionesScalarFieldEnum[]
-  }
-
-  /**
-   * niveles without action
-   */
-  export type nivelesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the niveles
-     */
-    select?: nivelesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the niveles
-     */
-    omit?: nivelesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivelesInclude<ExtArgs> | null
-  }
-
-
-  /**
    * Model permisos
    */
 
@@ -18884,1106 +16447,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: productos_solicitudInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model promociones
-   */
-
-  export type AggregatePromociones = {
-    _count: PromocionesCountAggregateOutputType | null
-    _avg: PromocionesAvgAggregateOutputType | null
-    _sum: PromocionesSumAggregateOutputType | null
-    _min: PromocionesMinAggregateOutputType | null
-    _max: PromocionesMaxAggregateOutputType | null
-  }
-
-  export type PromocionesAvgAggregateOutputType = {
-    id_promociones: number | null
-    valor_descuento: number | null
-  }
-
-  export type PromocionesSumAggregateOutputType = {
-    id_promociones: number | null
-    valor_descuento: number | null
-  }
-
-  export type PromocionesMinAggregateOutputType = {
-    id_promociones: number | null
-    nombre: string | null
-    descripcion: string | null
-    valor_descuento: number | null
-  }
-
-  export type PromocionesMaxAggregateOutputType = {
-    id_promociones: number | null
-    nombre: string | null
-    descripcion: string | null
-    valor_descuento: number | null
-  }
-
-  export type PromocionesCountAggregateOutputType = {
-    id_promociones: number
-    nombre: number
-    descripcion: number
-    valor_descuento: number
-    _all: number
-  }
-
-
-  export type PromocionesAvgAggregateInputType = {
-    id_promociones?: true
-    valor_descuento?: true
-  }
-
-  export type PromocionesSumAggregateInputType = {
-    id_promociones?: true
-    valor_descuento?: true
-  }
-
-  export type PromocionesMinAggregateInputType = {
-    id_promociones?: true
-    nombre?: true
-    descripcion?: true
-    valor_descuento?: true
-  }
-
-  export type PromocionesMaxAggregateInputType = {
-    id_promociones?: true
-    nombre?: true
-    descripcion?: true
-    valor_descuento?: true
-  }
-
-  export type PromocionesCountAggregateInputType = {
-    id_promociones?: true
-    nombre?: true
-    descripcion?: true
-    valor_descuento?: true
-    _all?: true
-  }
-
-  export type PromocionesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which promociones to aggregate.
-     */
-    where?: promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of promociones to fetch.
-     */
-    orderBy?: promocionesOrderByWithRelationInput | promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned promociones
-    **/
-    _count?: true | PromocionesCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: PromocionesAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: PromocionesSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: PromocionesMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: PromocionesMaxAggregateInputType
-  }
-
-  export type GetPromocionesAggregateType<T extends PromocionesAggregateArgs> = {
-        [P in keyof T & keyof AggregatePromociones]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregatePromociones[P]>
-      : GetScalarType<T[P], AggregatePromociones[P]>
-  }
-
-
-
-
-  export type promocionesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: promocionesWhereInput
-    orderBy?: promocionesOrderByWithAggregationInput | promocionesOrderByWithAggregationInput[]
-    by: PromocionesScalarFieldEnum[] | PromocionesScalarFieldEnum
-    having?: promocionesScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: PromocionesCountAggregateInputType | true
-    _avg?: PromocionesAvgAggregateInputType
-    _sum?: PromocionesSumAggregateInputType
-    _min?: PromocionesMinAggregateInputType
-    _max?: PromocionesMaxAggregateInputType
-  }
-
-  export type PromocionesGroupByOutputType = {
-    id_promociones: number
-    nombre: string
-    descripcion: string | null
-    valor_descuento: number | null
-    _count: PromocionesCountAggregateOutputType | null
-    _avg: PromocionesAvgAggregateOutputType | null
-    _sum: PromocionesSumAggregateOutputType | null
-    _min: PromocionesMinAggregateOutputType | null
-    _max: PromocionesMaxAggregateOutputType | null
-  }
-
-  type GetPromocionesGroupByPayload<T extends promocionesGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<PromocionesGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof PromocionesGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], PromocionesGroupByOutputType[P]>
-            : GetScalarType<T[P], PromocionesGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type promocionesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_promociones?: boolean
-    nombre?: boolean
-    descripcion?: boolean
-    valor_descuento?: boolean
-    nivel_promociones?: boolean | promociones$nivel_promocionesArgs<ExtArgs>
-    _count?: boolean | PromocionesCountOutputTypeDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["promociones"]>
-
-  export type promocionesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_promociones?: boolean
-    nombre?: boolean
-    descripcion?: boolean
-    valor_descuento?: boolean
-  }, ExtArgs["result"]["promociones"]>
-
-  export type promocionesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_promociones?: boolean
-    nombre?: boolean
-    descripcion?: boolean
-    valor_descuento?: boolean
-  }, ExtArgs["result"]["promociones"]>
-
-  export type promocionesSelectScalar = {
-    id_promociones?: boolean
-    nombre?: boolean
-    descripcion?: boolean
-    valor_descuento?: boolean
-  }
-
-  export type promocionesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_promociones" | "nombre" | "descripcion" | "valor_descuento", ExtArgs["result"]["promociones"]>
-  export type promocionesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    nivel_promociones?: boolean | promociones$nivel_promocionesArgs<ExtArgs>
-    _count?: boolean | PromocionesCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type promocionesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type promocionesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-
-  export type $promocionesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "promociones"
-    objects: {
-      nivel_promociones: Prisma.$nivel_promocionesPayload<ExtArgs>[]
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id_promociones: number
-      nombre: string
-      descripcion: string | null
-      valor_descuento: number | null
-    }, ExtArgs["result"]["promociones"]>
-    composites: {}
-  }
-
-  type promocionesGetPayload<S extends boolean | null | undefined | promocionesDefaultArgs> = $Result.GetResult<Prisma.$promocionesPayload, S>
-
-  type promocionesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<promocionesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: PromocionesCountAggregateInputType | true
-    }
-
-  export interface promocionesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['promociones'], meta: { name: 'promociones' } }
-    /**
-     * Find zero or one Promociones that matches the filter.
-     * @param {promocionesFindUniqueArgs} args - Arguments to find a Promociones
-     * @example
-     * // Get one Promociones
-     * const promociones = await prisma.promociones.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends promocionesFindUniqueArgs>(args: SelectSubset<T, promocionesFindUniqueArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Promociones that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {promocionesFindUniqueOrThrowArgs} args - Arguments to find a Promociones
-     * @example
-     * // Get one Promociones
-     * const promociones = await prisma.promociones.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends promocionesFindUniqueOrThrowArgs>(args: SelectSubset<T, promocionesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Promociones that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {promocionesFindFirstArgs} args - Arguments to find a Promociones
-     * @example
-     * // Get one Promociones
-     * const promociones = await prisma.promociones.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends promocionesFindFirstArgs>(args?: SelectSubset<T, promocionesFindFirstArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Promociones that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {promocionesFindFirstOrThrowArgs} args - Arguments to find a Promociones
-     * @example
-     * // Get one Promociones
-     * const promociones = await prisma.promociones.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends promocionesFindFirstOrThrowArgs>(args?: SelectSubset<T, promocionesFindFirstOrThrowArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Promociones that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {promocionesFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Promociones
-     * const promociones = await prisma.promociones.findMany()
-     * 
-     * // Get first 10 Promociones
-     * const promociones = await prisma.promociones.findMany({ take: 10 })
-     * 
-     * // Only select the `id_promociones`
-     * const promocionesWithId_promocionesOnly = await prisma.promociones.findMany({ select: { id_promociones: true } })
-     * 
-     */
-    findMany<T extends promocionesFindManyArgs>(args?: SelectSubset<T, promocionesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Promociones.
-     * @param {promocionesCreateArgs} args - Arguments to create a Promociones.
-     * @example
-     * // Create one Promociones
-     * const Promociones = await prisma.promociones.create({
-     *   data: {
-     *     // ... data to create a Promociones
-     *   }
-     * })
-     * 
-     */
-    create<T extends promocionesCreateArgs>(args: SelectSubset<T, promocionesCreateArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Promociones.
-     * @param {promocionesCreateManyArgs} args - Arguments to create many Promociones.
-     * @example
-     * // Create many Promociones
-     * const promociones = await prisma.promociones.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends promocionesCreateManyArgs>(args?: SelectSubset<T, promocionesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Promociones and returns the data saved in the database.
-     * @param {promocionesCreateManyAndReturnArgs} args - Arguments to create many Promociones.
-     * @example
-     * // Create many Promociones
-     * const promociones = await prisma.promociones.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Promociones and only return the `id_promociones`
-     * const promocionesWithId_promocionesOnly = await prisma.promociones.createManyAndReturn({
-     *   select: { id_promociones: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends promocionesCreateManyAndReturnArgs>(args?: SelectSubset<T, promocionesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Promociones.
-     * @param {promocionesDeleteArgs} args - Arguments to delete one Promociones.
-     * @example
-     * // Delete one Promociones
-     * const Promociones = await prisma.promociones.delete({
-     *   where: {
-     *     // ... filter to delete one Promociones
-     *   }
-     * })
-     * 
-     */
-    delete<T extends promocionesDeleteArgs>(args: SelectSubset<T, promocionesDeleteArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Promociones.
-     * @param {promocionesUpdateArgs} args - Arguments to update one Promociones.
-     * @example
-     * // Update one Promociones
-     * const promociones = await prisma.promociones.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends promocionesUpdateArgs>(args: SelectSubset<T, promocionesUpdateArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Promociones.
-     * @param {promocionesDeleteManyArgs} args - Arguments to filter Promociones to delete.
-     * @example
-     * // Delete a few Promociones
-     * const { count } = await prisma.promociones.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends promocionesDeleteManyArgs>(args?: SelectSubset<T, promocionesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {promocionesUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Promociones
-     * const promociones = await prisma.promociones.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends promocionesUpdateManyArgs>(args: SelectSubset<T, promocionesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Promociones and returns the data updated in the database.
-     * @param {promocionesUpdateManyAndReturnArgs} args - Arguments to update many Promociones.
-     * @example
-     * // Update many Promociones
-     * const promociones = await prisma.promociones.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Promociones and only return the `id_promociones`
-     * const promocionesWithId_promocionesOnly = await prisma.promociones.updateManyAndReturn({
-     *   select: { id_promociones: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends promocionesUpdateManyAndReturnArgs>(args: SelectSubset<T, promocionesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Promociones.
-     * @param {promocionesUpsertArgs} args - Arguments to update or create a Promociones.
-     * @example
-     * // Update or create a Promociones
-     * const promociones = await prisma.promociones.upsert({
-     *   create: {
-     *     // ... data to create a Promociones
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Promociones we want to update
-     *   }
-     * })
-     */
-    upsert<T extends promocionesUpsertArgs>(args: SelectSubset<T, promocionesUpsertArgs<ExtArgs>>): Prisma__promocionesClient<$Result.GetResult<Prisma.$promocionesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {promocionesCountArgs} args - Arguments to filter Promociones to count.
-     * @example
-     * // Count the number of Promociones
-     * const count = await prisma.promociones.count({
-     *   where: {
-     *     // ... the filter for the Promociones we want to count
-     *   }
-     * })
-    **/
-    count<T extends promocionesCountArgs>(
-      args?: Subset<T, promocionesCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], PromocionesCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {PromocionesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends PromocionesAggregateArgs>(args: Subset<T, PromocionesAggregateArgs>): Prisma.PrismaPromise<GetPromocionesAggregateType<T>>
-
-    /**
-     * Group by Promociones.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {promocionesGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends promocionesGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: promocionesGroupByArgs['orderBy'] }
-        : { orderBy?: promocionesGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, promocionesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPromocionesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the promociones model
-   */
-  readonly fields: promocionesFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for promociones.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__promocionesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    nivel_promociones<T extends promociones$nivel_promocionesArgs<ExtArgs> = {}>(args?: Subset<T, promociones$nivel_promocionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$nivel_promocionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the promociones model
-   */
-  interface promocionesFieldRefs {
-    readonly id_promociones: FieldRef<"promociones", 'Int'>
-    readonly nombre: FieldRef<"promociones", 'String'>
-    readonly descripcion: FieldRef<"promociones", 'String'>
-    readonly valor_descuento: FieldRef<"promociones", 'Int'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * promociones findUnique
-   */
-  export type promocionesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which promociones to fetch.
-     */
-    where: promocionesWhereUniqueInput
-  }
-
-  /**
-   * promociones findUniqueOrThrow
-   */
-  export type promocionesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which promociones to fetch.
-     */
-    where: promocionesWhereUniqueInput
-  }
-
-  /**
-   * promociones findFirst
-   */
-  export type promocionesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which promociones to fetch.
-     */
-    where?: promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of promociones to fetch.
-     */
-    orderBy?: promocionesOrderByWithRelationInput | promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for promociones.
-     */
-    cursor?: promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of promociones.
-     */
-    distinct?: PromocionesScalarFieldEnum | PromocionesScalarFieldEnum[]
-  }
-
-  /**
-   * promociones findFirstOrThrow
-   */
-  export type promocionesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which promociones to fetch.
-     */
-    where?: promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of promociones to fetch.
-     */
-    orderBy?: promocionesOrderByWithRelationInput | promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for promociones.
-     */
-    cursor?: promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of promociones.
-     */
-    distinct?: PromocionesScalarFieldEnum | PromocionesScalarFieldEnum[]
-  }
-
-  /**
-   * promociones findMany
-   */
-  export type promocionesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * Filter, which promociones to fetch.
-     */
-    where?: promocionesWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of promociones to fetch.
-     */
-    orderBy?: promocionesOrderByWithRelationInput | promocionesOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing promociones.
-     */
-    cursor?: promocionesWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` promociones from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` promociones.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of promociones.
-     */
-    distinct?: PromocionesScalarFieldEnum | PromocionesScalarFieldEnum[]
-  }
-
-  /**
-   * promociones create
-   */
-  export type promocionesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * The data needed to create a promociones.
-     */
-    data: XOR<promocionesCreateInput, promocionesUncheckedCreateInput>
-  }
-
-  /**
-   * promociones createMany
-   */
-  export type promocionesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many promociones.
-     */
-    data: promocionesCreateManyInput | promocionesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * promociones createManyAndReturn
-   */
-  export type promocionesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * The data used to create many promociones.
-     */
-    data: promocionesCreateManyInput | promocionesCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * promociones update
-   */
-  export type promocionesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * The data needed to update a promociones.
-     */
-    data: XOR<promocionesUpdateInput, promocionesUncheckedUpdateInput>
-    /**
-     * Choose, which promociones to update.
-     */
-    where: promocionesWhereUniqueInput
-  }
-
-  /**
-   * promociones updateMany
-   */
-  export type promocionesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update promociones.
-     */
-    data: XOR<promocionesUpdateManyMutationInput, promocionesUncheckedUpdateManyInput>
-    /**
-     * Filter which promociones to update
-     */
-    where?: promocionesWhereInput
-    /**
-     * Limit how many promociones to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * promociones updateManyAndReturn
-   */
-  export type promocionesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * The data used to update promociones.
-     */
-    data: XOR<promocionesUpdateManyMutationInput, promocionesUncheckedUpdateManyInput>
-    /**
-     * Filter which promociones to update
-     */
-    where?: promocionesWhereInput
-    /**
-     * Limit how many promociones to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * promociones upsert
-   */
-  export type promocionesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * The filter to search for the promociones to update in case it exists.
-     */
-    where: promocionesWhereUniqueInput
-    /**
-     * In case the promociones found by the `where` argument doesn't exist, create a new promociones with this data.
-     */
-    create: XOR<promocionesCreateInput, promocionesUncheckedCreateInput>
-    /**
-     * In case the promociones was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<promocionesUpdateInput, promocionesUncheckedUpdateInput>
-  }
-
-  /**
-   * promociones delete
-   */
-  export type promocionesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
-    /**
-     * Filter which promociones to delete.
-     */
-    where: promocionesWhereUniqueInput
-  }
-
-  /**
-   * promociones deleteMany
-   */
-  export type promocionesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which promociones to delete
-     */
-    where?: promocionesWhereInput
-    /**
-     * Limit how many promociones to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * promociones.nivel_promociones
-   */
-  export type promociones$nivel_promocionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the nivel_promociones
-     */
-    select?: nivel_promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the nivel_promociones
-     */
-    omit?: nivel_promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: nivel_promocionesInclude<ExtArgs> | null
-    where?: nivel_promocionesWhereInput
-    orderBy?: nivel_promocionesOrderByWithRelationInput | nivel_promocionesOrderByWithRelationInput[]
-    cursor?: nivel_promocionesWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Nivel_promocionesScalarFieldEnum | Nivel_promocionesScalarFieldEnum[]
-  }
-
-  /**
-   * promociones without action
-   */
-  export type promocionesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the promociones
-     */
-    select?: promocionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the promociones
-     */
-    omit?: promocionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: promocionesInclude<ExtArgs> | null
   }
 
 
@@ -25696,8 +22159,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-    codigo_expiracion: Date | null
     codigo_verificacion: string | null
+    codigo_expiracion: Date | null
   }
 
   export type Usuarios_cpMaxAggregateOutputType = {
@@ -25713,8 +22176,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-    codigo_expiracion: Date | null
     codigo_verificacion: string | null
+    codigo_expiracion: Date | null
   }
 
   export type Usuarios_cpCountAggregateOutputType = {
@@ -25730,8 +22193,8 @@ export namespace Prisma {
     primer_inicio_sesion: number
     intentos_fallidos: number
     bloqueado_hasta: number
-    codigo_expiracion: number
     codigo_verificacion: number
+    codigo_expiracion: number
     _all: number
   }
 
@@ -25757,8 +22220,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_expiracion?: true
     codigo_verificacion?: true
+    codigo_expiracion?: true
   }
 
   export type Usuarios_cpMaxAggregateInputType = {
@@ -25774,8 +22237,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_expiracion?: true
     codigo_verificacion?: true
+    codigo_expiracion?: true
   }
 
   export type Usuarios_cpCountAggregateInputType = {
@@ -25791,8 +22254,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-    codigo_expiracion?: true
     codigo_verificacion?: true
+    codigo_expiracion?: true
     _all?: true
   }
 
@@ -25895,8 +22358,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean
     intentos_fallidos: number
     bloqueado_hasta: Date | null
-    codigo_expiracion: Date | null
     codigo_verificacion: string | null
+    codigo_expiracion: Date | null
     _count: Usuarios_cpCountAggregateOutputType | null
     _avg: Usuarios_cpAvgAggregateOutputType | null
     _sum: Usuarios_cpSumAggregateOutputType | null
@@ -25931,8 +22394,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_expiracion?: boolean
     codigo_verificacion?: boolean
+    codigo_expiracion?: boolean
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
@@ -25955,8 +22418,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_expiracion?: boolean
     codigo_verificacion?: boolean
+    codigo_expiracion?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -25974,8 +22437,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_expiracion?: boolean
     codigo_verificacion?: boolean
+    codigo_expiracion?: boolean
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -25993,11 +22456,11 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-    codigo_expiracion?: boolean
     codigo_verificacion?: boolean
+    codigo_expiracion?: boolean
   }
 
-  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta" | "codigo_expiracion" | "codigo_verificacion", ExtArgs["result"]["usuarios_cp"]>
+  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta" | "codigo_verificacion" | "codigo_expiracion", ExtArgs["result"]["usuarios_cp"]>
   export type usuarios_cpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
@@ -26039,8 +22502,8 @@ export namespace Prisma {
       primer_inicio_sesion: boolean
       intentos_fallidos: number
       bloqueado_hasta: Date | null
-      codigo_expiracion: Date | null
       codigo_verificacion: string | null
+      codigo_expiracion: Date | null
     }, ExtArgs["result"]["usuarios_cp"]>
     composites: {}
   }
@@ -26482,8 +22945,8 @@ export namespace Prisma {
     readonly primer_inicio_sesion: FieldRef<"usuarios_cp", 'Boolean'>
     readonly intentos_fallidos: FieldRef<"usuarios_cp", 'Int'>
     readonly bloqueado_hasta: FieldRef<"usuarios_cp", 'DateTime'>
-    readonly codigo_expiracion: FieldRef<"usuarios_cp", 'DateTime'>
     readonly codigo_verificacion: FieldRef<"usuarios_cp", 'String'>
+    readonly codigo_expiracion: FieldRef<"usuarios_cp", 'DateTime'>
   }
     
 
@@ -27011,7 +23474,6 @@ export namespace Prisma {
 
   export type ZonaMinAggregateOutputType = {
     id_zona: number | null
-    nombre_zona: string | null
     municipio: string | null
     descripcion: string | null
     estado: string | null
@@ -27019,7 +23481,6 @@ export namespace Prisma {
 
   export type ZonaMaxAggregateOutputType = {
     id_zona: number | null
-    nombre_zona: string | null
     municipio: string | null
     descripcion: string | null
     estado: string | null
@@ -27027,7 +23488,6 @@ export namespace Prisma {
 
   export type ZonaCountAggregateOutputType = {
     id_zona: number
-    nombre_zona: number
     municipio: number
     descripcion: number
     estado: number
@@ -27045,7 +23505,6 @@ export namespace Prisma {
 
   export type ZonaMinAggregateInputType = {
     id_zona?: true
-    nombre_zona?: true
     municipio?: true
     descripcion?: true
     estado?: true
@@ -27053,7 +23512,6 @@ export namespace Prisma {
 
   export type ZonaMaxAggregateInputType = {
     id_zona?: true
-    nombre_zona?: true
     municipio?: true
     descripcion?: true
     estado?: true
@@ -27061,7 +23519,6 @@ export namespace Prisma {
 
   export type ZonaCountAggregateInputType = {
     id_zona?: true
-    nombre_zona?: true
     municipio?: true
     descripcion?: true
     estado?: true
@@ -27156,7 +23613,6 @@ export namespace Prisma {
 
   export type ZonaGroupByOutputType = {
     id_zona: number
-    nombre_zona: string
     municipio: string
     descripcion: string | null
     estado: string
@@ -27183,7 +23639,6 @@ export namespace Prisma {
 
   export type zonaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_zona?: boolean
-    nombre_zona?: boolean
     municipio?: boolean
     descripcion?: boolean
     estado?: boolean
@@ -27193,7 +23648,6 @@ export namespace Prisma {
 
   export type zonaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_zona?: boolean
-    nombre_zona?: boolean
     municipio?: boolean
     descripcion?: boolean
     estado?: boolean
@@ -27201,7 +23655,6 @@ export namespace Prisma {
 
   export type zonaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_zona?: boolean
-    nombre_zona?: boolean
     municipio?: boolean
     descripcion?: boolean
     estado?: boolean
@@ -27209,13 +23662,12 @@ export namespace Prisma {
 
   export type zonaSelectScalar = {
     id_zona?: boolean
-    nombre_zona?: boolean
     municipio?: boolean
     descripcion?: boolean
     estado?: boolean
   }
 
-  export type zonaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_zona" | "nombre_zona" | "municipio" | "descripcion" | "estado", ExtArgs["result"]["zona"]>
+  export type zonaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_zona" | "municipio" | "descripcion" | "estado", ExtArgs["result"]["zona"]>
   export type zonaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ruta?: boolean | zona$rutaArgs<ExtArgs>
     _count?: boolean | ZonaCountOutputTypeDefaultArgs<ExtArgs>
@@ -27230,7 +23682,6 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id_zona: number
-      nombre_zona: string
       municipio: string
       descripcion: string | null
       estado: string
@@ -27659,7 +24110,6 @@ export namespace Prisma {
    */
   interface zonaFieldRefs {
     readonly id_zona: FieldRef<"zona", 'Int'>
-    readonly nombre_zona: FieldRef<"zona", 'String'>
     readonly municipio: FieldRef<"zona", 'String'>
     readonly descripcion: FieldRef<"zona", 'String'>
     readonly estado: FieldRef<"zona", 'String'>
@@ -28119,19 +24569,19 @@ export namespace Prisma {
   }
 
   export type SaldoMinAggregateOutputType = {
-    id_tarjeta_lealtad: string | null
+    id_saldo: string | null
     id_cliente: string | null
     saldo: number | null
   }
 
   export type SaldoMaxAggregateOutputType = {
-    id_tarjeta_lealtad: string | null
+    id_saldo: string | null
     id_cliente: string | null
     saldo: number | null
   }
 
   export type SaldoCountAggregateOutputType = {
-    id_tarjeta_lealtad: number
+    id_saldo: number
     id_cliente: number
     saldo: number
     _all: number
@@ -28147,19 +24597,19 @@ export namespace Prisma {
   }
 
   export type SaldoMinAggregateInputType = {
-    id_tarjeta_lealtad?: true
+    id_saldo?: true
     id_cliente?: true
     saldo?: true
   }
 
   export type SaldoMaxAggregateInputType = {
-    id_tarjeta_lealtad?: true
+    id_saldo?: true
     id_cliente?: true
     saldo?: true
   }
 
   export type SaldoCountAggregateInputType = {
-    id_tarjeta_lealtad?: true
+    id_saldo?: true
     id_cliente?: true
     saldo?: true
     _all?: true
@@ -28252,7 +24702,7 @@ export namespace Prisma {
   }
 
   export type SaldoGroupByOutputType = {
-    id_tarjeta_lealtad: string
+    id_saldo: string
     id_cliente: string
     saldo: number
     _count: SaldoCountAggregateOutputType | null
@@ -28277,33 +24727,33 @@ export namespace Prisma {
 
 
   export type saldoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
+    id_saldo?: boolean
     id_cliente?: boolean
     saldo?: boolean
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saldo"]>
 
   export type saldoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
+    id_saldo?: boolean
     id_cliente?: boolean
     saldo?: boolean
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saldo"]>
 
   export type saldoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_tarjeta_lealtad?: boolean
+    id_saldo?: boolean
     id_cliente?: boolean
     saldo?: boolean
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["saldo"]>
 
   export type saldoSelectScalar = {
-    id_tarjeta_lealtad?: boolean
+    id_saldo?: boolean
     id_cliente?: boolean
     saldo?: boolean
   }
 
-  export type saldoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_tarjeta_lealtad" | "id_cliente" | "saldo", ExtArgs["result"]["saldo"]>
+  export type saldoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_saldo" | "id_cliente" | "saldo", ExtArgs["result"]["saldo"]>
   export type saldoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | clienteDefaultArgs<ExtArgs>
   }
@@ -28320,7 +24770,7 @@ export namespace Prisma {
       cliente: Prisma.$clientePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
-      id_tarjeta_lealtad: string
+      id_saldo: string
       id_cliente: string
       saldo: number
     }, ExtArgs["result"]["saldo"]>
@@ -28406,8 +24856,8 @@ export namespace Prisma {
      * // Get first 10 Saldos
      * const saldos = await prisma.saldo.findMany({ take: 10 })
      * 
-     * // Only select the `id_tarjeta_lealtad`
-     * const saldoWithId_tarjeta_lealtadOnly = await prisma.saldo.findMany({ select: { id_tarjeta_lealtad: true } })
+     * // Only select the `id_saldo`
+     * const saldoWithId_saldoOnly = await prisma.saldo.findMany({ select: { id_saldo: true } })
      * 
      */
     findMany<T extends saldoFindManyArgs>(args?: SelectSubset<T, saldoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -28451,9 +24901,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Saldos and only return the `id_tarjeta_lealtad`
-     * const saldoWithId_tarjeta_lealtadOnly = await prisma.saldo.createManyAndReturn({
-     *   select: { id_tarjeta_lealtad: true },
+     * // Create many Saldos and only return the `id_saldo`
+     * const saldoWithId_saldoOnly = await prisma.saldo.createManyAndReturn({
+     *   select: { id_saldo: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -28542,9 +24992,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Saldos and only return the `id_tarjeta_lealtad`
-     * const saldoWithId_tarjeta_lealtadOnly = await prisma.saldo.updateManyAndReturn({
-     *   select: { id_tarjeta_lealtad: true },
+     * // Update zero or more Saldos and only return the `id_saldo`
+     * const saldoWithId_saldoOnly = await prisma.saldo.updateManyAndReturn({
+     *   select: { id_saldo: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -28747,7 +25197,7 @@ export namespace Prisma {
    * Fields of the saldo model
    */
   interface saldoFieldRefs {
-    readonly id_tarjeta_lealtad: FieldRef<"saldo", 'String'>
+    readonly id_saldo: FieldRef<"saldo", 'String'>
     readonly id_cliente: FieldRef<"saldo", 'String'>
     readonly saldo: FieldRef<"saldo", 'Float'>
   }
@@ -29278,22 +25728,6 @@ export namespace Prisma {
   export type MetricasScalarFieldEnum = (typeof MetricasScalarFieldEnum)[keyof typeof MetricasScalarFieldEnum]
 
 
-  export const Nivel_promocionesScalarFieldEnum: {
-    id_nivel: 'id_nivel',
-    id_promociones: 'id_promociones'
-  };
-
-  export type Nivel_promocionesScalarFieldEnum = (typeof Nivel_promocionesScalarFieldEnum)[keyof typeof Nivel_promocionesScalarFieldEnum]
-
-
-  export const NivelesScalarFieldEnum: {
-    id_nivel: 'id_nivel',
-    nombre: 'nombre'
-  };
-
-  export type NivelesScalarFieldEnum = (typeof NivelesScalarFieldEnum)[keyof typeof NivelesScalarFieldEnum]
-
-
   export const PermisosScalarFieldEnum: {
     id_permiso: 'id_permiso',
     nombre: 'nombre',
@@ -29337,16 +25771,6 @@ export namespace Prisma {
   };
 
   export type Productos_solicitudScalarFieldEnum = (typeof Productos_solicitudScalarFieldEnum)[keyof typeof Productos_solicitudScalarFieldEnum]
-
-
-  export const PromocionesScalarFieldEnum: {
-    id_promociones: 'id_promociones',
-    nombre: 'nombre',
-    descripcion: 'descripcion',
-    valor_descuento: 'valor_descuento'
-  };
-
-  export type PromocionesScalarFieldEnum = (typeof PromocionesScalarFieldEnum)[keyof typeof PromocionesScalarFieldEnum]
 
 
   export const RolesScalarFieldEnum: {
@@ -29425,8 +25849,8 @@ export namespace Prisma {
     primer_inicio_sesion: 'primer_inicio_sesion',
     intentos_fallidos: 'intentos_fallidos',
     bloqueado_hasta: 'bloqueado_hasta',
-    codigo_expiracion: 'codigo_expiracion',
-    codigo_verificacion: 'codigo_verificacion'
+    codigo_verificacion: 'codigo_verificacion',
+    codigo_expiracion: 'codigo_expiracion'
   };
 
   export type Usuarios_cpScalarFieldEnum = (typeof Usuarios_cpScalarFieldEnum)[keyof typeof Usuarios_cpScalarFieldEnum]
@@ -29434,7 +25858,6 @@ export namespace Prisma {
 
   export const ZonaScalarFieldEnum: {
     id_zona: 'id_zona',
-    nombre_zona: 'nombre_zona',
     municipio: 'municipio',
     descripcion: 'descripcion',
     estado: 'estado'
@@ -29444,7 +25867,7 @@ export namespace Prisma {
 
 
   export const SaldoScalarFieldEnum: {
-    id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+    id_saldo: 'id_saldo',
     id_cliente: 'id_cliente',
     saldo: 'saldo'
   };
@@ -30102,92 +26525,6 @@ export namespace Prisma {
     fecha?: DateTimeWithAggregatesFilter<"metricas"> | Date | string
   }
 
-  export type nivel_promocionesWhereInput = {
-    AND?: nivel_promocionesWhereInput | nivel_promocionesWhereInput[]
-    OR?: nivel_promocionesWhereInput[]
-    NOT?: nivel_promocionesWhereInput | nivel_promocionesWhereInput[]
-    id_nivel?: UuidFilter<"nivel_promociones"> | string
-    id_promociones?: IntFilter<"nivel_promociones"> | number
-    niveles?: XOR<NivelesScalarRelationFilter, nivelesWhereInput>
-    promociones?: XOR<PromocionesScalarRelationFilter, promocionesWhereInput>
-  }
-
-  export type nivel_promocionesOrderByWithRelationInput = {
-    id_nivel?: SortOrder
-    id_promociones?: SortOrder
-    niveles?: nivelesOrderByWithRelationInput
-    promociones?: promocionesOrderByWithRelationInput
-  }
-
-  export type nivel_promocionesWhereUniqueInput = Prisma.AtLeast<{
-    id_nivel_id_promociones?: nivel_promocionesId_nivelId_promocionesCompoundUniqueInput
-    AND?: nivel_promocionesWhereInput | nivel_promocionesWhereInput[]
-    OR?: nivel_promocionesWhereInput[]
-    NOT?: nivel_promocionesWhereInput | nivel_promocionesWhereInput[]
-    id_nivel?: UuidFilter<"nivel_promociones"> | string
-    id_promociones?: IntFilter<"nivel_promociones"> | number
-    niveles?: XOR<NivelesScalarRelationFilter, nivelesWhereInput>
-    promociones?: XOR<PromocionesScalarRelationFilter, promocionesWhereInput>
-  }, "id_nivel_id_promociones">
-
-  export type nivel_promocionesOrderByWithAggregationInput = {
-    id_nivel?: SortOrder
-    id_promociones?: SortOrder
-    _count?: nivel_promocionesCountOrderByAggregateInput
-    _avg?: nivel_promocionesAvgOrderByAggregateInput
-    _max?: nivel_promocionesMaxOrderByAggregateInput
-    _min?: nivel_promocionesMinOrderByAggregateInput
-    _sum?: nivel_promocionesSumOrderByAggregateInput
-  }
-
-  export type nivel_promocionesScalarWhereWithAggregatesInput = {
-    AND?: nivel_promocionesScalarWhereWithAggregatesInput | nivel_promocionesScalarWhereWithAggregatesInput[]
-    OR?: nivel_promocionesScalarWhereWithAggregatesInput[]
-    NOT?: nivel_promocionesScalarWhereWithAggregatesInput | nivel_promocionesScalarWhereWithAggregatesInput[]
-    id_nivel?: UuidWithAggregatesFilter<"nivel_promociones"> | string
-    id_promociones?: IntWithAggregatesFilter<"nivel_promociones"> | number
-  }
-
-  export type nivelesWhereInput = {
-    AND?: nivelesWhereInput | nivelesWhereInput[]
-    OR?: nivelesWhereInput[]
-    NOT?: nivelesWhereInput | nivelesWhereInput[]
-    id_nivel?: UuidFilter<"niveles"> | string
-    nombre?: StringFilter<"niveles"> | string
-    nivel_promociones?: Nivel_promocionesListRelationFilter
-  }
-
-  export type nivelesOrderByWithRelationInput = {
-    id_nivel?: SortOrder
-    nombre?: SortOrder
-    nivel_promociones?: nivel_promocionesOrderByRelationAggregateInput
-  }
-
-  export type nivelesWhereUniqueInput = Prisma.AtLeast<{
-    id_nivel?: string
-    AND?: nivelesWhereInput | nivelesWhereInput[]
-    OR?: nivelesWhereInput[]
-    NOT?: nivelesWhereInput | nivelesWhereInput[]
-    nombre?: StringFilter<"niveles"> | string
-    nivel_promociones?: Nivel_promocionesListRelationFilter
-  }, "id_nivel">
-
-  export type nivelesOrderByWithAggregationInput = {
-    id_nivel?: SortOrder
-    nombre?: SortOrder
-    _count?: nivelesCountOrderByAggregateInput
-    _max?: nivelesMaxOrderByAggregateInput
-    _min?: nivelesMinOrderByAggregateInput
-  }
-
-  export type nivelesScalarWhereWithAggregatesInput = {
-    AND?: nivelesScalarWhereWithAggregatesInput | nivelesScalarWhereWithAggregatesInput[]
-    OR?: nivelesScalarWhereWithAggregatesInput[]
-    NOT?: nivelesScalarWhereWithAggregatesInput | nivelesScalarWhereWithAggregatesInput[]
-    id_nivel?: UuidWithAggregatesFilter<"niveles"> | string
-    nombre?: StringWithAggregatesFilter<"niveles"> | string
-  }
-
   export type permisosWhereInput = {
     AND?: permisosWhereInput | permisosWhereInput[]
     OR?: permisosWhereInput[]
@@ -30421,58 +26758,6 @@ export namespace Prisma {
     id_producto?: IntWithAggregatesFilter<"productos_solicitud"> | number
     fecha?: DateTimeNullableWithAggregatesFilter<"productos_solicitud"> | Date | string | null
     cantidad?: IntWithAggregatesFilter<"productos_solicitud"> | number
-  }
-
-  export type promocionesWhereInput = {
-    AND?: promocionesWhereInput | promocionesWhereInput[]
-    OR?: promocionesWhereInput[]
-    NOT?: promocionesWhereInput | promocionesWhereInput[]
-    id_promociones?: IntFilter<"promociones"> | number
-    nombre?: StringFilter<"promociones"> | string
-    descripcion?: StringNullableFilter<"promociones"> | string | null
-    valor_descuento?: IntNullableFilter<"promociones"> | number | null
-    nivel_promociones?: Nivel_promocionesListRelationFilter
-  }
-
-  export type promocionesOrderByWithRelationInput = {
-    id_promociones?: SortOrder
-    nombre?: SortOrder
-    descripcion?: SortOrderInput | SortOrder
-    valor_descuento?: SortOrderInput | SortOrder
-    nivel_promociones?: nivel_promocionesOrderByRelationAggregateInput
-  }
-
-  export type promocionesWhereUniqueInput = Prisma.AtLeast<{
-    id_promociones?: number
-    AND?: promocionesWhereInput | promocionesWhereInput[]
-    OR?: promocionesWhereInput[]
-    NOT?: promocionesWhereInput | promocionesWhereInput[]
-    nombre?: StringFilter<"promociones"> | string
-    descripcion?: StringNullableFilter<"promociones"> | string | null
-    valor_descuento?: IntNullableFilter<"promociones"> | number | null
-    nivel_promociones?: Nivel_promocionesListRelationFilter
-  }, "id_promociones">
-
-  export type promocionesOrderByWithAggregationInput = {
-    id_promociones?: SortOrder
-    nombre?: SortOrder
-    descripcion?: SortOrderInput | SortOrder
-    valor_descuento?: SortOrderInput | SortOrder
-    _count?: promocionesCountOrderByAggregateInput
-    _avg?: promocionesAvgOrderByAggregateInput
-    _max?: promocionesMaxOrderByAggregateInput
-    _min?: promocionesMinOrderByAggregateInput
-    _sum?: promocionesSumOrderByAggregateInput
-  }
-
-  export type promocionesScalarWhereWithAggregatesInput = {
-    AND?: promocionesScalarWhereWithAggregatesInput | promocionesScalarWhereWithAggregatesInput[]
-    OR?: promocionesScalarWhereWithAggregatesInput[]
-    NOT?: promocionesScalarWhereWithAggregatesInput | promocionesScalarWhereWithAggregatesInput[]
-    id_promociones?: IntWithAggregatesFilter<"promociones"> | number
-    nombre?: StringWithAggregatesFilter<"promociones"> | string
-    descripcion?: StringNullableWithAggregatesFilter<"promociones"> | string | null
-    valor_descuento?: IntNullableWithAggregatesFilter<"promociones"> | number | null
   }
 
   export type rolesWhereInput = {
@@ -30828,8 +27113,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
+    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30851,8 +27136,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-    codigo_expiracion?: SortOrderInput | SortOrder
     codigo_verificacion?: SortOrderInput | SortOrder
+    codigo_expiracion?: SortOrderInput | SortOrder
     administrador?: administradorOrderByWithRelationInput
     bitacora?: bitacoraOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
@@ -30877,8 +27162,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
+    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
@@ -30900,8 +27185,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-    codigo_expiracion?: SortOrderInput | SortOrder
     codigo_verificacion?: SortOrderInput | SortOrder
+    codigo_expiracion?: SortOrderInput | SortOrder
     _count?: usuarios_cpCountOrderByAggregateInput
     _avg?: usuarios_cpAvgOrderByAggregateInput
     _max?: usuarios_cpMaxOrderByAggregateInput
@@ -30925,8 +27210,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolWithAggregatesFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntWithAggregatesFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
-    codigo_expiracion?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableWithAggregatesFilter<"usuarios_cp"> | string | null
+    codigo_expiracion?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
   }
 
   export type zonaWhereInput = {
@@ -30934,7 +27219,6 @@ export namespace Prisma {
     OR?: zonaWhereInput[]
     NOT?: zonaWhereInput | zonaWhereInput[]
     id_zona?: IntFilter<"zona"> | number
-    nombre_zona?: StringFilter<"zona"> | string
     municipio?: StringFilter<"zona"> | string
     descripcion?: StringNullableFilter<"zona"> | string | null
     estado?: StringFilter<"zona"> | string
@@ -30943,7 +27227,6 @@ export namespace Prisma {
 
   export type zonaOrderByWithRelationInput = {
     id_zona?: SortOrder
-    nombre_zona?: SortOrder
     municipio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     estado?: SortOrder
@@ -30955,7 +27238,6 @@ export namespace Prisma {
     AND?: zonaWhereInput | zonaWhereInput[]
     OR?: zonaWhereInput[]
     NOT?: zonaWhereInput | zonaWhereInput[]
-    nombre_zona?: StringFilter<"zona"> | string
     municipio?: StringFilter<"zona"> | string
     descripcion?: StringNullableFilter<"zona"> | string | null
     estado?: StringFilter<"zona"> | string
@@ -30964,7 +27246,6 @@ export namespace Prisma {
 
   export type zonaOrderByWithAggregationInput = {
     id_zona?: SortOrder
-    nombre_zona?: SortOrder
     municipio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     estado?: SortOrder
@@ -30980,7 +27261,6 @@ export namespace Prisma {
     OR?: zonaScalarWhereWithAggregatesInput[]
     NOT?: zonaScalarWhereWithAggregatesInput | zonaScalarWhereWithAggregatesInput[]
     id_zona?: IntWithAggregatesFilter<"zona"> | number
-    nombre_zona?: StringWithAggregatesFilter<"zona"> | string
     municipio?: StringWithAggregatesFilter<"zona"> | string
     descripcion?: StringNullableWithAggregatesFilter<"zona"> | string | null
     estado?: StringWithAggregatesFilter<"zona"> | string
@@ -30990,31 +27270,31 @@ export namespace Prisma {
     AND?: saldoWhereInput | saldoWhereInput[]
     OR?: saldoWhereInput[]
     NOT?: saldoWhereInput | saldoWhereInput[]
-    id_tarjeta_lealtad?: UuidFilter<"saldo"> | string
+    id_saldo?: UuidFilter<"saldo"> | string
     id_cliente?: UuidFilter<"saldo"> | string
     saldo?: FloatFilter<"saldo"> | number
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
   }
 
   export type saldoOrderByWithRelationInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_saldo?: SortOrder
     id_cliente?: SortOrder
     saldo?: SortOrder
     cliente?: clienteOrderByWithRelationInput
   }
 
   export type saldoWhereUniqueInput = Prisma.AtLeast<{
-    id_tarjeta_lealtad?: string
+    id_saldo?: string
     id_cliente?: string
     AND?: saldoWhereInput | saldoWhereInput[]
     OR?: saldoWhereInput[]
     NOT?: saldoWhereInput | saldoWhereInput[]
     saldo?: FloatFilter<"saldo"> | number
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-  }, "id_tarjeta_lealtad" | "id_cliente">
+  }, "id_saldo" | "id_cliente">
 
   export type saldoOrderByWithAggregationInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_saldo?: SortOrder
     id_cliente?: SortOrder
     saldo?: SortOrder
     _count?: saldoCountOrderByAggregateInput
@@ -31028,7 +27308,7 @@ export namespace Prisma {
     AND?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
     OR?: saldoScalarWhereWithAggregatesInput[]
     NOT?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
-    id_tarjeta_lealtad?: UuidWithAggregatesFilter<"saldo"> | string
+    id_saldo?: UuidWithAggregatesFilter<"saldo"> | string
     id_cliente?: UuidWithAggregatesFilter<"saldo"> | string
     saldo?: FloatWithAggregatesFilter<"saldo"> | number
   }
@@ -31552,79 +27832,6 @@ export namespace Prisma {
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type nivel_promocionesCreateInput = {
-    niveles: nivelesCreateNestedOneWithoutNivel_promocionesInput
-    promociones: promocionesCreateNestedOneWithoutNivel_promocionesInput
-  }
-
-  export type nivel_promocionesUncheckedCreateInput = {
-    id_nivel: string
-    id_promociones: number
-  }
-
-  export type nivel_promocionesUpdateInput = {
-    niveles?: nivelesUpdateOneRequiredWithoutNivel_promocionesNestedInput
-    promociones?: promocionesUpdateOneRequiredWithoutNivel_promocionesNestedInput
-  }
-
-  export type nivel_promocionesUncheckedUpdateInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    id_promociones?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type nivel_promocionesCreateManyInput = {
-    id_nivel: string
-    id_promociones: number
-  }
-
-  export type nivel_promocionesUpdateManyMutationInput = {
-
-  }
-
-  export type nivel_promocionesUncheckedUpdateManyInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    id_promociones?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type nivelesCreateInput = {
-    id_nivel?: string
-    nombre: string
-    nivel_promociones?: nivel_promocionesCreateNestedManyWithoutNivelesInput
-  }
-
-  export type nivelesUncheckedCreateInput = {
-    id_nivel?: string
-    nombre: string
-    nivel_promociones?: nivel_promocionesUncheckedCreateNestedManyWithoutNivelesInput
-  }
-
-  export type nivelesUpdateInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    nivel_promociones?: nivel_promocionesUpdateManyWithoutNivelesNestedInput
-  }
-
-  export type nivelesUncheckedUpdateInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    nivel_promociones?: nivel_promocionesUncheckedUpdateManyWithoutNivelesNestedInput
-  }
-
-  export type nivelesCreateManyInput = {
-    id_nivel?: string
-    nombre: string
-  }
-
-  export type nivelesUpdateManyMutationInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type nivelesUncheckedUpdateManyInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-  }
-
   export type permisosCreateInput = {
     id_permiso?: string
     nombre: string
@@ -31859,59 +28066,6 @@ export namespace Prisma {
     id_producto?: IntFieldUpdateOperationsInput | number
     fecha?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cantidad?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type promocionesCreateInput = {
-    id_promociones: number
-    nombre: string
-    descripcion?: string | null
-    valor_descuento?: number | null
-    nivel_promociones?: nivel_promocionesCreateNestedManyWithoutPromocionesInput
-  }
-
-  export type promocionesUncheckedCreateInput = {
-    id_promociones: number
-    nombre: string
-    descripcion?: string | null
-    valor_descuento?: number | null
-    nivel_promociones?: nivel_promocionesUncheckedCreateNestedManyWithoutPromocionesInput
-  }
-
-  export type promocionesUpdateInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_descuento?: NullableIntFieldUpdateOperationsInput | number | null
-    nivel_promociones?: nivel_promocionesUpdateManyWithoutPromocionesNestedInput
-  }
-
-  export type promocionesUncheckedUpdateInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_descuento?: NullableIntFieldUpdateOperationsInput | number | null
-    nivel_promociones?: nivel_promocionesUncheckedUpdateManyWithoutPromocionesNestedInput
-  }
-
-  export type promocionesCreateManyInput = {
-    id_promociones: number
-    nombre: string
-    descripcion?: string | null
-    valor_descuento?: number | null
-  }
-
-  export type promocionesUpdateManyMutationInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_descuento?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type promocionesUncheckedUpdateManyInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_descuento?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type rolesCreateInput = {
@@ -32272,8 +28426,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -32295,8 +28449,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -32314,8 +28468,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -32337,8 +28491,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -32358,8 +28512,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
   }
 
   export type usuarios_cpUpdateManyMutationInput = {
@@ -32373,8 +28527,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type usuarios_cpUncheckedUpdateManyInput = {
@@ -32390,13 +28544,12 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type zonaCreateInput = {
     id_zona: number
-    nombre_zona: string
     municipio: string
     descripcion?: string | null
     estado: string
@@ -32405,7 +28558,6 @@ export namespace Prisma {
 
   export type zonaUncheckedCreateInput = {
     id_zona: number
-    nombre_zona: string
     municipio: string
     descripcion?: string | null
     estado: string
@@ -32414,7 +28566,6 @@ export namespace Prisma {
 
   export type zonaUpdateInput = {
     id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
@@ -32423,7 +28574,6 @@ export namespace Prisma {
 
   export type zonaUncheckedUpdateInput = {
     id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
@@ -32432,7 +28582,6 @@ export namespace Prisma {
 
   export type zonaCreateManyInput = {
     id_zona: number
-    nombre_zona: string
     municipio: string
     descripcion?: string | null
     estado: string
@@ -32440,7 +28589,6 @@ export namespace Prisma {
 
   export type zonaUpdateManyMutationInput = {
     id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
@@ -32448,49 +28596,48 @@ export namespace Prisma {
 
   export type zonaUncheckedUpdateManyInput = {
     id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
   }
 
   export type saldoCreateInput = {
-    id_tarjeta_lealtad?: string
+    id_saldo?: string
     saldo?: number
     cliente: clienteCreateNestedOneWithoutSaldoInput
   }
 
   export type saldoUncheckedCreateInput = {
-    id_tarjeta_lealtad?: string
+    id_saldo?: string
     id_cliente: string
     saldo?: number
   }
 
   export type saldoUpdateInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_saldo?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
     cliente?: clienteUpdateOneRequiredWithoutSaldoNestedInput
   }
 
   export type saldoUncheckedUpdateInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_saldo?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type saldoCreateManyInput = {
-    id_tarjeta_lealtad?: string
+    id_saldo?: string
     id_cliente: string
     saldo?: number
   }
 
   export type saldoUpdateManyMutationInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_saldo?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type saldoUncheckedUpdateManyInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_saldo?: StringFieldUpdateOperationsInput | string
     id_cliente?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
@@ -33188,69 +29335,6 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NivelesScalarRelationFilter = {
-    is?: nivelesWhereInput
-    isNot?: nivelesWhereInput
-  }
-
-  export type PromocionesScalarRelationFilter = {
-    is?: promocionesWhereInput
-    isNot?: promocionesWhereInput
-  }
-
-  export type nivel_promocionesId_nivelId_promocionesCompoundUniqueInput = {
-    id_nivel: string
-    id_promociones: number
-  }
-
-  export type nivel_promocionesCountOrderByAggregateInput = {
-    id_nivel?: SortOrder
-    id_promociones?: SortOrder
-  }
-
-  export type nivel_promocionesAvgOrderByAggregateInput = {
-    id_promociones?: SortOrder
-  }
-
-  export type nivel_promocionesMaxOrderByAggregateInput = {
-    id_nivel?: SortOrder
-    id_promociones?: SortOrder
-  }
-
-  export type nivel_promocionesMinOrderByAggregateInput = {
-    id_nivel?: SortOrder
-    id_promociones?: SortOrder
-  }
-
-  export type nivel_promocionesSumOrderByAggregateInput = {
-    id_promociones?: SortOrder
-  }
-
-  export type Nivel_promocionesListRelationFilter = {
-    every?: nivel_promocionesWhereInput
-    some?: nivel_promocionesWhereInput
-    none?: nivel_promocionesWhereInput
-  }
-
-  export type nivel_promocionesOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type nivelesCountOrderByAggregateInput = {
-    id_nivel?: SortOrder
-    nombre?: SortOrder
-  }
-
-  export type nivelesMaxOrderByAggregateInput = {
-    id_nivel?: SortOrder
-    nombre?: SortOrder
-  }
-
-  export type nivelesMinOrderByAggregateInput = {
-    id_nivel?: SortOrder
-    nombre?: SortOrder
-  }
-
   export type Roles_permisosListRelationFilter = {
     every?: roles_permisosWhereInput
     some?: roles_permisosWhereInput
@@ -33428,37 +29512,6 @@ export namespace Prisma {
   export type productos_solicitudSumOrderByAggregateInput = {
     id_producto?: SortOrder
     cantidad?: SortOrder
-  }
-
-  export type promocionesCountOrderByAggregateInput = {
-    id_promociones?: SortOrder
-    nombre?: SortOrder
-    descripcion?: SortOrder
-    valor_descuento?: SortOrder
-  }
-
-  export type promocionesAvgOrderByAggregateInput = {
-    id_promociones?: SortOrder
-    valor_descuento?: SortOrder
-  }
-
-  export type promocionesMaxOrderByAggregateInput = {
-    id_promociones?: SortOrder
-    nombre?: SortOrder
-    descripcion?: SortOrder
-    valor_descuento?: SortOrder
-  }
-
-  export type promocionesMinOrderByAggregateInput = {
-    id_promociones?: SortOrder
-    nombre?: SortOrder
-    descripcion?: SortOrder
-    valor_descuento?: SortOrder
-  }
-
-  export type promocionesSumOrderByAggregateInput = {
-    id_promociones?: SortOrder
-    valor_descuento?: SortOrder
   }
 
   export type rolesCountOrderByAggregateInput = {
@@ -33762,8 +29815,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_expiracion?: SortOrder
     codigo_verificacion?: SortOrder
+    codigo_expiracion?: SortOrder
   }
 
   export type usuarios_cpAvgOrderByAggregateInput = {
@@ -33783,8 +29836,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_expiracion?: SortOrder
     codigo_verificacion?: SortOrder
+    codigo_expiracion?: SortOrder
   }
 
   export type usuarios_cpMinOrderByAggregateInput = {
@@ -33800,8 +29853,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-    codigo_expiracion?: SortOrder
     codigo_verificacion?: SortOrder
+    codigo_expiracion?: SortOrder
   }
 
   export type usuarios_cpSumOrderByAggregateInput = {
@@ -33820,7 +29873,6 @@ export namespace Prisma {
 
   export type zonaCountOrderByAggregateInput = {
     id_zona?: SortOrder
-    nombre_zona?: SortOrder
     municipio?: SortOrder
     descripcion?: SortOrder
     estado?: SortOrder
@@ -33832,7 +29884,6 @@ export namespace Prisma {
 
   export type zonaMaxOrderByAggregateInput = {
     id_zona?: SortOrder
-    nombre_zona?: SortOrder
     municipio?: SortOrder
     descripcion?: SortOrder
     estado?: SortOrder
@@ -33840,7 +29891,6 @@ export namespace Prisma {
 
   export type zonaMinOrderByAggregateInput = {
     id_zona?: SortOrder
-    nombre_zona?: SortOrder
     municipio?: SortOrder
     descripcion?: SortOrder
     estado?: SortOrder
@@ -33851,7 +29901,7 @@ export namespace Prisma {
   }
 
   export type saldoCountOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_saldo?: SortOrder
     id_cliente?: SortOrder
     saldo?: SortOrder
   }
@@ -33861,13 +29911,13 @@ export namespace Prisma {
   }
 
   export type saldoMaxOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_saldo?: SortOrder
     id_cliente?: SortOrder
     saldo?: SortOrder
   }
 
   export type saldoMinOrderByAggregateInput = {
-    id_tarjeta_lealtad?: SortOrder
+    id_saldo?: SortOrder
     id_cliente?: SortOrder
     saldo?: SortOrder
   }
@@ -34350,76 +30400,6 @@ export namespace Prisma {
     update?: XOR<XOR<compospetUpdateToOneWithWhereWithoutMetricasInput, compospetUpdateWithoutMetricasInput>, compospetUncheckedUpdateWithoutMetricasInput>
   }
 
-  export type nivelesCreateNestedOneWithoutNivel_promocionesInput = {
-    create?: XOR<nivelesCreateWithoutNivel_promocionesInput, nivelesUncheckedCreateWithoutNivel_promocionesInput>
-    connectOrCreate?: nivelesCreateOrConnectWithoutNivel_promocionesInput
-    connect?: nivelesWhereUniqueInput
-  }
-
-  export type promocionesCreateNestedOneWithoutNivel_promocionesInput = {
-    create?: XOR<promocionesCreateWithoutNivel_promocionesInput, promocionesUncheckedCreateWithoutNivel_promocionesInput>
-    connectOrCreate?: promocionesCreateOrConnectWithoutNivel_promocionesInput
-    connect?: promocionesWhereUniqueInput
-  }
-
-  export type nivelesUpdateOneRequiredWithoutNivel_promocionesNestedInput = {
-    create?: XOR<nivelesCreateWithoutNivel_promocionesInput, nivelesUncheckedCreateWithoutNivel_promocionesInput>
-    connectOrCreate?: nivelesCreateOrConnectWithoutNivel_promocionesInput
-    upsert?: nivelesUpsertWithoutNivel_promocionesInput
-    connect?: nivelesWhereUniqueInput
-    update?: XOR<XOR<nivelesUpdateToOneWithWhereWithoutNivel_promocionesInput, nivelesUpdateWithoutNivel_promocionesInput>, nivelesUncheckedUpdateWithoutNivel_promocionesInput>
-  }
-
-  export type promocionesUpdateOneRequiredWithoutNivel_promocionesNestedInput = {
-    create?: XOR<promocionesCreateWithoutNivel_promocionesInput, promocionesUncheckedCreateWithoutNivel_promocionesInput>
-    connectOrCreate?: promocionesCreateOrConnectWithoutNivel_promocionesInput
-    upsert?: promocionesUpsertWithoutNivel_promocionesInput
-    connect?: promocionesWhereUniqueInput
-    update?: XOR<XOR<promocionesUpdateToOneWithWhereWithoutNivel_promocionesInput, promocionesUpdateWithoutNivel_promocionesInput>, promocionesUncheckedUpdateWithoutNivel_promocionesInput>
-  }
-
-  export type nivel_promocionesCreateNestedManyWithoutNivelesInput = {
-    create?: XOR<nivel_promocionesCreateWithoutNivelesInput, nivel_promocionesUncheckedCreateWithoutNivelesInput> | nivel_promocionesCreateWithoutNivelesInput[] | nivel_promocionesUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutNivelesInput | nivel_promocionesCreateOrConnectWithoutNivelesInput[]
-    createMany?: nivel_promocionesCreateManyNivelesInputEnvelope
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-  }
-
-  export type nivel_promocionesUncheckedCreateNestedManyWithoutNivelesInput = {
-    create?: XOR<nivel_promocionesCreateWithoutNivelesInput, nivel_promocionesUncheckedCreateWithoutNivelesInput> | nivel_promocionesCreateWithoutNivelesInput[] | nivel_promocionesUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutNivelesInput | nivel_promocionesCreateOrConnectWithoutNivelesInput[]
-    createMany?: nivel_promocionesCreateManyNivelesInputEnvelope
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-  }
-
-  export type nivel_promocionesUpdateManyWithoutNivelesNestedInput = {
-    create?: XOR<nivel_promocionesCreateWithoutNivelesInput, nivel_promocionesUncheckedCreateWithoutNivelesInput> | nivel_promocionesCreateWithoutNivelesInput[] | nivel_promocionesUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutNivelesInput | nivel_promocionesCreateOrConnectWithoutNivelesInput[]
-    upsert?: nivel_promocionesUpsertWithWhereUniqueWithoutNivelesInput | nivel_promocionesUpsertWithWhereUniqueWithoutNivelesInput[]
-    createMany?: nivel_promocionesCreateManyNivelesInputEnvelope
-    set?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    disconnect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    delete?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    update?: nivel_promocionesUpdateWithWhereUniqueWithoutNivelesInput | nivel_promocionesUpdateWithWhereUniqueWithoutNivelesInput[]
-    updateMany?: nivel_promocionesUpdateManyWithWhereWithoutNivelesInput | nivel_promocionesUpdateManyWithWhereWithoutNivelesInput[]
-    deleteMany?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
-  }
-
-  export type nivel_promocionesUncheckedUpdateManyWithoutNivelesNestedInput = {
-    create?: XOR<nivel_promocionesCreateWithoutNivelesInput, nivel_promocionesUncheckedCreateWithoutNivelesInput> | nivel_promocionesCreateWithoutNivelesInput[] | nivel_promocionesUncheckedCreateWithoutNivelesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutNivelesInput | nivel_promocionesCreateOrConnectWithoutNivelesInput[]
-    upsert?: nivel_promocionesUpsertWithWhereUniqueWithoutNivelesInput | nivel_promocionesUpsertWithWhereUniqueWithoutNivelesInput[]
-    createMany?: nivel_promocionesCreateManyNivelesInputEnvelope
-    set?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    disconnect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    delete?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    update?: nivel_promocionesUpdateWithWhereUniqueWithoutNivelesInput | nivel_promocionesUpdateWithWhereUniqueWithoutNivelesInput[]
-    updateMany?: nivel_promocionesUpdateManyWithWhereWithoutNivelesInput | nivel_promocionesUpdateManyWithWhereWithoutNivelesInput[]
-    deleteMany?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
-  }
-
   export type roles_permisosCreateNestedManyWithoutPermisosInput = {
     create?: XOR<roles_permisosCreateWithoutPermisosInput, roles_permisosUncheckedCreateWithoutPermisosInput> | roles_permisosCreateWithoutPermisosInput[] | roles_permisosUncheckedCreateWithoutPermisosInput[]
     connectOrCreate?: roles_permisosCreateOrConnectWithoutPermisosInput | roles_permisosCreateOrConnectWithoutPermisosInput[]
@@ -34548,48 +30528,6 @@ export namespace Prisma {
     upsert?: solicitudes_recoleccionUpsertWithoutProductos_solicitudInput
     connect?: solicitudes_recoleccionWhereUniqueInput
     update?: XOR<XOR<solicitudes_recoleccionUpdateToOneWithWhereWithoutProductos_solicitudInput, solicitudes_recoleccionUpdateWithoutProductos_solicitudInput>, solicitudes_recoleccionUncheckedUpdateWithoutProductos_solicitudInput>
-  }
-
-  export type nivel_promocionesCreateNestedManyWithoutPromocionesInput = {
-    create?: XOR<nivel_promocionesCreateWithoutPromocionesInput, nivel_promocionesUncheckedCreateWithoutPromocionesInput> | nivel_promocionesCreateWithoutPromocionesInput[] | nivel_promocionesUncheckedCreateWithoutPromocionesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutPromocionesInput | nivel_promocionesCreateOrConnectWithoutPromocionesInput[]
-    createMany?: nivel_promocionesCreateManyPromocionesInputEnvelope
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-  }
-
-  export type nivel_promocionesUncheckedCreateNestedManyWithoutPromocionesInput = {
-    create?: XOR<nivel_promocionesCreateWithoutPromocionesInput, nivel_promocionesUncheckedCreateWithoutPromocionesInput> | nivel_promocionesCreateWithoutPromocionesInput[] | nivel_promocionesUncheckedCreateWithoutPromocionesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutPromocionesInput | nivel_promocionesCreateOrConnectWithoutPromocionesInput[]
-    createMany?: nivel_promocionesCreateManyPromocionesInputEnvelope
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-  }
-
-  export type nivel_promocionesUpdateManyWithoutPromocionesNestedInput = {
-    create?: XOR<nivel_promocionesCreateWithoutPromocionesInput, nivel_promocionesUncheckedCreateWithoutPromocionesInput> | nivel_promocionesCreateWithoutPromocionesInput[] | nivel_promocionesUncheckedCreateWithoutPromocionesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutPromocionesInput | nivel_promocionesCreateOrConnectWithoutPromocionesInput[]
-    upsert?: nivel_promocionesUpsertWithWhereUniqueWithoutPromocionesInput | nivel_promocionesUpsertWithWhereUniqueWithoutPromocionesInput[]
-    createMany?: nivel_promocionesCreateManyPromocionesInputEnvelope
-    set?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    disconnect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    delete?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    update?: nivel_promocionesUpdateWithWhereUniqueWithoutPromocionesInput | nivel_promocionesUpdateWithWhereUniqueWithoutPromocionesInput[]
-    updateMany?: nivel_promocionesUpdateManyWithWhereWithoutPromocionesInput | nivel_promocionesUpdateManyWithWhereWithoutPromocionesInput[]
-    deleteMany?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
-  }
-
-  export type nivel_promocionesUncheckedUpdateManyWithoutPromocionesNestedInput = {
-    create?: XOR<nivel_promocionesCreateWithoutPromocionesInput, nivel_promocionesUncheckedCreateWithoutPromocionesInput> | nivel_promocionesCreateWithoutPromocionesInput[] | nivel_promocionesUncheckedCreateWithoutPromocionesInput[]
-    connectOrCreate?: nivel_promocionesCreateOrConnectWithoutPromocionesInput | nivel_promocionesCreateOrConnectWithoutPromocionesInput[]
-    upsert?: nivel_promocionesUpsertWithWhereUniqueWithoutPromocionesInput | nivel_promocionesUpsertWithWhereUniqueWithoutPromocionesInput[]
-    createMany?: nivel_promocionesCreateManyPromocionesInputEnvelope
-    set?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    disconnect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    delete?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    connect?: nivel_promocionesWhereUniqueInput | nivel_promocionesWhereUniqueInput[]
-    update?: nivel_promocionesUpdateWithWhereUniqueWithoutPromocionesInput | nivel_promocionesUpdateWithWhereUniqueWithoutPromocionesInput[]
-    updateMany?: nivel_promocionesUpdateManyWithWhereWithoutPromocionesInput | nivel_promocionesUpdateManyWithWhereWithoutPromocionesInput[]
-    deleteMany?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
   }
 
   export type roles_permisosCreateNestedManyWithoutRolesInput = {
@@ -35447,8 +31385,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35469,8 +31407,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35529,8 +31467,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35551,8 +31489,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35645,8 +31583,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35667,8 +31605,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35701,8 +31639,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35723,8 +31661,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35760,8 +31698,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
@@ -35782,8 +31720,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -35795,12 +31733,12 @@ export namespace Prisma {
   }
 
   export type saldoCreateWithoutClienteInput = {
-    id_tarjeta_lealtad?: string
+    id_saldo?: string
     saldo?: number
   }
 
   export type saldoUncheckedCreateWithoutClienteInput = {
-    id_tarjeta_lealtad?: string
+    id_saldo?: string
     saldo?: number
   }
 
@@ -35896,8 +31834,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
@@ -35918,8 +31856,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -35937,12 +31875,12 @@ export namespace Prisma {
   }
 
   export type saldoUpdateWithoutClienteInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_saldo?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type saldoUncheckedUpdateWithoutClienteInput = {
-    id_tarjeta_lealtad?: StringFieldUpdateOperationsInput | string
+    id_saldo?: StringFieldUpdateOperationsInput | string
     saldo?: FloatFieldUpdateOperationsInput | number
   }
 
@@ -36063,8 +32001,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -36084,8 +32022,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -36215,8 +32153,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
+    codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
   }
 
   export type compospetCreateWithoutFaqInput = {
@@ -36361,128 +32299,6 @@ export namespace Prisma {
     faq?: faqUncheckedUpdateManyWithoutCompospetNestedInput
     personas_equipo?: personas_equipoUncheckedUpdateManyWithoutCompospetNestedInput
     usuarios_cp?: usuarios_cpUncheckedUpdateManyWithoutCompospetNestedInput
-  }
-
-  export type nivelesCreateWithoutNivel_promocionesInput = {
-    id_nivel?: string
-    nombre: string
-  }
-
-  export type nivelesUncheckedCreateWithoutNivel_promocionesInput = {
-    id_nivel?: string
-    nombre: string
-  }
-
-  export type nivelesCreateOrConnectWithoutNivel_promocionesInput = {
-    where: nivelesWhereUniqueInput
-    create: XOR<nivelesCreateWithoutNivel_promocionesInput, nivelesUncheckedCreateWithoutNivel_promocionesInput>
-  }
-
-  export type promocionesCreateWithoutNivel_promocionesInput = {
-    id_promociones: number
-    nombre: string
-    descripcion?: string | null
-    valor_descuento?: number | null
-  }
-
-  export type promocionesUncheckedCreateWithoutNivel_promocionesInput = {
-    id_promociones: number
-    nombre: string
-    descripcion?: string | null
-    valor_descuento?: number | null
-  }
-
-  export type promocionesCreateOrConnectWithoutNivel_promocionesInput = {
-    where: promocionesWhereUniqueInput
-    create: XOR<promocionesCreateWithoutNivel_promocionesInput, promocionesUncheckedCreateWithoutNivel_promocionesInput>
-  }
-
-  export type nivelesUpsertWithoutNivel_promocionesInput = {
-    update: XOR<nivelesUpdateWithoutNivel_promocionesInput, nivelesUncheckedUpdateWithoutNivel_promocionesInput>
-    create: XOR<nivelesCreateWithoutNivel_promocionesInput, nivelesUncheckedCreateWithoutNivel_promocionesInput>
-    where?: nivelesWhereInput
-  }
-
-  export type nivelesUpdateToOneWithWhereWithoutNivel_promocionesInput = {
-    where?: nivelesWhereInput
-    data: XOR<nivelesUpdateWithoutNivel_promocionesInput, nivelesUncheckedUpdateWithoutNivel_promocionesInput>
-  }
-
-  export type nivelesUpdateWithoutNivel_promocionesInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type nivelesUncheckedUpdateWithoutNivel_promocionesInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type promocionesUpsertWithoutNivel_promocionesInput = {
-    update: XOR<promocionesUpdateWithoutNivel_promocionesInput, promocionesUncheckedUpdateWithoutNivel_promocionesInput>
-    create: XOR<promocionesCreateWithoutNivel_promocionesInput, promocionesUncheckedCreateWithoutNivel_promocionesInput>
-    where?: promocionesWhereInput
-  }
-
-  export type promocionesUpdateToOneWithWhereWithoutNivel_promocionesInput = {
-    where?: promocionesWhereInput
-    data: XOR<promocionesUpdateWithoutNivel_promocionesInput, promocionesUncheckedUpdateWithoutNivel_promocionesInput>
-  }
-
-  export type promocionesUpdateWithoutNivel_promocionesInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_descuento?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type promocionesUncheckedUpdateWithoutNivel_promocionesInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-    nombre?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    valor_descuento?: NullableIntFieldUpdateOperationsInput | number | null
-  }
-
-  export type nivel_promocionesCreateWithoutNivelesInput = {
-    promociones: promocionesCreateNestedOneWithoutNivel_promocionesInput
-  }
-
-  export type nivel_promocionesUncheckedCreateWithoutNivelesInput = {
-    id_promociones: number
-  }
-
-  export type nivel_promocionesCreateOrConnectWithoutNivelesInput = {
-    where: nivel_promocionesWhereUniqueInput
-    create: XOR<nivel_promocionesCreateWithoutNivelesInput, nivel_promocionesUncheckedCreateWithoutNivelesInput>
-  }
-
-  export type nivel_promocionesCreateManyNivelesInputEnvelope = {
-    data: nivel_promocionesCreateManyNivelesInput | nivel_promocionesCreateManyNivelesInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type nivel_promocionesUpsertWithWhereUniqueWithoutNivelesInput = {
-    where: nivel_promocionesWhereUniqueInput
-    update: XOR<nivel_promocionesUpdateWithoutNivelesInput, nivel_promocionesUncheckedUpdateWithoutNivelesInput>
-    create: XOR<nivel_promocionesCreateWithoutNivelesInput, nivel_promocionesUncheckedCreateWithoutNivelesInput>
-  }
-
-  export type nivel_promocionesUpdateWithWhereUniqueWithoutNivelesInput = {
-    where: nivel_promocionesWhereUniqueInput
-    data: XOR<nivel_promocionesUpdateWithoutNivelesInput, nivel_promocionesUncheckedUpdateWithoutNivelesInput>
-  }
-
-  export type nivel_promocionesUpdateManyWithWhereWithoutNivelesInput = {
-    where: nivel_promocionesScalarWhereInput
-    data: XOR<nivel_promocionesUpdateManyMutationInput, nivel_promocionesUncheckedUpdateManyWithoutNivelesInput>
-  }
-
-  export type nivel_promocionesScalarWhereInput = {
-    AND?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
-    OR?: nivel_promocionesScalarWhereInput[]
-    NOT?: nivel_promocionesScalarWhereInput | nivel_promocionesScalarWhereInput[]
-    id_nivel?: UuidFilter<"nivel_promociones"> | string
-    id_promociones?: IntFilter<"nivel_promociones"> | number
   }
 
   export type roles_permisosCreateWithoutPermisosInput = {
@@ -36755,40 +32571,6 @@ export namespace Prisma {
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type nivel_promocionesCreateWithoutPromocionesInput = {
-    niveles: nivelesCreateNestedOneWithoutNivel_promocionesInput
-  }
-
-  export type nivel_promocionesUncheckedCreateWithoutPromocionesInput = {
-    id_nivel: string
-  }
-
-  export type nivel_promocionesCreateOrConnectWithoutPromocionesInput = {
-    where: nivel_promocionesWhereUniqueInput
-    create: XOR<nivel_promocionesCreateWithoutPromocionesInput, nivel_promocionesUncheckedCreateWithoutPromocionesInput>
-  }
-
-  export type nivel_promocionesCreateManyPromocionesInputEnvelope = {
-    data: nivel_promocionesCreateManyPromocionesInput | nivel_promocionesCreateManyPromocionesInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type nivel_promocionesUpsertWithWhereUniqueWithoutPromocionesInput = {
-    where: nivel_promocionesWhereUniqueInput
-    update: XOR<nivel_promocionesUpdateWithoutPromocionesInput, nivel_promocionesUncheckedUpdateWithoutPromocionesInput>
-    create: XOR<nivel_promocionesCreateWithoutPromocionesInput, nivel_promocionesUncheckedCreateWithoutPromocionesInput>
-  }
-
-  export type nivel_promocionesUpdateWithWhereUniqueWithoutPromocionesInput = {
-    where: nivel_promocionesWhereUniqueInput
-    data: XOR<nivel_promocionesUpdateWithoutPromocionesInput, nivel_promocionesUncheckedUpdateWithoutPromocionesInput>
-  }
-
-  export type nivel_promocionesUpdateManyWithWhereWithoutPromocionesInput = {
-    where: nivel_promocionesScalarWhereInput
-    data: XOR<nivel_promocionesUpdateManyMutationInput, nivel_promocionesUncheckedUpdateManyWithoutPromocionesInput>
-  }
-
   export type roles_permisosCreateWithoutRolesInput = {
     permisos: permisosCreateNestedOneWithoutRoles_permisosInput
   }
@@ -36818,8 +32600,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -36839,8 +32621,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -37009,7 +32791,6 @@ export namespace Prisma {
 
   export type zonaCreateWithoutRutaInput = {
     id_zona: number
-    nombre_zona: string
     municipio: string
     descripcion?: string | null
     estado: string
@@ -37017,7 +32798,6 @@ export namespace Prisma {
 
   export type zonaUncheckedCreateWithoutRutaInput = {
     id_zona: number
-    nombre_zona: string
     municipio: string
     descripcion?: string | null
     estado: string
@@ -37073,7 +32853,6 @@ export namespace Prisma {
 
   export type zonaUpdateWithoutRutaInput = {
     id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
@@ -37081,7 +32860,6 @@ export namespace Prisma {
 
   export type zonaUncheckedUpdateWithoutRutaInput = {
     id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
@@ -37098,8 +32876,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
@@ -37120,8 +32898,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
@@ -37154,8 +32932,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -37176,8 +32954,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -37932,8 +33710,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
   }
 
   export type faqUpdateWithoutCompospetInput = {
@@ -38010,8 +33788,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -38031,8 +33809,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -38051,8 +33829,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type solicitudes_recoleccionCreateManyFormas_pagoInput = {
@@ -38113,22 +33891,6 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
   }
 
-  export type nivel_promocionesCreateManyNivelesInput = {
-    id_promociones: number
-  }
-
-  export type nivel_promocionesUpdateWithoutNivelesInput = {
-    promociones?: promocionesUpdateOneRequiredWithoutNivel_promocionesNestedInput
-  }
-
-  export type nivel_promocionesUncheckedUpdateWithoutNivelesInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-  }
-
-  export type nivel_promocionesUncheckedUpdateManyWithoutNivelesInput = {
-    id_promociones?: IntFieldUpdateOperationsInput | number
-  }
-
   export type roles_permisosCreateManyPermisosInput = {
     id_rol: string
   }
@@ -38169,22 +33931,6 @@ export namespace Prisma {
     cantidad?: IntFieldUpdateOperationsInput | number
   }
 
-  export type nivel_promocionesCreateManyPromocionesInput = {
-    id_nivel: string
-  }
-
-  export type nivel_promocionesUpdateWithoutPromocionesInput = {
-    niveles?: nivelesUpdateOneRequiredWithoutNivel_promocionesNestedInput
-  }
-
-  export type nivel_promocionesUncheckedUpdateWithoutPromocionesInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type nivel_promocionesUncheckedUpdateManyWithoutPromocionesInput = {
-    id_nivel?: StringFieldUpdateOperationsInput | string
-  }
-
   export type roles_permisosCreateManyRolesInput = {
     id_permiso: string
   }
@@ -38201,8 +33947,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-    codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
+    codigo_expiracion?: Date | string | null
   }
 
   export type roles_permisosUpdateWithoutRolesInput = {
@@ -38228,8 +33974,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
@@ -38249,8 +33995,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
@@ -38269,8 +34015,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type clienteCreateManyRutaInput = {

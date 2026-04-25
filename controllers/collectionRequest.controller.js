@@ -34,10 +34,10 @@ const getCurrentCollectionRequest = async (req, res) => {
             });
         }
 
-        // Solicita al modelo la búsqueda o creación de la solicitud actual
+        // Solicita al modelo la búsqueda
         let currentCollectionRequest = await CollectionRequest.getCurrentCollectionRequest(
-            clientId, 
-            weekStartDate, 
+            clientId,
+            weekStartDate,
             weekEndDate
         );
 

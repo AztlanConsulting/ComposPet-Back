@@ -191,16 +191,6 @@ exports.Prisma.MetricasScalarFieldEnum = {
   fecha: 'fecha'
 };
 
-exports.Prisma.Nivel_promocionesScalarFieldEnum = {
-  id_nivel: 'id_nivel',
-  id_promociones: 'id_promociones'
-};
-
-exports.Prisma.NivelesScalarFieldEnum = {
-  id_nivel: 'id_nivel',
-  nombre: 'nombre'
-};
-
 exports.Prisma.PermisosScalarFieldEnum = {
   id_permiso: 'id_permiso',
   nombre: 'nombre',
@@ -232,13 +222,6 @@ exports.Prisma.Productos_solicitudScalarFieldEnum = {
   id_producto: 'id_producto',
   fecha: 'fecha',
   cantidad: 'cantidad'
-};
-
-exports.Prisma.PromocionesScalarFieldEnum = {
-  id_promociones: 'id_promociones',
-  nombre: 'nombre',
-  descripcion: 'descripcion',
-  valor_descuento: 'valor_descuento'
 };
 
 exports.Prisma.RolesScalarFieldEnum = {
@@ -302,20 +285,19 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   primer_inicio_sesion: 'primer_inicio_sesion',
   intentos_fallidos: 'intentos_fallidos',
   bloqueado_hasta: 'bloqueado_hasta',
-  codigo_expiracion: 'codigo_expiracion',
-  codigo_verificacion: 'codigo_verificacion'
+  codigo_verificacion: 'codigo_verificacion',
+  codigo_expiracion: 'codigo_expiracion'
 };
 
 exports.Prisma.ZonaScalarFieldEnum = {
   id_zona: 'id_zona',
-  nombre_zona: 'nombre_zona',
   municipio: 'municipio',
   descripcion: 'descripcion',
   estado: 'estado'
 };
 
 exports.Prisma.SaldoScalarFieldEnum = {
-  id_tarjeta_lealtad: 'id_tarjeta_lealtad',
+  id_saldo: 'id_saldo',
   id_cliente: 'id_cliente',
   saldo: 'saldo'
 };
@@ -356,13 +338,10 @@ exports.Prisma.ModelName = {
   faq: 'faq',
   formas_pago: 'formas_pago',
   metricas: 'metricas',
-  nivel_promociones: 'nivel_promociones',
-  niveles: 'niveles',
   permisos: 'permisos',
   personas_equipo: 'personas_equipo',
   productos_extra: 'productos_extra',
   productos_solicitud: 'productos_solicitud',
-  promociones: 'promociones',
   roles: 'roles',
   roles_permisos: 'roles_permisos',
   ruta: 'ruta',
