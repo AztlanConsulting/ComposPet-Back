@@ -57,7 +57,7 @@ jobs:
           echo "GOOGLE_REFRESH_TOKEN=${{ secrets.GOOGLE_REFRESH_TOKEN }}" >> .env.test
 
       - name: Run Prisma migrations
-        run: npx prisma migrate deploy
+        run: npx prisma migrate reset
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL_TEST }}
 
