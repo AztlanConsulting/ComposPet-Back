@@ -1,4 +1,4 @@
-export const bucketCostMap = {
+const bucketCostMap = {
     "1": 90,
     "2": 170,
     "3": 240,
@@ -20,3 +20,5 @@ export const bucketCostMap = {
     "19": 1330,
     "20": 1400,
 }
+
+module.exports = bucketCostMap;

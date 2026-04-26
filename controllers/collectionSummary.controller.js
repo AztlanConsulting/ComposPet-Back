@@ -120,7 +120,7 @@ const updateCollectionTotal = async(req, res) => {
 
 const calculateCollectionTotal = (collectionObject, productsList) => {
 
-    const collectionCost = bucketCostMap.bucketCostMap[collectionObject.cubetas_entregadas]
+    const collectionCost = bucketCostMap[collectionObject.cubetas_entregadas]
 
     let productsCost = 0;
     for (let product of productsList){
