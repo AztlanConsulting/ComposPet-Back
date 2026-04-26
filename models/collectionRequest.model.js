@@ -111,6 +111,24 @@ module.exports = class CollectionRequest {
     }
 
     /**
+     * Obtiene los productos extra asociados a una solicitud de recolección.
+     *
+     * @async
+     * @static
+     * @param {string} idCollection - Id de la recolección.
+     * @returns {Promise<Object|null>} Lista con los objetos de los productos extra.
+     */
+    static async getProductsByCollection(idCollection){
+        return await prisma.productos_solicitud.findMany({
+            where: {
+                id_solicitud: idCollection,
+            },
+            include: {
+                productos_extra: true,
+            }
+        });
+    }
+    /*
      * Obtiene todos los productos extra que están activos
      * en la base de datos.
      *
@@ -229,6 +247,35 @@ module.exports = class CollectionRequest {
         });
     }
 
+    static async getById(idRequest) {
+        return await prisma.solicitudes_recoleccion.findUnique({
+            where: {
+                id_solicitud: idRequest,
+            }
+        })
+    }
+
+    static async deleteProduct(idProduct, idRequest) {
+        return await prisma.productos_solicitud.deleteMany({
+            where: {
+                id_solicitud: idRequest,
+                id_producto: idProduct,
+            }
+        })
+    }
+
+    static async updateCollectionTotal(idRequest, collectionTotal, idPayment, notes) {
+        return await prisma.solicitudes_recoleccion.update({
+            where: {
+                id_solicitud: idRequest,
+            },
+            data: {
+                total_a_pagar: collectionTotal,
+                id_pago: idPayment,
+                notas: notes,
+            }
+        })
+    }
     /**
      * Actualiza el atributo que indica si la solicitud
      * incluye productos extra.
