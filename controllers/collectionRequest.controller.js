@@ -52,7 +52,6 @@ const getCurrentCollectionRequest = async (req, res) => {
             data: currentCollectionRequest,
         });
     } catch (error) {
-        console.error("Error al obtener la solicitud de recolección:", error);
 
         res.status(500).json({
             success: false,
@@ -114,7 +113,6 @@ const saveCollectionRequestFirstSection = async (req, res) => {
             data: savedCollectionRequest,
         });
     } catch (error) {
-        console.error("Error al guardar la primera sección de la solicitud de recolección:", error);
         res.status(500).json({
             success: false,
             message: "Error servidor al guardar la primera sección de la solicitud de recolección.",
