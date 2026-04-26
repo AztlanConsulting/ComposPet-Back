@@ -56,8 +56,12 @@ model cliente {
   fecha_salida            DateTime?                 @db.Date
   ruta                    ruta                      @relation(fields: [id_ruta], references: [id_ruta], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_ruta")
   usuarios_cp             usuarios_cp               @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_usuario")
-  solicitudes_recoleccion solicitudes_recoleccion[]
   saldo                   saldo?
+  solicitudes_recoleccion solicitudes_recoleccion[]
+<<<<<<< HEAD
+  saldo                   saldo?
+=======
+>>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
 }
 
 model compospet {
@@ -99,12 +103,15 @@ model metricas {
   compospet  compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_metricas_compospet")
 }
 
+<<<<<<< HEAD
 model municipios {
   id_municipio Int    @id
   municipio    String @db.VarChar
   zona         zona[]
 }
 
+=======
+>>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
 model permisos {
   id_permiso     String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   nombre         String           @db.VarChar
@@ -129,8 +136,8 @@ model productos_extra {
   descripcion         String?               @db.VarChar
   cantidad            Int
   imagen_url          String?               @db.VarChar
-  estatus             String?               @default("activo") @db.VarChar(20)
   orden               Int?
+  estatus             Boolean?
   productos_solicitud productos_solicitud[]
 }
 
@@ -197,14 +204,15 @@ model solicitudes_recoleccion {
   fecha                  DateTime              @db.Date
   horario                DateTime?             @db.Time(6)
   notas                  String?
-  quiere_recoleccion     Boolean?              @default(false)
   quiere_productos_extra Boolean?              @default(false)
+  quiere_recoleccion     Boolean?              @default(false)
   id_pago                Int?
   productos_solicitud    productos_solicitud[]
   cliente                cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
   formas_pago            formas_pago?          @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
 }
 
+<<<<<<< HEAD
 model saldo {
   id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_cliente String  @unique @db.Uuid
@@ -212,6 +220,8 @@ model saldo {
   cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
 }
 
+=======
+>>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
 model usuarios_cp {
   id_usuario           String               @id(map: "usuarios_cp_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_cp                String               @db.Uuid
@@ -226,7 +236,7 @@ model usuarios_cp {
   intentos_fallidos    Int                  @default(0)
   bloqueado_hasta      DateTime?            @db.Timestamp(6)
   codigo_expiracion    DateTime?            @db.Timestamp(6)
-  codigo_verificacion  String?              @db.VarChar(6)
+  codigo_verificacion  String?              @db.VarChar
   administrador        administrador?
   bitacora             bitacora[]
   cliente              cliente?
@@ -236,6 +246,7 @@ model usuarios_cp {
 }
 
 model zona {
+<<<<<<< HEAD
   id_zona      Int        @id
   descripcion  String?    @db.VarChar
   id_estado    Int
@@ -243,4 +254,18 @@ model zona {
   estados      estados    @relation(fields: [id_estado], references: [id_estado], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_estado")
   municipios   municipios @relation(fields: [id_municipio], references: [id_municipio], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_municipio")
   ruta         ruta[]
+=======
+  id_zona     Int     @id
+  municipio   String  @db.VarChar
+  descripcion String? @db.VarChar
+  estado      String  @db.VarChar
+  ruta        ruta[]
+>>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
+}
+
+model saldo {
+  id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente String  @unique @db.Uuid
+  saldo      Float   @default(0)
+  cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
 }

@@ -103,7 +103,7 @@ const verifyOTP = async (req, res) => {
         const decodedSeed = jwt.verify(seedToken, process.env.JWT_SECRET);
         const allowedSteps = ['CAN_VERIFY_FIRST_LOGIN', 'CAN_VERIFY_RECOVERY'];
         if (!allowedSteps.includes(decodedSeed.step) || decodedSeed.email !== email) {
-            return res.status(403).json({ message: 'Sesión de solicitud inválida.' });
+            return res.status(401).json({ message: 'Sesión de solicitud inválida.' });
         }
 
         const isFirstLogin = decodedSeed.step === 'CAN_VERIFY_FIRST_LOGIN';
@@ -144,6 +144,9 @@ const verifyOTP = async (req, res) => {
             return res.status(200).json({ success: true, flowToken });
         }
     } catch (error) {
+        if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
+            return res.status(403).json({ message: 'Sesión de solicitud inválida.' });
+        }
         return res.status(500).json({ message: 'Error interno.' });
     }
 };
