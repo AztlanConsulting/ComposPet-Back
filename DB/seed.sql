@@ -184,20 +184,6 @@ INSERT INTO public.solicitudes_recoleccion (
     NULL
 );
 
-INSERT INTO public.productos_extra (
-  id_producto,
-  nombre,
-  precio,
-  descripcion,
-  cantidad,
-  imagen_url
-) VALUES
-(1, 'Composta 5kg', 120.00, 'Bolsa de composta orgánica', 50, '/images/productos/composta.jpg'),
-(2, 'Tierra preparada', 90.00, 'Tierra lista para plantas', 30, '/images/productos/tierra.jpg'),
-(3, 'Fertilizante líquido', 150.00, 'Fertilizante natural', 20, '/images/productos/fertilizante.jpg'),
-(4, 'Humus de lombriz', 180.00, 'Abono orgánico premium', 25, '/images/productos/humus.jpg'),
-(5, 'Maceta reciclada', 70.00, 'Maceta ecológica', 40, '/images/productos/maceta.jpg');
-
 INSERT INTO public.productos_extra
 (id_producto, nombre, precio, descripcion, cantidad, imagen_url, estatus, orden)
 VALUES
