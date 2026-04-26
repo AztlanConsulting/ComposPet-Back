@@ -80,7 +80,7 @@ const deleteProduct = async (req, res) => {
         })
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
 
         return res.status(500).json({
             success: false,
@@ -109,7 +109,7 @@ const updateCollectionTotal = async(req, res) => {
         })
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
 
         return res.status(500).json({
             success: false,
@@ -124,7 +124,6 @@ const calculateCollectionTotal = (collectionObject, productsList) => {
 
     let productsCost = 0;
     for (let product of productsList){
-        console.log(product)
         productsCost += product.productos_extra.precio * product.cantidad;
     }
 
