@@ -1,6 +1,8 @@
 module.exports = {
 testEnvironment: 'node',
 
+globalSetup: '<rootDir>/tests/helpers/globalSetup.js',
+
 verbose: true,
 
 collectCoverage: true,

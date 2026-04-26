@@ -5,6 +5,7 @@ const user_routes = require('./user.routes');
 const authRoutes = require('./auth/login.routes');
 const collectionRequesrRoutes = require('./collectionRequest.routes');
 const clientRoutes = require('./client.routes');
+const adminRoutes = require('./admin/admin.routes');
 
 const { authMiddleware } = require('../middlewares/auth')
 
@@ -18,9 +19,11 @@ router.use('/solicitudes-rec', authMiddleware, collectionRequesrRoutes);
 // Agrega las rutas de cliente
 router.use('/cliente', authMiddleware, clientRoutes);
 
+// Agrega las rutas de admin
+router.use('/admin', authMiddleware, adminRoutes);
+
 router.get('/', (req, res) => {
     res.send('API funcionando correctamente');
 });
-
 
 module.exports = router;
