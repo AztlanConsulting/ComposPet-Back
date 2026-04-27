@@ -1,40 +1,58 @@
 const prisma = require("../config/prisma");
 
-// Exportamos una clase llamada User
+/**
+ * Modelo de acceso a datos para la gestión de usuarios del sistema.
+ *
+ * @namespace User
+ */
 module.exports = class User {
 
-    // Constructor que define la estructura de un usuario
-    constructor(id, nombre, apellido) {
-        this.id = id;           // Identificador único del usuario
-        this.nombre = nombre;   // Nombre del usuario
-        this.apellido = apellido; // Apellido del usuario
+    /**
+     * Busca un usuario por su correo electrónico.
+     *
+     * @param {string} email - Correo electrónico a buscar.
+     * @returns {Promise<Object|null>} Objeto con los datos del usuario encontrado.
+     * @see postRegisterClient
+     */
+    static async findByEmail(email){
+        const existingUser = await prisma.usuarios_cp.findUnique({
+            where: { 
+                correo: email 
+            }
+        });
+
+        return existingUser;
     }
 
-    // ===== DATOS ESTÁTICOS =====
+    /**
+     * Crea un nuevo usuario en el sistema con una contraseña temporal hasheada.
+     * @param {string} name - Nombre del usuario.
+     * @param {string} lastname - Apellido del usuario.
+     * @param {string} phone - Teléfono de contacto del usuario.
+     * @param {string} email - Correo electrónico del usuario. Debe ser único en el sistema.
+     * @param {string} tempPassword - Contraseña temporal previamente hasheada con bcrypt.
+     * @param {number} id_rol - Identificador del rol asignado al usuario.
+     * @param {number} id_cp - Identificador de la empresa a la que pertenece el usuario.
+     * @returns {Promise<Object>} Objeto con los datos del usuario recién creado.
+     * @see postRegisterClient
+     * @see Role.findRoleByName
+     */
+    static async createNewUser(name, lastname, phone, email, tempPassword, id_rol, id_cp){
+        const newUser = await prisma.usuarios_cp.create({
+            data: {
+                nombre: name,
+                apellido: lastname,
+                telefono: phone,
+                correo: email,
+                contrasena: tempPassword,
+                primer_inicio_sesion: true,
+                estatus: true,
+                id_rol: id_rol,
+                id_cp: id_cp,
+            }
+        });
 
-    // Lista estática de usuarios (simula una base de datos en memoria)
-    static users = [
-        new User(1, 'Leo', 'Alvarado'),
-        new User(2, 'Ale', 'Arredondo'),
-        new User(3, 'Fátima', 'Figeroa'),
-        new User(4, 'Kamila', 'Martinez'),
-        new User(5, 'Fernanda', 'Valdez'),
-        new User(6, 'Yessica', 'Lora'),
-        new User(7, 'Juan Manuel', 'Murillo'),
-    ];
-
-    // ===== MÉTODOS =====
-
-    // Método estático para obtener todos los usuarios
-    // No necesita crear una instancia de la clase (se llama con User.getAllUsers())
-    static getAllUsers() {
-        return this.users; // Retorna la lista completa de usuarios
-    }
-
-    // Ejemplo: Obtiene todos los registros de niveles desde la base de datos usando Prisma
-    static async getAllUsers2() {
-        const x = prisma.niveles.findMany();
-        return await prisma.niveles.findMany();
+        return newUser;
     }
 
 };

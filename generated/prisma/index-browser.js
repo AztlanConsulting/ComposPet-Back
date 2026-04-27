@@ -196,14 +196,11 @@ exports.Prisma.MetricasScalarFieldEnum = {
   fecha: 'fecha'
 };
 
-<<<<<<< HEAD
 exports.Prisma.MunicipiosScalarFieldEnum = {
   id_municipio: 'id_municipio',
   municipio: 'municipio'
 };
 
-=======
->>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
 exports.Prisma.PermisosScalarFieldEnum = {
   id_permiso: 'id_permiso',
   nombre: 'nombre',
@@ -285,15 +282,12 @@ exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {
   id_pago: 'id_pago'
 };
 
-<<<<<<< HEAD
 exports.Prisma.SaldoScalarFieldEnum = {
   id_saldo: 'id_saldo',
   id_cliente: 'id_cliente',
   saldo: 'saldo'
 };
 
-=======
->>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
 exports.Prisma.Usuarios_cpScalarFieldEnum = {
   id_usuario: 'id_usuario',
   id_cp: 'id_cp',
@@ -313,19 +307,9 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
 
 exports.Prisma.ZonaScalarFieldEnum = {
   id_zona: 'id_zona',
-<<<<<<< HEAD
-=======
-  municipio: 'municipio',
->>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
   descripcion: 'descripcion',
   id_estado: 'id_estado',
   id_municipio: 'id_municipio'
-};
-
-exports.Prisma.SaldoScalarFieldEnum = {
-  id_saldo: 'id_saldo',
-  id_cliente: 'id_cliente',
-  saldo: 'saldo'
 };
 
 exports.Prisma.SortOrder = {
@@ -365,10 +349,7 @@ exports.Prisma.ModelName = {
   faq: 'faq',
   formas_pago: 'formas_pago',
   metricas: 'metricas',
-<<<<<<< HEAD
   municipios: 'municipios',
-=======
->>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
   permisos: 'permisos',
   personas_equipo: 'personas_equipo',
   productos_extra: 'productos_extra',
@@ -378,13 +359,9 @@ exports.Prisma.ModelName = {
   ruta: 'ruta',
   solicitud_registro: 'solicitud_registro',
   solicitudes_recoleccion: 'solicitudes_recoleccion',
-<<<<<<< HEAD
   saldo: 'saldo',
-=======
->>>>>>> 7e747b4ba4a1a80207a57003916fccb72b4e5613
   usuarios_cp: 'usuarios_cp',
-  zona: 'zona',
-  saldo: 'saldo'
+  zona: 'zona'
 };
 
 /**
