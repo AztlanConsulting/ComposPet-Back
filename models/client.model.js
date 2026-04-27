@@ -62,4 +62,22 @@ module.exports = class Client {
         return newClient;
     }
 
+    /** Obtiene el saldo del cliente con su id.
+     *
+     * @async
+     * @static
+     * @param {string} idClient - Id del cliente.
+     * @returns {Promise<Object|null>} Objeto con el saldo del cliente
+     */
+    
+    static async getClientBalance(idClient) {
+        const balance = await prisma.saldo.findUnique({
+            where: {
+                id_cliente: idClient,
+            },
+        });
+
+        return balance;
+    }
+
 };
