@@ -53,8 +53,6 @@ const login = async(req, res) => {
     const {email, password} = req.body;
     try{
 
-        console.log(req.body);
-
         const user = await AuthModel.findUserByEmail(email);
 
         if (!user) {
