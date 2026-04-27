@@ -14,8 +14,8 @@ const TEST_CLIENT_ID = randomUUID();
 
 const TEST_EMAIL = "cliente@compospet.com";
 
-const TEST_ZONA_ID = 1;
-const TEST_RUTA_ID = 1;
+const TEST_ZONA_ID = 2;
+const TEST_RUTA_ID = 2;
 
 const GET_CURRENT_COLLECTION_REQUEST_ENDPOINT = "/api/solicitudes-rec/form02/obtener";
 const SAVE_FIRST_SECTION_ENDPOINT = "/api/solicitudes-rec/form02/guardar";
