@@ -273,6 +273,7 @@ module.exports = class CollectionRequest {
                 total_a_pagar: collectionTotal,
                 id_pago: idPayment,
                 notas: notes,
+                estatus: true,
             }
         })
     }
