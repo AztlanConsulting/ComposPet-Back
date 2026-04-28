@@ -271,9 +271,13 @@ module.exports = class CollectionRequest {
             },
             data: {
                 total_a_pagar: collectionTotal,
-                id_pago: idPayment,
                 notas: notes,
                 estatus: true,
+                formas_pago: {
+                    connect: {
+                        id_pago: idPayment
+                    }
+                }
             }
         })
     }
