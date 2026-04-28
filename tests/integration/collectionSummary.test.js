@@ -127,7 +127,7 @@ const createCollectionRequest = async () => {
             cubetas_entregadas: 2,
             total_a_pagar: 0,
             total_pagado: 0,
-            fecha: new Date(),
+            fecha: new Date("2026-04-25"),
             notas: null,
             quiere_recoleccion: true,
             quiere_productos_extra: true,
