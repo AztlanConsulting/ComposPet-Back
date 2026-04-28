@@ -20,17 +20,18 @@ module.exports = class Route {
             select: {
                 id_ruta: true,
                 dia_ruta: true,
+                id_zona: true,
             }
         });
 
         return daysOfRoutes;
     }
 
-    static async findByZoneAndDay(id_zona, dayOfRoute) {
+    static async findByZoneAndDay(id_zona, id_ruta) {
         const zoneAndDay = await prisma.ruta.findFirst({
             where: {
                 id_zona: id_zona,
-                dia_ruta: dayOfRoute,
+                id_ruta: id_ruta,
             }
         });
 

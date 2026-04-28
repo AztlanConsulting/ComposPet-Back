@@ -115,11 +115,11 @@ const postRegisterClient = async (req, res) => {
             family,
             address,
             notes,
-            dayOfRoute,
+            id_ruta,
             id_zona,
         } = req.body;
 
-        if (!name || !lastName || !phone || !email || !address || !dayOfRoute || !id_zona) {
+        if (!name || !lastName || !phone || !email || !address || !id_ruta || !id_zona) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para registrar al cliente.',
@@ -142,7 +142,7 @@ const postRegisterClient = async (req, res) => {
             });
         }
 
-        const route = await Route.findByZoneAndDay(id_zona, dayOfRoute);
+        const route = await Route.findByZoneAndDay(parseInt(id_zona), parseInt(id_ruta));
         if (!route) {
             return res.status(404).json({
                 success: false,
@@ -187,10 +187,10 @@ const postRegisterClient = async (req, res) => {
             success: true,
             message: 'Cliente registrado exitosamente.',
             data: {
-                id_usuario: newUser.id_usuario,
-                id_cliente: newClient.id_cliente,
-                correo: newUser.correo,
-                saldo: newCredit.saldo,
+                userId: newUser.id_usuario,
+                clientId: newClient.id_cliente,
+                email: newUser.correo,
+                credit: newCredit.saldo,
             },
         });
 
