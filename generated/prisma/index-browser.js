@@ -165,6 +165,11 @@ exports.Prisma.ClienteScalarFieldEnum = {
   fecha_salida: 'fecha_salida'
 };
 
+exports.Prisma.EstadosScalarFieldEnum = {
+  id_estado: 'id_estado',
+  estado: 'estado'
+};
+
 exports.Prisma.CompospetScalarFieldEnum = {
   id_cp: 'id_cp'
 };
@@ -189,6 +194,11 @@ exports.Prisma.MetricasScalarFieldEnum = {
   valor: 'valor',
   nombre: 'nombre',
   fecha: 'fecha'
+};
+
+exports.Prisma.MunicipiosScalarFieldEnum = {
+  id_municipio: 'id_municipio',
+  municipio: 'municipio'
 };
 
 exports.Prisma.PermisosScalarFieldEnum = {
@@ -291,9 +301,9 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
 
 exports.Prisma.ZonaScalarFieldEnum = {
   id_zona: 'id_zona',
-  municipio: 'municipio',
   descripcion: 'descripcion',
-  estado: 'estado'
+  id_estado: 'id_estado',
+  id_municipio: 'id_municipio'
 };
 
 exports.Prisma.SaldoScalarFieldEnum = {
@@ -334,10 +344,12 @@ exports.Prisma.ModelName = {
   avisos: 'avisos',
   bitacora: 'bitacora',
   cliente: 'cliente',
+  estados: 'estados',
   compospet: 'compospet',
   faq: 'faq',
   formas_pago: 'formas_pago',
   metricas: 'metricas',
+  municipios: 'municipios',
   permisos: 'permisos',
   personas_equipo: 'personas_equipo',
   productos_extra: 'productos_extra',

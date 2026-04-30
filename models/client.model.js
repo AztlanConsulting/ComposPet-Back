@@ -50,4 +50,73 @@ module.exports = class Client {
         return balance
     }
 
+    static async getClients(){
+        const clientListRaw = await prisma.cliente.findMany({
+            select: {
+                id_cliente: true,
+                mascotas: true,
+                cantidad_familia: true,
+                direccion: true,
+                notas: true,
+
+                usuarios_cp: {
+                select: {
+                    nombre: true,
+                    apellido: true,
+                    telefono: true,
+                    estatus: true
+                }
+                },
+
+                saldo: {
+                select: {
+                    saldo: true
+                }
+                },
+
+                ruta: {
+                select: {
+                    zona: {
+                    select: {
+                        descripcion: true,
+                    }
+                    }
+                }
+                },
+
+                solicitudes_recoleccion: {
+                orderBy: {
+                    fecha: "desc"
+                },
+                take: 1,
+                select: {
+                    fecha: true
+                }
+                }
+            }
+            })
+
+        const clientList = clientListRaw.map(client => ({
+            clientId: client.id_cliente,
+            pets: client.mascotas,
+            familySize: client.cantidad_familia,
+            address: client.direccion,
+            notes: client.notas,
+
+            name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
+            cellphone: client.usuarios_cp.telefono,
+            status: client.usuarios_cp.estatus,
+
+            zone: client.ruta.zona.descripcion,
+
+            balance: client.saldo.saldo,
+
+            lastRequest: 
+                client.solicitudes_recoleccion[0]?.fecha.toISOString().slice(0,10) 
+                ?? null,
+        }))
+
+        return clientList
+    }
+
 }

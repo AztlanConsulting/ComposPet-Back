@@ -60,6 +60,12 @@ model cliente {
   solicitudes_recoleccion solicitudes_recoleccion[]
 }
 
+model estados {
+  id_estado    Int    @id
+  estado       String @db.VarChar
+  zona         zona[]
+}
+
 model compospet {
   id_cp           String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   faq             faq[]
@@ -91,6 +97,12 @@ model metricas {
   nombre     String    @db.VarChar
   fecha      DateTime  @db.Date
   compospet  compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_metricas_compospet")
+}
+
+model municipios {
+  id_municipio Int    @id
+  municipio       String @db.VarChar
+  zona         zona[]
 }
 
 model permisos {
@@ -217,11 +229,13 @@ model usuarios_cp {
 }
 
 model zona {
-  id_zona     Int     @id
-  municipio   String  @db.VarChar
-  descripcion String? @db.VarChar
-  estado      String  @db.VarChar
-  ruta        ruta[]
+  id_zona      Int        @id
+  descripcion  String?    @db.VarChar
+  id_estado    Int
+  id_municipio Int
+  estados       estados     @relation(fields: [id_estado], references: [id_estado], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_estado")
+  municipios    municipios  @relation(fields: [id_municipio], references: [id_municipio], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_municipio")
+  ruta         ruta[]
 }
 
 model saldo {
