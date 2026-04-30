@@ -5,5 +5,6 @@ const clientController = require('../controllers/client.controller');
 
 // Ruta para obtener id del cliente a partir del id del usuario
 router.post('/obtener-id-cliente', clientController.getClientByUserId);
+router.get('/informacion', clientController.getClientsInfo);
 
 module.exports = router;
