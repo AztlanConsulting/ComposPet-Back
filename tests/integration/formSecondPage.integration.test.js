@@ -49,24 +49,6 @@ const createTestUserAndClient = async () => {
     },
   });
 
-  await prisma.zona.create({
-    data: {
-      id_zona: 1,
-      municipio: "Querétaro",
-      descripcion: "Zona de prueba",
-      estado: "Querétaro",
-    },
-  });
-
-  await prisma.ruta.create({
-    data: {
-      id_ruta: 1,
-      id_zona: 1,
-      dia_ruta: "Lunes",
-      turno_ruta: "Matutino",
-    },
-  });
-
   await prisma.usuarios_cp.create({
     data: {
       id_usuario: TEST_USER_ID,
@@ -83,13 +65,23 @@ const createTestUserAndClient = async () => {
     },
   });
 
+  await prisma.ruta.upsert({
+    where: { id_ruta: 1 },
+    update: {},
+    create: {
+        id_ruta: 1,
+        dia_ruta: "dia test",
+        turno_ruta: "turno test"
+    },
+  });
+
   await prisma.cliente.create({
     data: {
       id_cliente: TEST_CLIENT_ID,
       id_usuario: TEST_USER_ID,
       id_ruta: 1,
       mascotas: "1 perro",
-      cantidad_familia: 4,
+      familia: "4",
       direccion: "Dirección de prueba",
       orden_horario: 1,
       notas: "Cliente de prueba",
@@ -144,10 +136,6 @@ const cleanDb = async () => {
 
   await prisma.ruta.deleteMany({
     where: { id_ruta: 1 },
-  });
-
-  await prisma.zona.deleteMany({
-    where: { id_zona: 1 },
   });
 
   await prisma.roles.deleteMany({

@@ -15,7 +15,6 @@ const TEST_USER_ID = randomUUID();
 const TEST_CLIENT_ID = randomUUID();
 const TEST_EMAIL = "saldo.test@compospet.com";
 const ENDPOINT = "/api/saldo/consultar-saldo";
-const TEST_ZONA_ID = 3;
 const TEST_RUTA_ID = 3;
 
 
@@ -63,22 +62,9 @@ const createTestUserAndClient = async () => {
         },
     });
 
-    await prisma.zona.create({
-        data: {
-            id_zona: TEST_ZONA_ID,
-            municipio: "Queretaro",
-            descripcion: "El jardin",
-            estado: "Queretaro",
-
-            // Ajusta estos campos según tu schema.prisma
-            // nombre: "Zona Test",
-        },
-    });
-
     await prisma.ruta.create({
         data: {
             id_ruta: TEST_RUTA_ID,
-            id_zona: TEST_ZONA_ID,
             dia_ruta: "Lunes",
             turno_ruta: "Matutino",
         },
@@ -91,7 +77,7 @@ const createTestUserAndClient = async () => {
             id_usuario: TEST_USER_ID,
             id_ruta: TEST_RUTA_ID,
             mascotas: "1 perro 1 gato",
-            cantidad_familia: 3,
+            familia: "3",
             direccion: "Dirección de prueba",
             orden_horario: 1,
             notas: "Cliente de prueba",
@@ -115,10 +101,6 @@ const cleanDb = async () => {
 
     await prisma.ruta.deleteMany({
         where: { id_ruta: TEST_RUTA_ID },
-    });
-
-    await prisma.zona.deleteMany({
-        where: { id_zona: TEST_ZONA_ID },
     });
 
     await prisma.roles.deleteMany({
