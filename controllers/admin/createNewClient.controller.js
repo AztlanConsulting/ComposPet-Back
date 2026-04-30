@@ -74,16 +74,25 @@ const postRegisterClient = async (req, res) => {
     try{
 
         const {
-            name,
-            lastName,
+            name: rawName,
+            lastName: rawLastName,
             phone,
             email,
-            pets,
-            family,
-            address,
-            notes,
+            pets: rawPets,
+            family: rawFamily,
+            address: rawAddress,
+            notes: rawNotes,
             id_ruta,
         } = req.body;
+
+        const sanitize = (str) => str?.replace(/[<>"'%;()&+]/g, '').trim() ?? '';
+
+        const name = sanitize(rawName);
+        const lastName = sanitize(rawLastName);
+        const pets = sanitize(rawPets);
+        const family = sanitize(rawFamily);
+        const address = sanitize(rawAddress);
+        const notes = sanitize(rawNotes);
 
         if (!name || !lastName || !phone || !email || !address || !id_ruta) {
             return res.status(400).json({
