@@ -3,69 +3,38 @@ const crypto = require('crypto');
 
 const Client = require('../../models/client.model');
 const Compospet = require('../../models/compospet.model');
-const State = require('../../models/state.model');
-const Town = require('../../models/town.model');
 const Route = require('../../models/route.model');
 const User = require('../../models/user.model');
 const Role =  require('../../models/role.model');
-const Zone = require('../../models/zone.model');
 const Credit = require('../../models/credit.model');
 
 /**
  * Obtiene los datos necesarios para renderizar el formulario de registro de un nuevo cliente.
- * Consulta en paralelo los catálogos de estados, municipios, días de ruta y zonas.
+ * Consulta en paralelo el catálogo de días de ruta.
  * Si alguno de los catálogos está vacío, se interrumpe la respuesta con un error 404
  * para evitar que el formulario se presente con información incompleta.
  *
  * @returns {Promise<void>} Responde con un JSON que contiene los catálogos necesarios,
  * o un mensaje de error si alguno no está disponible.
  * @throws {Error} Responde con status 500 si ocurre un fallo inesperado al consultar la base de datos.
- * @see State.findAllStates
- * @see Town.findAllTowns
  * @see Route.findAllDaysOfRoute
- * @see Zone.findAll
  */
 const getRegisterClient = async (req, res) => {
 
     try {
-        const [states, towns, daysOfRoutes, zones] = await Promise.all([
-            State.findAllStates(),
-            Town.findAllTowns(),
-            Route.findAllDaysOfRoute(),
-            Zone.findAll(),
-        ]);
+        const daysOfRoutes = await Route.findAllDaysOfRoute();
+        console.log(daysOfRoutes);
 
-        if (!states || states.length === 0) {
-            return res.status(404).json({ 
-                success: false, 
-                message: 'No se encontraron estados.' 
+        if(!daysOfRoutes || daysOfRoutes.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'No se encontraron días de ruta.',
             });
-        }
-
-        if (!towns || towns.length === 0) {
-            return res.status(404).json({ 
-                success: false, 
-                message: 'No se encontraron municipios.' 
-            });
-        }
-
-        if (!daysOfRoutes || daysOfRoutes.length === 0) {
-            return res.status(404).json({ 
-                success: false, 
-                message: 'No se encontraron días de ruta.' 
-            });
-        }
-
-        if (!zones || zones.length === 0) {
-            return res.status(404).json({ 
-                success: false, 
-                message: 'No se encontraron zonas.' 
-                });
         }
 
         return res.status(200).json({
             success: true,
-            data: { states, towns, daysOfRoutes, zones },
+            data: { daysOfRoutes },
         });
 
     } catch (error) {
@@ -80,7 +49,7 @@ const getRegisterClient = async (req, res) => {
 /**
  * Registra un nuevo cliente en el sistema junto con su usuario, ruta asignada y crédito inicial.
  * El proceso sigue este orden: validación de campos, verificación de duplicado por correo,
- * resolución del rol, búsqueda de ruta por zona y día, obtención de la empresa,
+ * resolución del rol, búsqueda de ruta por día, obtención de la empresa,
  * creación del usuario con contraseña temporal, creación del cliente y apertura del crédito.
  * La contraseña temporal se genera con un UUID aleatorio hasheado con bcrypt,
  * por lo que el usuario deberá establecer su contraseña mediante el flujo de recuperación.
@@ -91,13 +60,11 @@ const getRegisterClient = async (req, res) => {
  * @param {string} req.body.email - Correo electrónico del cliente. Debe ser único en el sistema.
  * @param {string} req.body.address - Dirección de entrega del cliente.
  * @param {number} req.body.dayOfRoute - Identificador del día de ruta asignado al cliente.
- * @param {number} req.body.id_zona - Identificador de la zona a la que pertenece el cliente.
  * @param {string} [req.body.pets] - Información opcional sobre las mascotas del cliente.
  * @param {string} [req.body.family] - Información opcional sobre el grupo familiar del cliente.
  * @param {string} [req.body.notes] - Notas adicionales opcionales sobre el cliente.
  * @see User.findByEmail
  * @see Role.findRoleByName
- * @see Route.findByZoneAndDay
  * @see Compospet.getId
  * @see User.createNewUser
  * @see Client.createNewClient
@@ -116,10 +83,9 @@ const postRegisterClient = async (req, res) => {
             address,
             notes,
             id_ruta,
-            id_zona,
         } = req.body;
 
-        if (!name || !lastName || !phone || !email || !address || !id_ruta || !id_zona) {
+        if (!name || !lastName || !phone || !email || !address || !id_ruta) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para registrar al cliente.',
@@ -139,14 +105,6 @@ const postRegisterClient = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 message: 'No se encontro rol de cliente.',
-            });
-        }
-
-        const route = await Route.findByZoneAndDay(parseInt(id_zona), parseInt(id_ruta));
-        if (!route) {
-            return res.status(404).json({
-                success: false,
-                message: 'No se encontró ruta para ese día en esa zona.',
             });
         }
 
@@ -172,7 +130,7 @@ const postRegisterClient = async (req, res) => {
 
         const newClient = await Client.createNewClient(
             newUser.id_usuario,
-            route.id_ruta,
+            parseInt(id_ruta),
             pets,
             family,
             address,

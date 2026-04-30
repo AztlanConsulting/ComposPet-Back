@@ -68,12 +68,6 @@ model compospet {
   usuarios_cp     usuarios_cp[]
 }
 
-model estados {
-  id_estado    Int    @id
-  estado       String @db.VarChar
-  zona         zona[]
-}
-
 model faq {
   id_faq    Int       @id
   id_cp     String    @db.Uuid
@@ -97,12 +91,6 @@ model metricas {
   nombre     String    @db.VarChar
   fecha      DateTime  @db.Date
   compospet  compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_metricas_compospet")
-}
-
-model municipios {
-  id_municipio Int    @id
-  municipio       String @db.VarChar
-  zona         zona[]
 }
 
 model permisos {
@@ -164,10 +152,8 @@ model roles_permisos {
 model ruta {
   id_ruta    Int       @id
   dia_ruta   String    @db.VarChar
-  id_zona    Int
   turno_ruta String    @db.VarChar
   cliente    cliente[]
-  zona       zona      @relation(fields: [id_zona], references: [id_zona], onDelete: NoAction, onUpdate: NoAction, map: "ruta_zona_fk")
 }
 
 model solicitud_registro {
@@ -178,7 +164,6 @@ model solicitud_registro {
   telefono              String?     @db.VarChar
   correo                String      @db.VarChar
   direccion             String?     @db.VarChar
-  zona                  String?     @db.VarChar
   mascotas              String?     @db.VarChar
   familia               String?     @db.VarChar
   notas                 String?     
@@ -233,14 +218,4 @@ model usuarios_cp {
   solicitud_registro   solicitud_registro[]
   compospet            compospet            @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
   roles                roles                @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
-}
-
-model zona {
-  id_zona      Int        @id
-  descripcion  String?    @db.VarChar
-  id_estado    Int
-  id_municipio Int
-  estados       estados     @relation(fields: [id_estado], references: [id_estado], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_estado")
-  municipios    municipios  @relation(fields: [id_municipio], references: [id_municipio], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_municipio")
-  ruta         ruta[]
 }
