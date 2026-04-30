@@ -169,11 +169,6 @@ exports.Prisma.CompospetScalarFieldEnum = {
   id_cp: 'id_cp'
 };
 
-exports.Prisma.EstadosScalarFieldEnum = {
-  id_estado: 'id_estado',
-  estado: 'estado'
-};
-
 exports.Prisma.FaqScalarFieldEnum = {
   id_faq: 'id_faq',
   id_cp: 'id_cp',
@@ -194,11 +189,6 @@ exports.Prisma.MetricasScalarFieldEnum = {
   valor: 'valor',
   nombre: 'nombre',
   fecha: 'fecha'
-};
-
-exports.Prisma.MunicipiosScalarFieldEnum = {
-  id_municipio: 'id_municipio',
-  municipio: 'municipio'
 };
 
 exports.Prisma.PermisosScalarFieldEnum = {
@@ -247,7 +237,6 @@ exports.Prisma.Roles_permisosScalarFieldEnum = {
 exports.Prisma.RutaScalarFieldEnum = {
   id_ruta: 'id_ruta',
   dia_ruta: 'dia_ruta',
-  id_zona: 'id_zona',
   turno_ruta: 'turno_ruta'
 };
 
@@ -259,7 +248,6 @@ exports.Prisma.Solicitud_registroScalarFieldEnum = {
   telefono: 'telefono',
   correo: 'correo',
   direccion: 'direccion',
-  zona: 'zona',
   mascotas: 'mascotas',
   familia: 'familia',
   notas: 'notas',
@@ -305,13 +293,6 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   codigo_verificacion: 'codigo_verificacion'
 };
 
-exports.Prisma.ZonaScalarFieldEnum = {
-  id_zona: 'id_zona',
-  descripcion: 'descripcion',
-  id_estado: 'id_estado',
-  id_municipio: 'id_municipio'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -345,11 +326,9 @@ exports.Prisma.ModelName = {
   bitacora: 'bitacora',
   cliente: 'cliente',
   compospet: 'compospet',
-  estados: 'estados',
   faq: 'faq',
   formas_pago: 'formas_pago',
   metricas: 'metricas',
-  municipios: 'municipios',
   permisos: 'permisos',
   personas_equipo: 'personas_equipo',
   productos_extra: 'productos_extra',
@@ -360,8 +339,7 @@ exports.Prisma.ModelName = {
   solicitud_registro: 'solicitud_registro',
   solicitudes_recoleccion: 'solicitudes_recoleccion',
   saldo: 'saldo',
-  usuarios_cp: 'usuarios_cp',
-  zona: 'zona'
+  usuarios_cp: 'usuarios_cp'
 };
 
 /**
