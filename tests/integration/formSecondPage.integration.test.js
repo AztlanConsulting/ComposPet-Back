@@ -123,7 +123,7 @@ const cleanDb = async () => {
   });
 
   await prisma.solicitudes_recoleccion.deleteMany({
-    where: { id_solicitud: TEST_REQUEST_ID },
+    where: { id_cliente: TEST_CLIENT_ID }
   });
 
   await prisma.cliente.deleteMany({

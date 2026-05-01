@@ -68,10 +68,10 @@ const createBaseData = async () => {
     });
 
     await prisma.ruta.upsert({
-        where: { id_ruta: 1 },
+        where: { id_ruta: 99 },
         update: {},
         create: {
-            id_ruta: 1,
+            id_ruta: 99,
             dia_ruta: "dia test",
             turno_ruta: "turno test"
         },
@@ -81,7 +81,7 @@ const createBaseData = async () => {
         data: {
             id_cliente: TEST_CLIENT_ID,
             id_usuario: TEST_USER_ID,
-            id_ruta: 1,
+            id_ruta: 99,
             mascotas: "1 perro",
             familia: "3",
             direccion: "Calle test",
@@ -161,7 +161,7 @@ const cleanDb = async () => {
     });
 
     await prisma.solicitudes_recoleccion.deleteMany({
-        where: { id_solicitud: TEST_REQUEST_ID },
+        where: { id_cliente: TEST_CLIENT_ID },
     });
 
     await prisma.saldo.deleteMany({
@@ -173,7 +173,7 @@ const cleanDb = async () => {
     });
 
     await prisma.cliente.deleteMany({
-        where: { id_ruta: 1 },
+        where: { id_ruta: 99 },
     });
 
     await prisma.usuarios_cp.deleteMany({
@@ -181,7 +181,7 @@ const cleanDb = async () => {
     });
 
     await prisma.ruta.deleteMany({
-        where: { id_ruta: 1 },
+        where: { id_ruta: 99 },
     });
 
     await prisma.formas_pago.deleteMany({

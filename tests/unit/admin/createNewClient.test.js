@@ -75,7 +75,7 @@ describe('Controlador Register Client', () => {
         });
 
         test('Debe retornar 500 y registrar el error si el modelo falla', async () => {
-            // Arrange: Simulamos un error catastrófico (ej. BD caída)
+            // Arrange
             const dbError = new Error('Conexión rechazada');
             Route.findAllDaysOfRoute.mockRejectedValue(dbError);
 
