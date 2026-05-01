@@ -23,7 +23,6 @@ const getRegisterClient = async (req, res) => {
 
     try {
         const daysOfRoutes = await Route.findAllDaysOfRoute();
-        console.log(daysOfRoutes);
 
         if(!daysOfRoutes || daysOfRoutes.length === 0) {
             return res.status(404).json({
