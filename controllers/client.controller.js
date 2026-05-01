@@ -59,7 +59,7 @@ const getClientsInfo = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: 'Lista obtenida exitosamente',
-            clientList, clientList
+            clientList: clientList
         })
 
     } catch (error) {
