@@ -48,7 +48,7 @@ model cliente {
   id_usuario              String                    @unique @db.Uuid
   id_ruta                 Int
   mascotas                String?                   @db.VarChar
-  cantidad_familia        Int?
+  familia                 String?
   direccion               String?                   @db.VarChar
   orden_horario           Int?
   notas                   String?
@@ -58,12 +58,6 @@ model cliente {
   usuarios_cp             usuarios_cp               @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_usuario")
   saldo                   saldo?
   solicitudes_recoleccion solicitudes_recoleccion[]
-}
-
-model estados {
-  id_estado Int    @id
-  estado    String @db.VarChar
-  zona      zona[]
 }
 
 model compospet {
@@ -97,12 +91,6 @@ model metricas {
   nombre     String    @db.VarChar
   fecha      DateTime  @db.Date
   compospet  compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_metricas_compospet")
-}
-
-model municipios {
-  id_municipio Int    @id
-  municipio    String @db.VarChar
-  zona         zona[]
 }
 
 model permisos {
@@ -164,10 +152,8 @@ model roles_permisos {
 model ruta {
   id_ruta    Int       @id
   dia_ruta   String    @db.VarChar
-  id_zona    Int
   turno_ruta String    @db.VarChar
   cliente    cliente[]
-  zona       zona      @relation(fields: [id_zona], references: [id_zona], onDelete: NoAction, onUpdate: NoAction, map: "ruta_zona_fk")
 }
 
 model solicitud_registro {
@@ -178,9 +164,8 @@ model solicitud_registro {
   telefono              String?     @db.VarChar
   correo                String      @db.VarChar
   direccion             String?     @db.VarChar
-  zona                  String?     @db.VarChar
   mascotas              String?     @db.VarChar
-  cantidad_familia      Int?
+  familia               String?     @db.VarChar
   notas                 String?
   fecha                 DateTime    @db.Date
   estatus               Boolean     @default(false)
@@ -205,6 +190,13 @@ model solicitudes_recoleccion {
   formas_pago            formas_pago?          @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
 }
 
+model saldo {
+  id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente String  @unique @db.Uuid
+  saldo      Float   @default(0)
+  cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
+}
+
 model usuarios_cp {
   id_usuario           String               @id(map: "usuarios_cp_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_cp                String               @db.Uuid
@@ -226,21 +218,4 @@ model usuarios_cp {
   solicitud_registro   solicitud_registro[]
   compospet            compospet            @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
   roles                roles                @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
-}
-
-model zona {
-  id_zona      Int        @id
-  descripcion  String?    @db.VarChar
-  id_estado    Int
-  id_municipio Int
-  estados      estados    @relation(fields: [id_estado], references: [id_estado], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_estado")
-  municipios   municipios @relation(fields: [id_municipio], references: [id_municipio], onDelete: NoAction, onUpdate: NoAction, map: "fk_zona_municipio")
-  ruta         ruta[]
-}
-
-model saldo {
-  id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_cliente String  @unique @db.Uuid
-  saldo      Float   @default(0)
-  cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
 }

@@ -56,8 +56,6 @@ const getClientsInfo = async (req, res) => {
 
         const clientList = await Client.getClients();
 
-        console.log("CLIENT LIST: ", clientList);
-
         return res.status(200).json({
             success: true,
             message: 'Lista obtenida exitosamente',
