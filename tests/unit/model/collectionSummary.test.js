@@ -116,8 +116,11 @@ describe('Unit - Model - CollectionRequest', () => {
         },
         data: {
           total_a_pagar: 500,
-          id_pago: 2,
+          estatus: true,
           notas: 'Código de puerta: 1234',
+          formas_pago: {
+            connect: {id_pago: 2}
+          }
         },
       });
     });

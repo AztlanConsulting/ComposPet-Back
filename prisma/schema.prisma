@@ -186,6 +186,7 @@ model solicitudes_recoleccion {
   quiere_recoleccion     Boolean?              @default(false)
   id_pago                Int?
   productos_solicitud    productos_solicitud[]
+  estatus                Boolean?              @default(false)
   cliente                cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
   formas_pago            formas_pago?          @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
 }
