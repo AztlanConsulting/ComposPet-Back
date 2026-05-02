@@ -1,15 +1,4 @@
 -- CreateTable
-CREATE TABLE "administrador" (
-    "id_admin" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "id_usuario" UUID NOT NULL,
-    "clave" BIGINT,
-    "nombre" VARCHAR NOT NULL,
-    "banco" VARCHAR,
-
-    CONSTRAINT "administrador_pkey" PRIMARY KEY ("id_admin")
-);
-
--- CreateTable
 CREATE TABLE "avisos" (
     "id_aviso" INTEGER NOT NULL,
     "id_admin" UUID NOT NULL,
@@ -241,9 +230,6 @@ CREATE TABLE "saldo" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "administrador_id_usuario_key" ON "administrador"("id_usuario");
-
--- CreateIndex
 CREATE UNIQUE INDEX "cliente_id_usuario_key" ON "cliente"("id_usuario");
 
 -- CreateIndex
@@ -251,9 +237,6 @@ CREATE UNIQUE INDEX "usuarios_cp_unique_correo" ON "usuarios_cp"("correo");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "saldo_id_cliente_key" ON "saldo"("id_cliente");
-
--- AddForeignKey
-ALTER TABLE "administrador" ADD CONSTRAINT "fk_administrador_usuario" FOREIGN KEY ("id_usuario") REFERENCES "usuarios_cp"("id_usuario") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "avisos" ADD CONSTRAINT "fk_avisos_administrador" FOREIGN KEY ("id_admin") REFERENCES "administrador"("id_admin") ON DELETE NO ACTION ON UPDATE NO ACTION;
