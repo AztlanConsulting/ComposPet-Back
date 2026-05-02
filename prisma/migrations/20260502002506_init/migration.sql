@@ -63,14 +63,6 @@ CREATE TABLE "compospet" (
 );
 
 -- CreateTable
-CREATE TABLE "estados" (
-    "id_estado" INTEGER NOT NULL,
-    "estado" VARCHAR NOT NULL,
-
-    CONSTRAINT "estados_pkey" PRIMARY KEY ("id_estado")
-);
-
--- CreateTable
 CREATE TABLE "faq" (
     "id_faq" INTEGER NOT NULL,
     "id_cp" UUID NOT NULL,
@@ -82,10 +74,10 @@ CREATE TABLE "faq" (
 
 -- CreateTable
 CREATE TABLE "formas_pago" (
-    "id_pago" UUID NOT NULL DEFAULT gen_random_uuid(),
     "tipo" VARCHAR NOT NULL,
     "texto" TEXT,
     "notas" TEXT,
+    "id_pago" INTEGER NOT NULL,
 
     CONSTRAINT "formas_pago_pkey" PRIMARY KEY ("id_pago")
 );
@@ -99,14 +91,6 @@ CREATE TABLE "metricas" (
     "fecha" DATE NOT NULL,
 
     CONSTRAINT "metricas_pkey" PRIMARY KEY ("id_metrica")
-);
-
--- CreateTable
-CREATE TABLE "municipios" (
-    "id_municipio" INTEGER NOT NULL,
-    "municipio" VARCHAR NOT NULL,
-
-    CONSTRAINT "municipios_pkey" PRIMARY KEY ("id_municipio")
 );
 
 -- CreateTable
@@ -138,8 +122,8 @@ CREATE TABLE "productos_extra" (
     "descripcion" VARCHAR,
     "cantidad" INTEGER NOT NULL,
     "imagen_url" VARCHAR,
-    "estatus" VARCHAR(20) DEFAULT 'activo',
     "orden" INTEGER,
+    "estatus" BOOLEAN,
 
     CONSTRAINT "productos_extra_pkey" PRIMARY KEY ("id_producto")
 );
@@ -174,7 +158,6 @@ CREATE TABLE "roles_permisos" (
 CREATE TABLE "ruta" (
     "id_ruta" INTEGER NOT NULL,
     "dia_ruta" VARCHAR NOT NULL,
-    "id_zona" INTEGER NOT NULL,
     "turno_ruta" VARCHAR NOT NULL,
 
     CONSTRAINT "ruta_pkey" PRIMARY KEY ("id_ruta")
@@ -189,7 +172,6 @@ CREATE TABLE "solicitud_registro" (
     "telefono" VARCHAR,
     "correo" VARCHAR NOT NULL,
     "direccion" VARCHAR,
-    "zona" VARCHAR,
     "mascotas" VARCHAR,
     "familia" VARCHAR,
     "notas" TEXT,
@@ -203,7 +185,6 @@ CREATE TABLE "solicitud_registro" (
 CREATE TABLE "solicitudes_recoleccion" (
     "id_solicitud" UUID NOT NULL DEFAULT gen_random_uuid(),
     "id_cliente" UUID NOT NULL,
-    "id_pago" UUID NOT NULL,
     "cubetas_entregadas" INTEGER,
     "cubetas_recolectadas" INTEGER,
     "total_a_pagar" DOUBLE PRECISION,
@@ -211,6 +192,10 @@ CREATE TABLE "solicitudes_recoleccion" (
     "fecha" DATE NOT NULL,
     "horario" TIME(6),
     "notas" TEXT,
+    "quiere_productos_extra" BOOLEAN DEFAULT false,
+    "quiere_recoleccion" BOOLEAN DEFAULT false,
+    "id_pago" INTEGER,
+    "estatus" BOOLEAN DEFAULT false,
 
     CONSTRAINT "solicitudes_recoleccion_pkey" PRIMARY KEY ("id_solicitud")
 );
@@ -239,19 +224,9 @@ CREATE TABLE "usuarios_cp" (
     "intentos_fallidos" INTEGER NOT NULL DEFAULT 0,
     "bloqueado_hasta" TIMESTAMP(6),
     "codigo_expiracion" TIMESTAMP(6),
-    "codigo_verificacion" VARCHAR(6),
+    "codigo_verificacion" VARCHAR,
 
     CONSTRAINT "usuarios_cp_pk" PRIMARY KEY ("id_usuario")
-);
-
--- CreateTable
-CREATE TABLE "zona" (
-    "id_zona" INTEGER NOT NULL,
-    "descripcion" VARCHAR,
-    "id_estado" INTEGER NOT NULL,
-    "id_municipio" INTEGER NOT NULL,
-
-    CONSTRAINT "zona_pkey" PRIMARY KEY ("id_zona")
 );
 
 -- CreateIndex
@@ -303,9 +278,6 @@ ALTER TABLE "roles_permisos" ADD CONSTRAINT "fk_roles_permisos_permiso" FOREIGN 
 ALTER TABLE "roles_permisos" ADD CONSTRAINT "fk_roles_permisos_rol" FOREIGN KEY ("id_rol") REFERENCES "roles"("id_rol") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "ruta" ADD CONSTRAINT "ruta_zona_fk" FOREIGN KEY ("id_zona") REFERENCES "zona"("id_zona") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
 ALTER TABLE "solicitud_registro" ADD CONSTRAINT "fk_solicitud_registro_usuario" FOREIGN KEY ("id_usuario") REFERENCES "usuarios_cp"("id_usuario") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
@@ -322,9 +294,3 @@ ALTER TABLE "usuarios_cp" ADD CONSTRAINT "usuarios_cp_compospet_fk" FOREIGN KEY 
 
 -- AddForeignKey
 ALTER TABLE "usuarios_cp" ADD CONSTRAINT "usuarios_cp_roles_fk" FOREIGN KEY ("id_rol") REFERENCES "roles"("id_rol") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "zona" ADD CONSTRAINT "fk_zona_estado" FOREIGN KEY ("id_estado") REFERENCES "estados"("id_estado") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "zona" ADD CONSTRAINT "fk_zona_municipio" FOREIGN KEY ("id_municipio") REFERENCES "municipios"("id_municipio") ON DELETE NO ACTION ON UPDATE NO ACTION;
