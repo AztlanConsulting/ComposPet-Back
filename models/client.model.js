@@ -139,9 +139,9 @@ module.exports = class Client {
             cellphone: client.usuarios_cp.telefono,
             status: client.usuarios_cp.estatus,
 
-            route: client.ruta.dia_ruta + ' ' + client.ruta.turno_ruta,
+            route: client.ruta ? client.ruta.dia_ruta + ' ' + client.ruta.turno_ruta : null,
 
-            balance: client.saldo.saldo,
+            balance: client.saldo ? client.saldo.saldo: null,
 
             lastRequest: 
                 client.solicitudes_recoleccion[0]?.fecha.toISOString().slice(0,10) 
