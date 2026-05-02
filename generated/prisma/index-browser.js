@@ -267,7 +267,14 @@ exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {
   notas: 'notas',
   quiere_productos_extra: 'quiere_productos_extra',
   quiere_recoleccion: 'quiere_recoleccion',
-  id_pago: 'id_pago'
+  id_pago: 'id_pago',
+  estatus: 'estatus'
+};
+
+exports.Prisma.SaldoScalarFieldEnum = {
+  id_saldo: 'id_saldo',
+  id_cliente: 'id_cliente',
+  saldo: 'saldo'
 };
 
 exports.Prisma.SaldoScalarFieldEnum = {
