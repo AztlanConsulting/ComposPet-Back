@@ -51,6 +51,28 @@ const getClientByUserId = async (req, res) => {
     }
 };
 
+const getClientsInfo = async (req, res) => {
+    try {
+
+        const clientList = await Client.getClients();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Lista obtenida exitosamente',
+            clientList: clientList
+        })
+
+    } catch (error) {
+        console.error('Error al obtener la lista de clientes', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error del servidor al obtener la lista de clientes.',
+            error,
+        });
+    }
+}
+
 module.exports = {
     getClientByUserId,
+    getClientsInfo,
 };

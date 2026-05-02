@@ -249,6 +249,12 @@ exports.Prisma.SaldoScalarFieldEnum = {
   saldo: 'saldo'
 };
 
+exports.Prisma.SaldoScalarFieldEnum = {
+  id_saldo: 'id_saldo',
+  id_cliente: 'id_cliente',
+  saldo: 'saldo'
+};
+
 exports.Prisma.Usuarios_cpScalarFieldEnum = {
   id_usuario: 'id_usuario',
   id_cp: 'id_cp',

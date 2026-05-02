@@ -80,4 +80,75 @@ module.exports = class Client {
         return balance;
     }
 
+    static async getClients(){
+        const clientListRaw = await prisma.cliente.findMany({
+            orderBy: {
+                usuarios_cp: {
+                    estatus: "desc"
+                }
+            },
+            select: {
+                id_cliente: true,
+                mascotas: true,
+                familia: true,
+                direccion: true,
+                notas: true,
+
+                usuarios_cp: {
+                select: {
+                    nombre: true,
+                    apellido: true,
+                    telefono: true,
+                    estatus: true
+                }
+                },
+
+                saldo: {
+                select: {
+                    saldo: true
+                }
+                },
+
+                ruta: {
+                select: {
+                    dia_ruta: true,
+                    turno_ruta: true,
+                }
+                },
+
+                solicitudes_recoleccion: {
+                orderBy: {
+                    fecha: "desc"
+                },
+                take: 1,
+                select: {
+                    fecha: true
+                }
+                }
+            }
+            })
+
+        const clientList = clientListRaw.map(client => ({
+            clientId: client.id_cliente,
+            pets: client.mascotas,
+            family: client.familia,
+            address: client.direccion,
+            notes: client.notas,
+
+            name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
+            cellphone: client.usuarios_cp.telefono,
+            status: client.usuarios_cp.estatus,
+
+            route: client.ruta ? client.ruta.dia_ruta + ' ' + client.ruta.turno_ruta : null,
+
+            balance: client.saldo ? client.saldo.saldo: null,
+
+            lastRequest: 
+                client.solicitudes_recoleccion[0]?.fecha.toISOString().slice(0,10) 
+                ?? null,
+        }))
+
+        return clientList
+    }
+
 };
