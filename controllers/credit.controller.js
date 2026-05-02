@@ -17,7 +17,6 @@ const Credit = require('../models/credit.model');
 const getCreditBalance= async (req, res) => {
     try{
 
-        console.log(req.body)
         const { clientId } = req.body;
 
         // Validación de que lleguen los datos

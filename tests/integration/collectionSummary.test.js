@@ -67,21 +67,13 @@ const createBaseData = async () => {
         },
     });
 
-    await prisma.zona.create({
-        data: {
-            id_zona: 1,
-            municipio: "Queretaro",
-            descripcion: "Centro",
-            estado: "Queretaro",
-        },
-    });
-
-    await prisma.ruta.create({
-        data: {
-            id_ruta: 1,
-            id_zona: 1,
-            dia_ruta: "Lunes",
-            turno_ruta: "Matutino",
+    await prisma.ruta.upsert({
+        where: { id_ruta: 99 },
+        update: {},
+        create: {
+            id_ruta: 99,
+            dia_ruta: "dia test",
+            turno_ruta: "turno test"
         },
     });
 
@@ -89,9 +81,9 @@ const createBaseData = async () => {
         data: {
             id_cliente: TEST_CLIENT_ID,
             id_usuario: TEST_USER_ID,
-            id_ruta: 1,
+            id_ruta: 99,
             mascotas: "1 perro",
-            cantidad_familia: 3,
+            familia: "3",
             direccion: "Calle test",
             orden_horario: 1,
             notas: "cliente test",
@@ -169,7 +161,7 @@ const cleanDb = async () => {
     });
 
     await prisma.solicitudes_recoleccion.deleteMany({
-        where: { id_solicitud: TEST_REQUEST_ID },
+        where: { id_cliente: TEST_CLIENT_ID },
     });
 
     await prisma.saldo.deleteMany({
@@ -180,16 +172,16 @@ const cleanDb = async () => {
         where: { id_cliente: TEST_CLIENT_ID },
     });
 
+    await prisma.cliente.deleteMany({
+        where: { id_ruta: 99 },
+    });
+
     await prisma.usuarios_cp.deleteMany({
         where: { id_usuario: TEST_USER_ID },
     });
 
     await prisma.ruta.deleteMany({
-        where: { id_ruta: 1 },
-    });
-
-    await prisma.zona.deleteMany({
-        where: { id_zona: 1 },
+        where: { id_ruta: 99 },
     });
 
     await prisma.formas_pago.deleteMany({
@@ -259,7 +251,7 @@ describe("Collection Summary Integration", () => {
             .send({
                 idClient: TEST_CLIENT_ID,
                 weekStartDate: "2026-04-20",
-                weekEndDate: "2026-04-27",
+                weekEndDate: "2026-04-30",
             });
 
         expect(res.status).toBe(200);
