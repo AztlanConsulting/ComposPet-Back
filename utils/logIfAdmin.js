@@ -1,3 +1,4 @@
+const AuthModel = require('../models/auth/auth.model');
 /**
  * Registra un evento en bitácora únicamente si el usuario tiene rol de administrador.
  * Evita generar registros innecesarios para usuarios sin privilegios elevados.
