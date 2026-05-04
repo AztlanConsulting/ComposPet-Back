@@ -21,7 +21,7 @@ router.use('/solicitudes-rec', authMiddleware, collectionRequestRoutes);
 router.use('/cliente', authMiddleware, clientRoutes);
 
 // Agrega las rutas de admin
-router.use('/admin', authMiddleware, adminRoutes);
+router.use('/admin', /*authMiddleware,*/ adminRoutes);
 
 // Agrega las rutas de la tarjeta del cliente
 router.use('/saldo', authMiddleware, creditRoutes);

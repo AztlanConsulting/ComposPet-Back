@@ -1,4 +1,5 @@
 const Client = require('../models/client.model');
+const Route = require('../models/route.model');
 
 /**
  * Obtiene el cliente asociado a un usuario.
@@ -72,7 +73,37 @@ const getClientsInfo = async (req, res) => {
     }
 }
 
+const getRoutes = async (req, res) => {
+    try {
+
+        const routes = await Route.findAllDaysOfRoute();
+
+        return res.status(200).json({
+            success: true,
+            routes: routes,
+        })
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al obtener las rutas disponibles.',
+            error,
+        })
+    }
+}
+
+const updateClient = async (req, res) => {
+    try {
+
+    } catch (error){
+        console.error(error)
+    }
+}
+
 module.exports = {
     getClientByUserId,
     getClientsInfo,
+    getRoutes,
+    updateClient,
 };
