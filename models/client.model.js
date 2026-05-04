@@ -96,6 +96,7 @@ module.exports = class Client {
 
                 usuarios_cp: {
                 select: {
+                    id_usuario: true,
                     nombre: true,
                     apellido: true,
                     telefono: true,
@@ -111,6 +112,7 @@ module.exports = class Client {
 
                 ruta: {
                 select: {
+                    id_ruta: true,
                     dia_ruta: true,
                     turno_ruta: true,
                 }
@@ -130,6 +132,7 @@ module.exports = class Client {
 
         const clientList = clientListRaw.map(client => ({
             clientId: client.id_cliente,
+            userId: client.usuarios_cp.id_usuario,
             pets: client.mascotas,
             family: client.familia,
             address: client.direccion,
@@ -139,7 +142,8 @@ module.exports = class Client {
             cellphone: client.usuarios_cp.telefono,
             status: client.usuarios_cp.estatus,
 
-            route: client.ruta ? client.ruta.dia_ruta + ' ' + client.ruta.turno_ruta : null,
+            routeId: client.ruta.id_ruta,
+            route: client.ruta ? client.ruta.dia_ruta : null,
 
             balance: client.saldo ? client.saldo.saldo: null,
 
