@@ -151,4 +151,60 @@ module.exports = class Client {
         return clientList
     }
 
+    /** Actualiza la información del usuario
+     *
+     * @async
+     * @static
+     * @param {string} userId - Id del usuario.
+     * @param {string} clientId - Id del cliente.
+     * @param {Object} userData - Objeto con la información del usuario.
+     * @param {Object} clientData - Objeto con la información del cliente.
+     * @param {Object} balanceData - Objeto con la información del saldo del cliente.
+     * @returns {Promise<Boolean>} - success
+     */
+    static async updateClient(
+        userId, 
+        clientId, 
+        userData, 
+        clientData, 
+        balanceData,
+    ){
+        try {
+            await prisma.$transaction(async (tx) => {
+
+                if(Object.keys(userData).length){
+                    await tx.usuarios_cp.update({
+                        where: {
+                            id_usuario: userId,
+                        },
+                        data: userData,
+                    });
+                }
+
+                if(Object.keys(clientData).length){
+                    await tx.cliente.update({
+                        where: {
+                            id_cliente: clientId,
+                        },
+                        data: clientData,
+                    })
+                }
+
+                if(Object.keys(balanceData).length){
+                    await tx.saldo.update({
+                        where: {
+                            id_cliente: clientId,
+                        },
+                        data: balanceData,
+                    })
+                }
+
+            })
+        } catch(error){
+            console.log(error)
+        } finally {
+            return true;
+        }
+    }
+
 };
