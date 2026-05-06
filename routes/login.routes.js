@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const authController = require('../../controllers/auth/auth.controller');
-const firstLoginController = require('../../controllers/auth/password.controller');
+const authController = require('../controllers/auth/auth.controller');
+const firstLoginController = require('../controllers/auth/password.controller');
 
 /**
  * Rutas del módulo de autenticación.
