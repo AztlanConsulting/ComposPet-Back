@@ -156,8 +156,8 @@ function buildDataObjects(clientObject) {
     const balanceData = {};
 
     // Campos de la tabla usuarios_cp
-    if(clientObject.phone !== undefined){
-        userData.telefono = clientObject.phone;
+    if(clientObject.cellphone !== undefined){
+        userData.telefono = clientObject.cellphone;
     }
 
     if(clientObject.status !== undefined){

@@ -82,11 +82,18 @@ module.exports = class Client {
 
     static async getClients(){
         const clientListRaw = await prisma.cliente.findMany({
-            orderBy: {
-                usuarios_cp: {
-                    estatus: "desc"
+            orderBy: [
+                {
+                    usuarios_cp: {
+                        estatus: "desc",
+                    }
+                },
+                {
+                    usuarios_cp: {
+                        nombre: "desc",
+                    }
                 }
-            },
+            ],
             select: {
                 id_cliente: true,
                 mascotas: true,

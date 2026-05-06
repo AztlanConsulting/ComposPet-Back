@@ -18,10 +18,10 @@ router.use("/user", user_routes);
 router.use('/solicitudes-rec', authMiddleware, collectionRequestRoutes);
 
 // Agrega las rutas de cliente
-router.use('/cliente', /*authMiddleware,*/ clientRoutes);
+router.use('/cliente', authMiddleware, clientRoutes);
 
 // Agrega las rutas de admin
-router.use('/admin', /*authMiddleware,*/ adminRoutes);
+router.use('/admin', authMiddleware, adminRoutes);
 
 // Agrega las rutas de la tarjeta del cliente
 router.use('/saldo', authMiddleware, creditRoutes);
