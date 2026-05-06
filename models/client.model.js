@@ -14,7 +14,8 @@ const prisma = require("../config/prisma");
 
 module.exports = class Client {
     /**
-     * Obtiene el cliente asociado al id de usuario proporcionado.
+     * Obtiene la información cliente asociado al id de usuario proporcionado,
+     * incluyendo el dia de ruta asignada al cliente
      *
      * @async
      * @static
@@ -22,11 +23,21 @@ module.exports = class Client {
      * @returns {Promise<Object|null>} Objeto con el id del cliente o `null` si no existe.
      */
     static async getClientByUserId(userId) {
-        //obtiene el cliente dependiendo del id de usuario
+        //obtiene la información del cliente dependiendo del id de usuario
         const client = await prisma.cliente.findUnique({
             where: {
                 id_usuario: userId,
             },
+            select: {
+                id_cliente: true,
+                id_ruta: true,
+                ruta: {
+                    select: {
+                        dia_ruta: true,
+                        turno_ruta: true,
+                    },
+                },
+            }
         });
 
         return client;

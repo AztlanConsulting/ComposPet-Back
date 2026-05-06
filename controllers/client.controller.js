@@ -1,8 +1,8 @@
 const Client = require('../models/client.model');
 
 /**
- * Obtiene el cliente asociado a un usuario.
- * Recibe el id del usuario en el body y retorna el id del cliente relacionado.
+ * Obtiene la información básica del cliente asociado a un usuario,
+ * incluyendo su ruta asignada
  *
  * @async
  * @param {Object} req - Objeto de solicitud HTTP.
@@ -32,20 +32,20 @@ const getClientByUserId = async (req, res) => {
         if (!client) {
             return res.status(404).json({
                 success: false,
-                message: 'No se encontró un cliente asociado a este usuario.',
+                message: 'No se encontró la información del cliente asociado a este usuario.',
             });
         }
 
         return res.status(200).json({
             success: true,
-            message: 'Cliente obtenido exitosamente.',
+            message: 'Información del cliente obtenido exitosamente.',
             data: client,
         });
     } catch (error) {
-        console.error('Error al obtener el cliente por id de usuario:', error);
+        console.error('Error al obtener la información del cliente por id de usuario:', error);
         res.status(500).json({
             success: false,
-            message: 'Error del servidor al obtener el cliente.',
+            message: 'Error del servidor al obtener la información del cliente.',
             error,
         });
     }
