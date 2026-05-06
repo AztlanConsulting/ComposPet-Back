@@ -3,6 +3,7 @@ const router = express.Router();
 
 const authController = require('../../controllers/auth/auth.controller');
 const firstLoginController = require('../../controllers/auth/password.controller');
+const { authMiddleware } = require('../../middlewares/auth');
 
 /**
  * Rutas del módulo de autenticación.
@@ -58,5 +59,13 @@ router.post('/update-password', firstLoginController.updatePassword);
  * @see authController.refreshToken
  */
 router.post('/refresh', authController.refreshToken);
+
+/**
+ * @route POST /cerrar-sesion
+ * @description Elimina el refresh token de las cookies y base de datos. 
+ * @access Privado (Requiere cookie refreshToken)
+ * @see authController.logout
+ */
+router.post('/cerrar-sesion', authMiddleware, authController.logout);
 
 module.exports = router;

@@ -106,6 +106,18 @@ const login = async(req, res) => {
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
 
+        try {
+            const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
+
+            if (activeSessions >= 2) {
+                await AuthModel.deleteOldestSession(user.id_usuario);
+            }
+
+            await AuthModel.saveRefreshToken(user.id_usuario, refreshToken);
+        } catch (dbError) {
+            console.error('Error interno', dbError);
+        }
+
         res.cookie('refreshToken', refreshToken, cookieOptions);
 
         return res.status(200).json({
@@ -169,6 +181,18 @@ const googleAuth = async (req, res) => {
     const accessToken = generateAccessToken(tokenPayload);
     const refreshToken = generateRefreshToken(tokenPayload);
 
+    try {
+            const activeSessions = await AuthModel.countActiveSessions(userDB.id_usuario);
+
+            if (activeSessions >= 2) {
+                await AuthModel.deleteOldestSession(user.id_usuario);
+            }
+
+            await AuthModel.saveRefreshToken(user.id_usuario, refreshToken);
+        } catch (dbError) {
+            console.error('Error interno', dbError);
+        }
+
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
     res.cookie('refreshToken', refreshToken, cookieOptions);
@@ -210,6 +234,12 @@ const refreshToken = async (req, res) => {
 
     try {
         const payload = verifyRefreshToken(refreshToken);
+        const tokenInDB = await AuthModel.findRefreshToken(refreshToken);
+
+        if (!tokenInDB) {
+            res.clearCookie('refreshToken', cookieOptions);
+            return res.status(403).json({ message: 'Sesión no válida o expirada.' });
+        }
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,
@@ -234,8 +264,26 @@ const refreshToken = async (req, res) => {
     }
 };
 
+const logout = async (req, res) => {
+    const token = req.cookies.refreshToken;
+
+    try {
+        if (token) {
+            await AuthModel.removeRefreshToken(token);
+        }
+
+        res.clearCookie('refreshToken', cookieOptions);
+
+        return res.status(200).json({message: 'Sesión cerrada correctamente.'})
+    } catch (error) {
+        console.error('Error en cerrar sesión: ', error);
+        return res.status(500).json({ message: 'Error al cerrar sesión.' });
+    }
+}
+
 module.exports = {
     login, 
     googleAuth,
     refreshToken,
+    logout,
 };

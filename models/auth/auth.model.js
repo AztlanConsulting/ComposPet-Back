@@ -108,6 +108,85 @@ const AuthModel = {
             }
         });
     },
+    /**
+     * Cuenta la cantidad de sesiones activas (Refresh Tokens) que tiene un usuario.
+     * Se utiliza para validar el límite de sesiones simultáneas permitido.
+     *
+     * @param {string} id_usuario - UUID del usuario.
+     * @returns {Promise<number>} Cantidad de registros encontrados en `refresh_tokens`.
+     */
+    countActiveSessions: async (id_usuario) => {
+        return await prisma.refresh_tokens.count({
+            where: { id_usuario }
+        });
+    },
+
+    /**
+     * Identifica y elimina la sesión más antigua de un usuario específico.
+     * Busca el registro con la fecha de creación (`created_at`) más lejana 
+     * para liberar espacio para una nueva sesión.
+     *
+     * @param {string} id_usuario - UUID del usuario.
+     * @returns {Promise<object|null>} Registro eliminado o null si no existían sesiones.
+     */
+    deleteOldestSession: async (id_usuario) => {
+        const oldest = await prisma.refresh_tokens.findFirst({
+            where: { id_usuario },
+            orderBy: { created_at: 'asc' },
+            select: { id: true }
+        });
+
+        if (oldest) {
+            return await prisma.refresh_tokens.delete({
+                where: { id: oldest.id }
+            });
+        }
+        return null;
+    },
+
+    /**
+     * Almacena un nuevo Refresh Token en la base de datos asociado a un usuario.
+     * Esto permite el control "stateful" de las sesiones JWT.
+     *
+     * @param {string} id_usuario - UUID del usuario.
+     * @param {string} token_hash - El JWT de refresco generado.
+     * @returns {Promise<object>} Registro del token creado en la base de datos.
+     */
+    saveRefreshToken: async (id_usuario, token_hash) => {
+        return await prisma.refresh_tokens.create({
+            data: {
+                id_usuario,
+                token_hash
+            }
+        });
+    },
+
+    /**
+     * Elimina de forma permanente un Refresh Token de la base de datos.
+     * Se invoca durante el flujo de logout para invalidar la sesión en el servidor.
+     *
+     * @param {string} token_hash - El token que se desea invalidar.
+     * @returns {Promise<void>}
+     */
+    removeRefreshToken: async (token_hash) => {
+        await prisma.refresh_tokens.deleteMany({
+            where: { token_hash }
+        });
+    },
+
+    /**
+     * Verifica la existencia de un Refresh Token en la base de datos.
+     * Esencial para el endpoint de /refresh, asegurando que la sesión no haya sido
+     * revocada por el límite de dispositivos o por un cierre de sesión previo.
+     *
+     * @param {string} token_hash - El token a buscar.
+     * @returns {Promise<object|null>} Datos del token si existe y es válido.
+     */
+    findRefreshToken: async (token_hash) => {
+        return await prisma.refresh_tokens.findFirst({
+            where: { token_hash }
+        });
+    },
 };
 
 module.exports = AuthModel;

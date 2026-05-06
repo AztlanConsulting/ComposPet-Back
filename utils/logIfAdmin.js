@@ -8,6 +8,7 @@
  * @returns {Promise<void>}
  * @see AuthModel.addLog
  */
+const AuthModel = require('../')
 
 const logIfAdmin = async (user, accion, detalle = null) => {
     if (user && user.roles?.nombre === 'administrador') {
