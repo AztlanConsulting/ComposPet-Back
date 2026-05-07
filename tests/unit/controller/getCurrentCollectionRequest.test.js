@@ -104,6 +104,7 @@ describe('Controller - getCurrentCollectionRequest', ()=> {
             notas: "Solicitud existente",
             quiere_recoleccion: true,
             quiere_productos_extra: false,
+            estatus: false,
         };
 
         CollectionRequest.getCurrentCollectionRequest.mockResolvedValue(mockCurrentRequest);
@@ -148,6 +149,7 @@ describe('Controller - getCurrentCollectionRequest', ()=> {
             notas: null,
             quiere_recoleccion: true,
             quiere_productos_extra: true,
+            estatus: false,
         };
 
         CollectionRequest.getCurrentCollectionRequest.mockResolvedValue(null);
