@@ -69,6 +69,7 @@ module.exports = class CollectionRequest {
                 notas: null,
                 quiere_recoleccion: true,
                 quiere_productos_extra: true,
+                estatus: false,
             },
         });
 
