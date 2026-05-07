@@ -34,7 +34,6 @@ module.exports = class Client {
                 ruta: {
                     select: {
                         dia_ruta: true,
-                        turno_ruta: true,
                     },
                 },
             }
