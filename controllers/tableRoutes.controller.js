@@ -1,4 +1,4 @@
-const Routes = require('../models/routes.model');
+const Routes = require('../models/route.model');
 
 const getTableInfo = async(req,res) => {
     try {

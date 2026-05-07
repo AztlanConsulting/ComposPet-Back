@@ -1,7 +1,7 @@
 const { getTableInfo } = require('../../../controllers/tableRoutes.controller');
-const routesModel = require('../../../models/routes.model');
+const routesModel = require('../../../models/route.model');
 
-jest.mock('../../../models/routes.model');
+jest.mock('../../../models/route.model');
 
 describe('Controller - getRoutesInfo', () => {
     let req;

@@ -1,4 +1,4 @@
-const RoutesInfo = require('../../../models/routes.model');
+const RoutesInfo = require('../../../models/route.model');
 const prisma = require('../../../config/prisma');
 
 jest.mock('../../../config/prisma', () => ({

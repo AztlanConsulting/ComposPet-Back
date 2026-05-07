@@ -48,7 +48,7 @@ model cliente {
   id_usuario              String                    @unique @db.Uuid
   id_ruta                 Int
   mascotas                String?                   @db.VarChar
-  familia                 Int?
+  familia                 String?                   @db.VarChar
   direccion               String?                   @db.VarChar
   orden_horario           Int?
   notas                   String?
@@ -165,7 +165,7 @@ model solicitud_registro {
   correo                String      @db.VarChar
   direccion             String?     @db.VarChar
   mascotas              String?     @db.VarChar
-  familia               Int?
+  familia               String?     @db.VarChar
   notas                 String?
   fecha                 DateTime    @db.Date
   estatus               Boolean     @default(false)

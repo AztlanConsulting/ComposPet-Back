@@ -207,6 +207,7 @@ describe("Integración - Client - getClientsInfo", () => {
     it("retorna lista vacía si no hay clientes", async () => {
         const token = createAuthToken();
 
+        await prisma.productos_solicitud.deleteMany({});
         await prisma.solicitudes_recoleccion.deleteMany({});
         await prisma.saldo.deleteMany({});
         await prisma.cliente.deleteMany({});
