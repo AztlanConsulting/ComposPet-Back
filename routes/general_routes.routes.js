@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const user_routes = require('./user.routes');
-const authRoutes = require('./auth/login.routes');
+const authRoutes = require('./login.routes');
 const collectionRequestRoutes = require('./collectionRequest.routes');
 const clientRoutes = require('./client.routes');
-const adminRoutes = require('./admin/admin.routes');
-const creditRoutes = require('./credit.routes')
+const adminRoutes = require('./admin.routes');
+const creditRoutes = require('./credit.routes');
 
-const { authMiddleware } = require('../middlewares/auth')
+const { authMiddleware, requireRole } = require('../middlewares/auth');
 
 router.use('/', authRoutes);
 
