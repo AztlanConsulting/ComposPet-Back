@@ -99,6 +99,11 @@ export type solicitud_registro = $Result.DefaultSelection<Prisma.$solicitud_regi
  */
 export type solicitudes_recoleccion = $Result.DefaultSelection<Prisma.$solicitudes_recoleccionPayload>
 /**
+ * Model saldo
+ * 
+ */
+export type saldo = $Result.DefaultSelection<Prisma.$saldoPayload>
+/**
  * Model usuarios_cp
  * 
  */
@@ -108,11 +113,6 @@ export type usuarios_cp = $Result.DefaultSelection<Prisma.$usuarios_cpPayload>
  * 
  */
 export type zona = $Result.DefaultSelection<Prisma.$zonaPayload>
-/**
- * Model saldo
- * 
- */
-export type saldo = $Result.DefaultSelection<Prisma.$saldoPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -406,6 +406,16 @@ export class PrismaClient<
   get solicitudes_recoleccion(): Prisma.solicitudes_recoleccionDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.saldo`: Exposes CRUD operations for the **saldo** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Saldos
+    * const saldos = await prisma.saldo.findMany()
+    * ```
+    */
+  get saldo(): Prisma.saldoDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.usuarios_cp`: Exposes CRUD operations for the **usuarios_cp** model.
     * Example usage:
     * ```ts
@@ -424,16 +434,6 @@ export class PrismaClient<
     * ```
     */
   get zona(): Prisma.zonaDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.saldo`: Exposes CRUD operations for the **saldo** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Saldos
-    * const saldos = await prisma.saldo.findMany()
-    * ```
-    */
-  get saldo(): Prisma.saldoDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -885,9 +885,9 @@ export namespace Prisma {
     ruta: 'ruta',
     solicitud_registro: 'solicitud_registro',
     solicitudes_recoleccion: 'solicitudes_recoleccion',
+    saldo: 'saldo',
     usuarios_cp: 'usuarios_cp',
-    zona: 'zona',
-    saldo: 'saldo'
+    zona: 'zona'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -903,7 +903,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "usuarios_cp" | "zona" | "saldo"
+      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "saldo" | "usuarios_cp" | "zona"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2165,6 +2165,80 @@ export namespace Prisma {
           }
         }
       }
+      saldo: {
+        payload: Prisma.$saldoPayload<ExtArgs>
+        fields: Prisma.saldoFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.saldoFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.saldoFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
+          }
+          findFirst: {
+            args: Prisma.saldoFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.saldoFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
+          }
+          findMany: {
+            args: Prisma.saldoFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>[]
+          }
+          create: {
+            args: Prisma.saldoCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
+          }
+          createMany: {
+            args: Prisma.saldoCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.saldoCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>[]
+          }
+          delete: {
+            args: Prisma.saldoDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
+          }
+          update: {
+            args: Prisma.saldoUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
+          }
+          deleteMany: {
+            args: Prisma.saldoDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.saldoUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.saldoUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>[]
+          }
+          upsert: {
+            args: Prisma.saldoUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
+          }
+          aggregate: {
+            args: Prisma.SaldoAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSaldo>
+          }
+          groupBy: {
+            args: Prisma.saldoGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SaldoGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.saldoCountArgs<ExtArgs>
+            result: $Utils.Optional<SaldoCountAggregateOutputType> | number
+          }
+        }
+      }
       usuarios_cp: {
         payload: Prisma.$usuarios_cpPayload<ExtArgs>
         fields: Prisma.usuarios_cpFieldRefs
@@ -2313,80 +2387,6 @@ export namespace Prisma {
           }
         }
       }
-      saldo: {
-        payload: Prisma.$saldoPayload<ExtArgs>
-        fields: Prisma.saldoFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.saldoFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.saldoFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
-          }
-          findFirst: {
-            args: Prisma.saldoFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.saldoFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
-          }
-          findMany: {
-            args: Prisma.saldoFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>[]
-          }
-          create: {
-            args: Prisma.saldoCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
-          }
-          createMany: {
-            args: Prisma.saldoCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.saldoCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>[]
-          }
-          delete: {
-            args: Prisma.saldoDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
-          }
-          update: {
-            args: Prisma.saldoUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
-          }
-          deleteMany: {
-            args: Prisma.saldoDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.saldoUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.saldoUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>[]
-          }
-          upsert: {
-            args: Prisma.saldoUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$saldoPayload>
-          }
-          aggregate: {
-            args: Prisma.SaldoAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSaldo>
-          }
-          groupBy: {
-            args: Prisma.saldoGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SaldoGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.saldoCountArgs<ExtArgs>
-            result: $Utils.Optional<SaldoCountAggregateOutputType> | number
-          }
-        }
-      }
     }
   } & {
     other: {
@@ -2512,9 +2512,9 @@ export namespace Prisma {
     ruta?: rutaOmit
     solicitud_registro?: solicitud_registroOmit
     solicitudes_recoleccion?: solicitudes_recoleccionOmit
+    saldo?: saldoOmit
     usuarios_cp?: usuarios_cpOmit
     zona?: zonaOmit
-    saldo?: saldoOmit
   }
 
   /* Types for Logging */
@@ -2942,37 +2942,6 @@ export namespace Prisma {
    */
   export type Usuarios_cpCountOutputTypeCountSolicitud_registroArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: solicitud_registroWhereInput
-  }
-
-
-  /**
-   * Count Type ZonaCountOutputType
-   */
-
-  export type ZonaCountOutputType = {
-    ruta: number
-  }
-
-  export type ZonaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ruta?: boolean | ZonaCountOutputTypeCountRutaArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * ZonaCountOutputType without action
-   */
-  export type ZonaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ZonaCountOutputType
-     */
-    select?: ZonaCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * ZonaCountOutputType without action
-   */
-  export type ZonaCountOutputTypeCountRutaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: rutaWhereInput
   }
 
 
@@ -6430,13 +6399,13 @@ export namespace Prisma {
 
   export type ClienteAvgAggregateOutputType = {
     id_ruta: number | null
-    cantidad_familia: number | null
+    familia: number | null
     orden_horario: number | null
   }
 
   export type ClienteSumAggregateOutputType = {
     id_ruta: number | null
-    cantidad_familia: number | null
+    familia: number | null
     orden_horario: number | null
   }
 
@@ -6445,7 +6414,7 @@ export namespace Prisma {
     id_usuario: string | null
     id_ruta: number | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: number | null
     direccion: string | null
     orden_horario: number | null
     notas: string | null
@@ -6458,7 +6427,7 @@ export namespace Prisma {
     id_usuario: string | null
     id_ruta: number | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: number | null
     direccion: string | null
     orden_horario: number | null
     notas: string | null
@@ -6471,7 +6440,7 @@ export namespace Prisma {
     id_usuario: number
     id_ruta: number
     mascotas: number
-    cantidad_familia: number
+    familia: number
     direccion: number
     orden_horario: number
     notas: number
@@ -6483,13 +6452,13 @@ export namespace Prisma {
 
   export type ClienteAvgAggregateInputType = {
     id_ruta?: true
-    cantidad_familia?: true
+    familia?: true
     orden_horario?: true
   }
 
   export type ClienteSumAggregateInputType = {
     id_ruta?: true
-    cantidad_familia?: true
+    familia?: true
     orden_horario?: true
   }
 
@@ -6498,7 +6467,7 @@ export namespace Prisma {
     id_usuario?: true
     id_ruta?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     direccion?: true
     orden_horario?: true
     notas?: true
@@ -6511,7 +6480,7 @@ export namespace Prisma {
     id_usuario?: true
     id_ruta?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     direccion?: true
     orden_horario?: true
     notas?: true
@@ -6524,7 +6493,7 @@ export namespace Prisma {
     id_usuario?: true
     id_ruta?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     direccion?: true
     orden_horario?: true
     notas?: true
@@ -6624,7 +6593,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: number | null
     direccion: string | null
     orden_horario: number | null
     notas: string | null
@@ -6656,7 +6625,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6674,7 +6643,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6689,7 +6658,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6704,7 +6673,7 @@ export namespace Prisma {
     id_usuario?: boolean
     id_ruta?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     direccion?: boolean
     orden_horario?: boolean
     notas?: boolean
@@ -6712,7 +6681,7 @@ export namespace Prisma {
     fecha_salida?: boolean
   }
 
-  export type clienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_cliente" | "id_usuario" | "id_ruta" | "mascotas" | "cantidad_familia" | "direccion" | "orden_horario" | "notas" | "fecha_entrada" | "fecha_salida", ExtArgs["result"]["cliente"]>
+  export type clienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_cliente" | "id_usuario" | "id_ruta" | "mascotas" | "familia" | "direccion" | "orden_horario" | "notas" | "fecha_entrada" | "fecha_salida", ExtArgs["result"]["cliente"]>
   export type clienteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
@@ -6742,7 +6711,7 @@ export namespace Prisma {
       id_usuario: string
       id_ruta: number
       mascotas: string | null
-      cantidad_familia: number | null
+      familia: number | null
       direccion: string | null
       orden_horario: number | null
       notas: string | null
@@ -7179,7 +7148,7 @@ export namespace Prisma {
     readonly id_usuario: FieldRef<"cliente", 'String'>
     readonly id_ruta: FieldRef<"cliente", 'Int'>
     readonly mascotas: FieldRef<"cliente", 'String'>
-    readonly cantidad_familia: FieldRef<"cliente", 'Int'>
+    readonly familia: FieldRef<"cliente", 'Int'>
     readonly direccion: FieldRef<"cliente", 'String'>
     readonly orden_horario: FieldRef<"cliente", 'Int'>
     readonly notas: FieldRef<"cliente", 'String'>
@@ -18560,32 +18529,27 @@ export namespace Prisma {
 
   export type RutaAvgAggregateOutputType = {
     id_ruta: number | null
-    id_zona: number | null
   }
 
   export type RutaSumAggregateOutputType = {
     id_ruta: number | null
-    id_zona: number | null
   }
 
   export type RutaMinAggregateOutputType = {
     id_ruta: number | null
     dia_ruta: string | null
-    id_zona: number | null
     turno_ruta: string | null
   }
 
   export type RutaMaxAggregateOutputType = {
     id_ruta: number | null
     dia_ruta: string | null
-    id_zona: number | null
     turno_ruta: string | null
   }
 
   export type RutaCountAggregateOutputType = {
     id_ruta: number
     dia_ruta: number
-    id_zona: number
     turno_ruta: number
     _all: number
   }
@@ -18593,32 +18557,27 @@ export namespace Prisma {
 
   export type RutaAvgAggregateInputType = {
     id_ruta?: true
-    id_zona?: true
   }
 
   export type RutaSumAggregateInputType = {
     id_ruta?: true
-    id_zona?: true
   }
 
   export type RutaMinAggregateInputType = {
     id_ruta?: true
     dia_ruta?: true
-    id_zona?: true
     turno_ruta?: true
   }
 
   export type RutaMaxAggregateInputType = {
     id_ruta?: true
     dia_ruta?: true
-    id_zona?: true
     turno_ruta?: true
   }
 
   export type RutaCountAggregateInputType = {
     id_ruta?: true
     dia_ruta?: true
-    id_zona?: true
     turno_ruta?: true
     _all?: true
   }
@@ -18712,7 +18671,6 @@ export namespace Prisma {
   export type RutaGroupByOutputType = {
     id_ruta: number
     dia_ruta: string
-    id_zona: number
     turno_ruta: string
     _count: RutaCountAggregateOutputType | null
     _avg: RutaAvgAggregateOutputType | null
@@ -18738,59 +18696,45 @@ export namespace Prisma {
   export type rutaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_ruta?: boolean
     dia_ruta?: boolean
-    id_zona?: boolean
     turno_ruta?: boolean
     cliente?: boolean | ruta$clienteArgs<ExtArgs>
-    zona?: boolean | zonaDefaultArgs<ExtArgs>
     _count?: boolean | RutaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ruta"]>
 
   export type rutaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_ruta?: boolean
     dia_ruta?: boolean
-    id_zona?: boolean
     turno_ruta?: boolean
-    zona?: boolean | zonaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ruta"]>
 
   export type rutaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_ruta?: boolean
     dia_ruta?: boolean
-    id_zona?: boolean
     turno_ruta?: boolean
-    zona?: boolean | zonaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ruta"]>
 
   export type rutaSelectScalar = {
     id_ruta?: boolean
     dia_ruta?: boolean
-    id_zona?: boolean
     turno_ruta?: boolean
   }
 
-  export type rutaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_ruta" | "dia_ruta" | "id_zona" | "turno_ruta", ExtArgs["result"]["ruta"]>
+  export type rutaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_ruta" | "dia_ruta" | "turno_ruta", ExtArgs["result"]["ruta"]>
   export type rutaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | ruta$clienteArgs<ExtArgs>
-    zona?: boolean | zonaDefaultArgs<ExtArgs>
     _count?: boolean | RutaCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type rutaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    zona?: boolean | zonaDefaultArgs<ExtArgs>
-  }
-  export type rutaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    zona?: boolean | zonaDefaultArgs<ExtArgs>
-  }
+  export type rutaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type rutaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $rutaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ruta"
     objects: {
       cliente: Prisma.$clientePayload<ExtArgs>[]
-      zona: Prisma.$zonaPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id_ruta: number
       dia_ruta: string
-      id_zona: number
       turno_ruta: string
     }, ExtArgs["result"]["ruta"]>
     composites: {}
@@ -19187,7 +19131,6 @@ export namespace Prisma {
   export interface Prisma__rutaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     cliente<T extends ruta$clienteArgs<ExtArgs> = {}>(args?: Subset<T, ruta$clienteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    zona<T extends zonaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, zonaDefaultArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -19219,7 +19162,6 @@ export namespace Prisma {
   interface rutaFieldRefs {
     readonly id_ruta: FieldRef<"ruta", 'Int'>
     readonly dia_ruta: FieldRef<"ruta", 'String'>
-    readonly id_zona: FieldRef<"ruta", 'Int'>
     readonly turno_ruta: FieldRef<"ruta", 'String'>
   }
     
@@ -19475,10 +19417,6 @@ export namespace Prisma {
      */
     data: rutaCreateManyInput | rutaCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: rutaIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -19549,10 +19487,6 @@ export namespace Prisma {
      * Limit how many rutas to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: rutaIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -19677,11 +19611,11 @@ export namespace Prisma {
   }
 
   export type Solicitud_registroAvgAggregateOutputType = {
-    cantidad_familia: number | null
+    familia: number | null
   }
 
   export type Solicitud_registroSumAggregateOutputType = {
-    cantidad_familia: number | null
+    familia: number | null
   }
 
   export type Solicitud_registroMinAggregateOutputType = {
@@ -19692,9 +19626,8 @@ export namespace Prisma {
     telefono: string | null
     correo: string | null
     direccion: string | null
-    zona: string | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: number | null
     notas: string | null
     fecha: Date | null
     estatus: boolean | null
@@ -19708,9 +19641,8 @@ export namespace Prisma {
     telefono: string | null
     correo: string | null
     direccion: string | null
-    zona: string | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: number | null
     notas: string | null
     fecha: Date | null
     estatus: boolean | null
@@ -19724,9 +19656,8 @@ export namespace Prisma {
     telefono: number
     correo: number
     direccion: number
-    zona: number
     mascotas: number
-    cantidad_familia: number
+    familia: number
     notas: number
     fecha: number
     estatus: number
@@ -19735,11 +19666,11 @@ export namespace Prisma {
 
 
   export type Solicitud_registroAvgAggregateInputType = {
-    cantidad_familia?: true
+    familia?: true
   }
 
   export type Solicitud_registroSumAggregateInputType = {
-    cantidad_familia?: true
+    familia?: true
   }
 
   export type Solicitud_registroMinAggregateInputType = {
@@ -19750,9 +19681,8 @@ export namespace Prisma {
     telefono?: true
     correo?: true
     direccion?: true
-    zona?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     notas?: true
     fecha?: true
     estatus?: true
@@ -19766,9 +19696,8 @@ export namespace Prisma {
     telefono?: true
     correo?: true
     direccion?: true
-    zona?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     notas?: true
     fecha?: true
     estatus?: true
@@ -19782,9 +19711,8 @@ export namespace Prisma {
     telefono?: true
     correo?: true
     direccion?: true
-    zona?: true
     mascotas?: true
-    cantidad_familia?: true
+    familia?: true
     notas?: true
     fecha?: true
     estatus?: true
@@ -19885,9 +19813,8 @@ export namespace Prisma {
     telefono: string | null
     correo: string
     direccion: string | null
-    zona: string | null
     mascotas: string | null
-    cantidad_familia: number | null
+    familia: number | null
     notas: string | null
     fecha: Date
     estatus: boolean
@@ -19920,9 +19847,8 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     direccion?: boolean
-    zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
@@ -19937,9 +19863,8 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     direccion?: boolean
-    zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
@@ -19954,9 +19879,8 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     direccion?: boolean
-    zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
@@ -19971,15 +19895,14 @@ export namespace Prisma {
     telefono?: boolean
     correo?: boolean
     direccion?: boolean
-    zona?: boolean
     mascotas?: boolean
-    cantidad_familia?: boolean
+    familia?: boolean
     notas?: boolean
     fecha?: boolean
     estatus?: boolean
   }
 
-  export type solicitud_registroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud_registro" | "id_usuario" | "nombre" | "apellido" | "telefono" | "correo" | "direccion" | "zona" | "mascotas" | "cantidad_familia" | "notas" | "fecha" | "estatus", ExtArgs["result"]["solicitud_registro"]>
+  export type solicitud_registroOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_solicitud_registro" | "id_usuario" | "nombre" | "apellido" | "telefono" | "correo" | "direccion" | "mascotas" | "familia" | "notas" | "fecha" | "estatus", ExtArgs["result"]["solicitud_registro"]>
   export type solicitud_registroInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
   }
@@ -20003,9 +19926,8 @@ export namespace Prisma {
       telefono: string | null
       correo: string
       direccion: string | null
-      zona: string | null
       mascotas: string | null
-      cantidad_familia: number | null
+      familia: number | null
       notas: string | null
       fecha: Date
       estatus: boolean
@@ -20440,9 +20362,8 @@ export namespace Prisma {
     readonly telefono: FieldRef<"solicitud_registro", 'String'>
     readonly correo: FieldRef<"solicitud_registro", 'String'>
     readonly direccion: FieldRef<"solicitud_registro", 'String'>
-    readonly zona: FieldRef<"solicitud_registro", 'String'>
     readonly mascotas: FieldRef<"solicitud_registro", 'String'>
-    readonly cantidad_familia: FieldRef<"solicitud_registro", 'Int'>
+    readonly familia: FieldRef<"solicitud_registro", 'Int'>
     readonly notas: FieldRef<"solicitud_registro", 'String'>
     readonly fecha: FieldRef<"solicitud_registro", 'DateTime'>
     readonly estatus: FieldRef<"solicitud_registro", 'Boolean'>
@@ -21107,7 +21028,7 @@ export namespace Prisma {
     quiere_productos_extra: boolean | null
     quiere_recoleccion: boolean | null
     id_pago: number | null
-    estatus: boolean | null
+    estatus: boolean
     _count: Solicitudes_recoleccionCountAggregateOutputType | null
     _avg: Solicitudes_recoleccionAvgAggregateOutputType | null
     _sum: Solicitudes_recoleccionSumAggregateOutputType | null
@@ -21237,7 +21158,7 @@ export namespace Prisma {
       quiere_productos_extra: boolean | null
       quiere_recoleccion: boolean | null
       id_pago: number | null
-      estatus: boolean | null
+      estatus: boolean
     }, ExtArgs["result"]["solicitudes_recoleccion"]>
     composites: {}
   }
@@ -22136,6 +22057,1077 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: solicitudes_recoleccionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model saldo
+   */
+
+  export type AggregateSaldo = {
+    _count: SaldoCountAggregateOutputType | null
+    _avg: SaldoAvgAggregateOutputType | null
+    _sum: SaldoSumAggregateOutputType | null
+    _min: SaldoMinAggregateOutputType | null
+    _max: SaldoMaxAggregateOutputType | null
+  }
+
+  export type SaldoAvgAggregateOutputType = {
+    saldo: number | null
+  }
+
+  export type SaldoSumAggregateOutputType = {
+    saldo: number | null
+  }
+
+  export type SaldoMinAggregateOutputType = {
+    id_saldo: string | null
+    id_cliente: string | null
+    saldo: number | null
+  }
+
+  export type SaldoMaxAggregateOutputType = {
+    id_saldo: string | null
+    id_cliente: string | null
+    saldo: number | null
+  }
+
+  export type SaldoCountAggregateOutputType = {
+    id_saldo: number
+    id_cliente: number
+    saldo: number
+    _all: number
+  }
+
+
+  export type SaldoAvgAggregateInputType = {
+    saldo?: true
+  }
+
+  export type SaldoSumAggregateInputType = {
+    saldo?: true
+  }
+
+  export type SaldoMinAggregateInputType = {
+    id_saldo?: true
+    id_cliente?: true
+    saldo?: true
+  }
+
+  export type SaldoMaxAggregateInputType = {
+    id_saldo?: true
+    id_cliente?: true
+    saldo?: true
+  }
+
+  export type SaldoCountAggregateInputType = {
+    id_saldo?: true
+    id_cliente?: true
+    saldo?: true
+    _all?: true
+  }
+
+  export type SaldoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which saldo to aggregate.
+     */
+    where?: saldoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of saldos to fetch.
+     */
+    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: saldoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` saldos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` saldos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned saldos
+    **/
+    _count?: true | SaldoCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SaldoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SaldoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SaldoMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SaldoMaxAggregateInputType
+  }
+
+  export type GetSaldoAggregateType<T extends SaldoAggregateArgs> = {
+        [P in keyof T & keyof AggregateSaldo]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSaldo[P]>
+      : GetScalarType<T[P], AggregateSaldo[P]>
+  }
+
+
+
+
+  export type saldoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: saldoWhereInput
+    orderBy?: saldoOrderByWithAggregationInput | saldoOrderByWithAggregationInput[]
+    by: SaldoScalarFieldEnum[] | SaldoScalarFieldEnum
+    having?: saldoScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SaldoCountAggregateInputType | true
+    _avg?: SaldoAvgAggregateInputType
+    _sum?: SaldoSumAggregateInputType
+    _min?: SaldoMinAggregateInputType
+    _max?: SaldoMaxAggregateInputType
+  }
+
+  export type SaldoGroupByOutputType = {
+    id_saldo: string
+    id_cliente: string
+    saldo: number
+    _count: SaldoCountAggregateOutputType | null
+    _avg: SaldoAvgAggregateOutputType | null
+    _sum: SaldoSumAggregateOutputType | null
+    _min: SaldoMinAggregateOutputType | null
+    _max: SaldoMaxAggregateOutputType | null
+  }
+
+  type GetSaldoGroupByPayload<T extends saldoGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SaldoGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SaldoGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SaldoGroupByOutputType[P]>
+            : GetScalarType<T[P], SaldoGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type saldoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_saldo?: boolean
+    id_cliente?: boolean
+    saldo?: boolean
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["saldo"]>
+
+  export type saldoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_saldo?: boolean
+    id_cliente?: boolean
+    saldo?: boolean
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["saldo"]>
+
+  export type saldoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_saldo?: boolean
+    id_cliente?: boolean
+    saldo?: boolean
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["saldo"]>
+
+  export type saldoSelectScalar = {
+    id_saldo?: boolean
+    id_cliente?: boolean
+    saldo?: boolean
+  }
+
+  export type saldoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_saldo" | "id_cliente" | "saldo", ExtArgs["result"]["saldo"]>
+  export type saldoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+  }
+  export type saldoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+  }
+  export type saldoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cliente?: boolean | clienteDefaultArgs<ExtArgs>
+  }
+
+  export type $saldoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "saldo"
+    objects: {
+      cliente: Prisma.$clientePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_saldo: string
+      id_cliente: string
+      saldo: number
+    }, ExtArgs["result"]["saldo"]>
+    composites: {}
+  }
+
+  type saldoGetPayload<S extends boolean | null | undefined | saldoDefaultArgs> = $Result.GetResult<Prisma.$saldoPayload, S>
+
+  type saldoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<saldoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SaldoCountAggregateInputType | true
+    }
+
+  export interface saldoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['saldo'], meta: { name: 'saldo' } }
+    /**
+     * Find zero or one Saldo that matches the filter.
+     * @param {saldoFindUniqueArgs} args - Arguments to find a Saldo
+     * @example
+     * // Get one Saldo
+     * const saldo = await prisma.saldo.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends saldoFindUniqueArgs>(args: SelectSubset<T, saldoFindUniqueArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Saldo that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {saldoFindUniqueOrThrowArgs} args - Arguments to find a Saldo
+     * @example
+     * // Get one Saldo
+     * const saldo = await prisma.saldo.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends saldoFindUniqueOrThrowArgs>(args: SelectSubset<T, saldoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Saldo that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {saldoFindFirstArgs} args - Arguments to find a Saldo
+     * @example
+     * // Get one Saldo
+     * const saldo = await prisma.saldo.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends saldoFindFirstArgs>(args?: SelectSubset<T, saldoFindFirstArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Saldo that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {saldoFindFirstOrThrowArgs} args - Arguments to find a Saldo
+     * @example
+     * // Get one Saldo
+     * const saldo = await prisma.saldo.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends saldoFindFirstOrThrowArgs>(args?: SelectSubset<T, saldoFindFirstOrThrowArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Saldos that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {saldoFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Saldos
+     * const saldos = await prisma.saldo.findMany()
+     * 
+     * // Get first 10 Saldos
+     * const saldos = await prisma.saldo.findMany({ take: 10 })
+     * 
+     * // Only select the `id_saldo`
+     * const saldoWithId_saldoOnly = await prisma.saldo.findMany({ select: { id_saldo: true } })
+     * 
+     */
+    findMany<T extends saldoFindManyArgs>(args?: SelectSubset<T, saldoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Saldo.
+     * @param {saldoCreateArgs} args - Arguments to create a Saldo.
+     * @example
+     * // Create one Saldo
+     * const Saldo = await prisma.saldo.create({
+     *   data: {
+     *     // ... data to create a Saldo
+     *   }
+     * })
+     * 
+     */
+    create<T extends saldoCreateArgs>(args: SelectSubset<T, saldoCreateArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Saldos.
+     * @param {saldoCreateManyArgs} args - Arguments to create many Saldos.
+     * @example
+     * // Create many Saldos
+     * const saldo = await prisma.saldo.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends saldoCreateManyArgs>(args?: SelectSubset<T, saldoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Saldos and returns the data saved in the database.
+     * @param {saldoCreateManyAndReturnArgs} args - Arguments to create many Saldos.
+     * @example
+     * // Create many Saldos
+     * const saldo = await prisma.saldo.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Saldos and only return the `id_saldo`
+     * const saldoWithId_saldoOnly = await prisma.saldo.createManyAndReturn({
+     *   select: { id_saldo: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends saldoCreateManyAndReturnArgs>(args?: SelectSubset<T, saldoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Saldo.
+     * @param {saldoDeleteArgs} args - Arguments to delete one Saldo.
+     * @example
+     * // Delete one Saldo
+     * const Saldo = await prisma.saldo.delete({
+     *   where: {
+     *     // ... filter to delete one Saldo
+     *   }
+     * })
+     * 
+     */
+    delete<T extends saldoDeleteArgs>(args: SelectSubset<T, saldoDeleteArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Saldo.
+     * @param {saldoUpdateArgs} args - Arguments to update one Saldo.
+     * @example
+     * // Update one Saldo
+     * const saldo = await prisma.saldo.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends saldoUpdateArgs>(args: SelectSubset<T, saldoUpdateArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Saldos.
+     * @param {saldoDeleteManyArgs} args - Arguments to filter Saldos to delete.
+     * @example
+     * // Delete a few Saldos
+     * const { count } = await prisma.saldo.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends saldoDeleteManyArgs>(args?: SelectSubset<T, saldoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Saldos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {saldoUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Saldos
+     * const saldo = await prisma.saldo.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends saldoUpdateManyArgs>(args: SelectSubset<T, saldoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Saldos and returns the data updated in the database.
+     * @param {saldoUpdateManyAndReturnArgs} args - Arguments to update many Saldos.
+     * @example
+     * // Update many Saldos
+     * const saldo = await prisma.saldo.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Saldos and only return the `id_saldo`
+     * const saldoWithId_saldoOnly = await prisma.saldo.updateManyAndReturn({
+     *   select: { id_saldo: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends saldoUpdateManyAndReturnArgs>(args: SelectSubset<T, saldoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Saldo.
+     * @param {saldoUpsertArgs} args - Arguments to update or create a Saldo.
+     * @example
+     * // Update or create a Saldo
+     * const saldo = await prisma.saldo.upsert({
+     *   create: {
+     *     // ... data to create a Saldo
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Saldo we want to update
+     *   }
+     * })
+     */
+    upsert<T extends saldoUpsertArgs>(args: SelectSubset<T, saldoUpsertArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Saldos.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {saldoCountArgs} args - Arguments to filter Saldos to count.
+     * @example
+     * // Count the number of Saldos
+     * const count = await prisma.saldo.count({
+     *   where: {
+     *     // ... the filter for the Saldos we want to count
+     *   }
+     * })
+    **/
+    count<T extends saldoCountArgs>(
+      args?: Subset<T, saldoCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SaldoCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Saldo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SaldoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SaldoAggregateArgs>(args: Subset<T, SaldoAggregateArgs>): Prisma.PrismaPromise<GetSaldoAggregateType<T>>
+
+    /**
+     * Group by Saldo.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {saldoGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends saldoGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: saldoGroupByArgs['orderBy'] }
+        : { orderBy?: saldoGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, saldoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSaldoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the saldo model
+   */
+  readonly fields: saldoFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for saldo.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__saldoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cliente<T extends clienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clienteDefaultArgs<ExtArgs>>): Prisma__clienteClient<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the saldo model
+   */
+  interface saldoFieldRefs {
+    readonly id_saldo: FieldRef<"saldo", 'String'>
+    readonly id_cliente: FieldRef<"saldo", 'String'>
+    readonly saldo: FieldRef<"saldo", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * saldo findUnique
+   */
+  export type saldoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * Filter, which saldo to fetch.
+     */
+    where: saldoWhereUniqueInput
+  }
+
+  /**
+   * saldo findUniqueOrThrow
+   */
+  export type saldoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * Filter, which saldo to fetch.
+     */
+    where: saldoWhereUniqueInput
+  }
+
+  /**
+   * saldo findFirst
+   */
+  export type saldoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * Filter, which saldo to fetch.
+     */
+    where?: saldoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of saldos to fetch.
+     */
+    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for saldos.
+     */
+    cursor?: saldoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` saldos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` saldos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of saldos.
+     */
+    distinct?: SaldoScalarFieldEnum | SaldoScalarFieldEnum[]
+  }
+
+  /**
+   * saldo findFirstOrThrow
+   */
+  export type saldoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * Filter, which saldo to fetch.
+     */
+    where?: saldoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of saldos to fetch.
+     */
+    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for saldos.
+     */
+    cursor?: saldoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` saldos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` saldos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of saldos.
+     */
+    distinct?: SaldoScalarFieldEnum | SaldoScalarFieldEnum[]
+  }
+
+  /**
+   * saldo findMany
+   */
+  export type saldoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * Filter, which saldos to fetch.
+     */
+    where?: saldoWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of saldos to fetch.
+     */
+    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing saldos.
+     */
+    cursor?: saldoWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` saldos from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` saldos.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of saldos.
+     */
+    distinct?: SaldoScalarFieldEnum | SaldoScalarFieldEnum[]
+  }
+
+  /**
+   * saldo create
+   */
+  export type saldoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * The data needed to create a saldo.
+     */
+    data: XOR<saldoCreateInput, saldoUncheckedCreateInput>
+  }
+
+  /**
+   * saldo createMany
+   */
+  export type saldoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many saldos.
+     */
+    data: saldoCreateManyInput | saldoCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * saldo createManyAndReturn
+   */
+  export type saldoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * The data used to create many saldos.
+     */
+    data: saldoCreateManyInput | saldoCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * saldo update
+   */
+  export type saldoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * The data needed to update a saldo.
+     */
+    data: XOR<saldoUpdateInput, saldoUncheckedUpdateInput>
+    /**
+     * Choose, which saldo to update.
+     */
+    where: saldoWhereUniqueInput
+  }
+
+  /**
+   * saldo updateMany
+   */
+  export type saldoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update saldos.
+     */
+    data: XOR<saldoUpdateManyMutationInput, saldoUncheckedUpdateManyInput>
+    /**
+     * Filter which saldos to update
+     */
+    where?: saldoWhereInput
+    /**
+     * Limit how many saldos to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * saldo updateManyAndReturn
+   */
+  export type saldoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * The data used to update saldos.
+     */
+    data: XOR<saldoUpdateManyMutationInput, saldoUncheckedUpdateManyInput>
+    /**
+     * Filter which saldos to update
+     */
+    where?: saldoWhereInput
+    /**
+     * Limit how many saldos to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * saldo upsert
+   */
+  export type saldoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * The filter to search for the saldo to update in case it exists.
+     */
+    where: saldoWhereUniqueInput
+    /**
+     * In case the saldo found by the `where` argument doesn't exist, create a new saldo with this data.
+     */
+    create: XOR<saldoCreateInput, saldoUncheckedCreateInput>
+    /**
+     * In case the saldo was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<saldoUpdateInput, saldoUncheckedUpdateInput>
+  }
+
+  /**
+   * saldo delete
+   */
+  export type saldoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
+    /**
+     * Filter which saldo to delete.
+     */
+    where: saldoWhereUniqueInput
+  }
+
+  /**
+   * saldo deleteMany
+   */
+  export type saldoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which saldos to delete
+     */
+    where?: saldoWhereInput
+    /**
+     * Limit how many saldos to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * saldo without action
+   */
+  export type saldoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the saldo
+     */
+    select?: saldoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the saldo
+     */
+    omit?: saldoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: saldoInclude<ExtArgs> | null
   }
 
 
@@ -23655,8 +24647,6 @@ export namespace Prisma {
     municipio?: boolean
     descripcion?: boolean
     estado?: boolean
-    ruta?: boolean | zona$rutaArgs<ExtArgs>
-    _count?: boolean | ZonaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["zona"]>
 
   export type zonaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -23681,18 +24671,10 @@ export namespace Prisma {
   }
 
   export type zonaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_zona" | "municipio" | "descripcion" | "estado", ExtArgs["result"]["zona"]>
-  export type zonaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ruta?: boolean | zona$rutaArgs<ExtArgs>
-    _count?: boolean | ZonaCountOutputTypeDefaultArgs<ExtArgs>
-  }
-  export type zonaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type zonaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $zonaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "zona"
-    objects: {
-      ruta: Prisma.$rutaPayload<ExtArgs>[]
-    }
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id_zona: number
       municipio: string
@@ -24092,7 +25074,6 @@ export namespace Prisma {
    */
   export interface Prisma__zonaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    ruta<T extends zona$rutaArgs<ExtArgs> = {}>(args?: Subset<T, zona$rutaArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$rutaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -24143,10 +25124,6 @@ export namespace Prisma {
      */
     omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
-    /**
      * Filter, which zona to fetch.
      */
     where: zonaWhereUniqueInput
@@ -24165,10 +25142,6 @@ export namespace Prisma {
      */
     omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
-    /**
      * Filter, which zona to fetch.
      */
     where: zonaWhereUniqueInput
@@ -24186,10 +25159,6 @@ export namespace Prisma {
      * Omit specific fields from the zona
      */
     omit?: zonaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
     /**
      * Filter, which zona to fetch.
      */
@@ -24239,10 +25208,6 @@ export namespace Prisma {
      */
     omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
-    /**
      * Filter, which zona to fetch.
      */
     where?: zonaWhereInput
@@ -24290,10 +25255,6 @@ export namespace Prisma {
      * Omit specific fields from the zona
      */
     omit?: zonaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
     /**
      * Filter, which zonas to fetch.
      */
@@ -24343,10 +25304,6 @@ export namespace Prisma {
      */
     omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
-    /**
      * The data needed to create a zona.
      */
     data: XOR<zonaCreateInput, zonaUncheckedCreateInput>
@@ -24394,10 +25351,6 @@ export namespace Prisma {
      * Omit specific fields from the zona
      */
     omit?: zonaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
     /**
      * The data needed to update a zona.
      */
@@ -24465,10 +25418,6 @@ export namespace Prisma {
      */
     omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
-    /**
      * The filter to search for the zona to update in case it exists.
      */
     where: zonaWhereUniqueInput
@@ -24495,10 +25444,6 @@ export namespace Prisma {
      */
     omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
-    /**
      * Filter which zona to delete.
      */
     where: zonaWhereUniqueInput
@@ -24519,30 +25464,6 @@ export namespace Prisma {
   }
 
   /**
-   * zona.ruta
-   */
-  export type zona$rutaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the ruta
-     */
-    select?: rutaSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the ruta
-     */
-    omit?: rutaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: rutaInclude<ExtArgs> | null
-    where?: rutaWhereInput
-    orderBy?: rutaOrderByWithRelationInput | rutaOrderByWithRelationInput[]
-    cursor?: rutaWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: RutaScalarFieldEnum | RutaScalarFieldEnum[]
-  }
-
-  /**
    * zona without action
    */
   export type zonaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24554,1081 +25475,6 @@ export namespace Prisma {
      * Omit specific fields from the zona
      */
     omit?: zonaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: zonaInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model saldo
-   */
-
-  export type AggregateSaldo = {
-    _count: SaldoCountAggregateOutputType | null
-    _avg: SaldoAvgAggregateOutputType | null
-    _sum: SaldoSumAggregateOutputType | null
-    _min: SaldoMinAggregateOutputType | null
-    _max: SaldoMaxAggregateOutputType | null
-  }
-
-  export type SaldoAvgAggregateOutputType = {
-    saldo: number | null
-  }
-
-  export type SaldoSumAggregateOutputType = {
-    saldo: number | null
-  }
-
-  export type SaldoMinAggregateOutputType = {
-    id_saldo: string | null
-    id_cliente: string | null
-    saldo: number | null
-  }
-
-  export type SaldoMaxAggregateOutputType = {
-    id_saldo: string | null
-    id_cliente: string | null
-    saldo: number | null
-  }
-
-  export type SaldoCountAggregateOutputType = {
-    id_saldo: number
-    id_cliente: number
-    saldo: number
-    _all: number
-  }
-
-
-  export type SaldoAvgAggregateInputType = {
-    saldo?: true
-  }
-
-  export type SaldoSumAggregateInputType = {
-    saldo?: true
-  }
-
-  export type SaldoMinAggregateInputType = {
-    id_saldo?: true
-    id_cliente?: true
-    saldo?: true
-  }
-
-  export type SaldoMaxAggregateInputType = {
-    id_saldo?: true
-    id_cliente?: true
-    saldo?: true
-  }
-
-  export type SaldoCountAggregateInputType = {
-    id_saldo?: true
-    id_cliente?: true
-    saldo?: true
-    _all?: true
-  }
-
-  export type SaldoAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which saldo to aggregate.
-     */
-    where?: saldoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of saldos to fetch.
-     */
-    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: saldoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` saldos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` saldos.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned saldos
-    **/
-    _count?: true | SaldoCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: SaldoAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: SaldoSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: SaldoMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: SaldoMaxAggregateInputType
-  }
-
-  export type GetSaldoAggregateType<T extends SaldoAggregateArgs> = {
-        [P in keyof T & keyof AggregateSaldo]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateSaldo[P]>
-      : GetScalarType<T[P], AggregateSaldo[P]>
-  }
-
-
-
-
-  export type saldoGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: saldoWhereInput
-    orderBy?: saldoOrderByWithAggregationInput | saldoOrderByWithAggregationInput[]
-    by: SaldoScalarFieldEnum[] | SaldoScalarFieldEnum
-    having?: saldoScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: SaldoCountAggregateInputType | true
-    _avg?: SaldoAvgAggregateInputType
-    _sum?: SaldoSumAggregateInputType
-    _min?: SaldoMinAggregateInputType
-    _max?: SaldoMaxAggregateInputType
-  }
-
-  export type SaldoGroupByOutputType = {
-    id_saldo: string
-    id_cliente: string
-    saldo: number
-    _count: SaldoCountAggregateOutputType | null
-    _avg: SaldoAvgAggregateOutputType | null
-    _sum: SaldoSumAggregateOutputType | null
-    _min: SaldoMinAggregateOutputType | null
-    _max: SaldoMaxAggregateOutputType | null
-  }
-
-  type GetSaldoGroupByPayload<T extends saldoGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<SaldoGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof SaldoGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], SaldoGroupByOutputType[P]>
-            : GetScalarType<T[P], SaldoGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type saldoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_saldo?: boolean
-    id_cliente?: boolean
-    saldo?: boolean
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["saldo"]>
-
-  export type saldoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_saldo?: boolean
-    id_cliente?: boolean
-    saldo?: boolean
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["saldo"]>
-
-  export type saldoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id_saldo?: boolean
-    id_cliente?: boolean
-    saldo?: boolean
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["saldo"]>
-
-  export type saldoSelectScalar = {
-    id_saldo?: boolean
-    id_cliente?: boolean
-    saldo?: boolean
-  }
-
-  export type saldoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_saldo" | "id_cliente" | "saldo", ExtArgs["result"]["saldo"]>
-  export type saldoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-  }
-  export type saldoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-  }
-  export type saldoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    cliente?: boolean | clienteDefaultArgs<ExtArgs>
-  }
-
-  export type $saldoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "saldo"
-    objects: {
-      cliente: Prisma.$clientePayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id_saldo: string
-      id_cliente: string
-      saldo: number
-    }, ExtArgs["result"]["saldo"]>
-    composites: {}
-  }
-
-  type saldoGetPayload<S extends boolean | null | undefined | saldoDefaultArgs> = $Result.GetResult<Prisma.$saldoPayload, S>
-
-  type saldoCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<saldoFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SaldoCountAggregateInputType | true
-    }
-
-  export interface saldoDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['saldo'], meta: { name: 'saldo' } }
-    /**
-     * Find zero or one Saldo that matches the filter.
-     * @param {saldoFindUniqueArgs} args - Arguments to find a Saldo
-     * @example
-     * // Get one Saldo
-     * const saldo = await prisma.saldo.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends saldoFindUniqueArgs>(args: SelectSubset<T, saldoFindUniqueArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Saldo that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {saldoFindUniqueOrThrowArgs} args - Arguments to find a Saldo
-     * @example
-     * // Get one Saldo
-     * const saldo = await prisma.saldo.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends saldoFindUniqueOrThrowArgs>(args: SelectSubset<T, saldoFindUniqueOrThrowArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Saldo that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {saldoFindFirstArgs} args - Arguments to find a Saldo
-     * @example
-     * // Get one Saldo
-     * const saldo = await prisma.saldo.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends saldoFindFirstArgs>(args?: SelectSubset<T, saldoFindFirstArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Saldo that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {saldoFindFirstOrThrowArgs} args - Arguments to find a Saldo
-     * @example
-     * // Get one Saldo
-     * const saldo = await prisma.saldo.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends saldoFindFirstOrThrowArgs>(args?: SelectSubset<T, saldoFindFirstOrThrowArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Saldos that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {saldoFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Saldos
-     * const saldos = await prisma.saldo.findMany()
-     * 
-     * // Get first 10 Saldos
-     * const saldos = await prisma.saldo.findMany({ take: 10 })
-     * 
-     * // Only select the `id_saldo`
-     * const saldoWithId_saldoOnly = await prisma.saldo.findMany({ select: { id_saldo: true } })
-     * 
-     */
-    findMany<T extends saldoFindManyArgs>(args?: SelectSubset<T, saldoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Saldo.
-     * @param {saldoCreateArgs} args - Arguments to create a Saldo.
-     * @example
-     * // Create one Saldo
-     * const Saldo = await prisma.saldo.create({
-     *   data: {
-     *     // ... data to create a Saldo
-     *   }
-     * })
-     * 
-     */
-    create<T extends saldoCreateArgs>(args: SelectSubset<T, saldoCreateArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Saldos.
-     * @param {saldoCreateManyArgs} args - Arguments to create many Saldos.
-     * @example
-     * // Create many Saldos
-     * const saldo = await prisma.saldo.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends saldoCreateManyArgs>(args?: SelectSubset<T, saldoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Saldos and returns the data saved in the database.
-     * @param {saldoCreateManyAndReturnArgs} args - Arguments to create many Saldos.
-     * @example
-     * // Create many Saldos
-     * const saldo = await prisma.saldo.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Saldos and only return the `id_saldo`
-     * const saldoWithId_saldoOnly = await prisma.saldo.createManyAndReturn({
-     *   select: { id_saldo: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends saldoCreateManyAndReturnArgs>(args?: SelectSubset<T, saldoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Saldo.
-     * @param {saldoDeleteArgs} args - Arguments to delete one Saldo.
-     * @example
-     * // Delete one Saldo
-     * const Saldo = await prisma.saldo.delete({
-     *   where: {
-     *     // ... filter to delete one Saldo
-     *   }
-     * })
-     * 
-     */
-    delete<T extends saldoDeleteArgs>(args: SelectSubset<T, saldoDeleteArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Saldo.
-     * @param {saldoUpdateArgs} args - Arguments to update one Saldo.
-     * @example
-     * // Update one Saldo
-     * const saldo = await prisma.saldo.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends saldoUpdateArgs>(args: SelectSubset<T, saldoUpdateArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Saldos.
-     * @param {saldoDeleteManyArgs} args - Arguments to filter Saldos to delete.
-     * @example
-     * // Delete a few Saldos
-     * const { count } = await prisma.saldo.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends saldoDeleteManyArgs>(args?: SelectSubset<T, saldoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Saldos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {saldoUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Saldos
-     * const saldo = await prisma.saldo.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends saldoUpdateManyArgs>(args: SelectSubset<T, saldoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Saldos and returns the data updated in the database.
-     * @param {saldoUpdateManyAndReturnArgs} args - Arguments to update many Saldos.
-     * @example
-     * // Update many Saldos
-     * const saldo = await prisma.saldo.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Saldos and only return the `id_saldo`
-     * const saldoWithId_saldoOnly = await prisma.saldo.updateManyAndReturn({
-     *   select: { id_saldo: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends saldoUpdateManyAndReturnArgs>(args: SelectSubset<T, saldoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Saldo.
-     * @param {saldoUpsertArgs} args - Arguments to update or create a Saldo.
-     * @example
-     * // Update or create a Saldo
-     * const saldo = await prisma.saldo.upsert({
-     *   create: {
-     *     // ... data to create a Saldo
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Saldo we want to update
-     *   }
-     * })
-     */
-    upsert<T extends saldoUpsertArgs>(args: SelectSubset<T, saldoUpsertArgs<ExtArgs>>): Prisma__saldoClient<$Result.GetResult<Prisma.$saldoPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Saldos.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {saldoCountArgs} args - Arguments to filter Saldos to count.
-     * @example
-     * // Count the number of Saldos
-     * const count = await prisma.saldo.count({
-     *   where: {
-     *     // ... the filter for the Saldos we want to count
-     *   }
-     * })
-    **/
-    count<T extends saldoCountArgs>(
-      args?: Subset<T, saldoCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], SaldoCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Saldo.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {SaldoAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends SaldoAggregateArgs>(args: Subset<T, SaldoAggregateArgs>): Prisma.PrismaPromise<GetSaldoAggregateType<T>>
-
-    /**
-     * Group by Saldo.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {saldoGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends saldoGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: saldoGroupByArgs['orderBy'] }
-        : { orderBy?: saldoGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, saldoGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSaldoGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the saldo model
-   */
-  readonly fields: saldoFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for saldo.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__saldoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    cliente<T extends clienteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clienteDefaultArgs<ExtArgs>>): Prisma__clienteClient<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the saldo model
-   */
-  interface saldoFieldRefs {
-    readonly id_saldo: FieldRef<"saldo", 'String'>
-    readonly id_cliente: FieldRef<"saldo", 'String'>
-    readonly saldo: FieldRef<"saldo", 'Float'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * saldo findUnique
-   */
-  export type saldoFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * Filter, which saldo to fetch.
-     */
-    where: saldoWhereUniqueInput
-  }
-
-  /**
-   * saldo findUniqueOrThrow
-   */
-  export type saldoFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * Filter, which saldo to fetch.
-     */
-    where: saldoWhereUniqueInput
-  }
-
-  /**
-   * saldo findFirst
-   */
-  export type saldoFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * Filter, which saldo to fetch.
-     */
-    where?: saldoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of saldos to fetch.
-     */
-    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for saldos.
-     */
-    cursor?: saldoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` saldos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` saldos.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of saldos.
-     */
-    distinct?: SaldoScalarFieldEnum | SaldoScalarFieldEnum[]
-  }
-
-  /**
-   * saldo findFirstOrThrow
-   */
-  export type saldoFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * Filter, which saldo to fetch.
-     */
-    where?: saldoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of saldos to fetch.
-     */
-    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for saldos.
-     */
-    cursor?: saldoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` saldos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` saldos.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of saldos.
-     */
-    distinct?: SaldoScalarFieldEnum | SaldoScalarFieldEnum[]
-  }
-
-  /**
-   * saldo findMany
-   */
-  export type saldoFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * Filter, which saldos to fetch.
-     */
-    where?: saldoWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of saldos to fetch.
-     */
-    orderBy?: saldoOrderByWithRelationInput | saldoOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing saldos.
-     */
-    cursor?: saldoWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` saldos from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` saldos.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of saldos.
-     */
-    distinct?: SaldoScalarFieldEnum | SaldoScalarFieldEnum[]
-  }
-
-  /**
-   * saldo create
-   */
-  export type saldoCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * The data needed to create a saldo.
-     */
-    data: XOR<saldoCreateInput, saldoUncheckedCreateInput>
-  }
-
-  /**
-   * saldo createMany
-   */
-  export type saldoCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many saldos.
-     */
-    data: saldoCreateManyInput | saldoCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * saldo createManyAndReturn
-   */
-  export type saldoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * The data used to create many saldos.
-     */
-    data: saldoCreateManyInput | saldoCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * saldo update
-   */
-  export type saldoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * The data needed to update a saldo.
-     */
-    data: XOR<saldoUpdateInput, saldoUncheckedUpdateInput>
-    /**
-     * Choose, which saldo to update.
-     */
-    where: saldoWhereUniqueInput
-  }
-
-  /**
-   * saldo updateMany
-   */
-  export type saldoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update saldos.
-     */
-    data: XOR<saldoUpdateManyMutationInput, saldoUncheckedUpdateManyInput>
-    /**
-     * Filter which saldos to update
-     */
-    where?: saldoWhereInput
-    /**
-     * Limit how many saldos to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * saldo updateManyAndReturn
-   */
-  export type saldoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * The data used to update saldos.
-     */
-    data: XOR<saldoUpdateManyMutationInput, saldoUncheckedUpdateManyInput>
-    /**
-     * Filter which saldos to update
-     */
-    where?: saldoWhereInput
-    /**
-     * Limit how many saldos to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * saldo upsert
-   */
-  export type saldoUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * The filter to search for the saldo to update in case it exists.
-     */
-    where: saldoWhereUniqueInput
-    /**
-     * In case the saldo found by the `where` argument doesn't exist, create a new saldo with this data.
-     */
-    create: XOR<saldoCreateInput, saldoUncheckedCreateInput>
-    /**
-     * In case the saldo was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<saldoUpdateInput, saldoUncheckedUpdateInput>
-  }
-
-  /**
-   * saldo delete
-   */
-  export type saldoDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
-    /**
-     * Filter which saldo to delete.
-     */
-    where: saldoWhereUniqueInput
-  }
-
-  /**
-   * saldo deleteMany
-   */
-  export type saldoDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which saldos to delete
-     */
-    where?: saldoWhereInput
-    /**
-     * Limit how many saldos to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * saldo without action
-   */
-  export type saldoDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the saldo
-     */
-    select?: saldoSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the saldo
-     */
-    omit?: saldoOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: saldoInclude<ExtArgs> | null
   }
 
 
@@ -25692,7 +25538,7 @@ export namespace Prisma {
     id_usuario: 'id_usuario',
     id_ruta: 'id_ruta',
     mascotas: 'mascotas',
-    cantidad_familia: 'cantidad_familia',
+    familia: 'familia',
     direccion: 'direccion',
     orden_horario: 'orden_horario',
     notas: 'notas',
@@ -25805,7 +25651,6 @@ export namespace Prisma {
   export const RutaScalarFieldEnum: {
     id_ruta: 'id_ruta',
     dia_ruta: 'dia_ruta',
-    id_zona: 'id_zona',
     turno_ruta: 'turno_ruta'
   };
 
@@ -25820,9 +25665,8 @@ export namespace Prisma {
     telefono: 'telefono',
     correo: 'correo',
     direccion: 'direccion',
-    zona: 'zona',
     mascotas: 'mascotas',
-    cantidad_familia: 'cantidad_familia',
+    familia: 'familia',
     notas: 'notas',
     fecha: 'fecha',
     estatus: 'estatus'
@@ -25848,6 +25692,15 @@ export namespace Prisma {
   };
 
   export type Solicitudes_recoleccionScalarFieldEnum = (typeof Solicitudes_recoleccionScalarFieldEnum)[keyof typeof Solicitudes_recoleccionScalarFieldEnum]
+
+
+  export const SaldoScalarFieldEnum: {
+    id_saldo: 'id_saldo',
+    id_cliente: 'id_cliente',
+    saldo: 'saldo'
+  };
+
+  export type SaldoScalarFieldEnum = (typeof SaldoScalarFieldEnum)[keyof typeof SaldoScalarFieldEnum]
 
 
   export const Usuarios_cpScalarFieldEnum: {
@@ -25878,15 +25731,6 @@ export namespace Prisma {
   };
 
   export type ZonaScalarFieldEnum = (typeof ZonaScalarFieldEnum)[keyof typeof ZonaScalarFieldEnum]
-
-
-  export const SaldoScalarFieldEnum: {
-    id_saldo: 'id_saldo',
-    id_cliente: 'id_cliente',
-    saldo: 'saldo'
-  };
-
-  export type SaldoScalarFieldEnum = (typeof SaldoScalarFieldEnum)[keyof typeof SaldoScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -26251,7 +26095,7 @@ export namespace Prisma {
     id_usuario?: UuidFilter<"cliente"> | string
     id_ruta?: IntFilter<"cliente"> | number
     mascotas?: StringNullableFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableFilter<"cliente"> | number | null
+    familia?: IntNullableFilter<"cliente"> | number | null
     direccion?: StringNullableFilter<"cliente"> | string | null
     orden_horario?: IntNullableFilter<"cliente"> | number | null
     notas?: StringNullableFilter<"cliente"> | string | null
@@ -26268,7 +26112,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     orden_horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
@@ -26288,7 +26132,7 @@ export namespace Prisma {
     NOT?: clienteWhereInput | clienteWhereInput[]
     id_ruta?: IntFilter<"cliente"> | number
     mascotas?: StringNullableFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableFilter<"cliente"> | number | null
+    familia?: IntNullableFilter<"cliente"> | number | null
     direccion?: StringNullableFilter<"cliente"> | string | null
     orden_horario?: IntNullableFilter<"cliente"> | number | null
     notas?: StringNullableFilter<"cliente"> | string | null
@@ -26305,7 +26149,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     direccion?: SortOrderInput | SortOrder
     orden_horario?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
@@ -26326,7 +26170,7 @@ export namespace Prisma {
     id_usuario?: UuidWithAggregatesFilter<"cliente"> | string
     id_ruta?: IntWithAggregatesFilter<"cliente"> | number
     mascotas?: StringNullableWithAggregatesFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableWithAggregatesFilter<"cliente"> | number | null
+    familia?: IntNullableWithAggregatesFilter<"cliente"> | number | null
     direccion?: StringNullableWithAggregatesFilter<"cliente"> | string | null
     orden_horario?: IntNullableWithAggregatesFilter<"cliente"> | number | null
     notas?: StringNullableWithAggregatesFilter<"cliente"> | string | null
@@ -26867,19 +26711,15 @@ export namespace Prisma {
     NOT?: rutaWhereInput | rutaWhereInput[]
     id_ruta?: IntFilter<"ruta"> | number
     dia_ruta?: StringFilter<"ruta"> | string
-    id_zona?: IntFilter<"ruta"> | number
     turno_ruta?: StringFilter<"ruta"> | string
     cliente?: ClienteListRelationFilter
-    zona?: XOR<ZonaScalarRelationFilter, zonaWhereInput>
   }
 
   export type rutaOrderByWithRelationInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
-    id_zona?: SortOrder
     turno_ruta?: SortOrder
     cliente?: clienteOrderByRelationAggregateInput
-    zona?: zonaOrderByWithRelationInput
   }
 
   export type rutaWhereUniqueInput = Prisma.AtLeast<{
@@ -26888,16 +26728,13 @@ export namespace Prisma {
     OR?: rutaWhereInput[]
     NOT?: rutaWhereInput | rutaWhereInput[]
     dia_ruta?: StringFilter<"ruta"> | string
-    id_zona?: IntFilter<"ruta"> | number
     turno_ruta?: StringFilter<"ruta"> | string
     cliente?: ClienteListRelationFilter
-    zona?: XOR<ZonaScalarRelationFilter, zonaWhereInput>
   }, "id_ruta">
 
   export type rutaOrderByWithAggregationInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
-    id_zona?: SortOrder
     turno_ruta?: SortOrder
     _count?: rutaCountOrderByAggregateInput
     _avg?: rutaAvgOrderByAggregateInput
@@ -26912,7 +26749,6 @@ export namespace Prisma {
     NOT?: rutaScalarWhereWithAggregatesInput | rutaScalarWhereWithAggregatesInput[]
     id_ruta?: IntWithAggregatesFilter<"ruta"> | number
     dia_ruta?: StringWithAggregatesFilter<"ruta"> | string
-    id_zona?: IntWithAggregatesFilter<"ruta"> | number
     turno_ruta?: StringWithAggregatesFilter<"ruta"> | string
   }
 
@@ -26927,9 +26763,8 @@ export namespace Prisma {
     telefono?: StringNullableFilter<"solicitud_registro"> | string | null
     correo?: StringFilter<"solicitud_registro"> | string
     direccion?: StringNullableFilter<"solicitud_registro"> | string | null
-    zona?: StringNullableFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableFilter<"solicitud_registro"> | number | null
+    familia?: IntNullableFilter<"solicitud_registro"> | number | null
     notas?: StringNullableFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeFilter<"solicitud_registro"> | Date | string
     estatus?: BoolFilter<"solicitud_registro"> | boolean
@@ -26944,9 +26779,8 @@ export namespace Prisma {
     telefono?: SortOrderInput | SortOrder
     correo?: SortOrder
     direccion?: SortOrderInput | SortOrder
-    zona?: SortOrderInput | SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
@@ -26964,9 +26798,8 @@ export namespace Prisma {
     telefono?: StringNullableFilter<"solicitud_registro"> | string | null
     correo?: StringFilter<"solicitud_registro"> | string
     direccion?: StringNullableFilter<"solicitud_registro"> | string | null
-    zona?: StringNullableFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableFilter<"solicitud_registro"> | number | null
+    familia?: IntNullableFilter<"solicitud_registro"> | number | null
     notas?: StringNullableFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeFilter<"solicitud_registro"> | Date | string
     estatus?: BoolFilter<"solicitud_registro"> | boolean
@@ -26981,9 +26814,8 @@ export namespace Prisma {
     telefono?: SortOrderInput | SortOrder
     correo?: SortOrder
     direccion?: SortOrderInput | SortOrder
-    zona?: SortOrderInput | SortOrder
     mascotas?: SortOrderInput | SortOrder
-    cantidad_familia?: SortOrderInput | SortOrder
+    familia?: SortOrderInput | SortOrder
     notas?: SortOrderInput | SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
@@ -27005,9 +26837,8 @@ export namespace Prisma {
     telefono?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
     correo?: StringWithAggregatesFilter<"solicitud_registro"> | string
     direccion?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
-    zona?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableWithAggregatesFilter<"solicitud_registro"> | number | null
+    familia?: IntNullableWithAggregatesFilter<"solicitud_registro"> | number | null
     notas?: StringNullableWithAggregatesFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeWithAggregatesFilter<"solicitud_registro"> | Date | string
     estatus?: BoolWithAggregatesFilter<"solicitud_registro"> | boolean
@@ -27029,7 +26860,7 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    estatus?: BoolFilter<"solicitudes_recoleccion"> | boolean
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
     formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
@@ -27048,7 +26879,7 @@ export namespace Prisma {
     quiere_productos_extra?: SortOrderInput | SortOrder
     quiere_recoleccion?: SortOrderInput | SortOrder
     id_pago?: SortOrderInput | SortOrder
-    estatus?: SortOrderInput | SortOrder
+    estatus?: SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
     formas_pago?: formas_pagoOrderByWithRelationInput
@@ -27070,7 +26901,7 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    estatus?: BoolFilter<"solicitudes_recoleccion"> | boolean
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
     formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
@@ -27089,7 +26920,7 @@ export namespace Prisma {
     quiere_productos_extra?: SortOrderInput | SortOrder
     quiere_recoleccion?: SortOrderInput | SortOrder
     id_pago?: SortOrderInput | SortOrder
-    estatus?: SortOrderInput | SortOrder
+    estatus?: SortOrder
     _count?: solicitudes_recoleccionCountOrderByAggregateInput
     _avg?: solicitudes_recoleccionAvgOrderByAggregateInput
     _max?: solicitudes_recoleccionMaxOrderByAggregateInput
@@ -27113,7 +26944,54 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
+    estatus?: BoolWithAggregatesFilter<"solicitudes_recoleccion"> | boolean
+  }
+
+  export type saldoWhereInput = {
+    AND?: saldoWhereInput | saldoWhereInput[]
+    OR?: saldoWhereInput[]
+    NOT?: saldoWhereInput | saldoWhereInput[]
+    id_saldo?: UuidFilter<"saldo"> | string
+    id_cliente?: UuidFilter<"saldo"> | string
+    saldo?: FloatFilter<"saldo"> | number
+    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
+  }
+
+  export type saldoOrderByWithRelationInput = {
+    id_saldo?: SortOrder
+    id_cliente?: SortOrder
+    saldo?: SortOrder
+    cliente?: clienteOrderByWithRelationInput
+  }
+
+  export type saldoWhereUniqueInput = Prisma.AtLeast<{
+    id_saldo?: string
+    id_cliente?: string
+    AND?: saldoWhereInput | saldoWhereInput[]
+    OR?: saldoWhereInput[]
+    NOT?: saldoWhereInput | saldoWhereInput[]
+    saldo?: FloatFilter<"saldo"> | number
+    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
+  }, "id_saldo" | "id_cliente">
+
+  export type saldoOrderByWithAggregationInput = {
+    id_saldo?: SortOrder
+    id_cliente?: SortOrder
+    saldo?: SortOrder
+    _count?: saldoCountOrderByAggregateInput
+    _avg?: saldoAvgOrderByAggregateInput
+    _max?: saldoMaxOrderByAggregateInput
+    _min?: saldoMinOrderByAggregateInput
+    _sum?: saldoSumOrderByAggregateInput
+  }
+
+  export type saldoScalarWhereWithAggregatesInput = {
+    AND?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
+    OR?: saldoScalarWhereWithAggregatesInput[]
+    NOT?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
+    id_saldo?: UuidWithAggregatesFilter<"saldo"> | string
+    id_cliente?: UuidWithAggregatesFilter<"saldo"> | string
+    saldo?: FloatWithAggregatesFilter<"saldo"> | number
   }
 
   export type usuarios_cpWhereInput = {
@@ -27241,7 +27119,6 @@ export namespace Prisma {
     municipio?: StringFilter<"zona"> | string
     descripcion?: StringNullableFilter<"zona"> | string | null
     estado?: StringFilter<"zona"> | string
-    ruta?: RutaListRelationFilter
   }
 
   export type zonaOrderByWithRelationInput = {
@@ -27249,7 +27126,6 @@ export namespace Prisma {
     municipio?: SortOrder
     descripcion?: SortOrderInput | SortOrder
     estado?: SortOrder
-    ruta?: rutaOrderByRelationAggregateInput
   }
 
   export type zonaWhereUniqueInput = Prisma.AtLeast<{
@@ -27260,7 +27136,6 @@ export namespace Prisma {
     municipio?: StringFilter<"zona"> | string
     descripcion?: StringNullableFilter<"zona"> | string | null
     estado?: StringFilter<"zona"> | string
-    ruta?: RutaListRelationFilter
   }, "id_zona">
 
   export type zonaOrderByWithAggregationInput = {
@@ -27283,53 +27158,6 @@ export namespace Prisma {
     municipio?: StringWithAggregatesFilter<"zona"> | string
     descripcion?: StringNullableWithAggregatesFilter<"zona"> | string | null
     estado?: StringWithAggregatesFilter<"zona"> | string
-  }
-
-  export type saldoWhereInput = {
-    AND?: saldoWhereInput | saldoWhereInput[]
-    OR?: saldoWhereInput[]
-    NOT?: saldoWhereInput | saldoWhereInput[]
-    id_saldo?: UuidFilter<"saldo"> | string
-    id_cliente?: UuidFilter<"saldo"> | string
-    saldo?: FloatFilter<"saldo"> | number
-    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-  }
-
-  export type saldoOrderByWithRelationInput = {
-    id_saldo?: SortOrder
-    id_cliente?: SortOrder
-    saldo?: SortOrder
-    cliente?: clienteOrderByWithRelationInput
-  }
-
-  export type saldoWhereUniqueInput = Prisma.AtLeast<{
-    id_saldo?: string
-    id_cliente?: string
-    AND?: saldoWhereInput | saldoWhereInput[]
-    OR?: saldoWhereInput[]
-    NOT?: saldoWhereInput | saldoWhereInput[]
-    saldo?: FloatFilter<"saldo"> | number
-    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-  }, "id_saldo" | "id_cliente">
-
-  export type saldoOrderByWithAggregationInput = {
-    id_saldo?: SortOrder
-    id_cliente?: SortOrder
-    saldo?: SortOrder
-    _count?: saldoCountOrderByAggregateInput
-    _avg?: saldoAvgOrderByAggregateInput
-    _max?: saldoMaxOrderByAggregateInput
-    _min?: saldoMinOrderByAggregateInput
-    _sum?: saldoSumOrderByAggregateInput
-  }
-
-  export type saldoScalarWhereWithAggregatesInput = {
-    AND?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
-    OR?: saldoScalarWhereWithAggregatesInput[]
-    NOT?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
-    id_saldo?: UuidWithAggregatesFilter<"saldo"> | string
-    id_cliente?: UuidWithAggregatesFilter<"saldo"> | string
-    saldo?: FloatWithAggregatesFilter<"saldo"> | number
   }
 
   export type administradorCreateInput = {
@@ -27557,7 +27385,7 @@ export namespace Prisma {
   export type clienteCreateInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -27574,7 +27402,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -27587,7 +27415,7 @@ export namespace Prisma {
   export type clienteUpdateInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27604,7 +27432,7 @@ export namespace Prisma {
     id_usuario?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27619,7 +27447,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -27630,7 +27458,7 @@ export namespace Prisma {
   export type clienteUpdateManyMutationInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27643,7 +27471,7 @@ export namespace Prisma {
     id_usuario?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -28169,13 +27997,11 @@ export namespace Prisma {
     dia_ruta: string
     turno_ruta: string
     cliente?: clienteCreateNestedManyWithoutRutaInput
-    zona: zonaCreateNestedOneWithoutRutaInput
   }
 
   export type rutaUncheckedCreateInput = {
     id_ruta: number
     dia_ruta: string
-    id_zona: number
     turno_ruta: string
     cliente?: clienteUncheckedCreateNestedManyWithoutRutaInput
   }
@@ -28185,13 +28011,11 @@ export namespace Prisma {
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
     cliente?: clienteUpdateManyWithoutRutaNestedInput
-    zona?: zonaUpdateOneRequiredWithoutRutaNestedInput
   }
 
   export type rutaUncheckedUpdateInput = {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
-    id_zona?: IntFieldUpdateOperationsInput | number
     turno_ruta?: StringFieldUpdateOperationsInput | string
     cliente?: clienteUncheckedUpdateManyWithoutRutaNestedInput
   }
@@ -28199,7 +28023,6 @@ export namespace Prisma {
   export type rutaCreateManyInput = {
     id_ruta: number
     dia_ruta: string
-    id_zona: number
     turno_ruta: string
   }
 
@@ -28212,7 +28035,6 @@ export namespace Prisma {
   export type rutaUncheckedUpdateManyInput = {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
-    id_zona?: IntFieldUpdateOperationsInput | number
     turno_ruta?: StringFieldUpdateOperationsInput | string
   }
 
@@ -28223,9 +28045,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     direccion?: string | null
-    zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -28240,9 +28061,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     direccion?: string | null
-    zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -28255,9 +28075,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -28272,9 +28091,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -28288,9 +28106,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     direccion?: string | null
-    zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -28303,9 +28120,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -28319,9 +28135,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -28338,7 +28153,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
     formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
@@ -28357,7 +28172,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -28372,7 +28187,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
     formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
@@ -28391,7 +28206,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -28408,7 +28223,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionUpdateManyMutationInput = {
@@ -28422,7 +28237,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type solicitudes_recoleccionUncheckedUpdateManyInput = {
@@ -28438,7 +28253,48 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type saldoCreateInput = {
+    id_saldo?: string
+    saldo?: number
+    cliente: clienteCreateNestedOneWithoutSaldoInput
+  }
+
+  export type saldoUncheckedCreateInput = {
+    id_saldo?: string
+    id_cliente: string
+    saldo?: number
+  }
+
+  export type saldoUpdateInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    cliente?: clienteUpdateOneRequiredWithoutSaldoNestedInput
+  }
+
+  export type saldoUncheckedUpdateInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type saldoCreateManyInput = {
+    id_saldo?: string
+    id_cliente: string
+    saldo?: number
+  }
+
+  export type saldoUpdateManyMutationInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type saldoUncheckedUpdateManyInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type usuarios_cpCreateInput = {
@@ -28579,7 +28435,6 @@ export namespace Prisma {
     municipio: string
     descripcion?: string | null
     estado: string
-    ruta?: rutaCreateNestedManyWithoutZonaInput
   }
 
   export type zonaUncheckedCreateInput = {
@@ -28587,7 +28442,6 @@ export namespace Prisma {
     municipio: string
     descripcion?: string | null
     estado: string
-    ruta?: rutaUncheckedCreateNestedManyWithoutZonaInput
   }
 
   export type zonaUpdateInput = {
@@ -28595,7 +28449,6 @@ export namespace Prisma {
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
-    ruta?: rutaUpdateManyWithoutZonaNestedInput
   }
 
   export type zonaUncheckedUpdateInput = {
@@ -28603,7 +28456,6 @@ export namespace Prisma {
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
-    ruta?: rutaUncheckedUpdateManyWithoutZonaNestedInput
   }
 
   export type zonaCreateManyInput = {
@@ -28625,47 +28477,6 @@ export namespace Prisma {
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type saldoCreateInput = {
-    id_saldo?: string
-    saldo?: number
-    cliente: clienteCreateNestedOneWithoutSaldoInput
-  }
-
-  export type saldoUncheckedCreateInput = {
-    id_saldo?: string
-    id_cliente: string
-    saldo?: number
-  }
-
-  export type saldoUpdateInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-    cliente?: clienteUpdateOneRequiredWithoutSaldoNestedInput
-  }
-
-  export type saldoUncheckedUpdateInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type saldoCreateManyInput = {
-    id_saldo?: string
-    id_cliente: string
-    saldo?: number
-  }
-
-  export type saldoUpdateManyMutationInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type saldoUncheckedUpdateManyInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -29109,7 +28920,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     direccion?: SortOrder
     orden_horario?: SortOrder
     notas?: SortOrder
@@ -29119,7 +28930,7 @@ export namespace Prisma {
 
   export type clienteAvgOrderByAggregateInput = {
     id_ruta?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     orden_horario?: SortOrder
   }
 
@@ -29128,7 +28939,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     direccion?: SortOrder
     orden_horario?: SortOrder
     notas?: SortOrder
@@ -29141,7 +28952,7 @@ export namespace Prisma {
     id_usuario?: SortOrder
     id_ruta?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     direccion?: SortOrder
     orden_horario?: SortOrder
     notas?: SortOrder
@@ -29151,7 +28962,7 @@ export namespace Prisma {
 
   export type clienteSumOrderByAggregateInput = {
     id_ruta?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     orden_horario?: SortOrder
   }
 
@@ -29591,11 +29402,6 @@ export namespace Prisma {
     none?: clienteWhereInput
   }
 
-  export type ZonaScalarRelationFilter = {
-    is?: zonaWhereInput
-    isNot?: zonaWhereInput
-  }
-
   export type clienteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -29603,32 +29409,27 @@ export namespace Prisma {
   export type rutaCountOrderByAggregateInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
-    id_zona?: SortOrder
     turno_ruta?: SortOrder
   }
 
   export type rutaAvgOrderByAggregateInput = {
     id_ruta?: SortOrder
-    id_zona?: SortOrder
   }
 
   export type rutaMaxOrderByAggregateInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
-    id_zona?: SortOrder
     turno_ruta?: SortOrder
   }
 
   export type rutaMinOrderByAggregateInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
-    id_zona?: SortOrder
     turno_ruta?: SortOrder
   }
 
   export type rutaSumOrderByAggregateInput = {
     id_ruta?: SortOrder
-    id_zona?: SortOrder
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -29644,16 +29445,15 @@ export namespace Prisma {
     telefono?: SortOrder
     correo?: SortOrder
     direccion?: SortOrder
-    zona?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     notas?: SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
   }
 
   export type solicitud_registroAvgOrderByAggregateInput = {
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
   }
 
   export type solicitud_registroMaxOrderByAggregateInput = {
@@ -29664,9 +29464,8 @@ export namespace Prisma {
     telefono?: SortOrder
     correo?: SortOrder
     direccion?: SortOrder
-    zona?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     notas?: SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
@@ -29680,16 +29479,15 @@ export namespace Prisma {
     telefono?: SortOrder
     correo?: SortOrder
     direccion?: SortOrder
-    zona?: SortOrder
     mascotas?: SortOrder
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
     notas?: SortOrder
     fecha?: SortOrder
     estatus?: SortOrder
   }
 
   export type solicitud_registroSumOrderByAggregateInput = {
-    cantidad_familia?: SortOrder
+    familia?: SortOrder
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -29801,6 +29599,32 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type saldoCountOrderByAggregateInput = {
+    id_saldo?: SortOrder
+    id_cliente?: SortOrder
+    saldo?: SortOrder
+  }
+
+  export type saldoAvgOrderByAggregateInput = {
+    saldo?: SortOrder
+  }
+
+  export type saldoMaxOrderByAggregateInput = {
+    id_saldo?: SortOrder
+    id_cliente?: SortOrder
+    saldo?: SortOrder
+  }
+
+  export type saldoMinOrderByAggregateInput = {
+    id_saldo?: SortOrder
+    id_cliente?: SortOrder
+    saldo?: SortOrder
+  }
+
+  export type saldoSumOrderByAggregateInput = {
+    saldo?: SortOrder
+  }
+
   export type AdministradorNullableScalarRelationFilter = {
     is?: administradorWhereInput | null
     isNot?: administradorWhereInput | null
@@ -29890,16 +29714,6 @@ export namespace Prisma {
     intentos_fallidos?: SortOrder
   }
 
-  export type RutaListRelationFilter = {
-    every?: rutaWhereInput
-    some?: rutaWhereInput
-    none?: rutaWhereInput
-  }
-
-  export type rutaOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type zonaCountOrderByAggregateInput = {
     id_zona?: SortOrder
     municipio?: SortOrder
@@ -29927,32 +29741,6 @@ export namespace Prisma {
 
   export type zonaSumOrderByAggregateInput = {
     id_zona?: SortOrder
-  }
-
-  export type saldoCountOrderByAggregateInput = {
-    id_saldo?: SortOrder
-    id_cliente?: SortOrder
-    saldo?: SortOrder
-  }
-
-  export type saldoAvgOrderByAggregateInput = {
-    saldo?: SortOrder
-  }
-
-  export type saldoMaxOrderByAggregateInput = {
-    id_saldo?: SortOrder
-    id_cliente?: SortOrder
-    saldo?: SortOrder
-  }
-
-  export type saldoMinOrderByAggregateInput = {
-    id_saldo?: SortOrder
-    id_cliente?: SortOrder
-    saldo?: SortOrder
-  }
-
-  export type saldoSumOrderByAggregateInput = {
-    saldo?: SortOrder
   }
 
   export type usuarios_cpCreateNestedOneWithoutAdministradorInput = {
@@ -30678,12 +30466,6 @@ export namespace Prisma {
     connect?: clienteWhereUniqueInput | clienteWhereUniqueInput[]
   }
 
-  export type zonaCreateNestedOneWithoutRutaInput = {
-    create?: XOR<zonaCreateWithoutRutaInput, zonaUncheckedCreateWithoutRutaInput>
-    connectOrCreate?: zonaCreateOrConnectWithoutRutaInput
-    connect?: zonaWhereUniqueInput
-  }
-
   export type clienteUncheckedCreateNestedManyWithoutRutaInput = {
     create?: XOR<clienteCreateWithoutRutaInput, clienteUncheckedCreateWithoutRutaInput> | clienteCreateWithoutRutaInput[] | clienteUncheckedCreateWithoutRutaInput[]
     connectOrCreate?: clienteCreateOrConnectWithoutRutaInput | clienteCreateOrConnectWithoutRutaInput[]
@@ -30703,14 +30485,6 @@ export namespace Prisma {
     update?: clienteUpdateWithWhereUniqueWithoutRutaInput | clienteUpdateWithWhereUniqueWithoutRutaInput[]
     updateMany?: clienteUpdateManyWithWhereWithoutRutaInput | clienteUpdateManyWithWhereWithoutRutaInput[]
     deleteMany?: clienteScalarWhereInput | clienteScalarWhereInput[]
-  }
-
-  export type zonaUpdateOneRequiredWithoutRutaNestedInput = {
-    create?: XOR<zonaCreateWithoutRutaInput, zonaUncheckedCreateWithoutRutaInput>
-    connectOrCreate?: zonaCreateOrConnectWithoutRutaInput
-    upsert?: zonaUpsertWithoutRutaInput
-    connect?: zonaWhereUniqueInput
-    update?: XOR<XOR<zonaUpdateToOneWithWhereWithoutRutaInput, zonaUpdateWithoutRutaInput>, zonaUncheckedUpdateWithoutRutaInput>
   }
 
   export type clienteUncheckedUpdateManyWithoutRutaNestedInput = {
@@ -30823,6 +30597,20 @@ export namespace Prisma {
     update?: productos_solicitudUpdateWithWhereUniqueWithoutSolicitudes_recoleccionInput | productos_solicitudUpdateWithWhereUniqueWithoutSolicitudes_recoleccionInput[]
     updateMany?: productos_solicitudUpdateManyWithWhereWithoutSolicitudes_recoleccionInput | productos_solicitudUpdateManyWithWhereWithoutSolicitudes_recoleccionInput[]
     deleteMany?: productos_solicitudScalarWhereInput | productos_solicitudScalarWhereInput[]
+  }
+
+  export type clienteCreateNestedOneWithoutSaldoInput = {
+    create?: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
+    connectOrCreate?: clienteCreateOrConnectWithoutSaldoInput
+    connect?: clienteWhereUniqueInput
+  }
+
+  export type clienteUpdateOneRequiredWithoutSaldoNestedInput = {
+    create?: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
+    connectOrCreate?: clienteCreateOrConnectWithoutSaldoInput
+    upsert?: clienteUpsertWithoutSaldoInput
+    connect?: clienteWhereUniqueInput
+    update?: XOR<XOR<clienteUpdateToOneWithWhereWithoutSaldoInput, clienteUpdateWithoutSaldoInput>, clienteUncheckedUpdateWithoutSaldoInput>
   }
 
   export type administradorCreateNestedOneWithoutUsuarios_cpInput = {
@@ -30999,62 +30787,6 @@ export namespace Prisma {
     update?: solicitud_registroUpdateWithWhereUniqueWithoutUsuarios_cpInput | solicitud_registroUpdateWithWhereUniqueWithoutUsuarios_cpInput[]
     updateMany?: solicitud_registroUpdateManyWithWhereWithoutUsuarios_cpInput | solicitud_registroUpdateManyWithWhereWithoutUsuarios_cpInput[]
     deleteMany?: solicitud_registroScalarWhereInput | solicitud_registroScalarWhereInput[]
-  }
-
-  export type rutaCreateNestedManyWithoutZonaInput = {
-    create?: XOR<rutaCreateWithoutZonaInput, rutaUncheckedCreateWithoutZonaInput> | rutaCreateWithoutZonaInput[] | rutaUncheckedCreateWithoutZonaInput[]
-    connectOrCreate?: rutaCreateOrConnectWithoutZonaInput | rutaCreateOrConnectWithoutZonaInput[]
-    createMany?: rutaCreateManyZonaInputEnvelope
-    connect?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-  }
-
-  export type rutaUncheckedCreateNestedManyWithoutZonaInput = {
-    create?: XOR<rutaCreateWithoutZonaInput, rutaUncheckedCreateWithoutZonaInput> | rutaCreateWithoutZonaInput[] | rutaUncheckedCreateWithoutZonaInput[]
-    connectOrCreate?: rutaCreateOrConnectWithoutZonaInput | rutaCreateOrConnectWithoutZonaInput[]
-    createMany?: rutaCreateManyZonaInputEnvelope
-    connect?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-  }
-
-  export type rutaUpdateManyWithoutZonaNestedInput = {
-    create?: XOR<rutaCreateWithoutZonaInput, rutaUncheckedCreateWithoutZonaInput> | rutaCreateWithoutZonaInput[] | rutaUncheckedCreateWithoutZonaInput[]
-    connectOrCreate?: rutaCreateOrConnectWithoutZonaInput | rutaCreateOrConnectWithoutZonaInput[]
-    upsert?: rutaUpsertWithWhereUniqueWithoutZonaInput | rutaUpsertWithWhereUniqueWithoutZonaInput[]
-    createMany?: rutaCreateManyZonaInputEnvelope
-    set?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    disconnect?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    delete?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    connect?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    update?: rutaUpdateWithWhereUniqueWithoutZonaInput | rutaUpdateWithWhereUniqueWithoutZonaInput[]
-    updateMany?: rutaUpdateManyWithWhereWithoutZonaInput | rutaUpdateManyWithWhereWithoutZonaInput[]
-    deleteMany?: rutaScalarWhereInput | rutaScalarWhereInput[]
-  }
-
-  export type rutaUncheckedUpdateManyWithoutZonaNestedInput = {
-    create?: XOR<rutaCreateWithoutZonaInput, rutaUncheckedCreateWithoutZonaInput> | rutaCreateWithoutZonaInput[] | rutaUncheckedCreateWithoutZonaInput[]
-    connectOrCreate?: rutaCreateOrConnectWithoutZonaInput | rutaCreateOrConnectWithoutZonaInput[]
-    upsert?: rutaUpsertWithWhereUniqueWithoutZonaInput | rutaUpsertWithWhereUniqueWithoutZonaInput[]
-    createMany?: rutaCreateManyZonaInputEnvelope
-    set?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    disconnect?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    delete?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    connect?: rutaWhereUniqueInput | rutaWhereUniqueInput[]
-    update?: rutaUpdateWithWhereUniqueWithoutZonaInput | rutaUpdateWithWhereUniqueWithoutZonaInput[]
-    updateMany?: rutaUpdateManyWithWhereWithoutZonaInput | rutaUpdateManyWithWhereWithoutZonaInput[]
-    deleteMany?: rutaScalarWhereInput | rutaScalarWhereInput[]
-  }
-
-  export type clienteCreateNestedOneWithoutSaldoInput = {
-    create?: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
-    connectOrCreate?: clienteCreateOrConnectWithoutSaldoInput
-    connect?: clienteWhereUniqueInput
-  }
-
-  export type clienteUpdateOneRequiredWithoutSaldoNestedInput = {
-    create?: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
-    connectOrCreate?: clienteCreateOrConnectWithoutSaldoInput
-    upsert?: clienteUpsertWithoutSaldoInput
-    connect?: clienteWhereUniqueInput
-    update?: XOR<XOR<clienteUpdateToOneWithWhereWithoutSaldoInput, clienteUpdateWithoutSaldoInput>, clienteUncheckedUpdateWithoutSaldoInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -31701,13 +31433,11 @@ export namespace Prisma {
     id_ruta: number
     dia_ruta: string
     turno_ruta: string
-    zona: zonaCreateNestedOneWithoutRutaInput
   }
 
   export type rutaUncheckedCreateWithoutClienteInput = {
     id_ruta: number
     dia_ruta: string
-    id_zona: number
     turno_ruta: string
   }
 
@@ -31787,7 +31517,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -31804,7 +31534,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -31833,13 +31563,11 @@ export namespace Prisma {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
-    zona?: zonaUpdateOneRequiredWithoutRutaNestedInput
   }
 
   export type rutaUncheckedUpdateWithoutClienteInput = {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
-    id_zona?: IntFieldUpdateOperationsInput | number
     turno_ruta?: StringFieldUpdateOperationsInput | string
   }
 
@@ -31947,7 +31675,7 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    estatus?: BoolFilter<"solicitudes_recoleccion"> | boolean
   }
 
   export type faqCreateWithoutCompospetInput = {
@@ -32244,7 +31972,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -32261,7 +31989,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -32507,7 +32235,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
     formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -32525,7 +32253,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionCreateOrConnectWithoutProductos_solicitudInput = {
@@ -32588,7 +32316,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
     formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
   }
@@ -32606,7 +32334,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type roles_permisosCreateWithoutRolesInput = {
@@ -32792,7 +32520,7 @@ export namespace Prisma {
   export type clienteCreateWithoutRutaInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -32807,7 +32535,7 @@ export namespace Prisma {
     id_cliente?: string
     id_usuario: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -32825,25 +32553,6 @@ export namespace Prisma {
   export type clienteCreateManyRutaInputEnvelope = {
     data: clienteCreateManyRutaInput | clienteCreateManyRutaInput[]
     skipDuplicates?: boolean
-  }
-
-  export type zonaCreateWithoutRutaInput = {
-    id_zona: number
-    municipio: string
-    descripcion?: string | null
-    estado: string
-  }
-
-  export type zonaUncheckedCreateWithoutRutaInput = {
-    id_zona: number
-    municipio: string
-    descripcion?: string | null
-    estado: string
-  }
-
-  export type zonaCreateOrConnectWithoutRutaInput = {
-    where: zonaWhereUniqueInput
-    create: XOR<zonaCreateWithoutRutaInput, zonaUncheckedCreateWithoutRutaInput>
   }
 
   export type clienteUpsertWithWhereUniqueWithoutRutaInput = {
@@ -32870,37 +32579,12 @@ export namespace Prisma {
     id_usuario?: UuidFilter<"cliente"> | string
     id_ruta?: IntFilter<"cliente"> | number
     mascotas?: StringNullableFilter<"cliente"> | string | null
-    cantidad_familia?: IntNullableFilter<"cliente"> | number | null
+    familia?: IntNullableFilter<"cliente"> | number | null
     direccion?: StringNullableFilter<"cliente"> | string | null
     orden_horario?: IntNullableFilter<"cliente"> | number | null
     notas?: StringNullableFilter<"cliente"> | string | null
     fecha_entrada?: DateTimeNullableFilter<"cliente"> | Date | string | null
     fecha_salida?: DateTimeNullableFilter<"cliente"> | Date | string | null
-  }
-
-  export type zonaUpsertWithoutRutaInput = {
-    update: XOR<zonaUpdateWithoutRutaInput, zonaUncheckedUpdateWithoutRutaInput>
-    create: XOR<zonaCreateWithoutRutaInput, zonaUncheckedCreateWithoutRutaInput>
-    where?: zonaWhereInput
-  }
-
-  export type zonaUpdateToOneWithWhereWithoutRutaInput = {
-    where?: zonaWhereInput
-    data: XOR<zonaUpdateWithoutRutaInput, zonaUncheckedUpdateWithoutRutaInput>
-  }
-
-  export type zonaUpdateWithoutRutaInput = {
-    id_zona?: IntFieldUpdateOperationsInput | number
-    municipio?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type zonaUncheckedUpdateWithoutRutaInput = {
-    id_zona?: IntFieldUpdateOperationsInput | number
-    municipio?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: StringFieldUpdateOperationsInput | string
   }
 
   export type usuarios_cpCreateWithoutSolicitud_registroInput = {
@@ -33024,7 +32708,7 @@ export namespace Prisma {
   export type clienteCreateWithoutSolicitudes_recoleccionInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -33040,7 +32724,7 @@ export namespace Prisma {
     id_usuario: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -33103,7 +32787,7 @@ export namespace Prisma {
   export type clienteUpdateWithoutSolicitudes_recoleccionInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33119,7 +32803,7 @@ export namespace Prisma {
     id_usuario?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33151,6 +32835,78 @@ export namespace Prisma {
     texto?: NullableStringFieldUpdateOperationsInput | string | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     id_pago?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type clienteCreateWithoutSaldoInput = {
+    id_cliente?: string
+    mascotas?: string | null
+    familia?: number | null
+    direccion?: string | null
+    orden_horario?: number | null
+    notas?: string | null
+    fecha_entrada?: Date | string | null
+    fecha_salida?: Date | string | null
+    ruta: rutaCreateNestedOneWithoutClienteInput
+    usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
+    solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
+  }
+
+  export type clienteUncheckedCreateWithoutSaldoInput = {
+    id_cliente?: string
+    id_usuario: string
+    id_ruta: number
+    mascotas?: string | null
+    familia?: number | null
+    direccion?: string | null
+    orden_horario?: number | null
+    notas?: string | null
+    fecha_entrada?: Date | string | null
+    fecha_salida?: Date | string | null
+    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
+  }
+
+  export type clienteCreateOrConnectWithoutSaldoInput = {
+    where: clienteWhereUniqueInput
+    create: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
+  }
+
+  export type clienteUpsertWithoutSaldoInput = {
+    update: XOR<clienteUpdateWithoutSaldoInput, clienteUncheckedUpdateWithoutSaldoInput>
+    create: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
+    where?: clienteWhereInput
+  }
+
+  export type clienteUpdateToOneWithWhereWithoutSaldoInput = {
+    where?: clienteWhereInput
+    data: XOR<clienteUpdateWithoutSaldoInput, clienteUncheckedUpdateWithoutSaldoInput>
+  }
+
+  export type clienteUpdateWithoutSaldoInput = {
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
+    usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
+    solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
+  }
+
+  export type clienteUncheckedUpdateWithoutSaldoInput = {
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    id_usuario?: StringFieldUpdateOperationsInput | string
+    id_ruta?: IntFieldUpdateOperationsInput | number
+    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
+    direccion?: NullableStringFieldUpdateOperationsInput | string | null
+    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
+    notas?: NullableStringFieldUpdateOperationsInput | string | null
+    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
   }
 
   export type administradorCreateWithoutUsuarios_cpInput = {
@@ -33214,7 +32970,7 @@ export namespace Prisma {
   export type clienteCreateWithoutUsuarios_cpInput = {
     id_cliente?: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -33229,7 +32985,7 @@ export namespace Prisma {
     id_cliente?: string
     id_ruta: number
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -33251,9 +33007,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     direccion?: string | null
-    zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -33266,9 +33021,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     direccion?: string | null
-    zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -33395,7 +33149,7 @@ export namespace Prisma {
   export type clienteUpdateWithoutUsuarios_cpInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33410,7 +33164,7 @@ export namespace Prisma {
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_ruta?: IntFieldUpdateOperationsInput | number
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -33447,9 +33201,8 @@ export namespace Prisma {
     telefono?: StringNullableFilter<"solicitud_registro"> | string | null
     correo?: StringFilter<"solicitud_registro"> | string
     direccion?: StringNullableFilter<"solicitud_registro"> | string | null
-    zona?: StringNullableFilter<"solicitud_registro"> | string | null
     mascotas?: StringNullableFilter<"solicitud_registro"> | string | null
-    cantidad_familia?: IntNullableFilter<"solicitud_registro"> | number | null
+    familia?: IntNullableFilter<"solicitud_registro"> | number | null
     notas?: StringNullableFilter<"solicitud_registro"> | string | null
     fecha?: DateTimeFilter<"solicitud_registro"> | Date | string
     estatus?: BoolFilter<"solicitud_registro"> | boolean
@@ -33503,128 +33256,6 @@ export namespace Prisma {
     roles_permisos?: roles_permisosUncheckedUpdateManyWithoutRolesNestedInput
   }
 
-  export type rutaCreateWithoutZonaInput = {
-    id_ruta: number
-    dia_ruta: string
-    turno_ruta: string
-    cliente?: clienteCreateNestedManyWithoutRutaInput
-  }
-
-  export type rutaUncheckedCreateWithoutZonaInput = {
-    id_ruta: number
-    dia_ruta: string
-    turno_ruta: string
-    cliente?: clienteUncheckedCreateNestedManyWithoutRutaInput
-  }
-
-  export type rutaCreateOrConnectWithoutZonaInput = {
-    where: rutaWhereUniqueInput
-    create: XOR<rutaCreateWithoutZonaInput, rutaUncheckedCreateWithoutZonaInput>
-  }
-
-  export type rutaCreateManyZonaInputEnvelope = {
-    data: rutaCreateManyZonaInput | rutaCreateManyZonaInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type rutaUpsertWithWhereUniqueWithoutZonaInput = {
-    where: rutaWhereUniqueInput
-    update: XOR<rutaUpdateWithoutZonaInput, rutaUncheckedUpdateWithoutZonaInput>
-    create: XOR<rutaCreateWithoutZonaInput, rutaUncheckedCreateWithoutZonaInput>
-  }
-
-  export type rutaUpdateWithWhereUniqueWithoutZonaInput = {
-    where: rutaWhereUniqueInput
-    data: XOR<rutaUpdateWithoutZonaInput, rutaUncheckedUpdateWithoutZonaInput>
-  }
-
-  export type rutaUpdateManyWithWhereWithoutZonaInput = {
-    where: rutaScalarWhereInput
-    data: XOR<rutaUpdateManyMutationInput, rutaUncheckedUpdateManyWithoutZonaInput>
-  }
-
-  export type rutaScalarWhereInput = {
-    AND?: rutaScalarWhereInput | rutaScalarWhereInput[]
-    OR?: rutaScalarWhereInput[]
-    NOT?: rutaScalarWhereInput | rutaScalarWhereInput[]
-    id_ruta?: IntFilter<"ruta"> | number
-    dia_ruta?: StringFilter<"ruta"> | string
-    id_zona?: IntFilter<"ruta"> | number
-    turno_ruta?: StringFilter<"ruta"> | string
-  }
-
-  export type clienteCreateWithoutSaldoInput = {
-    id_cliente?: string
-    mascotas?: string | null
-    cantidad_familia?: number | null
-    direccion?: string | null
-    orden_horario?: number | null
-    notas?: string | null
-    fecha_entrada?: Date | string | null
-    fecha_salida?: Date | string | null
-    ruta: rutaCreateNestedOneWithoutClienteInput
-    usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
-    solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
-  }
-
-  export type clienteUncheckedCreateWithoutSaldoInput = {
-    id_cliente?: string
-    id_usuario: string
-    id_ruta: number
-    mascotas?: string | null
-    cantidad_familia?: number | null
-    direccion?: string | null
-    orden_horario?: number | null
-    notas?: string | null
-    fecha_entrada?: Date | string | null
-    fecha_salida?: Date | string | null
-    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
-  }
-
-  export type clienteCreateOrConnectWithoutSaldoInput = {
-    where: clienteWhereUniqueInput
-    create: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
-  }
-
-  export type clienteUpsertWithoutSaldoInput = {
-    update: XOR<clienteUpdateWithoutSaldoInput, clienteUncheckedUpdateWithoutSaldoInput>
-    create: XOR<clienteCreateWithoutSaldoInput, clienteUncheckedCreateWithoutSaldoInput>
-    where?: clienteWhereInput
-  }
-
-  export type clienteUpdateToOneWithWhereWithoutSaldoInput = {
-    where?: clienteWhereInput
-    data: XOR<clienteUpdateWithoutSaldoInput, clienteUncheckedUpdateWithoutSaldoInput>
-  }
-
-  export type clienteUpdateWithoutSaldoInput = {
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
-    usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
-    solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
-  }
-
-  export type clienteUncheckedUpdateWithoutSaldoInput = {
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    id_ruta?: IntFieldUpdateOperationsInput | number
-    mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
-    direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
-    notas?: NullableStringFieldUpdateOperationsInput | string | null
-    fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
-  }
-
   export type avisosCreateManyAdministradorInput = {
     id_aviso: number
     titulo: string
@@ -33669,7 +33300,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionUpdateWithoutClienteInput = {
@@ -33683,7 +33314,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
   }
@@ -33700,7 +33331,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -33716,7 +33347,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type faqCreateManyCompospetInput = {
@@ -33887,7 +33518,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionUpdateWithoutFormas_pagoInput = {
@@ -33901,7 +33532,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
   }
@@ -33918,7 +33549,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -33934,7 +33565,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type roles_permisosCreateManyPermisosInput = {
@@ -34069,7 +33700,7 @@ export namespace Prisma {
     id_cliente?: string
     id_usuario: string
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     direccion?: string | null
     orden_horario?: number | null
     notas?: string | null
@@ -34080,7 +33711,7 @@ export namespace Prisma {
   export type clienteUpdateWithoutRutaInput = {
     id_cliente?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34095,7 +33726,7 @@ export namespace Prisma {
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_usuario?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34109,7 +33740,7 @@ export namespace Prisma {
     id_cliente?: StringFieldUpdateOperationsInput | string
     id_usuario?: StringFieldUpdateOperationsInput | string
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
     orden_horario?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34162,9 +33793,8 @@ export namespace Prisma {
     telefono?: string | null
     correo: string
     direccion?: string | null
-    zona?: string | null
     mascotas?: string | null
-    cantidad_familia?: number | null
+    familia?: number | null
     notas?: string | null
     fecha: Date | string
     estatus?: boolean
@@ -34218,9 +33848,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -34233,9 +33862,8 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
@@ -34248,38 +33876,11 @@ export namespace Prisma {
     telefono?: NullableStringFieldUpdateOperationsInput | string | null
     correo?: StringFieldUpdateOperationsInput | string
     direccion?: NullableStringFieldUpdateOperationsInput | string | null
-    zona?: NullableStringFieldUpdateOperationsInput | string | null
     mascotas?: NullableStringFieldUpdateOperationsInput | string | null
-    cantidad_familia?: NullableIntFieldUpdateOperationsInput | number | null
+    familia?: NullableIntFieldUpdateOperationsInput | number | null
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
-  }
-
-  export type rutaCreateManyZonaInput = {
-    id_ruta: number
-    dia_ruta: string
-    turno_ruta: string
-  }
-
-  export type rutaUpdateWithoutZonaInput = {
-    id_ruta?: IntFieldUpdateOperationsInput | number
-    dia_ruta?: StringFieldUpdateOperationsInput | string
-    turno_ruta?: StringFieldUpdateOperationsInput | string
-    cliente?: clienteUpdateManyWithoutRutaNestedInput
-  }
-
-  export type rutaUncheckedUpdateWithoutZonaInput = {
-    id_ruta?: IntFieldUpdateOperationsInput | number
-    dia_ruta?: StringFieldUpdateOperationsInput | string
-    turno_ruta?: StringFieldUpdateOperationsInput | string
-    cliente?: clienteUncheckedUpdateManyWithoutRutaNestedInput
-  }
-
-  export type rutaUncheckedUpdateManyWithoutZonaInput = {
-    id_ruta?: IntFieldUpdateOperationsInput | number
-    dia_ruta?: StringFieldUpdateOperationsInput | string
-    turno_ruta?: StringFieldUpdateOperationsInput | string
   }
 
 

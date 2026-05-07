@@ -45,7 +45,7 @@ CREATE TABLE "cliente" (
     "id_usuario" UUID NOT NULL,
     "id_ruta" INTEGER NOT NULL,
     "mascotas" VARCHAR,
-    "cantidad_familia" INTEGER,
+    "familia" TEXT,
     "direccion" VARCHAR,
     "orden_horario" INTEGER,
     "notas" TEXT,
@@ -122,8 +122,8 @@ CREATE TABLE "productos_extra" (
     "descripcion" VARCHAR,
     "cantidad" INTEGER NOT NULL,
     "imagen_url" VARCHAR,
-    "estatus" BOOLEAN,
     "orden" INTEGER,
+    "estatus" BOOLEAN,
 
     CONSTRAINT "productos_extra_pkey" PRIMARY KEY ("id_producto")
 );
@@ -158,7 +158,6 @@ CREATE TABLE "roles_permisos" (
 CREATE TABLE "ruta" (
     "id_ruta" INTEGER NOT NULL,
     "dia_ruta" VARCHAR NOT NULL,
-    "id_zona" INTEGER NOT NULL,
     "turno_ruta" VARCHAR NOT NULL,
 
     CONSTRAINT "ruta_pkey" PRIMARY KEY ("id_ruta")
@@ -173,9 +172,8 @@ CREATE TABLE "solicitud_registro" (
     "telefono" VARCHAR,
     "correo" VARCHAR NOT NULL,
     "direccion" VARCHAR,
-    "zona" VARCHAR,
     "mascotas" VARCHAR,
-    "cantidad_familia" INTEGER,
+    "familia" VARCHAR,
     "notas" TEXT,
     "fecha" DATE NOT NULL,
     "estatus" BOOLEAN NOT NULL DEFAULT false,
@@ -194,11 +192,21 @@ CREATE TABLE "solicitudes_recoleccion" (
     "fecha" DATE NOT NULL,
     "horario" TIME(6),
     "notas" TEXT,
-    "quiere_recoleccion" BOOLEAN DEFAULT false,
     "quiere_productos_extra" BOOLEAN DEFAULT false,
+    "quiere_recoleccion" BOOLEAN DEFAULT false,
     "id_pago" INTEGER,
+    "estatus" BOOLEAN DEFAULT false,
 
     CONSTRAINT "solicitudes_recoleccion_pkey" PRIMARY KEY ("id_solicitud")
+);
+
+-- CreateTable
+CREATE TABLE "saldo" (
+    "id_saldo" UUID NOT NULL DEFAULT gen_random_uuid(),
+    "id_cliente" UUID NOT NULL,
+    "saldo" DOUBLE PRECISION NOT NULL DEFAULT 0,
+
+    CONSTRAINT "saldo_pkey" PRIMARY KEY ("id_saldo")
 );
 
 -- CreateTable
@@ -215,29 +223,10 @@ CREATE TABLE "usuarios_cp" (
     "primer_inicio_sesion" BOOLEAN NOT NULL DEFAULT true,
     "intentos_fallidos" INTEGER NOT NULL DEFAULT 0,
     "bloqueado_hasta" TIMESTAMP(6),
-    "codigo_verificacion" VARCHAR,
     "codigo_expiracion" TIMESTAMP(6),
+    "codigo_verificacion" VARCHAR,
 
     CONSTRAINT "usuarios_cp_pk" PRIMARY KEY ("id_usuario")
-);
-
--- CreateTable
-CREATE TABLE "zona" (
-    "id_zona" INTEGER NOT NULL,
-    "municipio" VARCHAR NOT NULL,
-    "descripcion" VARCHAR,
-    "estado" VARCHAR NOT NULL,
-
-    CONSTRAINT "zona_pkey" PRIMARY KEY ("id_zona")
-);
-
--- CreateTable
-CREATE TABLE "saldo" (
-    "id_saldo" UUID NOT NULL DEFAULT gen_random_uuid(),
-    "id_cliente" UUID NOT NULL,
-    "saldo" DOUBLE PRECISION NOT NULL DEFAULT 0,
-
-    CONSTRAINT "saldo_pkey" PRIMARY KEY ("id_saldo")
 );
 
 -- CreateIndex
@@ -247,10 +236,10 @@ CREATE UNIQUE INDEX "administrador_id_usuario_key" ON "administrador"("id_usuari
 CREATE UNIQUE INDEX "cliente_id_usuario_key" ON "cliente"("id_usuario");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "usuarios_cp_unique_correo" ON "usuarios_cp"("correo");
+CREATE UNIQUE INDEX "saldo_id_cliente_key" ON "saldo"("id_cliente");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "saldo_id_cliente_key" ON "saldo"("id_cliente");
+CREATE UNIQUE INDEX "usuarios_cp_unique_correo" ON "usuarios_cp"("correo");
 
 -- AddForeignKey
 ALTER TABLE "administrador" ADD CONSTRAINT "fk_administrador_usuario" FOREIGN KEY ("id_usuario") REFERENCES "usuarios_cp"("id_usuario") ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -289,9 +278,6 @@ ALTER TABLE "roles_permisos" ADD CONSTRAINT "fk_roles_permisos_permiso" FOREIGN 
 ALTER TABLE "roles_permisos" ADD CONSTRAINT "fk_roles_permisos_rol" FOREIGN KEY ("id_rol") REFERENCES "roles"("id_rol") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
-ALTER TABLE "ruta" ADD CONSTRAINT "ruta_zona_fk" FOREIGN KEY ("id_zona") REFERENCES "zona"("id_zona") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
 ALTER TABLE "solicitud_registro" ADD CONSTRAINT "fk_solicitud_registro_usuario" FOREIGN KEY ("id_usuario") REFERENCES "usuarios_cp"("id_usuario") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
@@ -301,10 +287,10 @@ ALTER TABLE "solicitudes_recoleccion" ADD CONSTRAINT "fk_solicitudes_recoleccion
 ALTER TABLE "solicitudes_recoleccion" ADD CONSTRAINT "fk_solicitudes_recoleccion_pago" FOREIGN KEY ("id_pago") REFERENCES "formas_pago"("id_pago") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
+ALTER TABLE "saldo" ADD CONSTRAINT "fk_saldo_cliente" FOREIGN KEY ("id_cliente") REFERENCES "cliente"("id_cliente") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
 ALTER TABLE "usuarios_cp" ADD CONSTRAINT "usuarios_cp_compospet_fk" FOREIGN KEY ("id_cp") REFERENCES "compospet"("id_cp") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- AddForeignKey
 ALTER TABLE "usuarios_cp" ADD CONSTRAINT "usuarios_cp_roles_fk" FOREIGN KEY ("id_rol") REFERENCES "roles"("id_rol") ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- AddForeignKey
-ALTER TABLE "saldo" ADD CONSTRAINT "fk_saldo_cliente" FOREIGN KEY ("id_cliente") REFERENCES "cliente"("id_cliente") ON DELETE NO ACTION ON UPDATE NO ACTION;

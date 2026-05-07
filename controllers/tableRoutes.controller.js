@@ -3,8 +3,7 @@ const Routes = require('../models/routes.model');
 const getTableInfo = async(req,res) => {
     try {
         const routeInfo = await Routes.getRoutesInfo();
-
-        console.log("Routes Info: ", routeInfo);
+        
         return res.status(200).json({
             success: true,
             data: routeInfo,

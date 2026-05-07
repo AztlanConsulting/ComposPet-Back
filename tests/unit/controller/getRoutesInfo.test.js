@@ -1,4 +1,4 @@
-const routesController = require('../../../controllers/tableRoutes.controller');
+const { getTableInfo } = require('../../../controllers/tableRoutes.controller');
 const routesModel = require('../../../models/routes.model');
 
 jest.mock('../../../models/routes.model');
@@ -16,7 +16,37 @@ describe('Controller - getRoutesInfo', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn(),
         };
-
-        
     })
-})
+
+    it('debe regresar 200 con la información de la ruta', async () => {
+        const mockedRoutes = [{
+            nombre: 'Alejandra Arredondo',
+        }];
+
+        routesModel.getRoutesInfo.mockResolvedValue(mockedRoutes);
+
+        await getTableInfo(req, res);
+
+        expect(routesModel.getRoutesInfo).toHaveBeenCalled();
+        expect(res.status).toHaveBeenCalledWith(200);
+
+        expect(res.json).toHaveBeenCalledWith({
+            success:true,
+            data: mockedRoutes,
+        });
+    });
+
+    it('debe regresar status 400 en caso de ocurrir error', async() => {
+        routesModel.getRoutesInfo.mockRejectedValue(
+            new Error('DB Error')
+        );
+
+        await getTableInfo(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            success:false,
+            message: 'Ocurrió un error obteniendo la información.',
+        });
+    });
+});

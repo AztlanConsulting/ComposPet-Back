@@ -62,15 +62,6 @@ app.get('/metrics', async (req, res) => {
     res.end(await register.metrics());
 });
 
-/**
- * Middleware de auditoría básica para depuración.
- * Imprime en consola el tipo de contenido y el cuerpo de las peticiones entrantes.
- */
-app.use((req, res, next) => {
-    console.log("Content-Type recibido:", req.headers["content-type"]);
-    next();
-});
-
 // Definición de las rutas de negocio de la aplicación
 app.use('/api', routes);
 

@@ -435,7 +435,23 @@ CREATE TABLE public.productos_solicitud (
 	CONSTRAINT fk_productos_solicitud_solicitud FOREIGN KEY (id_solicitud) REFERENCES public.solicitudes_recoleccion(id_solicitud)
 );
 
+-- public.estados definition
 
+-- Drop table
+
+-- DROP TABLE public.estados;
+
+CREATE TABLE public.estados (
+	id_estado INT NOT NULL,
+	estado VARCHAR NOT NULL,
+	CONSTRAINT estado_pkey PRIMARY KEY (id_estado)
+);
+
+CREATE TABLE public.municipios (
+	id_municipio INT NOT NULL,
+	municipio VARCHAR NOT NULL,
+	CONSTRAINT municipio_pkey PRIMARY KEY (id_municipio)
+);
 
 -- DROP FUNCTION public.fn_default_notas_cliente();
 
@@ -458,3 +474,42 @@ ADD COLUMN imagen_url character varying;
 
 ALTER TABLE public.productos_extra
 ADD COLUMN orden INT;
+
+-- Eliminar la foreign key y columna id_nivel de tarjeta lealtad
+ALTER TABLE public.tarjeta_lealtad DROP CONSTRAINT fk_tarjeta_lealtad_nivel;
+ALTER TABLE public.tarjeta_lealtad DROP COLUMN id_nivel;
+
+-- Renombrar columna y tabla de tarjeta_lealtad
+ALTER TABLE public.tarjeta_lealtad RENAME COLUMN id_tarjeta_lealtad TO id_saldo;
+ALTER TABLE public.tarjeta_lealtad RENAME TO saldo;
+
+-- Renombrar la FK de tarjeta_lealtad
+ALTER TABLE public.saldo 
+RENAME CONSTRAINT fk_tarjeta_lealtad_cliente TO fk_saldo_cliente;
+
+-- Eliminar tablas que dependían de niveles
+DROP TABLE public.nivel_promociones;
+DROP TABLE public.promociones;
+DROP TABLE public.niveles;
+
+
+
+ALTER TABLE public.zona ADD COLUMN id_estado INT;
+ALTER TABLE public.zona ADD COLUMN id_municipio INT;
+
+UPDATE public.zona SET id_estado = 1, id_municipio = 1;
+
+ALTER TABLE public.zona ALTER COLUMN id_estado SET NOT NULL;
+ALTER TABLE public.zona ALTER COLUMN id_municipio SET NOT NULL;
+
+ALTER TABLE public.zona 
+  ADD CONSTRAINT fk_zona_estado 
+  FOREIGN KEY (id_estado) REFERENCES public.estados(id_estado);
+
+ALTER TABLE public.zona 
+  ADD CONSTRAINT fk_zona_municipio 
+  FOREIGN KEY (id_municipio) REFERENCES public.municipios(id_municipio);
+  
+ALTER TABLE public.zona DROP COLUMN estado;
+ALTER TABLE public.zona DROP COLUMN municipio;
+ALTER TABLE public.zona DROP COLUMN nombre_zona;

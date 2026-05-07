@@ -61,23 +61,31 @@ VALUES (
 );
 
 -- =========================
+-- Estados
+-- =========================
+INSERT INTO public.estados (id_estado, estado) VALUES 
+(1, 'Querétaro');
+
+-- =========================
+-- Municipios
+-- =========================
+INSERT INTO public.municipios (id_municipio, municipio) VALUES 
+(1, 'Querétaro'),
+(2, 'Corregidora'),
+(3, 'El Marqués');
+
+-- =========================
 -- 4. Zona
 -- =========================
 
 
-INSERT INTO public.zona (
-    id_zona,
-    nombre_zona,
-    municipio,
-    descripcion,
-    estado
-    ) VALUES (
-    1,
-    'Zona Centro',
-    'Querétaro',
-    'Zona de prueba',
-    'Activa'
-);
+INSERT INTO public.zona (id_zona, descripcion, id_estado, id_municipio) VALUES
+(1, 'Zona turística con alta actividad comercial y cultural', 1, 1),
+(2, 'Área residencial moderna con universidades y plazas', 1, 1),
+(3, 'Zona tradicional con crecimiento urbano reciente', 1, 2),
+(4, 'Zona semiurbana con actividad industrial y rural', 1, 1),
+(5, 'Zona habitacional con alta densidad poblacional', 1, 2),
+(6, 'Fraccionamiento en expansión con nuevos desarrollos', 1, 3);
 
 -- =========================
 -- 5. Ruta

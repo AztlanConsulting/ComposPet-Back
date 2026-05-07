@@ -3,112 +3,155 @@ const prisma = require('../config/prisma');
 module.exports = class Routes {
 
     static async getRoutesInfo() {
-        // Limitar a que solo me traiga la info del mes pasado
-        const now = new Date();
-        const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-        const startActualMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        try{
 
-        const routeInfo = await prisma.solicitudes_recoleccion.findMany({
-            where: {
-            fecha: {
-                gte: lastMonthStart,
-                lt: startActualMonth,
-            },
-            },
-
-            select: {
-                id_solicitud: true,
-                id_cliente: true,
-                cubetas_recolectadas: true,
-                cubetas_entregadas: true,
-                total_a_pagar: true,
-                total_pagado: true,
-                fecha: true,
-                horario: true,
-                notas: true,
-
-                formas_pago:{
-                    select:{
-                        tipo:true,
+            const now = new Date();
+    
+            const diasSemana = [
+                "Domingo",
+                "Lunes",
+                "Martes",
+                "Miércoles",
+                "Jueves",
+                "Viernes",
+                "Sábado",
+            ];
+    
+            const todayName = diasSemana[now.getDay()];
+    
+            // Inicio de semana: domingo
+            const startOfWeek = new Date(now);
+            startOfWeek.setDate(now.getDate() - now.getDay());
+            startOfWeek.setHours(0, 0, 0, 0);
+    
+            // Fin de semana: siguiente domingo
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 7);
+            endOfWeek.setHours(0, 0, 0, 0);
+    
+            const routeInfo = await prisma.cliente.findMany({
+                where: {
+                    ruta: {
+                        dia_ruta: todayName,
                     },
                 },
-
-                productos_solicitud: {
-                    select: {
-                        id_producto: true,
-                        cantidad: true,
-                        productos_extra: {
-                            select: {
+    
+                select: {
+                    id_cliente: true,
+                    id_ruta: true,
+                    orden_horario: true,
+    
+                    usuarios_cp: {
+                        select: {
                             nombre: true,
-                            orden: true,
+                            apellido: true,
+                        },
+                    },
+    
+                    ruta: {
+                        select: {
+                            dia_ruta: true,
+                            turno_ruta: true,
+                        },
+                    },
+    
+                    solicitudes_recoleccion: {
+                        where: {
+                            fecha: {
+                                gte: startOfWeek,
+                                lt: endOfWeek,
+                            },
+                        },
+                        select: {
+                            id_solicitud: true,
+                            cubetas_recolectadas: true,
+                            cubetas_entregadas: true,
+                            total_a_pagar: true,
+                            total_pagado: true,
+                            fecha: true,
+                            horario: true,
+                            notas: true,
+    
+                            formas_pago: {
+                                select: {
+                                    tipo: true,
+                                },
+                            },
+    
+                            productos_solicitud: {
+                                select: {
+                                    id_producto: true,
+                                    cantidad: true,
+                                    productos_extra: {
+                                        select: {
+                                            nombre: true,
+                                            orden: true,
+                                        },
+                                    },
+                                },
                             },
                         },
                     },
                 },
-
-                cliente: {
-                    select: {
-                    id_ruta: true,
-                    usuarios_cp: {
-                        select: {
-                        nombre: true,
-                        apellido: true,
+    
+                orderBy: [
+                    {
+                        ruta: {
+                            turno_ruta: "asc",
                         },
                     },
-                    ruta: {
-                        select: {
-                        dia_ruta: true,
-                        turno_ruta: true,
-                        },
+                    {
+                        orden_horario: "asc",
                     },
-                    },
-                },
-            },
+                ],
+            });
+    
+            const formattedRouteInfo = routeInfo.map((cliente) => {
+                const solicitud = cliente.solicitudes_recoleccion?.[0];
+    
+                const productosExtra = solicitud?.productos_solicitud
+                    ?.sort((a, b) => {
+                        return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
+                    })
+                    .map((producto) => {
+                        if (!producto.productos_extra) return null;
+                        if (producto.cantidad == null) return producto.productos_extra.nombre;
+                        return `${producto.productos_extra.nombre} (${producto.cantidad})`;
+                    })
+                    .filter(Boolean)
+                    .join("\n");
 
-            orderBy: [
-                { fecha: "desc" },
-                { horario: "asc" },
-            ],
-        });
+                const formattedTime = (horario) =>{
+                    if (!horario) return " ";
 
-        const formattedRouteInfo = routeInfo.map((solicitud) => {
-            const productosExtra = solicitud.productos_solicitud
-                // se ordenan los productos según el orden que tienen en la base de datos 
-                .sort((a, b) => {
-                    return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
-                })
-                // transforma en texto los objetos
-                .map((producto) => {
-                    // si no hay productos extra regresa vacio
-                    if (!producto.productos_extra) return " ";
-                    // si hay productos extra, agrega la cantidad que se escogía entre parentésis.
-                    return `${producto.productos_extra.nombre} (${producto.cantidad})`;
-                })
-                // elimina los valores falsos
-                .filter(Boolean)
-                // junta todo en un string separado por saltos de línea
-                .join("\n");
+                    if (horario instanceof Date) return horario.toISOString().substring(11,16);
 
-            // regresa la información en el siguiente orden
-            return {
-                nombre: `${solicitud.cliente.usuarios_cp.nombre} ${solicitud.cliente.usuarios_cp.apellido}`,
-                "#Recolección": solicitud.cubetas_recolectadas,
-                "#Entrega": solicitud.cubetas_entregadas,
-                "productos_extra": productosExtra || "No selecciono productos extra",
-                ruta: `${solicitud.cliente.ruta.dia_ruta} ${solicitud.cliente.ruta.turno_ruta}`,
-                fecha: solicitud.fecha
-                    ? solicitud.fecha.toISOString().split("T")[0]
-                    : "Sin fecha",
-                horario: solicitud.horario
-                    ? solicitud.horario.toISOString().substring(11, 16)
-                    : "Sin horario",
-                "forma_pago": solicitud.formas_pago?.tipo || "N/A",
-                total_a_pagar: solicitud.total_a_pagar,
-                total_pagado: solicitud.total_pagado,
-                notas: solicitud.notas || "N/A",
-            };
-        });
+                    if (typeof horario === "string") return horario.substring(0, 5);
 
-        return formattedRouteInfo;
+                    return " ";
+                }
+                
+                const name = cliente.usuarios_cp?.nombre || "";
+                const lastName = cliente.usuarios_cp?.apellido || "";
+                const fullName = `${name} ${lastName}`.trim() || " ";
+    
+                return {
+                    nombre: fullName,
+                    recoleccion: solicitud?.cubetas_recolectadas?.toString() ?? " ", 
+                    entrega: solicitud?.cubetas_entregadas?.toString() ?? " ",
+                    productos_extra: productosExtra || " ",
+                    // ruta: `${cliente.ruta.dia_ruta}`,
+                    horario: formattedTime(solicitud?.horario),
+                    forma_pago: solicitud?.formas_pago?.tipo || " ",
+                    total_a_pagar: solicitud?.total_a_pagar?.toString() ?? " ",
+                    total_pagado: solicitud?.total_pagado?.toString() ?? " ",
+                    notas: solicitud?.notas || " ",
+                };
+            });
+    
+            return formattedRouteInfo;
+        } catch(error){
+            throw new Error('Error obteniendo rutas');
+        }
     }
 }
