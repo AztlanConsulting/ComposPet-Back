@@ -30,7 +30,7 @@ const createAuthToken = () => {
         id_usuario: TEST_ADMIN_USER_ID,
         correo: TEST_ADMIN_EMAIL,
         id_rol: TEST_ADMIN_ROLE_ID,
-        role: "admin",
+        role: "Administrador",
     });
 };
 
@@ -50,7 +50,7 @@ const createBaseData = async () => {
         update: {},
         create: {
             id_rol: TEST_ADMIN_ROLE_ID,
-            nombre: "admin",
+            nombre: "Administrador",
         },
     });
 

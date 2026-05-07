@@ -25,7 +25,7 @@ const createAuthToken = () => {
         id_usuario: TEST_USER_ID,
         correo: TEST_EMAIL,
         id_rol: TEST_ROLE_ID,
-        role: "cliente",
+        role: "Cliente",
     });
 };
 
