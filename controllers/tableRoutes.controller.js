@@ -18,7 +18,7 @@ const getTableInfo = async(req,res) => {
         })
     } catch(error){
         // Retorna un error en caso de que falle la consulta
-        return res.status(400).json({
+        return res.status(500).json({
             success: false,
             message: "Ocurrió un error obteniendo la información.",
         })

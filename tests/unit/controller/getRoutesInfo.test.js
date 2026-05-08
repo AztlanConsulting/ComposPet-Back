@@ -36,14 +36,14 @@ describe('Controller - getRoutesInfo', () => {
         });
     });
 
-    it('debe regresar status 400 en caso de ocurrir error', async() => {
+    it('debe regresar status 500 en caso de ocurrir error', async() => {
         routesModel.getRoutesInfo.mockRejectedValue(
             new Error('DB Error')
         );
 
         await getTableInfo(req, res);
 
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
             success:false,
             message: 'Ocurrió un error obteniendo la información.',

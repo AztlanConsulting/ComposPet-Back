@@ -53,7 +53,7 @@ module.exports = class Route {
             const now = new Date();
 
              /** Array con los nombres de los días de la semana en español */
-            const diasSemana = [
+            const weekdays = [
                 "Domingo",
                 "Lunes",
                 "Martes",
@@ -64,7 +64,7 @@ module.exports = class Route {
             ];
 
             /** Nombre del día actual (ej: "Lunes", "Martes", etc.) */
-            const todayName = diasSemana[now.getDay()];
+            const todayName = weekdays[now.getDay()];
 
              /**
              * Inicio de la semana actual (domingo a las 00:00:00).
@@ -176,23 +176,23 @@ module.exports = class Route {
              * Toma la primera solicitud de cada cliente (la más reciente) y formatea
              * todos los campos para su presentación.
              */
-            const formattedRouteInfo = routeInfo.map((cliente) => {
+            const formattedRouteInfo = routeInfo.map((client) => {
                 // Obtiene la primera (y generalmente única) solicitud de la semana
-                const solicitud = cliente.solicitudes_recoleccion?.[0];
+                const request = client.solicitudes_recoleccion?.[0];
 
                 /**
                  * Formatea la lista de productos extra ordenados por su campo 'orden'.
                  * Incluye la cantidad entre paréntesis si está disponible.
                  * Ejemplo: "Bolsas biodegradables (5)\nShampoo (2)"
                  */
-                const productosExtra = solicitud?.productos_solicitud
+                const extraproducts = request?.productos_solicitud
                     ?.sort((a, b) => {
                         return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
                     })
-                    .map((producto) => {
-                        if (!producto.productos_extra) return null;
-                        if (producto.cantidad == null) return producto.productos_extra.nombre;
-                        return `${producto.productos_extra.nombre} (${producto.cantidad})`;
+                    .map((product) => {
+                        if (!product.productos_extra) return null;
+                        if (product.cantidad == null) return product.productos_extra.nombre;
+                        return `${product.productos_extra.nombre} (${product.cantidad})`;
                     })
                     .filter(Boolean) // elimina valores null/undefined
                     .join("\n"); // une con saltos de línea
@@ -204,34 +204,34 @@ module.exports = class Route {
                  * @param {Date|string|null} horario - Horario a formatear
                  * @returns {string} Horario en formato HH:mm o " " si no hay dato
                  */
-                const formattedTime = (horario) =>{
-                    if (!horario) return " ";
+                const formattedTime = (schedule) =>{
+                    if (!schedule) return " ";
 
                     // Si es un objeto Date, extrae HH:mm 
-                    if (horario instanceof Date) return horario.toISOString().substring(11,16);
+                    if (schedule instanceof Date) return schedule.toISOString().substring(11,16);
 
                     // Si es string, toma los primeros 5 caracteres (HH:mm)
-                    if (typeof horario === "string") return horario.substring(0, 5);
+                    if (typeof schedule === "string") return schedule.substring(0, 5);
 
                     return " ";
                 }
 
                 // Construye el nombre completo del cliente
-                const name = cliente.usuarios_cp?.nombre || "";
-                const lastName = cliente.usuarios_cp?.apellido || "";
+                const name = client.usuarios_cp?.nombre || "";
+                const lastName = client.usuarios_cp?.apellido || "";
                 const fullName = `${name} ${lastName}`.trim() || " ";
 
                  // ==================== OBJETO FORMATEADO FINAL ====================
                 return {
                     nombre: fullName,
-                    recoleccion: solicitud?.cubetas_recolectadas?.toString() ?? " ",
-                    entrega: solicitud?.cubetas_entregadas?.toString() ?? " ",
-                    productos_extra: productosExtra || " ",
-                    horario: formattedTime(solicitud?.horario),
-                    forma_pago: solicitud?.formas_pago?.tipo || " ",
-                    total_a_pagar: solicitud?.total_a_pagar?.toString() ?? " ",
-                    total_pagado: solicitud?.total_pagado?.toString() ?? " ",
-                    notas: solicitud?.notas || " ",
+                    recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
+                    entrega: request?.cubetas_entregadas?.toString() ?? " ",
+                    productos_extra: extraproducts || " ",
+                    horario: formattedTime(request?.horario),
+                    forma_pago: request?.formas_pago?.tipo || " ",
+                    total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
+                    total_pagado: request?.total_pagado?.toString() ?? " ",
+                    notas: request?.notas || " ",
                 };
             });
 
@@ -240,5 +240,4 @@ module.exports = class Route {
             throw new Error('Error obteniendo rutas');
         }
     }
-    
 }
