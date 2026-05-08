@@ -31,8 +31,8 @@ describe('Model - getRoutesInfo', () => {
                 },
 
                 ruta: {
+                    id_ruta: 3,
                     dia_ruta: 'Miércoles',
-                    turno_ruta: 3,
                 },
 
                 solicitudes_recoleccion: [
@@ -73,14 +73,16 @@ describe('Model - getRoutesInfo', () => {
             expect.objectContaining({
                 where: {
                     ruta: {
-                        dia_ruta: 'Miércoles',
+                        dia_ruta: {
+                            startsWith: 'Miércoles',
+                        },
                     },
                 },
                 select: expect.any(Object),
                 orderBy: [
                     {
                         ruta: {
-                            turno_ruta: 'asc',
+                            id_ruta: 'asc',
                         },
                     },
                     {
