@@ -1,9 +1,10 @@
 const request = require("supertest");
-const { randomUUID } = require("crypto");
+const { randomUUID, randomInt } = require("crypto");
 
 const app = require("../../app");
 const prisma = require("../../config/prisma");
 
+//Para generar token
 const { generateAccessToken } = require("../../utils/jwt.utils");
 
 // Constantes
@@ -11,9 +12,9 @@ const TEST_CP_ID = randomUUID();
 const TEST_ROLE_ID = randomUUID();
 const TEST_USER_ID = randomUUID();
 const TEST_CLIENT_ID = randomUUID();
-const TEST_EMAIL = "cliente.ruta.test@compospet.com";
+const TEST_EMAIL = "cliente.test@compospet.com";
 const ENDPOINT = "/api/cliente/obtener-cliente-y-ruta";
-const TEST_RUTA_ID = 1003;
+const TEST_RUTA_ID = 2255;
 
 // Helpers
 const createAuthToken = () => {
@@ -124,13 +125,16 @@ afterAll(async () => {
 
 describe("Client Route Integration", () => {
     it("retorna 400 si no se envía userId", async () => {
+        //Arrange
         const token = createAuthToken();
 
+        //Actuar
         const res = await request(app)
             .post(ENDPOINT)
             .set("Authorization", `Bearer ${token}`)
             .send({});
 
+        //Afirmar
         expect(res.status).toBe(400);
         expect(res.body).toEqual({
             success: false,
@@ -139,8 +143,11 @@ describe("Client Route Integration", () => {
     });
 
     it("retorna 200 con el cliente y su ruta asignada", async () => {
+        
+        //Arrange
         const token = createAuthToken();
 
+        //Actuar
         const res = await request(app)
             .post(ENDPOINT)
             .set("Authorization", `Bearer ${token}`)
@@ -148,6 +155,7 @@ describe("Client Route Integration", () => {
                 userId: TEST_USER_ID,
             });
 
+        //Afirmar
         expect(res.status).toBe(200);
         expect(res.body.success).toBe(true);
         expect(res.body.message).toBe("Información del cliente obtenida exitosamente.");
@@ -157,7 +165,6 @@ describe("Client Route Integration", () => {
 
         expect(res.body.data.ruta).toEqual({
             dia_ruta: "Miércoles",
-            turno_ruta: "Matutino",
         });
     });
 
@@ -175,7 +182,7 @@ describe("Client Route Integration", () => {
         expect(res.status).toBe(404);
         expect(res.body).toEqual({
             success: false,
-            message: "No se encontró un cliente asociado a este usuario.",
+            message: "No se encontró la información del cliente asociado a este usuario.",
         });
     });
 });

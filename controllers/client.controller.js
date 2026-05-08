@@ -15,19 +15,24 @@ const Client = require('../models/client.model');
 
 const getClientByUserId = async (req, res) => {
     try {
+
+        console.log("Entro al back")
         // Extrae el identificador del usuario para buscar el cliente
         const { userId } = req.body;
 
+        console.log("SI OBTIENE EL EUSER ID",userId)
         // Valida que el identificador del usuario haya sido enviado.
         if (!userId) {
             return res.status(400).json({
                 success: false,
-                message: 'Falta el id del usuario para obtener el cliente.',
+                message: 'Falta el id del usuario para obtener la información del cliente.',
             });
         }
 
         // Consulta el modelo para obtener el cliente 
         const client = await Client.getClientByUserId(userId);
+
+        console.log("ESTOS SON LOS DATOS QUE RECUPERO DEL CLIENTE", client)
 
         if (!client) {
             return res.status(404).json({
@@ -38,7 +43,7 @@ const getClientByUserId = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: 'Información del cliente obtenido exitosamente.',
+            message: 'Información del cliente obtenida exitosamente.',
             data: client,
         });
     } catch (error) {

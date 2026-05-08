@@ -21,12 +21,15 @@ describe('Controller - getClientByUserId', () => {
     });
 
     it('Debe devolver 400 si no manda el id del usuario', async () => {
+
+        //Actuar
         await clientController.getClientByUserId(req, res);
 
+        //Afirmar
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
-            message: 'Falta el id del usuario para obtener el cliente.',
+            message: 'Falta el id del usuario para obtener la información del cliente.',
         });
 
         expect(Client.getClientByUserId).not.toHaveBeenCalled();
@@ -35,6 +38,7 @@ describe('Controller - getClientByUserId', () => {
     it('Debe devolver 200 si recupera la información del cliente y su ruta', async () => {
         req.body.userId = '11111111-1111-1111-1111-111111111111';
 
+        //Arrange
         const mockClient = {
             id_cliente: '22222222-2222-2222-2222-222222222222',
             id_ruta: 3,
@@ -46,8 +50,10 @@ describe('Controller - getClientByUserId', () => {
 
         Client.getClientByUserId.mockResolvedValue(mockClient);
 
+        //Actuar
         await clientController.getClientByUserId(req, res);
 
+        //Afirmar
         expect(Client.getClientByUserId).toHaveBeenCalledWith(
             '11111111-1111-1111-1111-111111111111',
         );
@@ -55,7 +61,7 @@ describe('Controller - getClientByUserId', () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
             success: true,
-            message: 'Información del cliente obtenido exitosamente.',
+            message: 'Información del cliente obtenida exitosamente.',
             data: mockClient,
         });
     });
@@ -63,10 +69,13 @@ describe('Controller - getClientByUserId', () => {
     it('Debe devolver 404 si no existe cliente asociado al usuario', async () => {
         req.body.userId = '11111111-1111-1111-1111-111111111111';
 
+        //Arrange
         Client.getClientByUserId.mockResolvedValue(null);
 
+        //Actuar
         await clientController.getClientByUserId(req, res);
 
+        //Afirmar
         expect(Client.getClientByUserId).toHaveBeenCalledWith(
             '11111111-1111-1111-1111-111111111111',
         );
@@ -81,12 +90,15 @@ describe('Controller - getClientByUserId', () => {
     it('Debe devolver 500 si ocurre un error al obtener la información del cliente', async () => {
         req.body.userId = '11111111-1111-1111-1111-111111111111';
 
+        //Arrange
         Client.getClientByUserId.mockRejectedValue(
             new Error('Error interno'),
         );
 
+        //Actuar
         await clientController.getClientByUserId(req, res);
 
+        //Afirmar
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
             success: false,

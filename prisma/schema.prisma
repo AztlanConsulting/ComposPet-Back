@@ -166,7 +166,7 @@ model solicitud_registro {
   direccion             String?     @db.VarChar
   mascotas              String?     @db.VarChar
   familia               String?     @db.VarChar
-  notas                 String?     
+  notas                 String?
   fecha                 DateTime    @db.Date
   estatus               Boolean     @default(false)
   usuarios_cp           usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitud_registro_usuario")
@@ -192,10 +192,10 @@ model solicitudes_recoleccion {
 }
 
 model saldo {
-  id_saldo String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_cliente         String  @unique @db.Uuid
-  saldo              Float   @default(0)
-  cliente  cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
+  id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente String  @unique @db.Uuid
+  saldo      Float   @default(0)
+  cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
 }
 
 model usuarios_cp {

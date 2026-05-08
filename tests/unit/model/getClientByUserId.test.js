@@ -9,10 +9,12 @@ jest.mock("../../../config/prisma", () => ({
 const prisma = require("../../../config/prisma");
 
 describe("Unit - Model - Client", () => {
+    // Limpia los test de los mocks
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
+    //Prueba del metodo getClientByUserId
     describe("getClientByUserId", () => {
         it("debe retornar la información del cliente y su día de ruta si existe", async () => {
             const userId = "11111111-1111-1111-1111-111111111111";
