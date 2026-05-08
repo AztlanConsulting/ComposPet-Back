@@ -7,6 +7,7 @@ const collectionRequestRoutes = require('./collectionRequest.routes');
 const clientRoutes = require('./client.routes');
 const adminRoutes = require('./admin.routes');
 const creditRoutes = require('./credit.routes');
+const tableRoutes = require('../routes/tableRoutes.routes');
 
 const { authMiddleware, requireRole } = require('../middlewares/auth');
 
@@ -25,6 +26,9 @@ router.use('/admin', authMiddleware, adminRoutes);
 
 // Agrega las rutas de la tarjeta del cliente
 router.use('/saldo', authMiddleware, creditRoutes);
+
+// Agrega las rutas de la vista de rutas del administrador
+router.use('/rutas', authMiddleware, tableRoutes);
 
 router.get('/', (req, res) => {
     res.send('API funcionando correctamente');
