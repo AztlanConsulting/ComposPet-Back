@@ -93,7 +93,9 @@ module.exports = class Route {
             const routeInfo = await prisma.cliente.findMany({
                 where: {
                     ruta: {
-                        dia_ruta: todayName, // Filtra por el día actual
+                        dia_ruta: {
+                            startsWith: todayName
+                        }, // Filtra por el día actual
                     },
                 },
 
