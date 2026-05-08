@@ -64,7 +64,7 @@ describe('Unit - Model - Client', () => {
         cellphone: '4429384765',
         status: true,
 
-        route: 'Lunes 1',
+        route: 'Lunes',
 
         balance: 250,
 
@@ -118,4 +118,127 @@ describe('Unit - Model - Client', () => {
 
   });
 
+describe('updateClient', () => {
+
+    beforeEach(() => {
+        prisma.$transaction = jest.fn(async (cb) => {
+            const tx = {
+                usuarios_cp: { update: jest.fn() },
+                cliente:     { update: jest.fn() },
+                saldo:       { update: jest.fn() },
+            };
+            await cb(tx);
+            return tx;
+        });
+
+        jest.clearAllMocks();
+    });
+
+    it('debe actualizar los tres objetos cuando todos tienen datos', async () => {
+
+        // Arrange
+        const userId     = 'user-123';
+        const clientId   = 'client-456';
+        const userData   = { telefono: '1234567890', estatus: true };
+        const clientData = { notas: 'Nota', direccion: 'Calle 1', mascotas: '2', familia: '4', id_ruta: 1 };
+        const balanceData = { saldo: 500 };
+
+        // Act
+        const result = await Client.updateClient(userId, clientId, userData, clientData, balanceData);
+
+        // Assert
+        expect(prisma.$transaction).toHaveBeenCalled();
+        expect(result).toBe(true);
+    });
+
+    it('no debe llamar update de usuarios_cp si userData está vacío', async () => {
+
+        // Arrange
+        let txRef;
+        prisma.$transaction = jest.fn(async (cb) => {
+            const tx = {
+                usuarios_cp: { update: jest.fn() },
+                cliente:     { update: jest.fn() },
+                saldo:       { update: jest.fn() },
+            };
+            txRef = tx;
+            await cb(tx);
+        });
+
+        // Act
+        await Client.updateClient('user-123', 'client-456', {}, { notas: 'Nota' }, {});
+
+        // Assert
+        expect(txRef.usuarios_cp.update).not.toHaveBeenCalled();
+        expect(txRef.cliente.update).toHaveBeenCalledWith({
+            where: { id_cliente: 'client-456' },
+            data: { notas: 'Nota' },
+        });
+        expect(txRef.saldo.update).not.toHaveBeenCalled();
+    });
+
+    it('no debe llamar update de cliente si clientData está vacío', async () => {
+
+        // Arrange
+        let txRef;
+        prisma.$transaction = jest.fn(async (cb) => {
+            const tx = {
+                usuarios_cp: { update: jest.fn() },
+                cliente:     { update: jest.fn() },
+                saldo:       { update: jest.fn() },
+            };
+            txRef = tx;
+            await cb(tx);
+        });
+
+        // Act
+        await Client.updateClient('user-123', 'client-456', { telefono: '123' }, {}, { saldo: 100 });
+
+        // Assert
+        expect(txRef.cliente.update).not.toHaveBeenCalled();
+        expect(txRef.usuarios_cp.update).toHaveBeenCalledWith({
+            where: { id_usuario: 'user-123' },
+            data: { telefono: '123' },
+        });
+        expect(txRef.saldo.update).toHaveBeenCalledWith({
+            where: { id_cliente: 'client-456' },
+            data: { saldo: 100 },
+        });
+    });
+
+    it('no debe llamar update de saldo si balanceData está vacío', async () => {
+
+        // Arrange
+        let txRef;
+        prisma.$transaction = jest.fn(async (cb) => {
+            const tx = {
+                usuarios_cp: { update: jest.fn() },
+                cliente:     { update: jest.fn() },
+                saldo:       { update: jest.fn() },
+            };
+            txRef = tx;
+            await cb(tx);
+        });
+
+        // Act
+        await Client.updateClient('user-123', 'client-456', {}, {}, {});
+
+        // Assert
+        expect(txRef.usuarios_cp.update).not.toHaveBeenCalled();
+        expect(txRef.cliente.update).not.toHaveBeenCalled();
+        expect(txRef.saldo.update).not.toHaveBeenCalled();
+    });
+
+    it('debe retornar true aunque ocurra un error en la transacción', async () => {
+
+        // Arrange
+        prisma.$transaction = jest.fn().mockRejectedValue(new Error('DB error'));
+
+        // Act
+        const result = await Client.updateClient('user-123', 'client-456', { telefono: '123' }, {}, {});
+
+        // Assert
+        expect(result).toBe(true);
+    });
+  });
 });
