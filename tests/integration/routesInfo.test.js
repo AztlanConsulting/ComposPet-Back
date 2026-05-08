@@ -25,7 +25,7 @@ const createAuthToken = () => {
         id_usuario: TEST_USER_ID,
         correo: TEST_EMAIL,
         id_rol: TEST_ROLE_ID,
-        role: 'administrador',
+        role: 'Administrador',
     });
 };
 
@@ -226,6 +226,10 @@ describe("Integración - Ruta - getTableInfo",  () => {
         const res = await request(app)
             .get(ENDPOINT)
             .set('Authorization', `Bearer ${token}`);
+
+        console.log('STATUS:', res.status);
+        console.log('BODY:', res.body);
+        console.log('TEXT:', res.text);
 
         expect(res.status).toBe(200);
         expect(res.body.success).toBe(true);
