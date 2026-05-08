@@ -113,8 +113,8 @@ module.exports = class Route {
 
                     ruta: {
                         select: {
+                            id_ruta: true,
                             dia_ruta: true,
-                            turno_ruta: true,
                         },
                     },
 
@@ -160,7 +160,7 @@ module.exports = class Route {
                 orderBy: [
                     {
                         ruta: {
-                            turno_ruta: "asc", // primero por turno
+                            id_ruta: "asc", // primero por turno
                         },
                     },
                     {
@@ -227,7 +227,6 @@ module.exports = class Route {
                     recoleccion: solicitud?.cubetas_recolectadas?.toString() ?? " ",
                     entrega: solicitud?.cubetas_entregadas?.toString() ?? " ",
                     productos_extra: productosExtra || " ",
-                    // ruta: `${cliente.ruta.dia_ruta}`,
                     horario: formattedTime(solicitud?.horario),
                     forma_pago: solicitud?.formas_pago?.tipo || " ",
                     total_a_pagar: solicitud?.total_a_pagar?.toString() ?? " ",
