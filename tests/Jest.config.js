@@ -4,4 +4,5 @@ module.exports = {
   moduleFileExtensions: ['js', 'ts'],
   setupFilesAfterEnv: ['<rootDir>/tests/setup.js'],
   clearMocks: true,
+  maxWorkers: 1,
 };
