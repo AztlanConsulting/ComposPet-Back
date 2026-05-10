@@ -48,7 +48,7 @@ model cliente {
   id_usuario              String                    @unique @db.Uuid
   id_ruta                 Int
   mascotas                String?                   @db.VarChar
-  familia                 String?
+  familia                 String?                   @db.VarChar
   direccion               String?                   @db.VarChar
   orden_horario           Int?
   notas                   String?
@@ -185,8 +185,8 @@ model solicitudes_recoleccion {
   quiere_productos_extra Boolean?              @default(false)
   quiere_recoleccion     Boolean?              @default(false)
   id_pago                Int?
+  estatus                Boolean               @default(true)
   productos_solicitud    productos_solicitud[]
-  estatus                Boolean?              @default(false)
   cliente                cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
   formas_pago            formas_pago?          @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
 }
@@ -219,4 +219,11 @@ model usuarios_cp {
   solicitud_registro   solicitud_registro[]
   compospet            compospet            @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
   roles                roles                @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
+}
+
+model zona {
+  id_zona     Int     @id
+  municipio   String  @db.VarChar
+  descripcion String? @db.VarChar
+  estado      String  @db.VarChar
 }

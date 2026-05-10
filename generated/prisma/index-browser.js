@@ -294,6 +294,13 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   codigo_verificacion: 'codigo_verificacion'
 };
 
+exports.Prisma.ZonaScalarFieldEnum = {
+  id_zona: 'id_zona',
+  municipio: 'municipio',
+  descripcion: 'descripcion',
+  estado: 'estado'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -340,7 +347,8 @@ exports.Prisma.ModelName = {
   solicitud_registro: 'solicitud_registro',
   solicitudes_recoleccion: 'solicitudes_recoleccion',
   saldo: 'saldo',
-  usuarios_cp: 'usuarios_cp'
+  usuarios_cp: 'usuarios_cp',
+  zona: 'zona'
 };
 
 /**
