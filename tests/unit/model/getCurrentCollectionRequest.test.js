@@ -33,6 +33,7 @@ describe("Model - getCurrentCollectionRequest", () => {
             notas: "Solicitud existente",
             quiere_recoleccion: true,
             quiere_productos_extra: false,
+            estatus: false,
         };
 
         prisma.solicitudes_recoleccion.findFirst.mockResolvedValue(mockCurrentRequest);

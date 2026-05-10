@@ -31,6 +31,7 @@ describe("Model - createInitialCollectionRequest", () => {
             notas: null,
             quiere_recoleccion: true,
             quiere_productos_extra: true,
+            estatus: false,
         };
 
         prisma.solicitudes_recoleccion.create.mockResolvedValue(mockNewRequest);
@@ -55,6 +56,7 @@ describe("Model - createInitialCollectionRequest", () => {
                 notas: null,
                 quiere_recoleccion: true,
                 quiere_productos_extra: true,
+                estatus: false,
             },
         });
     });

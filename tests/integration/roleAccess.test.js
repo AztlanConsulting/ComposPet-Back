@@ -21,7 +21,7 @@ const TEST_ROUTE_ID = 131;
 const TEST_ADMIN_EMAIL = "admin.rbac@compospet.com";
 const TEST_CLIENT_EMAIL = "cliente.rbac@compospet.com";
 
-const ENDPOINT = "/api/cliente/obtener-id-cliente";
+const ENDPOINT = "/api/cliente/obtener-cliente-y-ruta";
 
 // ======================
 // AUTH
@@ -193,7 +193,7 @@ afterAll(async () => {
 // TESTS
 // ======================
 
-describe("RBAC — POST /obtener-id-cliente", () => {
+describe("RBAC — POST /obtener-cliente-y-ruta", () => {
 
     it("permite acceso a usuario con rol Administrador", async () => {
         const token = createAdminToken();
