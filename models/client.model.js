@@ -117,9 +117,7 @@ module.exports = class Client {
                     }
                 },
                 {
-                    usuarios_cp: {
-                        nombre: "desc",
-                    }
+                    orden_horario: "asc",
                 }
             ],
             select: {
