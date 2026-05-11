@@ -27,6 +27,14 @@ const cookieOptions = {
         && { domain: process.env.COOKIE_DOMAIN }),
 };
 
+const getClientIp = (req) => {
+    return (
+        req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+        req.socket?.remoteAddress ||
+        null
+    );
+};
+
 /**
  * Controlador del endpoint de inicio de sesión.
  * Orquesta la autenticación del usuario aplicando las siguientes validaciones en orden:
@@ -108,14 +116,13 @@ const login = async(req, res) => {
 
         try {
             const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
-
             if (activeSessions >= 2) {
-                await AuthModel.deleteOldestSession(user.id_usuario);
+                await AuthModel.closeOldestSession(user.id_usuario);
             }
-
-            await AuthModel.saveRefreshToken(user.id_usuario, refreshToken);
+            const ip = getClientIp(req); // ← obtener IP
+            await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
         } catch (dbError) {
-            console.error('Error interno', dbError);
+            console.error('Error saving session:', dbError);
         }
 
         res.cookie('refreshToken', refreshToken, cookieOptions);
@@ -182,16 +189,15 @@ const googleAuth = async (req, res) => {
     const refreshToken = generateRefreshToken(tokenPayload);
 
     try {
-            const activeSessions = await AuthModel.countActiveSessions(userDB.id_usuario);
-
-            if (activeSessions >= 2) {
-                await AuthModel.deleteOldestSession(user.id_usuario);
-            }
-
-            await AuthModel.saveRefreshToken(user.id_usuario, refreshToken);
-        } catch (dbError) {
-            console.error('Error interno', dbError);
+        const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
+        if (activeSessions >= 2) {
+            await AuthModel.closeOldestSession(user.id_usuario);
         }
+        const ip = getClientIp(req); // ← obtener IP
+        await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
+    } catch (dbError) {
+        console.error('Error saving session:', dbError);
+    }
 
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
@@ -226,41 +232,49 @@ const googleAuth = async (req, res) => {
  * @throws {Error} Si el token ha expirado o ha sido manipulado.
  */
 const refreshToken = async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
+    const token = req.cookies.refreshToken;
 
-    if (!refreshToken) {
-        return res.status(403).json({ message: 'No hay token de refresco.' });
+    if (!token) {
+        return res.status(403).json({ message: 'No refresh token found.' });
     }
 
     try {
-        const payload = verifyRefreshToken(refreshToken);
-        const tokenInDB = await AuthModel.findRefreshToken(refreshToken);
+        const payload = verifyRefreshToken(token);
+        const session = await AuthModel.findSession(token);
 
-        if (!tokenInDB) {
+        if (!session) {
             res.clearCookie('refreshToken', cookieOptions);
-            return res.status(403).json({ message: 'Sesión no válida o expirada.' });
+            return res.status(403).json({ message: 'Session not found or inactive.' });
         }
+
+        if (new Date() > new Date(session.expira_en)) {
+            await AuthModel.closeSession(token);
+            res.clearCookie('refreshToken', cookieOptions);
+            return res.status(403).json({ message: 'Session expired due to inactivity.' });
+        }
+
+        const role = session.usuarios_cp.roles.nombre;
+        const newRefreshToken = generateRefreshToken({
+            userId: payload.userId,
+            email: payload.email,
+            role,
+        });
+
+        await AuthModel.updateSession(token, newRefreshToken, role);
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,
             email: payload.email,
-            role: payload.role
-        });
-
-        const newRefreshToken = generateRefreshToken({
-            userId: payload.userId,
-            email: payload.email,
-            role: payload.role
+            role,
         });
 
         res.cookie('refreshToken', newRefreshToken, cookieOptions);
-
         return res.status(200).json({ accessToken: newAccessToken });
 
     } catch (error) {
         res.clearCookie('refreshToken');
-        console.error('Error al refrescar token:', error);
-        return res.status(403).json({ message: 'Token de refresco inválido o expirado.' });
+        console.error('Error refreshing token:', error);
+        return res.status(403).json({ message: 'Invalid or expired refresh token.' });
     }
 };
 
@@ -269,17 +283,15 @@ const logout = async (req, res) => {
 
     try {
         if (token) {
-            await AuthModel.removeRefreshToken(token);
+            await AuthModel.closeSession(token);
         }
-
         res.clearCookie('refreshToken', cookieOptions);
-
-        return res.status(200).json({message: 'Sesión cerrada correctamente.'})
+        return res.status(200).json({ message: 'Session closed successfully.' });
     } catch (error) {
-        console.error('Error en cerrar sesión: ', error);
-        return res.status(500).json({ message: 'Error al cerrar sesión.' });
+        console.error('Error closing session:', error);
+        return res.status(500).json({ message: 'Error closing session.' });
     }
-}
+};
 
 module.exports = {
     login, 

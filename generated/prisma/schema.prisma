@@ -48,7 +48,7 @@ model cliente {
   id_usuario              String                    @unique @db.Uuid
   id_ruta                 Int
   mascotas                String?                   @db.VarChar
-  cantidad_familia        Int?
+  familia                 String?
   direccion               String?                   @db.VarChar
   orden_horario           Int?
   notas                   String?
@@ -56,8 +56,8 @@ model cliente {
   fecha_salida            DateTime?                 @db.Date
   ruta                    ruta                      @relation(fields: [id_ruta], references: [id_ruta], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_ruta")
   usuarios_cp             usuarios_cp               @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_usuario")
+  saldo                   saldo?
   solicitudes_recoleccion solicitudes_recoleccion[]
-  tarjeta_lealtad         tarjeta_lealtad?
 }
 
 model compospet {
@@ -77,10 +77,10 @@ model faq {
 }
 
 model formas_pago {
-  id_pago                 String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   tipo                    String                    @db.VarChar
   texto                   String?
   notas                   String?
+  id_pago                 Int                       @id
   solicitudes_recoleccion solicitudes_recoleccion[]
 }
 
@@ -116,6 +116,9 @@ model productos_extra {
   precio              Float
   descripcion         String?               @db.VarChar
   cantidad            Int
+  imagen_url          String?               @db.VarChar
+  orden               Int?
+  estatus             Boolean?
   productos_solicitud productos_solicitud[]
 }
 
@@ -149,10 +152,8 @@ model roles_permisos {
 model ruta {
   id_ruta    Int       @id
   dia_ruta   String    @db.VarChar
-  id_zona    Int
   turno_ruta String    @db.VarChar
   cliente    cliente[]
-  zona       zona      @relation(fields: [id_zona], references: [id_zona], onDelete: NoAction, onUpdate: NoAction, map: "ruta_zona_fk")
 }
 
 model solicitud_registro {
@@ -163,9 +164,8 @@ model solicitud_registro {
   telefono              String?     @db.VarChar
   correo                String      @db.VarChar
   direccion             String?     @db.VarChar
-  zona                  String?     @db.VarChar
   mascotas              String?     @db.VarChar
-  cantidad_familia      Int?
+  familia               String?     @db.VarChar
   notas                 String?
   fecha                 DateTime    @db.Date
   estatus               Boolean     @default(false)
@@ -173,19 +173,29 @@ model solicitud_registro {
 }
 
 model solicitudes_recoleccion {
-  id_solicitud         String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_cliente           String                @db.Uuid
-  id_pago              String                @db.Uuid
-  cubetas_entregadas   Int?
-  cubetas_recolectadas Int?
-  total_a_pagar        Float?
-  total_pagado         Float?
-  fecha                DateTime              @db.Date
-  horario              DateTime?             @db.Time(6)
-  notas                String?
-  productos_solicitud  productos_solicitud[]
-  cliente              cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
-  formas_pago          formas_pago           @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
+  id_solicitud           String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente             String                @db.Uuid
+  cubetas_entregadas     Int?
+  cubetas_recolectadas   Int?
+  total_a_pagar          Float?
+  total_pagado           Float?
+  fecha                  DateTime              @db.Date
+  horario                DateTime?             @db.Time(6)
+  notas                  String?
+  quiere_productos_extra Boolean?              @default(false)
+  quiere_recoleccion     Boolean?              @default(false)
+  id_pago                Int?
+  productos_solicitud    productos_solicitud[]
+  estatus                Boolean?              @default(false)
+  cliente                cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
+  formas_pago            formas_pago?          @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
+}
+
+model saldo {
+  id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente String  @unique @db.Uuid
+  saldo      Float   @default(0)
+  cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
 }
 
 model usuarios_cp {
@@ -201,63 +211,26 @@ model usuarios_cp {
   primer_inicio_sesion Boolean              @default(true)
   intentos_fallidos    Int                  @default(0)
   bloqueado_hasta      DateTime?            @db.Timestamp(6)
-  codigo_verificacion  String?              @db.VarChar(6)
   codigo_expiracion    DateTime?            @db.Timestamp(6)
+  codigo_verificacion  String?              @db.VarChar
   administrador        administrador?
   bitacora             bitacora[]
   cliente              cliente?
-  refresh_tokens       refresh_tokens[]
   solicitud_registro   solicitud_registro[]
+  sesiones             sesiones[]
   compospet            compospet            @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
   roles                roles                @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
 }
 
-model nivel_promociones {
-  id_nivel       String      @db.Uuid
-  id_promociones Int
-  niveles        niveles     @relation(fields: [id_nivel], references: [id_nivel], onDelete: NoAction, onUpdate: NoAction, map: "fk_nivel_promociones_nivel")
-  promociones    promociones @relation(fields: [id_promociones], references: [id_promociones], onDelete: NoAction, onUpdate: NoAction, map: "fk_nivel_promociones_promocion")
-
-  @@id([id_nivel, id_promociones])
-}
-
-model niveles {
-  id_nivel          String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  nombre            String              @db.VarChar
-  nivel_promociones nivel_promociones[]
-  tarjeta_lealtad   tarjeta_lealtad[]
-}
-
-model promociones {
-  id_promociones    Int                 @id
-  nombre            String              @db.VarChar
-  descripcion       String?
-  valor_descuento   Int?
-  nivel_promociones nivel_promociones[]
-}
-
-model refresh_tokens {
-  id          Int         @id @default(autoincrement())
-  id_usuario  String      @db.Uuid
-  token_hash  String
-  created_at  DateTime?   @default(now()) @db.Timestamp(6)
-  usuarios_cp usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_tokens_usuario")
-}
-
-model tarjeta_lealtad {
-  id_tarjeta_lealtad String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_cliente         String  @unique @db.Uuid
-  id_nivel           String  @db.Uuid
-  saldo              Float   @default(0)
-  cliente            cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_tarjeta_lealtad_cliente")
-  niveles            niveles @relation(fields: [id_nivel], references: [id_nivel], onDelete: NoAction, onUpdate: NoAction, map: "fk_tarjeta_lealtad_nivel")
-}
-
-model zona {
-  id_zona     Int     @id
-  nombre_zona String  @db.VarChar
-  municipio   String  @db.VarChar
-  descripcion String? @db.VarChar
-  estado      String  @db.VarChar
-  ruta        ruta[]
+model sesiones {
+  id               String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_usuario       String      @db.Uuid
+  refresh_token    String      @unique
+  dispositivo      String?     @db.VarChar
+  ip               String?     @db.VarChar
+  iniciada_en      DateTime?   @default(now()) @db.Timestamp(6)
+  expira_en        DateTime    @db.Timestamp(6)
+  ultima_actividad DateTime?   @default(now()) @db.Timestamp(6)
+  activa           Boolean     @default(true)
+  usuarios_cp      usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_sesiones_usuario")
 }

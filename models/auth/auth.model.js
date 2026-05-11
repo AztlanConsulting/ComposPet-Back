@@ -108,84 +108,76 @@ const AuthModel = {
             }
         });
     },
-    /**
-     * Cuenta la cantidad de sesiones activas (Refresh Tokens) que tiene un usuario.
-     * Se utiliza para validar el límite de sesiones simultáneas permitido.
-     *
-     * @param {string} id_usuario - UUID del usuario.
-     * @returns {Promise<number>} Cantidad de registros encontrados en `refresh_tokens`.
-     */
-    countActiveSessions: async (id_usuario) => {
-        return await prisma.refresh_tokens.count({
-            where: { id_usuario }
-        });
-    },
+    createSession: async (id_usuario, refresh_token, rol, ip) => {
+        const timeouts = {
+            'cliente': 5 * 60 * 60 * 1000,
+            'Administrador': 8 * 60 * 60 * 1000,
+        };
+        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['cliente']));
 
-    /**
-     * Identifica y elimina la sesión más antigua de un usuario específico.
-     * Busca el registro con la fecha de creación (`created_at`) más lejana 
-     * para liberar espacio para una nueva sesión.
-     *
-     * @param {string} id_usuario - UUID del usuario.
-     * @returns {Promise<object|null>} Registro eliminado o null si no existían sesiones.
-     */
-    deleteOldestSession: async (id_usuario) => {
-        const oldest = await prisma.refresh_tokens.findFirst({
-            where: { id_usuario },
-            orderBy: { created_at: 'asc' },
-            select: { id: true }
-        });
-
-        if (oldest) {
-            return await prisma.refresh_tokens.delete({
-                where: { id: oldest.id }
-            });
-        }
-        return null;
-    },
-
-    /**
-     * Almacena un nuevo Refresh Token en la base de datos asociado a un usuario.
-     * Esto permite el control "stateful" de las sesiones JWT.
-     *
-     * @param {string} id_usuario - UUID del usuario.
-     * @param {string} token_hash - El JWT de refresco generado.
-     * @returns {Promise<object>} Registro del token creado en la base de datos.
-     */
-    saveRefreshToken: async (id_usuario, token_hash) => {
-        return await prisma.refresh_tokens.create({
+        return await prisma.sesiones.create({
             data: {
                 id_usuario,
-                token_hash
+                refresh_token,
+                expira_en: expires_at,
+                ip,
             }
         });
     },
 
-    /**
-     * Elimina de forma permanente un Refresh Token de la base de datos.
-     * Se invoca durante el flujo de logout para invalidar la sesión en el servidor.
-     *
-     * @param {string} token_hash - El token que se desea invalidar.
-     * @returns {Promise<void>}
-     */
-    removeRefreshToken: async (token_hash) => {
-        await prisma.refresh_tokens.deleteMany({
-            where: { token_hash }
+    findSession: async (refresh_token) => {
+        return await prisma.sesiones.findFirst({
+            where: { refresh_token, activa: true },
+            include: {
+                usuarios_cp: {
+                    include: { roles: { select: { nombre: true } } }
+                }
+            }
         });
     },
 
-    /**
-     * Verifica la existencia de un Refresh Token en la base de datos.
-     * Esencial para el endpoint de /refresh, asegurando que la sesión no haya sido
-     * revocada por el límite de dispositivos o por un cierre de sesión previo.
-     *
-     * @param {string} token_hash - El token a buscar.
-     * @returns {Promise<object|null>} Datos del token si existe y es válido.
-     */
-    findRefreshToken: async (token_hash) => {
-        return await prisma.refresh_tokens.findFirst({
-            where: { token_hash }
+    updateSession: async (refresh_token, new_token, rol) => {
+        const timeouts = {
+            'cliente': 5 * 60 * 60 * 1000,
+            'Administrador': 8 * 60 * 60 * 1000,
+        };
+        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['cliente']));
+
+        return await prisma.sesiones.update({
+            where: { refresh_token },
+            data: {
+                refresh_token: new_token,
+                ultima_actividad: new Date(),
+                expira_en: expires_at,
+            }
         });
+    },
+
+    closeSession: async (refresh_token) => {
+        return await prisma.sesiones.updateMany({
+            where: { refresh_token },
+            data: { activa: false }
+        });
+    },
+
+    countActiveSessions: async (id_usuario) => {
+        return await prisma.sesiones.count({
+            where: { id_usuario, activa: true }
+        });
+    },
+
+    closeOldestSession: async (id_usuario) => {
+        const oldest = await prisma.sesiones.findFirst({
+            where: { id_usuario, activa: true },
+            orderBy: { iniciada_en: 'asc' },
+        });
+        if (oldest) {
+            return await prisma.sesiones.update({
+                where: { id: oldest.id },
+                data: { activa: false }
+            });
+        }
+        return null;
     },
 };
 

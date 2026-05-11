@@ -66,6 +66,6 @@ router.post('/refresh', authController.refreshToken);
  * @access Privado (Requiere cookie refreshToken)
  * @see authController.logout
  */
-router.post('/cerrar-sesion', authMiddleware, authController.logout);
+router.post('/cerrar-sesion', authController.logout);
 
 module.exports = router;
