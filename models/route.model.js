@@ -134,6 +134,7 @@ module.exports = class Route {
                             fecha: true,
                             horario: true,
                             notas: true,
+                            orden_horario: true,
 
                             formas_pago: {
                                 select: {
@@ -164,12 +165,31 @@ module.exports = class Route {
                         },
                     },
                     {
-                        orden_horario: "asc", // luego por orden dentro del turno
-                    },
+                        orden_horario: "asc",
+                    }
                 ],
             });
 
             // ==================== FORMATEO DE DATOS ====================
+
+            routeInfo.sort((route1, route2) => {
+                const request1 = route1.solicitudes_recoleccion?.[0];
+                const request2 = route2.solicitudes_recoleccion?.[0];
+
+                // Si route1 tiene solicitud y route 2 no, route 1 va primero
+                if (request1 && !request2) return -1;
+
+                // si route2 tiene solicitud y route1 no, route2 va primero
+                if (!request1 && request2) return 1;
+
+                // Si ambos tienen solicitud, ordener por orden_horario de la solicitud
+                if (request1 && request2){
+                    return request1.orden_horario - request2.orden_horario;
+                }
+
+                // Si ninguno tiene solicitud, ordenar por orden_horario de la solicitud
+                return route1.orden_horario - route2.orden_horario;
+            })
         
             /**
              * Transforma los datos de la base de datos al formato requerido por la vista.
@@ -227,6 +247,7 @@ module.exports = class Route {
                     recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
                     entrega: request?.cubetas_entregadas?.toString() ?? " ",
                     productos_extra: extraproducts || " ",
+                    order: request?.orden_horario.toString() || " ",
                     horario: formattedTime(request?.horario),
                     forma_pago: request?.formas_pago?.tipo || " ",
                     total_a_pagar: request?.total_a_pagar?.toString() ?? " ",

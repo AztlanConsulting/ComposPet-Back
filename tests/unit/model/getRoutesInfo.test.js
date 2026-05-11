@@ -42,6 +42,7 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 2,
                         total_a_pagar: 1500,
                         total_pagado: 300,
+                        orden_horario: 1,
                         fecha: new Date('2026-05-06T00:00:00.000Z'),
                         horario: new Date('1970-01-01T08:00:00.000Z'),
                         notas: 'Solicito más aserrín',
@@ -98,6 +99,7 @@ describe('Model - getRoutesInfo', () => {
                 recoleccion: '4',
                 entrega: '2',
                 productos_extra: 'Composta (12)',
+                order: '1',
                 horario: '08:00',
                 forma_pago: 'Efectivo',
                 total_a_pagar: '1500',
@@ -136,6 +138,7 @@ describe('Model - getRoutesInfo', () => {
                 recoleccion: ' ',
                 entrega: ' ',
                 productos_extra: ' ',
+                order: ' ',
                 horario: ' ',
                 forma_pago: ' ',
                 total_a_pagar: ' ',
@@ -178,7 +181,7 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 2,
                         total_a_pagar: 1500,
                         total_pagado: 300,
-
+                        orden_horario: 1,
                         horario: null,
 
                         notas: 'Solicito más aserrín',
@@ -212,6 +215,7 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 2,
                         total_a_pagar: 1500,
                         total_pagado: 300,
+                        orden_horario: 1,
                         horario: '08:00:00',
                         notas: 'Solicito más aserrín',
                         formas_pago: {
@@ -247,6 +251,7 @@ describe('Model - getRoutesInfo', () => {
                     cubetas_entregadas: null,
                     total_a_pagar: null,
                     total_pagado: null,
+                    orden_horario:1,
                     horario:'08:00',
                     notas:'Nota de recolecta',
 
@@ -269,6 +274,7 @@ describe('Model - getRoutesInfo', () => {
             recoleccion: ' ',
             entrega: ' ',
             productos_extra: 'Aserrin',
+            order: '1',
             horario: '08:00',
             forma_pago: ' ',
             total_a_pagar: ' ',
@@ -319,6 +325,7 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 1,
                         total_a_pagar: 100,
                         total_pagado: 100,
+                        orden_horario:1,
                         horario: '08:00',
                         notas: null,
                         formas_pago: null,
@@ -369,6 +376,7 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 1,
                         total_a_pagar: 100,
                         total_pagado: 100,
+                        orden_horario:1,
                         horario: '08:00',
                         notas: 'Productos desordenados',
 
@@ -426,7 +434,7 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 1,
                         total_a_pagar: 100,
                         total_pagado: 100,
-
+                        orden_horario:1,
                         horario: {},
 
                         notas: 'Horario inválido',
@@ -460,6 +468,7 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 1,
                         total_a_pagar: 100,
                         total_pagado: 100,
+                        orden_horario:1,
                         horario: '08:00',
                         notas: null,
                         formas_pago: null,

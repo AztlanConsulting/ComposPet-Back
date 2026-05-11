@@ -111,6 +111,7 @@ const createBaseData = async () => {
             notas: 'Tocar timbre',
             quiere_recoleccion: true,
             quiere_productos_extra: false,
+            orden_horario: 1,
         }
     });
 };
@@ -197,6 +198,7 @@ describe("Integración - Ruta - getTableInfo",  () => {
             recoleccion: '2',
             entrega: '3',
             productos_extra: ' ',
+            order: '1',
             forma_pago: ' ',
             total_a_pagar: '150',
             total_pagado: '100',
