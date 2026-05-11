@@ -25,23 +25,24 @@ const getTableInfo = async(req,res) => {
     }
 }
 
-// const getAvailableWeeks = async(req, res) => {
-//     try{
-//         const weeks = await Routes.getAvailableWeeks();
+const getAvailableWeeks = async(req, res) => {
+    try{
+        const weeks = await Routes.getAvailableWeeks();
 
-//         return res.status(200).json({
-//             success: true,
-//             data: weeks,
-//         })
-//     } catch (error){
-//         return res.status(500).json({
-//             success: false,
-//             message: "Ocurrió un error obteniendo la información.",
-//         })
-//     }
-// }
+        return res.status(200).json({
+            success: true,
+            data: weeks,
+        })
+    } catch (error){
+        return res.status(500).json({
+            success: false,
+            message: "Ocurrió un error obteniendo la información.",
+        })
+    }
+}
 
 
 module.exports = {
     getTableInfo,
+    getAvailableWeeks,
 }

@@ -6,7 +6,30 @@ const WEEK_DAYS = [
     "Jueves", "Viernes", "Sábado",
 ];
 
+function getLastTwoMonthsWeeks(now = new Date()){
+    const start = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+    const weeks = [];
+    let weekStart = new Date(start);
 
+    while (weekStart < now) {
+        let weekEnd = new Date(weekStart);
+        weekEnd.setDate(weekEnd.getDate() + 7);
+        if (weekEnd > now) weekEnd = new Date(now);
+
+        const displayEnd = new Date(weekEnd);
+        displayEnd.setDate(displayEnd.getDate() - 1);
+
+        weeks.push({
+            weekStart: new Date(weekStart),
+            weekEnd:   new Date(weekEnd),
+            label: `${weekStart.toLocaleDateString("es-MX")} - ${displayEnd.toLocaleDateString("es-MX")}`,
+        });
+
+        weekStart = new Date(weekEnd);
+    }
+
+    return weeks;
+}
 
 /**
  * Modelo que representa las rutas registradas en el sistema.
@@ -237,4 +260,8 @@ module.exports = class Route {
             throw new Error('Error obteniendo rutas');
         }
     }
-}
+
+    static getAvailableWeeks(){
+        return getLastTwoMonthsWeeks();
+    }
+};
