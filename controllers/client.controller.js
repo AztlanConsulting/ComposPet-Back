@@ -187,6 +187,9 @@ function buildDataObjects(clientObject) {
         clientData.id_ruta = clientObject.routeId;
     }
 
+    if(clientObject.order !== undefined){
+        clientData.orden_horario = clientObject.order;
+    }
 
     // Campos para saldo
     if(clientObject.balance !== undefined){

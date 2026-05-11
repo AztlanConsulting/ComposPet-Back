@@ -43,6 +43,24 @@ module.exports = class Client {
     }
 
     /**
+     * Obtiene la información cliente asociado al id de cliente proporcionado,
+     *
+     * @async
+     * @static
+     * @param {string} clientId - Id del cliente.
+     * @returns {Promise<Object|null>} Objeto con el id del cliente o `null` si no existe.
+     */
+    static async getClientById(clientId) {
+        const client = await prisma.cliente.findUnique({
+            where: {
+                id_cliente: clientId,
+            },
+        });
+
+        return client;
+    }    
+
+    /**
      * Crea un nuevo registro de cliente en la base de datos vinculado a un usuario existente.
      * Los campos `mascotas`, `familia` y `notas` son opcionales; si no se proporcionan.
      *
@@ -110,6 +128,7 @@ module.exports = class Client {
                 familia: true,
                 direccion: true,
                 notas: true,
+                orden_horario: true,
 
                 usuarios_cp: {
                 select: {
@@ -154,6 +173,7 @@ module.exports = class Client {
             family: client.familia,
             address: client.direccion,
             notes: client.notas,
+            order: client.orden_horario,
 
             name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
             cellphone: client.usuarios_cp.telefono,
@@ -193,6 +213,44 @@ module.exports = class Client {
         try {
             await prisma.$transaction(async (tx) => {
 
+                const actualClient = await tx.cliente.findUnique({
+                    where: {
+                        id_cliente: clientId,
+                    },
+                    select: {
+                        id_ruta: true,
+                        orden_horario: true,
+                    }
+                })
+
+                const newOrder = clientData.orden_horario;
+                const oldOrder = actualClient.orden_horario;
+                const newRouteId = clientData.id_ruta;
+                const oldRouteId = actualClient.id_ruta;
+
+                const orderChanged =  newOrder !== oldOrder;
+                const routeChanged =  newRouteId !== oldRouteId;
+
+                if(routeChanged){
+                    await this.handleRouteChange(
+                        tx,
+                        clientId,
+                        oldRouteId,
+                        oldOrder,
+                        newRouteId,
+                        newOrder,
+                    );
+                }
+                else if(orderChanged) {
+                    await this.handleOrderChange(
+                        tx,
+                        clientId,
+                        oldRouteId,
+                        oldOrder,
+                        newOrder,
+                    );
+                }
+
                 if(Object.keys(userData).length){
                     await tx.usuarios_cp.update({
                         where: {
@@ -226,6 +284,96 @@ module.exports = class Client {
         } finally {
             return true;
         }
+    }
+
+    static async handleOrderChange(
+        tx,
+        clientId,
+        routeId,
+        oldOrder,
+        newOrder,
+    ){
+
+        if(newOrder > oldOrder){
+            await tx.cliente.updateMany({
+                where: {
+                    id_ruta: routeId,
+                    id_cliente: {
+                        not: clientId,
+                    },
+                    orden_horario: {
+                        gt: oldOrder,
+                        lte: newOrder,
+                    }
+                },
+                data: {
+                    orden_horario: {
+                        decrement: 1,
+                    }
+                }
+            });
+        }
+
+        if(newOrder < oldOrder){
+            await tx.cliente.updateMany({
+                where: {
+                    id_ruta: routeId,
+                    id_cliente: {
+                        not: clientId,
+                    },
+                    orden_horario: {
+                        gte: newOrder,
+                        lte: oldOrder,
+                    }
+                },
+                data: {
+                    orden_horario: {
+                        increment: 1,
+                    }
+                }
+            });
+        }
+    }
+
+    static async handleRouteChange(
+        tx,
+        clientId,
+        oldRouteId,
+        oldOrder,
+        newRouteId,
+        newOrder,
+    ){
+
+        await tx.cliente.updateMany({
+            where: {
+                id_ruta: oldRouteId,
+                orden_horario: {
+                    gt: oldOrder,
+                }
+            },
+            data: {
+                orden_horario: {
+                    decrement: 1,
+                }
+            }
+        });
+
+        await tx.cliente.updateMany({
+            where: {
+                id_ruta: newRouteId,
+                id_cliente: {
+                    not: clientId,
+                },
+                orden_horario: {
+                    gte: newOrder,
+                },
+            },
+            data: {
+                orden_horario: {
+                    increment: 1,
+                }
+            }
+        });
     }
 
 };
