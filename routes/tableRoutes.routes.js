@@ -7,4 +7,6 @@ const { requireRole } = require('../middlewares/roleAccess');
 // Ruta para consultar el saldo del cliente
 router.get('/informacion', requireRole("Administrador"),  routesController.getTableInfo);
 
+// router.get('/semanas', requireRole("Administrador"), routesController.getAvailableWeeks);
+
 module.exports = router;

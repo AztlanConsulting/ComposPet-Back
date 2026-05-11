@@ -1,5 +1,13 @@
 const prisma = require("../config/prisma");
 
+/** Array con los nombres de los días de la semana en español */
+const WEEK_DAYS = [
+    "Domingo", "Lunes", "Martes", "Miércoles",
+    "Jueves", "Viernes", "Sábado",
+];
+
+
+
 /**
  * Modelo que representa las rutas registradas en el sistema.
  * Interactúa con la tabla `ruta` de la base de datos.
@@ -52,19 +60,8 @@ module.exports = class Route {
             // ==================== CÁLCULO DE FECHAS ====================
             const now = new Date();
 
-             /** Array con los nombres de los días de la semana en español */
-            const weekdays = [
-                "Domingo",
-                "Lunes",
-                "Martes",
-                "Miércoles",
-                "Jueves",
-                "Viernes",
-                "Sábado",
-            ];
-
             /** Nombre del día actual (ej: "Lunes", "Martes", etc.) */
-            const todayName = weekdays[now.getDay()];
+            const todayName = WEEK_DAYS[now.getDay()];
 
              /**
              * Inicio de la semana actual (domingo a las 00:00:00).
