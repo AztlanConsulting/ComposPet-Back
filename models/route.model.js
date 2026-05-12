@@ -97,6 +97,11 @@ module.exports = class Route {
                             startsWith: todayName
                         }, // Filtra por el día actual
                     },
+                    usuarios_cp: {
+                        is: {
+                            estatus: true,
+                        },
+                    },
                 },
 
                 select: {
