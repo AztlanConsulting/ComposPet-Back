@@ -47,7 +47,7 @@ const getFilteredRoutesInfo = async(req, res) => {
 
         const filteredInfo = await Routes.getFilteredRoutesInfo({
             weekIndex: Number(weekIndex),
-            dayName: dayName || undefined,
+            dayName: dayName ?? undefined,
         });
 
         return res.status(200).json({

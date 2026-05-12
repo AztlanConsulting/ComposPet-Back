@@ -2,7 +2,7 @@ const prisma = require("../config/prisma");
 
 /** Array con los nombres de los días de la semana en español */
 const WEEK_DAYS = [
-    "Domingo", "Lunes", "Martes", "Miércoles",
+    "Domingo", "Lunes", "Martes", "Miercoles",
     "Jueves", "Viernes", "Sábado",
 ];
 
