@@ -122,11 +122,26 @@ describe('updateClient', () => {
 
     beforeEach(() => {
         prisma.$transaction = jest.fn(async (cb) => {
-            const tx = {
-                usuarios_cp: { update: jest.fn() },
-                cliente:     { update: jest.fn() },
-                saldo:       { update: jest.fn() },
-            };
+          const tx = {
+              usuarios_cp: { 
+                  update: jest.fn(),
+              },
+
+              cliente: {
+                  findUnique: jest.fn().mockResolvedValue({
+                      id_ruta: 1,
+                      orden_horario: 1,
+                  }),
+
+                  update: jest.fn(),
+
+                  updateMany: jest.fn(),
+              },
+
+              saldo: {
+                  update: jest.fn(),
+              },
+          };
             await cb(tx);
             return tx;
         });
@@ -156,11 +171,26 @@ describe('updateClient', () => {
         // Arrange
         let txRef;
         prisma.$transaction = jest.fn(async (cb) => {
-            const tx = {
-                usuarios_cp: { update: jest.fn() },
-                cliente:     { update: jest.fn() },
-                saldo:       { update: jest.fn() },
-            };
+          const tx = {
+              usuarios_cp: { 
+                  update: jest.fn(),
+              },
+
+              cliente: {
+                  findUnique: jest.fn().mockResolvedValue({
+                      id_ruta: 1,
+                      orden_horario: 1,
+                  }),
+
+                  update: jest.fn(),
+
+                  updateMany: jest.fn(),
+              },
+
+              saldo: {
+                  update: jest.fn(),
+              },
+          };
             txRef = tx;
             await cb(tx);
         });
@@ -182,11 +212,26 @@ describe('updateClient', () => {
         // Arrange
         let txRef;
         prisma.$transaction = jest.fn(async (cb) => {
-            const tx = {
-                usuarios_cp: { update: jest.fn() },
-                cliente:     { update: jest.fn() },
-                saldo:       { update: jest.fn() },
-            };
+          const tx = {
+              usuarios_cp: { 
+                  update: jest.fn(),
+              },
+
+              cliente: {
+                  findUnique: jest.fn().mockResolvedValue({
+                      id_ruta: 1,
+                      orden_horario: 1,
+                  }),
+
+                  update: jest.fn(),
+
+                  updateMany: jest.fn(),
+              },
+
+              saldo: {
+                  update: jest.fn(),
+              },
+          };
             txRef = tx;
             await cb(tx);
         });
@@ -211,11 +256,26 @@ describe('updateClient', () => {
         // Arrange
         let txRef;
         prisma.$transaction = jest.fn(async (cb) => {
-            const tx = {
-                usuarios_cp: { update: jest.fn() },
-                cliente:     { update: jest.fn() },
-                saldo:       { update: jest.fn() },
-            };
+          const tx = {
+              usuarios_cp: { 
+                  update: jest.fn(),
+              },
+
+              cliente: {
+                  findUnique: jest.fn().mockResolvedValue({
+                      id_ruta: 1,
+                      orden_horario: 1,
+                  }),
+
+                  update: jest.fn(),
+
+                  updateMany: jest.fn(),
+              },
+
+              saldo: {
+                  update: jest.fn(),
+              },
+          };
             txRef = tx;
             await cb(tx);
         });
