@@ -72,11 +72,17 @@ describe('Model - getRoutesInfo', () => {
         expect(prisma.cliente.findMany).toHaveBeenCalledWith(
             expect.objectContaining({
                 where: {
+                    usuarios_cp:{
+                        is:{
+                            estatus: true,
+                        }
+                    },
                     ruta: {
                         dia_ruta: {
                             startsWith: 'Miércoles',
                         },
                     },
+
                 },
                 select: expect.any(Object),
                 orderBy: [
