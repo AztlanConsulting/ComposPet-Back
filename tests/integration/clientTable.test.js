@@ -88,6 +88,7 @@ const createBaseData = async () => {
             direccion: "Dirección test",
             notas: "Notas test",
             fecha_entrada: new Date(),
+            orden_horario: 1,
         },
     });
 
@@ -201,6 +202,7 @@ describe("Integración - Client - getClientsInfo", () => {
             status: true,
             route: "Lunes",
             balance: 150,
+            order: 1,
         });
 
         expect(client.lastRequest).toBe("2026-04-28");
@@ -255,6 +257,7 @@ describe("Integración - Admin - updateClient", () => {
                     family: "2 adultos",
                     routeId: TEST_RUTA_ID,
                     balance: 300,
+                    order: 1,
                 },
             });
 
