@@ -41,8 +41,30 @@ const getAvailableWeeks = async(req, res) => {
     }
 }
 
+const getFilteredRoutesInfo = async(req, res) => {
+    try{
+        const { weekIndex, dayName } = req.query;
+
+        const filteredInfo = await Routes.getFilteredRoutesInfo({
+            weekIndex: Number(weekIndex),
+            dayName: dayName || undefined,
+        });
+
+        return res.status(200).json({
+            success: true,
+            data: filteredInfo,
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Ocurrió un error obteniendo la información.",
+        })
+    }
+}
 
 module.exports = {
     getTableInfo,
     getAvailableWeeks,
+    getFilteredRoutesInfo,
 }

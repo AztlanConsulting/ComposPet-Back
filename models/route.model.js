@@ -261,6 +261,157 @@ module.exports = class Route {
         }
     }
 
+    static async getFilteredRoutesInfo({ weekIndex, dayName } = {}) {
+        try {
+            const now = new Date();
+            const weeks = getLastTwoMonthsWeeks(now);
+
+            if (weekIndex < 0 || weekIndex >= weeks.length) {
+                throw new Error(`Index fuera de rango. Valido: 0 - ${weeks.length - 1}`);
+            }
+
+            const { weekStart, weekEnd } = weeks[weekIndex];
+            const dayObtained = dayName ?? WEEK_DAYS[now.getDay()];
+
+            const routeInfo = await prisma.cliente.findMany({
+                where: {
+                    ruta: {
+                        dia_ruta: { startsWith: dayObtained },
+                    },
+                },
+
+                select: {
+                    id_cliente: true,
+                    id_ruta: true,
+                    orden_horario: true,
+
+                    usuarios_cp: {
+                        select: {
+                            nombre: true,
+                            apellido: true,
+                        },
+                    },
+
+                    ruta: {
+                        select: {
+                            id_ruta: true,
+                            dia_ruta: true,
+                        },
+                    },
+
+                    solicitudes_recoleccion: {
+                        where: {
+                            fecha: {
+                                gte: weekStart,
+                                lt: weekEnd,
+                            },
+                        },
+                        select: {
+                            id_solicitud: true,
+                            cubetas_recolectadas: true,
+                            cubetas_entregadas: true,
+                            total_a_pagar: true,
+                            total_pagado: true,
+                            fecha: true,
+                            horario: true,
+                            notas: true,
+
+                            formas_pago: {
+                                select: {
+                                    tipo: true,
+                                },
+                            },
+
+                            productos_solicitud: {
+                                select: {
+                                    id_producto: true,
+                                    cantidad: true,
+                                    productos_extra: {
+                                        select: {
+                                            nombre: true,
+                                            orden: true, // ordenar los productos
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+
+                orderBy: [
+                    {
+                        ruta: {
+                            id_ruta: "asc",
+                        },
+                    },
+                    {
+                        orden_horario: "asc",
+                    },
+                ],
+
+            });
+
+            const formattedRouteInfo = routeInfo.map((client) => {
+                const request = client.solicitudes_recoleccion?.[0];
+
+                /**
+                 * Formatea la lista de productos extra ordenados por su campo 'orden'.
+                 * Incluye la cantidad entre paréntesis si está disponible.
+                 * Ejemplo: "Bolsas biodegradables (5)\nShampoo (2)"
+                 */
+                const extraproducts = request?.productos_solicitud
+                    ?.sort((a, b) => {
+                        return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
+                    })
+                    .map((product) => {
+                        if (!product.productos_extra) return null;
+                        if (product.cantidad == null) return product.productos_extra.nombre;
+                        return `${product.productos_extra.nombre} (${product.cantidad})`;
+                    })
+                    .filter(Boolean)
+                    .join("\n");
+
+                /**
+                 * Formatea el horario a formato HH:mm.
+                 * Maneja tanto objetos Date como strings de tiempo.
+                 * 
+                 * @param {Date|string|null} horario - Horario a formatear
+                 * @returns {string} Horario en formato HH:mm o " " si no hay dato
+                 */
+                const formattedTime = (schedule) =>{
+                    if (!schedule) return " ";
+
+                    if (schedule instanceof Date) return schedule.toISOString().substring(11,16);
+
+                    if (typeof schedule === "string") return schedule.substring(0, 5);
+
+                    return " ";
+                }
+
+                const name = client.usuarios_cp?.nombre || "";
+                const lastName = client.usuarios_cp?.apellido || "";
+                const fullName = `${name} ${lastName}`.trim() || " ";
+
+                 // ==================== OBJETO FORMATEADO FINAL ====================
+                return {
+                    nombre: fullName,
+                    recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
+                    entrega: request?.cubetas_entregadas?.toString() ?? " ",
+                    productos_extra: extraproducts || " ",
+                    horario: formattedTime(request?.horario),
+                    forma_pago: request?.formas_pago?.tipo || " ",
+                    total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
+                    total_pagado: request?.total_pagado?.toString() ?? " ",
+                    notas: request?.notas || " ",
+                };
+            });
+
+            return formattedRouteInfo;
+        } catch (error) {
+            throw new Error(`Error obteniendo rutas filtradas: ${error.message}`);
+        }
+    }
+
     static getAvailableWeeks(){
         return getLastTwoMonthsWeeks();
     }
