@@ -1,14 +1,33 @@
 const CollectionRequest = require('../../../models/collectionRequest.model');
 
-jest.mock('../../../config/prisma', () => ({
-  solicitudes_recoleccion: {
-    findUnique: jest.fn(),
-    update: jest.fn(),
-  },
-  productos_solicitud: {
-    deleteMany: jest.fn(),
-  },
-}));
+jest.mock('../../../config/prisma', () => {
+
+  const prismaMock = {
+    solicitudes_recoleccion: {
+      findUnique: jest.fn(),
+      update: jest.fn(),
+    },
+
+    productos_solicitud: {
+      deleteMany: jest.fn(),
+      findMany: jest.fn(),
+    },
+
+    formas_pago: {
+      findUnique: jest.fn(),
+    },
+
+    saldo: {
+      update: jest.fn(),
+    },
+  };
+
+  prismaMock.$transaction = jest.fn(async (callback) => {
+    return callback(prismaMock);
+  });
+
+  return prismaMock;
+});
 
 const prisma = require('../../../config/prisma');
 
