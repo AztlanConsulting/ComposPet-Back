@@ -6,6 +6,16 @@ const WEEK_DAYS = [
     "Jueves", "Viernes", "Sábado",
 ];
 
+/**
+ * Genera un arreglo de semanas comprendidas en los últimos dos meses hasta la fecha actual.
+ * Cada semana incluye su fecha de inicio, fecha de fin y una etiqueta legible en formato
+ * `dd/mm/aaaa - dd/mm/aaaa`.
+ * La última semana puede ser parcial si no ha concluido al momento de la consulta.
+ *
+ * @param {Date} [now=new Date()] - Fecha de referencia para el cálculo. Por defecto es la fecha actual.
+ * @returns {Array<{ weekStart: Date, weekEnd: Date, label: string }>}
+ * Arreglo de semanas ordenadas de la más antigua a la más reciente.
+ */
 function getLastTwoMonthsWeeks(now = new Date()){
     const start = new Date(now.getFullYear(), now.getMonth() - 2, 1);
     const weeks = [];
@@ -32,8 +42,11 @@ function getLastTwoMonthsWeeks(now = new Date()){
 }
 
 /**
- * Modelo que representa las rutas registradas en el sistema.
- * Interactúa con la tabla `ruta` de la base de datos.
+ * Modelo de acceso a datos para las rutas registradas en el sistema.
+ * Encapsula las operaciones sobre la tabla `ruta` y consultas relacionadas
+ * con solicitudes de recolección, productos extra y formas de pago.
+ *
+ * @namespace Route
  */
 module.exports = class Route {
     
@@ -44,7 +57,6 @@ module.exports = class Route {
      *
      * @returns {Promise<Array<{ id_ruta: number, dia_ruta: string }>>}
      * Arreglo con los registros de ruta disponibles, o un arreglo vacío si no existen.
-     * @see Route.findAllDaysOfRoute
      */
     static async findAllDaysOfRoute(){
         const daysOfRoutes = await prisma.ruta.findMany({
@@ -86,7 +98,7 @@ module.exports = class Route {
             /** Nombre del día actual (ej: "Lunes", "Martes", etc.) */
             const todayName = WEEK_DAYS[now.getDay()];
 
-             /**
+            /**
              * Inicio de la semana actual (domingo a las 00:00:00).
              * Se usa para filtrar solicitudes de la semana en curso.
              */
@@ -261,6 +273,22 @@ module.exports = class Route {
         }
     }
 
+    /**
+     * Obtiene la información de rutas filtrada por una semana específica y opcionalmente por día.
+     * Las semanas disponibles se calculan mediante `getLastTwoMonthsWeeks` y se acceden por índice.
+     * Si no se proporciona `dayName`, se utiliza el día actual de la semana.
+     *
+     * @param {Object} [params={}] - Parámetros de filtrado.
+     * @param {number} params.weekIndex - Índice de la semana dentro del arreglo de semanas disponibles.
+     * @param {string} [params.dayName] - Nombre del día a filtrar (ej. `"Lunes"`). Si se omite,
+     * se usa el día actual.
+     * @returns {Promise<Array<Object>>} Arreglo de clientes con su información de ruta formateada,
+     * con la misma estructura que retorna `getRoutesInfo`.
+     * @throws {Error} Lanza un error si `weekIndex` está fuera del rango de semanas disponibles.
+     * @throws {Error} Lanza un error si ocurre un fallo al consultar la base de datos.
+     * @see getLastTwoMonthsWeeks
+     * @see Route.getRoutesInfo
+     */
     static async getFilteredRoutesInfo({ weekIndex, dayName } = {}) {
         try {
             const now = new Date();
@@ -329,7 +357,7 @@ module.exports = class Route {
                                     productos_extra: {
                                         select: {
                                             nombre: true,
-                                            orden: true, // ordenar los productos
+                                            orden: true,
                                         },
                                     },
                                 },
@@ -412,6 +440,13 @@ module.exports = class Route {
         }
     }
 
+    /**
+     * Retorna las semanas disponibles para filtrar rutas, correspondientes a los últimos dos meses.
+     *
+     * @returns {Array<{ weekStart: Date, weekEnd: Date, label: string }>}
+     * Arreglo de semanas ordenadas de la más antigua a la más reciente.
+     * @see getLastTwoMonthsWeeks
+     */
     static getAvailableWeeks(){
         return getLastTwoMonthsWeeks();
     }
