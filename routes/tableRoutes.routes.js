@@ -9,6 +9,8 @@ router.get('/informacion', requireRole("Administrador"),  routesController.getTa
 
 router.get('/semanas', requireRole("Administrador"), routesController.getAvailableWeeks);
 
+router.get('/dias-ruta', requireRole("Administrador"), routesController.getDaysOfRoutes);
+
 router.get('/filtrar-informacion', requireRole("Administrador"), routesController.getFilteredRoutesInfo);
 
 module.exports = router;

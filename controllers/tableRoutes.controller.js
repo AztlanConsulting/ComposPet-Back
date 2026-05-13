@@ -32,12 +32,28 @@ const getAvailableWeeks = async(req, res) => {
         return res.status(200).json({
             success: true,
             data: weeks,
-        })
+        });
     } catch (error){
         return res.status(500).json({
             success: false,
             message: "Ocurrió un error obteniendo la información.",
-        })
+        });
+    }
+}
+
+const getDaysOfRoutes = async (req, res) => {
+    try {
+        const days = await Routes.findAllDaysOfRoute();
+
+        return res.status(200).json({ 
+            success: true, 
+            data: days 
+        });
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            message: "Error obteniendo días de ruta",
+        });
     }
 }
 
@@ -47,7 +63,9 @@ const getFilteredRoutesInfo = async(req, res) => {
 
         const filteredInfo = await Routes.getFilteredRoutesInfo({
             weekIndex: Number(weekIndex),
-            dayName: dayName ?? undefined,
+            dayName: dayName && dayName !== "undefined" && dayName !== "null"
+                ? dayName
+                : undefined,
         });
 
         return res.status(200).json({
@@ -66,5 +84,6 @@ const getFilteredRoutesInfo = async(req, res) => {
 module.exports = {
     getTableInfo,
     getAvailableWeeks,
+    getDaysOfRoutes,
     getFilteredRoutesInfo,
 }
