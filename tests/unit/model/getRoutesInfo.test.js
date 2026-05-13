@@ -499,3 +499,138 @@ describe('Model - getRoutesInfo', () => {
         );
     });
 });
+
+describe('Model - getFilteredRoutesInfo', () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        jest.useFakeTimers();
+        jest.setSystemTime(new Date('2026-05-13T12:00:00.000Z')); // Miércoles
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
+    });
+
+    it('debe filtrar por semana y día correctamente', async () => {
+        const mockData = [
+            {
+                id_cliente: 'client-123',
+                id_ruta: 1,
+                orden_horario: 1,
+                usuarios_cp: { 
+                    nombre: 'Alejandra', 
+                    apellido: 'Arredondo' 
+                },
+                ruta: { 
+                    id_ruta: 1, 
+                    dia_ruta: 'Miércoles 1' 
+                },
+                solicitudes_recoleccion: [
+                    {
+                        id_solicitud: '375',
+                        cubetas_recolectadas: 2,
+                        cubetas_entregadas: 3,
+                        total_a_pagar: 150,
+                        total_pagado: 100,
+                        fecha: new Date('2026-03-04T00:00:00.000Z'),
+                        horario: '08:00:00',
+                        notas: 'Nota de test',
+                        formas_pago: { tipo: 'Efectivo' },
+                        productos_solicitud: [],
+                    },
+                ],
+            },
+        ];
+
+        prisma.cliente.findMany.mockResolvedValue(mockData);
+
+        const result = await RoutesInfo.getFilteredRoutesInfo({
+            weekIndex: 0,
+            dayName: 'Miércoles 1',
+        });
+
+        expect(prisma.cliente.findMany).toHaveBeenCalledWith(
+            expect.objectContaining({
+                where: {
+                    ruta: {
+                        dia_ruta: { startsWith: 'Miércoles 1' },
+                    },
+                },
+            })
+        );
+
+        expect(result[0].nombre).toBe('Alejandra Arredondo');
+        expect(result[0].recoleccion).toBe('2');
+    });
+
+    it('debe usar el día actual si no se pasa dayName', async () => {
+        prisma.cliente.findMany.mockResolvedValue([]);
+
+        await RoutesInfo.getFilteredRoutesInfo({ weekIndex: 0 });
+
+        expect(prisma.cliente.findMany).toHaveBeenCalledWith(
+            expect.objectContaining({
+                where: {
+                    ruta: {
+                        dia_ruta: { startsWith: 'Miércoles' },
+                    },
+                },
+            })
+        );
+    });
+
+    it('debe lanzar error si weekIndex está fuera de rango', async () => {
+        await expect(
+            RoutesInfo.getFilteredRoutesInfo({ weekIndex: 999 })
+        ).rejects.toThrow('Error obteniendo rutas filtradas');
+    });
+
+    it('debe lanzar error si prisma falla', async () => {
+        prisma.cliente.findMany.mockRejectedValue(new Error('DB Error'));
+
+        await expect(
+            RoutesInfo.getFilteredRoutesInfo({ weekIndex: 0, dayName: 'Lunes' })
+        ).rejects.toThrow('Error obteniendo rutas filtradas');
+    });
+});
+
+describe('Model - getAvailableWeeks', () => {
+    beforeEach(() => {
+        jest.useFakeTimers();
+        jest.setSystemTime(new Date('2026-05-13T12:00:00.000Z'));
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
+    });
+
+    it('debe retornar un arreglo de semanas', () => {
+        const weeks = RoutesInfo.getAvailableWeeks();
+        expect(Array.isArray(weeks)).toBe(true);
+        expect(weeks.length).toBeGreaterThan(0);
+    });
+
+    it('cada semana debe tener weekStart, weekEnd y label', () => {
+        const weeks = RoutesInfo.getAvailableWeeks();
+        weeks.forEach(week => {
+            expect(week).toHaveProperty('weekStart');
+            expect(week).toHaveProperty('weekEnd');
+            expect(week).toHaveProperty('label');
+        });
+    });
+
+    it('weekStart debe ser menor que weekEnd en cada semana', () => {
+        const weeks = RoutesInfo.getAvailableWeeks();
+        weeks.forEach(week => {
+            expect(new Date(week.weekStart).getTime())
+                .toBeLessThan(new Date(week.weekEnd).getTime());
+        });
+    });
+
+    it('la primera semana debe iniciar hace dos meses', () => {
+        const weeks = RoutesInfo.getAvailableWeeks();
+        const firstWeek = new Date(weeks[0].weekStart);
+        expect(firstWeek.getMonth()).toBe(2);
+        expect(firstWeek.getFullYear()).toBe(2026);
+    });
+});
