@@ -2,7 +2,6 @@
 # ejecutar UNA VEZ después de clonar el repo para activar los git hooks
 # uso: sh scripts/setup-hooks.sh
 
-
 echo "🔧 configurando git hooks..."
 
 # configurar git para usar la carpeta .githooks/ en lugar de .git/hooks/

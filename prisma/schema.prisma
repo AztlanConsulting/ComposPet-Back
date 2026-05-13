@@ -34,6 +34,7 @@ model bitacora {
   tabla_afectada   String?      @db.VarChar
   objeto_afectado  String?      @db.VarChar
   id_registro      String?      @db.VarChar
+  app_user_id      String?      @db.Uuid
   db_user          String       @db.VarChar
   fecha_evento     DateTime     @default(now()) @db.Timestamp(6)
   datos_anteriores Json?
