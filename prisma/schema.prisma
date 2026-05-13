@@ -30,7 +30,6 @@ model avisos {
 model bitacora {
   id_bitacora      Int          @id @default(autoincrement())
   origen           String       @db.VarChar
-  accion           String       @db.VarChar
   tabla_afectada   String?      @db.VarChar
   objeto_afectado  String?      @db.VarChar
   id_registro      String?      @db.VarChar
