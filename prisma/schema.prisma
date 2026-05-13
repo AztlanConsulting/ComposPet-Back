@@ -22,7 +22,6 @@ model avisos {
   id_admin      String        @db.Uuid
   titulo        String        @db.VarChar
   texto         String
-  foto          String?       @db.VarChar
   fecha         DateTime      @db.Date
   administrador administrador @relation(fields: [id_admin], references: [id_admin], onDelete: NoAction, onUpdate: NoAction, map: "fk_avisos_administrador")
 }
