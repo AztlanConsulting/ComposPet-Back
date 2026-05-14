@@ -132,6 +132,9 @@ module.exports = class Route {
                         },
                         select: {
                             id_solicitud: true,
+                            estatus: true,
+                            quiere_recoleccion: true,
+                            quiere_productos_extra: true,
                             cubetas_recolectadas: true,
                             cubetas_entregadas: true,
                             total_a_pagar: true,
@@ -154,6 +157,7 @@ module.exports = class Route {
                                         select: {
                                             nombre: true,
                                             orden: true, // ordenar los productos
+                                            color: true,
                                         },
                                     },
                                 },
@@ -185,15 +189,18 @@ module.exports = class Route {
                 // Obtiene la primera (y generalmente única) solicitud de la semana
                 const request = client.solicitudes_recoleccion?.[0];
 
+                // Ordena los productos extra por su campo 'orden'
+                const sortedProducts = request?.productos_solicitud
+                    ?.sort((a, b) => {
+                        return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
+                    }) || [];
+
                 /**
                  * Formatea la lista de productos extra ordenados por su campo 'orden'.
                  * Incluye la cantidad entre paréntesis si está disponible.
                  * Ejemplo: "Bolsas biodegradables (5)\nShampoo (2)"
                  */
-                const extraproducts = request?.productos_solicitud
-                    ?.sort((a, b) => {
-                        return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
-                    })
+                const extraproducts = sortedProducts
                     .map((product) => {
                         if (!product.productos_extra) return null;
                         if (product.cantidad == null) return product.productos_extra.nombre;
@@ -201,6 +208,22 @@ module.exports = class Route {
                     })
                     .filter(Boolean) // elimina valores null/undefined
                     .join("\n"); // une con saltos de línea
+
+                /**
+                 * Formatea la lista de productos extra con su color para la vista de ruta
+                 */
+                const extraProductsDetail = sortedProducts
+                    .map((product) => {
+                        if (!product.productos_extra) return null;
+                        return{
+                            text:
+                                product.cantidad == null
+                                    ? product.productos_extra.nombre
+                                    : `${product.productos_extra.nombre} (${product.cantidad})`,
+                            color: product.productos_extra.color,
+                        }
+                    })
+                    .filter(Boolean); // elimina valores null/undefined
 
                 /**
                  * Formatea el horario a formato HH:mm.
@@ -237,6 +260,13 @@ module.exports = class Route {
                     total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
                     total_pagado: request?.total_pagado?.toString() ?? " ",
                     notas: request?.notas || " ",
+
+                    hasRequest: !!request,
+
+                    status: request?.estatus ?? null,
+                    wantsCollection: request?.quiere_recoleccion ?? null,
+                    wantsExtraProducts: request?.quiere_productos_extra ?? null,
+                    extraProductsDetails: extraProductsDetail || [],
                 };
             });
 
