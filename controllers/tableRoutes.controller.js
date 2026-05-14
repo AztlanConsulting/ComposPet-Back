@@ -1,4 +1,6 @@
 const Routes = require('../models/route.model');
+const Payment = require('../models/payment.model');
+const CollectionRequest = require('../models/collectionRequest.model');
 
 /**
  * Controlador encargado de obtener la información de rutas
@@ -25,7 +27,27 @@ const getTableInfo = async(req,res) => {
     }
 }
 
+const getEditTableInfo = async(req, res) => {
+    try {
+
+        const payMethods = await Payment.getPaymentInfo();
+
+        const extraProducts = await CollectionRequest.getExtraProducts();
+
+        return res.status(200).json({
+            success: true,
+            payMethods,
+            extraProducts,
+        })
+    } catch(error) {
+        return res.status(500).json({
+            success: false,
+            message: "Ocurrió un error obteniendo la información.",
+        })
+    }
+}
 
 module.exports = {
     getTableInfo,
+    getEditTableInfo,
 }
