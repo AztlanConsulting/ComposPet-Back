@@ -41,6 +41,14 @@ function getLastTwoMonthsWeeks(now = new Date()){
     return weeks;
 }
 
+
+function getCurrentWeekIndex(now = new Date()) {
+    const weeks = getLastTwoMonthsWeeks(now);
+    return weeks.findIndex(week => 
+        now >= week.weekStart && now < week.weekEnd
+    );
+}
+
 /**
  * Modelo de acceso a datos para las rutas registradas en el sistema.
  * Encapsula las operaciones sobre la tabla `ruta` y consultas relacionadas
@@ -443,6 +451,10 @@ module.exports = class Route {
         } catch (error) {
             throw new Error(`Error obteniendo rutas filtradas: ${error.message}`);
         }
+    }
+
+    static getCurrentWeekIndex() {
+        return getCurrentWeekIndex();
     }
 
     /**
