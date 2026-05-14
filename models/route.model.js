@@ -124,6 +124,11 @@ module.exports = class Route {
              */
             const routeInfo = await prisma.cliente.findMany({
                 where: {
+                    usuarios_cp: {
+                        is: {
+                            estatus: true,
+                        },
+                    },
                     ruta: {
                         dia_ruta: {
                             startsWith: todayName
