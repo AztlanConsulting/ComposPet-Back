@@ -5,6 +5,9 @@ jest.mock('../../../config/prisma', () => ({
     cliente: {
         findMany: jest.fn(),
     },
+    ruta: {
+        findMany: jest.fn(),
+    },
 }));
 
 describe('Model - getRoutesInfo', () => {
@@ -38,6 +41,9 @@ describe('Model - getRoutesInfo', () => {
                 solicitudes_recoleccion: [
                     {
                         id_solicitud: '333-333-333',
+                        estatus: true,
+                        quiere_recoleccion: true,
+                        quiere_productos_extra: true,
                         cubetas_recolectadas: 4,
                         cubetas_entregadas: 2,
                         total_a_pagar: 1500,
@@ -57,6 +63,7 @@ describe('Model - getRoutesInfo', () => {
                                 productos_extra: {
                                     nombre: 'Composta',
                                     orden: 3,
+                                    color: 'naranja',
                                 },
                             },
                         ],
@@ -72,17 +79,16 @@ describe('Model - getRoutesInfo', () => {
         expect(prisma.cliente.findMany).toHaveBeenCalledWith(
             expect.objectContaining({
                 where: {
-                    usuarios_cp:{
-                        is:{
+                    usuarios_cp: {
+                        is: {
                             estatus: true,
-                        }
+                        },
                     },
                     ruta: {
                         dia_ruta: {
                             startsWith: 'Miércoles',
                         },
                     },
-
                 },
                 select: expect.any(Object),
                 orderBy: [
@@ -109,6 +115,16 @@ describe('Model - getRoutesInfo', () => {
                 total_a_pagar: '1500',
                 total_pagado: '300',
                 notas: 'Solicito más aserrín',
+                hasRequest: true,
+                status: true,
+                wantsCollection: true,
+                wantsExtraProducts: true,
+                extraProductsDetails: [
+                    {
+                        text: 'Composta (12)',
+                        color: 'naranja',
+                    },
+                ],
             },
         ]);
     });
@@ -147,6 +163,11 @@ describe('Model - getRoutesInfo', () => {
                 total_a_pagar: ' ',
                 total_pagado: ' ',
                 notas: ' ',
+                hasRequest: false,
+                status: null,
+                wantsCollection: null,
+                wantsExtraProducts: null,
+                extraProductsDetails: [],
             },
         ]);
     });
@@ -167,32 +188,18 @@ describe('Model - getRoutesInfo', () => {
         await expect(RoutesInfo.getRoutesInfo())
             .rejects
             .toThrow('Error obteniendo rutas');
-    })
+    });
 
     it('debe regresar espacio vacío si horario es null', async () => {
-
         prisma.cliente.findMany.mockResolvedValue([
             {
                 usuarios_cp: {
                     nombre: 'Alejandra',
                     apellido: 'Arredondo',
                 },
-
                 solicitudes_recoleccion: [
                     {
-                        cubetas_recolectadas: 4,
-                        cubetas_entregadas: 2,
-                        total_a_pagar: 1500,
-                        total_pagado: 300,
-
                         horario: null,
-
-                        notas: 'Solicito más aserrín',
-
-                        formas_pago: {
-                            tipo: 'Efectivo',
-                        },
-
                         productos_solicitud: [],
                     },
                 ],
@@ -207,66 +214,59 @@ describe('Model - getRoutesInfo', () => {
     it('debe regresar el horario si viene como string', async () => {
         prisma.cliente.findMany.mockResolvedValue([
             {
-                usuarios_cp:{
-                    nombre: "Alejandra",
-                    apellido: "Arredondo",
+                usuarios_cp: {
+                    nombre: 'Alejandra',
+                    apellido: 'Arredondo',
                 },
-
                 solicitudes_recoleccion: [
                     {
-                        cubetas_recolectadas: 4,
-                        cubetas_entregadas: 2,
-                        total_a_pagar: 1500,
-                        total_pagado: 300,
                         horario: '08:00:00',
-                        notas: 'Solicito más aserrín',
-                        formas_pago: {
-                            tipo: 'Efectivo',
-                        },
                         productos_solicitud: [],
                     },
                 ],
             },
-        ])
+        ]);
 
         const result = await RoutesInfo.getRoutesInfo();
 
         expect(result[0].horario).toBe('08:00');
     });
 
-    it('debe devolver string vació en caso de que algún valor númerico venga en null', async () => {
+    it('debe devolver string vacío en caso de que algún valor numérico venga en null', async () => {
         prisma.cliente.findMany.mockResolvedValue([
             {
                 usuarios_cp: {
                     nombre: 'Alejandra',
                     apellido: 'Arredondo',
                 },
-
-                ruta:{
-                    dia_ruta: null,
-                    turno_ruta: null,
-                },
-
-                solicitudes_recoleccion:[{
-                    id_solicitud: null,
-                    cubetas_recolectadas: null,
-                    cubetas_entregadas: null,
-                    total_a_pagar: null,
-                    total_pagado: null,
-                    horario:'08:00',
-                    notas:'Nota de recolecta',
-
-                    productos_solicitud:[{
-                        id_producto:null,
-                        cantidad:null,
-                        productos_extra:{
-                            nombre:'Aserrin',
-                            orden:null,
-                        },
-                    }],
-                }],
+                solicitudes_recoleccion: [
+                    {
+                        id_solicitud: null,
+                        estatus: null,
+                        quiere_recoleccion: null,
+                        quiere_productos_extra: null,
+                        cubetas_recolectadas: null,
+                        cubetas_entregadas: null,
+                        total_a_pagar: null,
+                        total_pagado: null,
+                        horario: '08:00',
+                        notas: 'Nota de recolecta',
+                        formas_pago: null,
+                        productos_solicitud: [
+                            {
+                                id_producto: null,
+                                cantidad: null,
+                                productos_extra: {
+                                    nombre: 'Aserrin',
+                                    orden: null,
+                                    color: 'verde',
+                                },
+                            },
+                        ],
+                    },
+                ],
             },
-        ])
+        ]);
 
         const result = await RoutesInfo.getRoutesInfo();
 
@@ -280,19 +280,29 @@ describe('Model - getRoutesInfo', () => {
             total_a_pagar: ' ',
             total_pagado: ' ',
             notas: 'Nota de recolecta',
+            hasRequest: true,
+            status: null,
+            wantsCollection: null,
+            wantsExtraProducts: null,
+            extraProductsDetails: [
+                {
+                    text: 'Aserrin',
+                    color: 'verde',
+                },
+            ],
         });
     });
 
     it('caso en que usuario venga null', async () => {
         prisma.cliente.findMany.mockResolvedValue([
             {
-                usuarios_cp:{
+                usuarios_cp: {
                     nombre: null,
                     apellido: null,
                 },
                 solicitudes_recoleccion: [],
-            }
-        ])
+            },
+        ]);
 
         const result = await RoutesInfo.getRoutesInfo();
 
@@ -321,13 +331,7 @@ describe('Model - getRoutesInfo', () => {
                 },
                 solicitudes_recoleccion: [
                     {
-                        cubetas_recolectadas: 1,
-                        cubetas_entregadas: 1,
-                        total_a_pagar: 100,
-                        total_pagado: 100,
                         horario: '08:00',
-                        notas: null,
-                        formas_pago: null,
                         productos_solicitud: [
                             {
                                 id_producto: 1,
@@ -343,6 +347,7 @@ describe('Model - getRoutesInfo', () => {
         const result = await RoutesInfo.getRoutesInfo();
 
         expect(result[0].productos_extra).toBe(' ');
+        expect(result[0].extraProductsDetails).toEqual([]);
     });
 
     it('debe manejar solicitudes_recoleccion null como sin solicitud', async () => {
@@ -359,6 +364,7 @@ describe('Model - getRoutesInfo', () => {
         const result = await RoutesInfo.getRoutesInfo();
 
         expect(result[0].recoleccion).toBe(' ');
+        expect(result[0].hasRequest).toBe(false);
     });
 
     it('debe ordenar productos_extra por orden ascendente', async () => {
@@ -368,26 +374,16 @@ describe('Model - getRoutesInfo', () => {
                     nombre: 'Alejandra',
                     apellido: 'Arredondo',
                 },
-
                 solicitudes_recoleccion: [
                     {
-                        cubetas_recolectadas: 1,
-                        cubetas_entregadas: 1,
-                        total_a_pagar: 100,
-                        total_pagado: 100,
                         horario: '08:00',
-                        notas: 'Productos desordenados',
-
-                        formas_pago: {
-                            tipo: 'Efectivo',
-                        },
-
                         productos_solicitud: [
                             {
                                 cantidad: 1,
                                 productos_extra: {
                                     nombre: 'Composta',
                                     orden: 3,
+                                    color: 'naranja',
                                 },
                             },
                             {
@@ -395,6 +391,7 @@ describe('Model - getRoutesInfo', () => {
                                 productos_extra: {
                                     nombre: 'Aserrin',
                                     orden: 1,
+                                    color: 'amarillo',
                                 },
                             },
                             {
@@ -402,6 +399,7 @@ describe('Model - getRoutesInfo', () => {
                                 productos_extra: {
                                     nombre: 'Tierra',
                                     orden: 2,
+                                    color: 'cafe',
                                 },
                             },
                         ],
@@ -415,32 +413,33 @@ describe('Model - getRoutesInfo', () => {
         expect(result[0].productos_extra).toBe(
             'Aserrin (2)\nTierra (5)\nComposta (1)'
         );
+
+        expect(result[0].extraProductsDetails).toEqual([
+            {
+                text: 'Aserrin (2)',
+                color: 'amarillo',
+            },
+            {
+                text: 'Tierra (5)',
+                color: 'cafe',
+            },
+            {
+                text: 'Composta (1)',
+                color: 'naranja',
+            },
+        ]);
     });
 
     it('debe regresar espacio vacío si horario tiene tipo inválido', async () => {
-
         prisma.cliente.findMany.mockResolvedValue([
             {
                 usuarios_cp: {
                     nombre: 'Alejandra',
                     apellido: 'Arredondo',
                 },
-
                 solicitudes_recoleccion: [
                     {
-                        cubetas_recolectadas: 1,
-                        cubetas_entregadas: 1,
-                        total_a_pagar: 100,
-                        total_pagado: 100,
-
                         horario: {},
-
-                        notas: 'Horario inválido',
-
-                        formas_pago: {
-                            tipo: 'Efectivo',
-                        },
-
                         productos_solicitud: [],
                     },
                 ],
@@ -459,23 +458,16 @@ describe('Model - getRoutesInfo', () => {
                     nombre: 'Alejandra',
                     apellido: 'Arredondo',
                 },
-
                 solicitudes_recoleccion: [
                     {
-                        cubetas_recolectadas: 1,
-                        cubetas_entregadas: 1,
-                        total_a_pagar: 100,
-                        total_pagado: 100,
                         horario: '08:00',
-                        notas: null,
-                        formas_pago: null,
-
                         productos_solicitud: [
                             {
                                 cantidad: 1,
                                 productos_extra: {
                                     nombre: 'Producto orden 2',
                                     orden: 2,
+                                    color: 'azul',
                                 },
                             },
                             {
@@ -483,6 +475,7 @@ describe('Model - getRoutesInfo', () => {
                                 productos_extra: {
                                     nombre: 'Producto orden null',
                                     orden: null,
+                                    color: 'rojo',
                                 },
                             },
                             {
@@ -490,6 +483,7 @@ describe('Model - getRoutesInfo', () => {
                                 productos_extra: {
                                     nombre: 'Producto orden 1',
                                     orden: 1,
+                                    color: 'verde',
                                 },
                             },
                         ],
@@ -523,17 +517,20 @@ describe('Model - getFilteredRoutesInfo', () => {
                 id_cliente: 'client-123',
                 id_ruta: 1,
                 orden_horario: 1,
-                usuarios_cp: { 
-                    nombre: 'Alejandra', 
-                    apellido: 'Arredondo' 
+                usuarios_cp: {
+                    nombre: 'Alejandra',
+                    apellido: 'Arredondo',
                 },
-                ruta: { 
-                    id_ruta: 1, 
-                    dia_ruta: 'Miércoles 1' 
+                ruta: {
+                    id_ruta: 1,
+                    dia_ruta: 'Miércoles 1',
                 },
                 solicitudes_recoleccion: [
                     {
                         id_solicitud: '375',
+                        estatus: true,
+                        quiere_recoleccion: true,
+                        quiere_productos_extra: false,
                         cubetas_recolectadas: 2,
                         cubetas_entregadas: 3,
                         total_a_pagar: 150,
@@ -612,13 +609,15 @@ describe('Model - getAvailableWeeks', () => {
 
     it('debe retornar un arreglo de semanas', () => {
         const weeks = RoutesInfo.getAvailableWeeks();
+
         expect(Array.isArray(weeks)).toBe(true);
         expect(weeks.length).toBeGreaterThan(0);
     });
 
     it('cada semana debe tener weekStart, weekEnd y label', () => {
         const weeks = RoutesInfo.getAvailableWeeks();
-        weeks.forEach(week => {
+
+        weeks.forEach((week) => {
             expect(week).toHaveProperty('weekStart');
             expect(week).toHaveProperty('weekEnd');
             expect(week).toHaveProperty('label');
@@ -627,7 +626,8 @@ describe('Model - getAvailableWeeks', () => {
 
     it('weekStart debe ser menor que weekEnd en cada semana', () => {
         const weeks = RoutesInfo.getAvailableWeeks();
-        weeks.forEach(week => {
+
+        weeks.forEach((week) => {
             expect(new Date(week.weekStart).getTime())
                 .toBeLessThan(new Date(week.weekEnd).getTime());
         });
@@ -636,6 +636,7 @@ describe('Model - getAvailableWeeks', () => {
     it('la primera semana debe iniciar hace dos meses', () => {
         const weeks = RoutesInfo.getAvailableWeeks();
         const firstWeek = new Date(weeks[0].weekStart);
+
         expect(firstWeek.getMonth()).toBe(2);
         expect(firstWeek.getFullYear()).toBe(2026);
     });
