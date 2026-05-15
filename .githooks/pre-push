@@ -1,0 +1,69 @@
+# ═══════════════════════════════════════════════════════
+# cambiar a "false" para desactivar este hook SIN BORRARLO
+ENABLED=true
+# ═══════════════════════════════════════════════════════
+
+if [ "$ENABLED" != "true" ]; then
+  exit 0
+fi
+
+# Obtener el remote y la URL
+remote="$1"
+url="$2"
+
+# leer los rangos de commits que se van a pushear
+while read local_ref local_oid remote_ref remote_oid; do
+  # si es un branch nuevo (remote_oid es todo ceros), comparar contra main/master
+  if [ "$remote_oid" = "0000000000000000000000000000000000000000" ]; then
+    # branch nuevo: comparar contra origin/main o origin/master
+    if git rev-parse --verify origin/main >/dev/null 2>&1; then
+      base="origin/main"
+    elif git rev-parse --verify origin/master >/dev/null 2>&1; then
+      base="origin/master"
+    else
+      # no hay referencia remota, skip check
+      continue
+    fi
+    range="$base..$local_oid"
+  else
+    range="$remote_oid..$local_oid"
+  fi
+
+  # obtener archivos modificados en los commits que se van a pushear
+  CHANGED_FILES=$(git diff --name-only "$range" 2>/dev/null)
+
+  # ssi no se pudo obtener el diff (ej: primer push), skip
+  if [ $? -ne 0 ]; then
+    continue
+  fi
+
+  # verificar si se modificó schema.prisma
+  SCHEMA_CHANGED=$(echo "$CHANGED_FILES" | grep -c "^prisma/schema.prisma$")
+
+  # verificar si se crearon/modificaron archivos en prisma/migrations/
+  MIGRATIONS_CHANGED=$(echo "$CHANGED_FILES" | grep -c "^prisma/migrations/")
+
+  if [ "$SCHEMA_CHANGED" -gt 0 ] && [ "$MIGRATIONS_CHANGED" -eq 0 ]; then
+    echo ""
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║  ❌ PUSH BLOQUEADO                                           ║"
+    echo "╠══════════════════════════════════════════════════════════════╣"
+    echo "║                                                              ║"
+    echo "║  Modificaste prisma/schema.prisma pero NO creaste una        ║"
+    echo "║  migración. Si lo haces, nadie podrá sincronizar su BD!!     ║"
+    echo "║  No seas flojo y crea la migración                           ║"
+    echo "║                                                              ║"
+    echo "║  Corre esto:                                                 ║"
+    echo "║                                                              ║"
+    echo "║    npx prisma migrate dev --name descripcion_del_cambio      ║"
+    echo "║                                                              ║"
+    echo "║  Luego haz commit del archivo generado en                    ║"
+    echo "║  prisma/migrations/ y vuelve a intentar el push              ║"
+    echo "║                                                              ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo ""
+    exit 1
+  fi
+done
+
+exit 0
