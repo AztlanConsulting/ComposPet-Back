@@ -266,21 +266,71 @@ module.exports = class CollectionRequest {
     }
 
     static async updateCollectionTotal(idRequest, collectionTotal, idPayment, notes) {
-        return await prisma.solicitudes_recoleccion.update({
-            where: {
-                id_solicitud: idRequest,
-            },
-            data: {
+        return await prisma.$transaction(async (tx) => {
+
+            const payForm = await tx.formas_pago.findUnique({
+                where: {
+                    id_pago: idPayment,
+                },
+                select: {
+                    tipo: true,
+                },
+            });
+
+            const currentRequest = await tx.solicitudes_recoleccion.findUnique({
+                where: {
+                    id_solicitud: idRequest,
+                },
+                select: {
+                    id_cliente: true,
+                    total_pagado: true,
+                    total_a_pagar: true,
+                },
+            });
+
+            let amountToDiscount = 0;
+
+            if (payForm?.tipo === "Saldo") {
+
+                amountToDiscount =
+                    collectionTotal - (currentRequest.total_pagado || 0);
+
+                await tx.saldo.update({
+                    where: {
+                        id_cliente: currentRequest.id_cliente,
+                    },
+                    data: {
+                        saldo: {
+                            decrement: amountToDiscount,
+                        },
+                    },
+                });
+            }
+
+            const updateData = {
                 total_a_pagar: collectionTotal,
                 notas: notes,
                 estatus: true,
                 formas_pago: {
                     connect: {
-                        id_pago: idPayment
-                    }
-                }
+                        id_pago: idPayment,
+                    },
+                },
+            };
+
+            if (payForm?.tipo === "Saldo") {
+                updateData.total_pagado = collectionTotal;
             }
-        })
+
+            const updatedRequest = await tx.solicitudes_recoleccion.update({
+                where: {
+                    id_solicitud: idRequest,
+                },
+                data: updateData,
+            });
+
+            return updatedRequest;
+        });
     }
     /**
      * Actualiza el atributo que indica si la solicitud
