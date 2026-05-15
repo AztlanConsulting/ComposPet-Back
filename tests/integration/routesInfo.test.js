@@ -247,3 +247,44 @@ describe("Integración - Ruta - getTableInfo",  () => {
         expect(res.status).toBe(401);
     });
 });
+
+describe('Integración - Ruta - getFilteredRoutesInfo', () => {
+    it('debe retornar 200 con datos filtrados por semana y día', async () => {
+        const token = createAuthToken();
+
+        const weeksRes = await request(app)
+            .get('/api/rutas/semanas')
+            .set('Authorization', `Bearer ${token}`);
+
+        expect(weeksRes.status).toBe(200);
+        const weeks = weeksRes.body.data;
+
+        const lastIndex = weeks.length - 1;
+        const todayName = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'][new Date().getDay()];
+
+        const res = await request(app)
+            .get(`/api/rutas/filtrar-informacion?weekIndex=${lastIndex}&dayName=${todayName}`)
+            .set('Authorization', `Bearer ${token}`);
+
+        expect(res.status).toBe(200);
+        expect(res.body.success).toBe(true);
+        expect(Array.isArray(res.body.data)).toBe(true);
+    });
+
+    it('debe retornar 401 sin token', async () => {
+        const res = await request(app)
+            .get('/api/rutas/filtrar-informacion?weekIndex=0');
+
+        expect(res.status).toBe(401);
+    });
+
+    it('debe retornar 500 si weekIndex está fuera de rango', async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .get('/api/rutas/filtrar-informacion?weekIndex=9999')
+            .set('Authorization', `Bearer ${token}`);
+
+        expect(res.status).toBe(500);
+    });
+});

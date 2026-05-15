@@ -1,0 +1,39 @@
+# ═══════════════════════════════════════════════════════
+# cambiar a "false" para desactivar este hook SIN BORRARLO
+ENABLED=true
+# ═══════════════════════════════════════════════════════
+
+if [ "$ENABLED" != "true" ]; then
+  exit 0
+fi
+
+# archivos que cambiaron en el merge
+CHANGED_FILES=$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)
+
+# verificar si hubo cambios en la carpeta prisma/
+if echo "$CHANGED_FILES" | grep -q "^prisma/"; then
+  echo ""
+  echo "╔══════════════════════════════════════════════════════════════╗"
+  echo "║  📦 Se detectaron cambios en prisma/                         ║"
+  echo "║  Aplicando migraciones pendientes a tu BD local...           ║"
+  echo "╚══════════════════════════════════════════════════════════════╝"
+  echo ""
+
+  # regenerar el cliente de prisma
+  npx prisma generate
+
+  # aplicar migraciones pendientes
+  npx prisma migrate dev
+
+  if [ $? -eq 0 ]; then
+    echo ""
+    echo "✅ Base de datos sincronizada correctamente"
+    echo ""
+  else
+    echo ""
+    echo "⚠️  Hubo un problema al aplicar las migraciones"
+    echo "   Revisa tu conexión a la BD y que tu .env esté configurado"
+    echo "   Puedes intentar manualmente: npx prisma migrate dev"
+    echo ""
+  fi
+fi
