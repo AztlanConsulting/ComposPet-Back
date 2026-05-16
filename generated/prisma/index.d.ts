@@ -14194,6 +14194,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    color: string | null
   }
 
   export type Productos_extraMaxAggregateOutputType = {
@@ -14205,6 +14206,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    color: string | null
   }
 
   export type Productos_extraCountAggregateOutputType = {
@@ -14216,6 +14218,7 @@ export namespace Prisma {
     imagen_url: number
     orden: number
     estatus: number
+    color: number
     _all: number
   }
 
@@ -14243,6 +14246,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    color?: true
   }
 
   export type Productos_extraMaxAggregateInputType = {
@@ -14254,6 +14258,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    color?: true
   }
 
   export type Productos_extraCountAggregateInputType = {
@@ -14265,6 +14270,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    color?: true
     _all?: true
   }
 
@@ -14363,6 +14369,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    color: string | null
     _count: Productos_extraCountAggregateOutputType | null
     _avg: Productos_extraAvgAggregateOutputType | null
     _sum: Productos_extraSumAggregateOutputType | null
@@ -14393,6 +14400,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productos_extra"]>
@@ -14406,6 +14414,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14417,6 +14426,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectScalar = {
@@ -14428,9 +14438,10 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
   }
 
-  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus", ExtArgs["result"]["productos_extra"]>
+  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus" | "color", ExtArgs["result"]["productos_extra"]>
   export type productos_extraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -14452,6 +14463,7 @@ export namespace Prisma {
       imagen_url: string | null
       orden: number | null
       estatus: boolean | null
+      color: string | null
     }, ExtArgs["result"]["productos_extra"]>
     composites: {}
   }
@@ -14884,6 +14896,7 @@ export namespace Prisma {
     readonly imagen_url: FieldRef<"productos_extra", 'String'>
     readonly orden: FieldRef<"productos_extra", 'Int'>
     readonly estatus: FieldRef<"productos_extra", 'Boolean'>
+    readonly color: FieldRef<"productos_extra", 'String'>
   }
     
 
@@ -25578,7 +25591,8 @@ export namespace Prisma {
     cantidad: 'cantidad',
     imagen_url: 'imagen_url',
     orden: 'orden',
-    estatus: 'estatus'
+    estatus: 'estatus',
+    color: 'color'
   };
 
   export type Productos_extraScalarFieldEnum = (typeof Productos_extraScalarFieldEnum)[keyof typeof Productos_extraScalarFieldEnum]
@@ -26464,6 +26478,7 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolNullableFilter<"productos_extra"> | boolean | null
+    color?: StringNullableFilter<"productos_extra"> | string | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }
 
@@ -26476,6 +26491,7 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
   }
 
@@ -26491,6 +26507,7 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolNullableFilter<"productos_extra"> | boolean | null
+    color?: StringNullableFilter<"productos_extra"> | string | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }, "id_producto">
 
@@ -26503,6 +26520,7 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     _count?: productos_extraCountOrderByAggregateInput
     _avg?: productos_extraAvgOrderByAggregateInput
     _max?: productos_extraMaxOrderByAggregateInput
@@ -26522,6 +26540,7 @@ export namespace Prisma {
     imagen_url?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
     orden?: IntNullableWithAggregatesFilter<"productos_extra"> | number | null
     estatus?: BoolNullableWithAggregatesFilter<"productos_extra"> | boolean | null
+    color?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
   }
 
   export type productos_solicitudWhereInput = {
@@ -26905,6 +26924,53 @@ export namespace Prisma {
     quiere_recoleccion?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
     estatus?: BoolWithAggregatesFilter<"solicitudes_recoleccion"> | boolean
+  }
+
+  export type saldoWhereInput = {
+    AND?: saldoWhereInput | saldoWhereInput[]
+    OR?: saldoWhereInput[]
+    NOT?: saldoWhereInput | saldoWhereInput[]
+    id_saldo?: UuidFilter<"saldo"> | string
+    id_cliente?: UuidFilter<"saldo"> | string
+    saldo?: FloatFilter<"saldo"> | number
+    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
+  }
+
+  export type saldoOrderByWithRelationInput = {
+    id_saldo?: SortOrder
+    id_cliente?: SortOrder
+    saldo?: SortOrder
+    cliente?: clienteOrderByWithRelationInput
+  }
+
+  export type saldoWhereUniqueInput = Prisma.AtLeast<{
+    id_saldo?: string
+    id_cliente?: string
+    AND?: saldoWhereInput | saldoWhereInput[]
+    OR?: saldoWhereInput[]
+    NOT?: saldoWhereInput | saldoWhereInput[]
+    saldo?: FloatFilter<"saldo"> | number
+    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
+  }, "id_saldo" | "id_cliente">
+
+  export type saldoOrderByWithAggregationInput = {
+    id_saldo?: SortOrder
+    id_cliente?: SortOrder
+    saldo?: SortOrder
+    _count?: saldoCountOrderByAggregateInput
+    _avg?: saldoAvgOrderByAggregateInput
+    _max?: saldoMaxOrderByAggregateInput
+    _min?: saldoMinOrderByAggregateInput
+    _sum?: saldoSumOrderByAggregateInput
+  }
+
+  export type saldoScalarWhereWithAggregatesInput = {
+    AND?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
+    OR?: saldoScalarWhereWithAggregatesInput[]
+    NOT?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
+    id_saldo?: UuidWithAggregatesFilter<"saldo"> | string
+    id_cliente?: UuidWithAggregatesFilter<"saldo"> | string
+    saldo?: FloatWithAggregatesFilter<"saldo"> | number
   }
 
   export type usuarios_cpWhereInput = {
@@ -27709,6 +27775,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -27721,6 +27788,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -27733,6 +27801,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -27745,6 +27814,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -27757,6 +27827,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
   }
 
   export type productos_extraUpdateManyMutationInput = {
@@ -27768,6 +27839,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productos_extraUncheckedUpdateManyInput = {
@@ -27779,6 +27851,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productos_solicitudCreateInput = {
@@ -28167,6 +28240,47 @@ export namespace Prisma {
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type saldoCreateInput = {
+    id_saldo?: string
+    saldo?: number
+    cliente: clienteCreateNestedOneWithoutSaldoInput
+  }
+
+  export type saldoUncheckedCreateInput = {
+    id_saldo?: string
+    id_cliente: string
+    saldo?: number
+  }
+
+  export type saldoUpdateInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+    cliente?: clienteUpdateOneRequiredWithoutSaldoNestedInput
+  }
+
+  export type saldoUncheckedUpdateInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type saldoCreateManyInput = {
+    id_saldo?: string
+    id_cliente: string
+    saldo?: number
+  }
+
+  export type saldoUpdateManyMutationInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type saldoUncheckedUpdateManyInput = {
+    id_saldo?: StringFieldUpdateOperationsInput | string
+    id_cliente?: StringFieldUpdateOperationsInput | string
+    saldo?: FloatFieldUpdateOperationsInput | number
   }
 
   export type usuarios_cpCreateInput = {
@@ -29129,6 +29243,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    color?: SortOrder
   }
 
   export type productos_extraAvgOrderByAggregateInput = {
@@ -29147,6 +29262,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    color?: SortOrder
   }
 
   export type productos_extraMinOrderByAggregateInput = {
@@ -29158,6 +29274,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    color?: SortOrder
   }
 
   export type productos_extraSumOrderByAggregateInput = {
@@ -32068,6 +32185,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
   }
 
   export type productos_extraUncheckedCreateWithoutProductos_solicitudInput = {
@@ -32079,6 +32197,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
   }
 
   export type productos_extraCreateOrConnectWithoutProductos_solicitudInput = {
@@ -32143,6 +32262,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productos_extraUncheckedUpdateWithoutProductos_solicitudInput = {
@@ -32154,6 +32274,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_recoleccionUpsertWithoutProductos_solicitudInput = {
