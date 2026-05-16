@@ -29,6 +29,14 @@ const getTableInfo = async(req,res) => {
     }
 }
 
+/**
+ * Obtiene la información de los productos extra y de los métodos de pago
+ *
+ * @param {import('express').Request} req - Objeto de solicitud de Express.
+ * @param {import('express').Response} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Responde con un JSON que contiene la información de productos extra y métodos de pago.
+ * @throws {Error} Responde con status 500 si ocurre un fallo inesperado al consultar la base de datos.
+ */
 const getEditTableInfo = async(req, res) => {
     try {
 
