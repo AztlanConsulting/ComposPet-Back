@@ -119,6 +119,7 @@ model productos_extra {
   imagen_url          String?               @db.VarChar
   orden               Int?
   estatus             Boolean?
+  color               String?               @db.VarChar
   productos_solicitud productos_solicitud[]
 }
 

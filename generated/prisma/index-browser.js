@@ -214,7 +214,8 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   cantidad: 'cantidad',
   imagen_url: 'imagen_url',
   orden: 'orden',
-  estatus: 'estatus'
+  estatus: 'estatus',
+  color: 'color'
 };
 
 exports.Prisma.Productos_solicitudScalarFieldEnum = {

@@ -41,13 +41,118 @@ function getLastTwoMonthsWeeks(now = new Date()){
     return weeks;
 }
 
-
+/**
+ * Obtiene el índice de la semana actual dentro del arreglo de semanas disponibles.
+ *
+ * @param {Date} [now=new Date()] - Fecha de referencia para calcular la semana actual.
+ * @returns {number} Índice de la semana actual, o -1 si no se encuentra dentro del rango.
+ */
 function getCurrentWeekIndex(now = new Date()) {
     const weeks = getLastTwoMonthsWeeks(now);
     return weeks.findIndex(week => 
         now >= week.weekStart && now < week.weekEnd
     );
 }
+
+/**
+ * Formatea un horario al formato HH:mm.
+ * Maneja valores tipo Date y string.
+ *
+ * @param {Date|string|null} schedule - Horario a formatear.
+ * @returns {string} Horario en formato HH:mm, o " " si no existe o no tiene formato válido.
+ */
+const formattedTime = (schedule) => {
+    if (!schedule) return " ";
+
+    if (schedule instanceof Date) return schedule.toISOString().substring(11, 16);
+
+    if (typeof schedule === "string") return schedule.substring(0, 5);
+
+    return " ";
+};
+
+/**
+ * Formatea la información de rutas obtenida desde la base de datos
+ * al formato requerido por la vista.
+ *
+ * @param {Array<Object>} routeInfo - Arreglo de clientes con información de ruta, solicitud,
+ * productos extra y forma de pago.
+ * @returns {Array<Object>} Arreglo de rutas formateadas para su visualización en la tabla.
+ */
+const formatRouteInfo = (routeInfo) => {
+    return routeInfo.map((client) => {
+        const request = client.solicitudes_recoleccion?.[0];
+
+        /**
+         * Productos extra ordenados según el campo `orden`
+         * registrado en la tabla de productos extra.
+         */
+        const sortedProducts = request?.productos_solicitud
+            ?.sort((a, b) => {
+                return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
+            }) || [];
+
+        /**
+         * Lista de productos extra en formato de texto.
+         * Ejemplo: "Aserrín (1)\nFibra de Coco 50L (1)".
+         */
+        const extraProducts = sortedProducts
+            .map((product) => {
+                if (!product.productos_extra) return null;
+
+                if (product.cantidad == null) {
+                    return product.productos_extra.nombre;
+                }
+
+                return `${product.productos_extra.nombre} (${product.cantidad})`;
+            })
+            .filter(Boolean)
+            .join("\n");
+
+        /**
+         * Lista de productos extra con detalle de texto y color.
+         * Se utiliza para pintar cada producto individualmente en la vista.
+         */
+        const extraProductsDetail = sortedProducts
+            .map((product) => {
+                if (!product.productos_extra) return null;
+
+                return {
+                    text:
+                        product.cantidad == null
+                            ? product.productos_extra.nombre
+                            : `${product.productos_extra.nombre} (${product.cantidad})`,
+                    color: product.productos_extra.color,
+                };
+            })
+            .filter(Boolean);
+
+        // Construye el nombre completo del cliente.
+        const name = client.usuarios_cp?.nombre || "";
+        const lastName = client.usuarios_cp?.apellido || "";
+        const fullName = `${name} ${lastName}`.trim() || " ";
+
+        // Retorna el objeto final con los campos requeridos por la tabla de rutas.
+        return {
+            nombre: fullName,
+            recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
+            entrega: request?.cubetas_entregadas?.toString() ?? " ",
+            productos_extra: extraProducts || " ",
+            horario: formattedTime(request?.horario),
+            forma_pago: request?.formas_pago?.tipo || " ",
+            total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
+            total_pagado: request?.total_pagado?.toString() ?? " ",
+            notas: request?.notas || " ",
+
+            hasRequest: !!request,
+
+            status: request?.estatus ?? null,
+            wantsCollection: request?.quiere_recoleccion ?? null,
+            wantsExtraProducts: request?.quiere_productos_extra ?? null,
+            extraProductsDetails: extraProductsDetail || [],
+        };
+    });
+};
 
 /**
  * Modelo de acceso a datos para las rutas registradas en el sistema.
@@ -172,6 +277,9 @@ module.exports = class Route {
                         },
                         select: {
                             id_solicitud: true,
+                            estatus: true,
+                            quiere_recoleccion: true,
+                            quiere_productos_extra: true,
                             cubetas_recolectadas: true,
                             cubetas_entregadas: true,
                             total_a_pagar: true,
@@ -194,6 +302,7 @@ module.exports = class Route {
                                         select: {
                                             nombre: true,
                                             orden: true, // ordenar los productos
+                                            color: true,
                                         },
                                     },
                                 },
@@ -214,73 +323,7 @@ module.exports = class Route {
                 ],
             });
 
-            // ==================== FORMATEO DE DATOS ====================
-        
-            /**
-             * Transforma los datos de la base de datos al formato requerido por la vista.
-             * Toma la primera solicitud de cada cliente (la más reciente) y formatea
-             * todos los campos para su presentación.
-             */
-            const formattedRouteInfo = routeInfo.map((client) => {
-                // Obtiene la primera (y generalmente única) solicitud de la semana
-                const request = client.solicitudes_recoleccion?.[0];
-
-                /**
-                 * Formatea la lista de productos extra ordenados por su campo 'orden'.
-                 * Incluye la cantidad entre paréntesis si está disponible.
-                 * Ejemplo: "Bolsas biodegradables (5)\nShampoo (2)"
-                 */
-                const extraproducts = request?.productos_solicitud
-                    ?.sort((a, b) => {
-                        return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
-                    })
-                    .map((product) => {
-                        if (!product.productos_extra) return null;
-                        if (product.cantidad == null) return product.productos_extra.nombre;
-                        return `${product.productos_extra.nombre} (${product.cantidad})`;
-                    })
-                    .filter(Boolean) // elimina valores null/undefined
-                    .join("\n"); // une con saltos de línea
-
-                /**
-                 * Formatea el horario a formato HH:mm.
-                 * Maneja tanto objetos Date como strings de tiempo.
-                 * 
-                 * @param {Date|string|null} horario - Horario a formatear
-                 * @returns {string} Horario en formato HH:mm o " " si no hay dato
-                 */
-                const formattedTime = (schedule) =>{
-                    if (!schedule) return " ";
-
-                    // Si es un objeto Date, extrae HH:mm 
-                    if (schedule instanceof Date) return schedule.toISOString().substring(11,16);
-
-                    // Si es string, toma los primeros 5 caracteres (HH:mm)
-                    if (typeof schedule === "string") return schedule.substring(0, 5);
-
-                    return " ";
-                }
-
-                // Construye el nombre completo del cliente
-                const name = client.usuarios_cp?.nombre || "";
-                const lastName = client.usuarios_cp?.apellido || "";
-                const fullName = `${name} ${lastName}`.trim() || " ";
-
-                 // ==================== OBJETO FORMATEADO FINAL ====================
-                return {
-                    nombre: fullName,
-                    recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
-                    entrega: request?.cubetas_entregadas?.toString() ?? " ",
-                    productos_extra: extraproducts || " ",
-                    horario: formattedTime(request?.horario),
-                    forma_pago: request?.formas_pago?.tipo || " ",
-                    total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
-                    total_pagado: request?.total_pagado?.toString() ?? " ",
-                    notas: request?.notas || " ",
-                };
-            });
-
-            return formattedRouteInfo;
+            return formatRouteInfo(routeInfo);
         } catch(error){
             throw new Error('Error obteniendo rutas');
         }
@@ -349,6 +392,9 @@ module.exports = class Route {
                         },
                         select: {
                             id_solicitud: true,
+                            estatus: true,
+                            quiere_recoleccion: true,
+                            quiere_productos_extra: true,
                             cubetas_recolectadas: true,
                             cubetas_entregadas: true,
                             total_a_pagar: true,
@@ -371,6 +417,7 @@ module.exports = class Route {
                                         select: {
                                             nombre: true,
                                             orden: true,
+                                            color: true,
                                         },
                                     },
                                 },
@@ -392,62 +439,7 @@ module.exports = class Route {
 
             });
 
-            const formattedRouteInfo = routeInfo.map((client) => {
-                const request = client.solicitudes_recoleccion?.[0];
-
-                /**
-                 * Formatea la lista de productos extra ordenados por su campo 'orden'.
-                 * Incluye la cantidad entre paréntesis si está disponible.
-                 * Ejemplo: "Bolsas biodegradables (5)\nShampoo (2)"
-                 */
-                const extraproducts = request?.productos_solicitud
-                    ?.sort((a, b) => {
-                        return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
-                    })
-                    .map((product) => {
-                        if (!product.productos_extra) return null;
-                        if (product.cantidad == null) return product.productos_extra.nombre;
-                        return `${product.productos_extra.nombre} (${product.cantidad})`;
-                    })
-                    .filter(Boolean)
-                    .join("\n");
-
-                /**
-                 * Formatea el horario a formato HH:mm.
-                 * Maneja tanto objetos Date como strings de tiempo.
-                 * 
-                 * @param {Date|string|null} horario - Horario a formatear
-                 * @returns {string} Horario en formato HH:mm o " " si no hay dato
-                 */
-                const formattedTime = (schedule) =>{
-                    if (!schedule) return " ";
-
-                    if (schedule instanceof Date) return schedule.toISOString().substring(11,16);
-
-                    if (typeof schedule === "string") return schedule.substring(0, 5);
-
-                    return " ";
-                }
-
-                const name = client.usuarios_cp?.nombre || "";
-                const lastName = client.usuarios_cp?.apellido || "";
-                const fullName = `${name} ${lastName}`.trim() || " ";
-
-                 // ==================== OBJETO FORMATEADO FINAL ====================
-                return {
-                    nombre: fullName,
-                    recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
-                    entrega: request?.cubetas_entregadas?.toString() ?? " ",
-                    productos_extra: extraproducts || " ",
-                    horario: formattedTime(request?.horario),
-                    forma_pago: request?.formas_pago?.tipo || " ",
-                    total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
-                    total_pagado: request?.total_pagado?.toString() ?? " ",
-                    notas: request?.notas || " ",
-                };
-            });
-
-            return formattedRouteInfo;
+            return formatRouteInfo(routeInfo);
         } catch (error) {
             throw new Error(`Error obteniendo rutas filtradas: ${error.message}`);
         }
