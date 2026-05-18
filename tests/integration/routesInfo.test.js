@@ -194,8 +194,8 @@ describe("Integración - Ruta - getTableInfo",  () => {
 
         expect(route).toMatchObject({
             nombre: 'Alejandra Arredondo',
-            recoleccion: '2',
-            entrega: '3',
+            recoleccion: 2,
+            entrega: 3,
             productos_extra: ' ',
             forma_pago: ' ',
             total_a_pagar: '150',
