@@ -153,6 +153,7 @@ module.exports = class CollectionRequest {
                 cantidad: true,
                 imagen_url: true,
                 estatus: true,
+                color: true,
             }
         });
 
