@@ -1,6 +1,7 @@
 const Routes = require('../models/route.model');
 const Payment = require('../models/payment.model');
 const CollectionRequest = require('../models/collectionRequest.model');
+const { request } = require('express');
 
 /**
  * Obtiene la información general de todas las rutas para mostrarla en la tabla principal.
@@ -236,6 +237,10 @@ function structureRequestData(data){
         requestData.quiere_recoleccion = true;
     }
 
+    if(data.schedule !== undefined){
+        requestData.horario = data.schedule;
+    }
+
     if(data.extraProductsArray !== undefined){
         productsData = Object.entries(data.extraProductsArray).map(([id_producto, cantidad]) => ({
             id_solicitud: data.requestId,
@@ -243,6 +248,8 @@ function structureRequestData(data){
             cantidad
         }));
     }
+
+    console.log(requestData);
 
     return {requestData, productsData};
 }

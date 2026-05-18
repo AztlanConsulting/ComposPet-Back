@@ -436,6 +436,10 @@ module.exports = class CollectionRequest {
 
             const totalToPay = collectionCost + productsCost;
 
+            const scheduleDate = requestData.horario
+                ? new Date(`1970-01-01T${requestData.horario}:00Z`)
+                : null;
+
             const currentRequest = await tx.solicitudes_recoleccion.findUnique({
                 where: {
                     id_solicitud: requestId,
@@ -477,6 +481,9 @@ module.exports = class CollectionRequest {
 
                     id_pago:
                         requestData.id_pago,
+
+                    horario:
+                        scheduleDate,
                 },
             });
 
