@@ -158,6 +158,9 @@ const formatRouteInfo = (routeInfo) => {
             wantsExtraProducts: request?.quiere_productos_extra ?? null,
             extraProductsDetails: extraProductsDetail || [],
             extraProductsArray: extraProductsArray || [],
+            clientId: client?.id_cliente || null,
+            requestId: request?.id_solicitud || null,
+
         };
     });
 };
