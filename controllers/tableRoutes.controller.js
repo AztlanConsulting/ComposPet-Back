@@ -261,8 +261,6 @@ function structureRequestData(data){
         }));
     }
 
-    console.log(requestData);
-
     return {requestData, productsData};
 }
 

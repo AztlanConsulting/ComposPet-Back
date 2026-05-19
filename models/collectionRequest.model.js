@@ -453,7 +453,6 @@ module.exports = class CollectionRequest {
             if (!currentRequest) {
                 throw new Error("Solicitud no encontrada");
             }
-            console.log("RequestData: ",requestData)
             const updatedRequest = await tx.solicitudes_recoleccion.update({
                 where: {
                     id_solicitud: requestId,
