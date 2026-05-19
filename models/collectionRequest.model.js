@@ -437,9 +437,13 @@ module.exports = class CollectionRequest {
 
             const totalToPay = collectionCost + productsCost;
 
-            const scheduleDate = requestData.horario
+            let scheduleDate = requestData.horario
                 ? new Date(`1970-01-01T${requestData.horario}:00Z`)
                 : null;
+
+            if(Number.isNaN(scheduleDate.valueOf())){
+                scheduleDate = null;    
+            }
 
             const currentRequest = await tx.solicitudes_recoleccion.findUnique({
                 where: {
