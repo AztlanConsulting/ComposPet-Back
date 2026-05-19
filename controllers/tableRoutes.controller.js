@@ -49,7 +49,7 @@ const getEditTableInfo = async(req, res) => {
             success: true,
             payMethods,
             extraProducts,
-        })
+        });
     } catch(error) {
         return res.status(500).json({
             success: false,
