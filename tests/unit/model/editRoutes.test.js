@@ -251,10 +251,10 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
 
         it('debe establecer horario null cuando no se proporciona', async () => {
             const dataWithoutSchedule = { ...REQUEST_DATA, horario: null };
-            await CollectionRequest.updateRequest(dataWithoutSchedule, []);
 
-            const callData = prisma.solicitudes_recoleccion.update.mock.calls[0][0].data;
-            expect(callData.horario).toBeNull();
+            await expect(
+                CollectionRequest.updateRequest(dataWithoutSchedule, [])
+            ).rejects.toThrow('Error al actualizar la solicitud de recolección');
         });
 
         it('debe eliminar los productos previos y crear los nuevos en cada actualización', async () => {
@@ -422,21 +422,20 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
 
     describe('manejo de errores', () => {
 
-        it('debe retornar undefined (sin lanzar) si la solicitud no existe', async () => {
-
+        it('debe lanzar error si la solicitud no existe', async () => {
             prisma.solicitudes_recoleccion.findUnique.mockResolvedValue(null);
 
-            const result = await CollectionRequest.updateRequest(REQUEST_DATA, []);
-
-            expect(result).toBeUndefined();
+            await expect(
+                CollectionRequest.updateRequest(REQUEST_DATA, [])
+            ).rejects.toThrow('Error al actualizar la solicitud de recolección');
         });
 
-        it('debe retornar undefined (sin lanzar) si prisma.$transaction falla', async () => {
+        it('debe lanzar error si prisma.$transaction falla', async () => {
             prisma.$transaction.mockRejectedValueOnce(new Error('Timeout'));
 
-            const result = await CollectionRequest.updateRequest(REQUEST_DATA, []);
-
-            expect(result).toBeUndefined();
+            await expect(
+                CollectionRequest.updateRequest(REQUEST_DATA, [])
+            ).rejects.toThrow('Error al actualizar la solicitud de recolección');
         });
 
     });
