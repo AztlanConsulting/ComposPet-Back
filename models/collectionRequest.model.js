@@ -397,6 +397,7 @@ module.exports = class CollectionRequest {
 
     static async updateRequest(requestData, productsData) {
 
+        try {
         return await prisma.$transaction(async (tx) => {
 
             const requestId = requestData.id_solicitud;
@@ -452,7 +453,7 @@ module.exports = class CollectionRequest {
             if (!currentRequest) {
                 throw new Error("Solicitud no encontrada");
             }
-
+            console.log("RequestData: ",requestData)
             const updatedRequest = await tx.solicitudes_recoleccion.update({
                 where: {
                     id_solicitud: requestId,
@@ -559,5 +560,8 @@ module.exports = class CollectionRequest {
 
             return updatedRequest;
         });
+    } catch (error){
+        console.error(error);
     }
+    } 
 };

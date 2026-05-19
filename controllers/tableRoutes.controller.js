@@ -217,6 +217,14 @@ function structureRequestData(data){
         requestData.cubetas_entregadas = data.deliveredBuckets;
     }
 
+    if(data.collectedBuckets < 1 && data.deliveredBuckets < 1){
+        requestData.quiere_recoleccion  = false;
+    }
+
+    if(data.collectedBuckets > 0 && data.deliveredBuckets > 0){
+        requestData.quiere_recoleccion  = true;
+    }
+
     if(data.notes !== undefined){
         requestData.notas = data.notes;
     }
@@ -231,6 +239,10 @@ function structureRequestData(data){
 
     if(data.extraProductsDetails.length > 0 && !data.wantsExtraProducts){
         requestData.quiere_productos_extra = true;
+    }
+
+    if(data.extraProductsDetails.length < 1){
+        requestData.quiere_productos_extra = false;
     }
 
     if(data.collectedBuckets > 0 && !data.wantsCollection){
