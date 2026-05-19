@@ -459,4 +459,39 @@ module.exports = class Route {
     static getAvailableWeeks(){
         return getLastTwoMonthsWeeks();
     }
+
+
+    /**
+     * Obtiene las rutas que cuentan con una solicitud válida para generar
+     * mensajes de confirmación.
+     *
+     * Reutiliza la consulta de rutas filtradas por semana y día, 
+     * Este método no construye el mensaje final; solo entrega al controlador la información
+     * necesaria para generarlo.
+     *
+     * @async
+     * @static
+     * @param {Object} [params={}] - Parámetros para filtrar las rutas.
+     * @param {number} params.weekIndex - Índice de la semana seleccionada dentro del rango disponible.
+     * @param {string} [params.dayName] - Día de ruta seleccionado. Si se omite, se usa el día actual.
+     * @returns {Promise<Array<Object>>} Lista de rutas con solicitud y horario válido para generar mensajes.
+     * @throws {Error} Lanza un error si falla la consulta de rutas filtradas.
+     * @see Route.getFilteredRoutesInfo
+     */
+    static async generateConfirmationMessages({ weekIndex, dayName } = {}){ 
+        try {
+            const filteredRoutes = await this.getFilteredRoutesInfo({ weekIndex, dayName });
+
+            //Filtra las rutas que tienen una solicitud válida y horario definido para mensajes de confirmación.
+            return filteredRoutes.filter(route => 
+                route.hasRequest === true &&
+                route.horario &&
+                route.horario.trim() !== ""
+            );
+    
+        } catch (error) {
+            throw new Error(`Error generando mensajes de confirmación: ${error.message}`);
+        
+        }
+    }
 };

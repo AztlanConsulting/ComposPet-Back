@@ -13,4 +13,6 @@ router.get('/dias-ruta', requireRole("Administrador"), routesController.getDaysO
 
 router.get('/filtrar-informacion', requireRole("Administrador"), routesController.getFilteredRoutesInfo);
 
+router.post('/mensajes-de-confirmacion', requireRole("Administrador"), routesController.generateConfirmationMessages);
+
 module.exports = router;
