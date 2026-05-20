@@ -204,9 +204,16 @@ const generateConfirmationMessages = async (req, res) => {
             // Se usa solo el primer nombre
             const firstName = route.nombre.split(" ")[0];
 
+            const serviceText =
+                route.wantsCollection === true && route.wantsExtraProducts === true
+                    ? "recolección y entrega de productos"
+                    : route.wantsExtraProducts === true
+                        ? "entrega de productos"
+                        : "recolección";
+
             return[`¡Linda Tarde! ${firstName}, ⛅
 
-            Mañana nos vemos para tu recolección aprox.
+            Mañana nos vemos para tu ${serviceText} aprox.
             ${route.horario} 🪣🤩 con "Nombre Operador"
 
             Disfruta el resto de tu tarde.😄`, `${route.nombre}`]

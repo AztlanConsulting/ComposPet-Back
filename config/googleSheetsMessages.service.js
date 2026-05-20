@@ -87,7 +87,7 @@ const GoogleSheetsMessagesService = {
                             endIndex: 1,
                         },
                         properties: {
-                            pixelSize: 500,
+                            pixelSize: 550,
                         },
                         fields: "pixelSize",
                     },
