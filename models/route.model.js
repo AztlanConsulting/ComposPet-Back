@@ -498,8 +498,13 @@ module.exports = class Route {
             //Filtra las rutas que tienen una solicitud válida y horario definido para mensajes de confirmación.
             return filteredRoutes.filter(route => 
                 route.hasRequest === true &&
+                route.status === true &&
                 route.horario &&
-                route.horario.trim() !== ""
+                route.horario.trim() !== "" &&
+                (
+                    route.wantsCollection === true ||
+                    route.wantsExtraProducts === true
+                )
             );
     
         } catch (error) {
