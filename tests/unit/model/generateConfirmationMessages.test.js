@@ -18,21 +18,41 @@ describe("Unit - Model - Route.generateConfirmationMessages", () => {
                 nombre: "Alejandra Prueba",
                 horario: "13:00",
                 hasRequest: true,
+                status: true,
+                wantsCollection: true,
+                wantsExtraProducts: false,
             },
             {
                 nombre: "Cliente Sin Solicitud",
                 horario: "14:00",
                 hasRequest: false,
+                status: true,
+                wantsCollection: true,
+                wantsExtraProducts: false,
             },
             {
                 nombre: "Cliente Sin Horario",
                 horario: " ",
                 hasRequest: true,
+                status: true,
+                wantsCollection: true,
+                wantsExtraProducts: false,
             },
             {
                 nombre: "Cliente Horario Null",
                 horario: null,
                 hasRequest: true,
+                status: true,
+                wantsCollection: true,
+                wantsExtraProducts: false,
+            },
+            {
+                nombre: "Cliente Sin Servicio",
+                horario: "15:00",
+                hasRequest: true,
+                status: true,
+                wantsCollection: false,
+                wantsExtraProducts: false,
             },
         ];
 
@@ -50,6 +70,9 @@ describe("Unit - Model - Route.generateConfirmationMessages", () => {
                 nombre: "Alejandra Prueba",
                 horario: "13:00",
                 hasRequest: true,
+                status: true,
+                wantsCollection: true,
+                wantsExtraProducts: false,
             },
         ]);
     });
@@ -102,6 +125,9 @@ describe("Unit - Model - Route.generateConfirmationMessages", () => {
                 nombre: "Alejandra Prueba",
                 horario: "13:00",
                 hasRequest: true,
+                status: true,
+                wantsCollection: true,
+                wantsExtraProducts: false,
             },
         ];
 
@@ -134,5 +160,34 @@ describe("Unit - Model - Route.generateConfirmationMessages", () => {
         );
 
         expect(Route.getFilteredRoutesInfo).toHaveBeenCalledWith(params);
+    });
+
+    it("debe excluir rutas que no quieren recolección ni productos extra", async () => {
+        // Arrange
+        const params = {
+            weekIndex: 10,
+            dayName: "Jueves",
+        };
+
+        const mockFilteredRoutes = [
+            {
+                nombre: "Cliente Sin Servicio",
+                horario: "15:00",
+                hasRequest: true,
+                status: true,
+                wantsCollection: false,
+                wantsExtraProducts: false,
+            },
+        ];
+
+        jest.spyOn(Route, "getFilteredRoutesInfo")
+            .mockResolvedValue(mockFilteredRoutes);
+
+        // Actuar
+        const result = await Route.generateConfirmationMessages(params);
+
+        // Afirmar
+        expect(Route.getFilteredRoutesInfo).toHaveBeenCalledWith(params);
+        expect(result).toEqual([]);
     });
 });
