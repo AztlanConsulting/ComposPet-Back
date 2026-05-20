@@ -9,7 +9,6 @@ const AuthModel = require('../models/auth/auth.model');
  * @returns {Promise<void>}
  * @see AuthModel.addLog
  */
-const AuthModel = require('../models/auth/auth.model')
 
 const logIfAdmin = async (user, accion, detalle = null) => {
     if (user && user.roles?.nombre === 'administrador') {
