@@ -6,6 +6,8 @@ const { requireRole } = require('../middlewares/roleAccess');
 
 // Ruta para consultar tabla de rutas
 router.get('/informacion', requireRole("Administrador"),  routesController.getTableInfo);
+router.get('/informacion-editar', requireRole("Administrador"), routesController.getEditTableInfo);
+router.post('/informacion-editar', requireRole("Administrador"), routesController.updateRequest);
 
 router.get('/semanas', requireRole("Administrador"), routesController.getAvailableWeeks);
 

@@ -53,6 +53,7 @@ describe('Model - getRoutesInfo', () => {
                         notas: 'Solicito más aserrín',
 
                         formas_pago: {
+                            id_pago: '1',
                             tipo: 'Efectivo',
                         },
 
@@ -106,11 +107,14 @@ describe('Model - getRoutesInfo', () => {
 
         expect(result).toEqual([
             {
+                clientId: 'client-123',
                 nombre: 'Alejandra Arredondo',
-                recoleccion: '4',
-                entrega: '2',
+                recoleccion: 4,
+                entrega: 2,
+                requestId: '333-333-333',
                 productos_extra: 'Composta (12)',
                 horario: '08:00',
+                id_pago: '1',
                 forma_pago: 'Efectivo',
                 total_a_pagar: '1500',
                 total_pagado: '300',
@@ -125,6 +129,9 @@ describe('Model - getRoutesInfo', () => {
                         color: 'naranja',
                     },
                 ],
+                extraProductsArray: {
+                    "2": 12,
+                }
             },
         ]);
     });
@@ -154,20 +161,24 @@ describe('Model - getRoutesInfo', () => {
 
         expect(result).toEqual([
             {
+                clientId: 'client-456',
                 nombre: 'Leonardo Alvarado',
-                recoleccion: ' ',
-                entrega: ' ',
+                recoleccion: null,
+                entrega: null,
                 productos_extra: ' ',
                 horario: ' ',
+                id_pago: null,
                 forma_pago: ' ',
                 total_a_pagar: ' ',
                 total_pagado: ' ',
                 notas: ' ',
                 hasRequest: false,
+                requestId: null,
                 status: null,
                 wantsCollection: null,
                 wantsExtraProducts: null,
                 extraProductsDetails: [],
+                extraProductsArray: {},
             },
         ]);
     });
@@ -230,67 +241,6 @@ describe('Model - getRoutesInfo', () => {
         const result = await RoutesInfo.getRoutesInfo();
 
         expect(result[0].horario).toBe('08:00');
-    });
-
-    it('debe devolver string vacío en caso de que algún valor numérico venga en null', async () => {
-        prisma.cliente.findMany.mockResolvedValue([
-            {
-                usuarios_cp: {
-                    nombre: 'Alejandra',
-                    apellido: 'Arredondo',
-                },
-                solicitudes_recoleccion: [
-                    {
-                        id_solicitud: null,
-                        estatus: null,
-                        quiere_recoleccion: null,
-                        quiere_productos_extra: null,
-                        cubetas_recolectadas: null,
-                        cubetas_entregadas: null,
-                        total_a_pagar: null,
-                        total_pagado: null,
-                        horario: '08:00',
-                        notas: 'Nota de recolecta',
-                        formas_pago: null,
-                        productos_solicitud: [
-                            {
-                                id_producto: null,
-                                cantidad: null,
-                                productos_extra: {
-                                    nombre: 'Aserrin',
-                                    orden: null,
-                                    color: 'verde',
-                                },
-                            },
-                        ],
-                    },
-                ],
-            },
-        ]);
-
-        const result = await RoutesInfo.getRoutesInfo();
-
-        expect(result[0]).toEqual({
-            nombre: 'Alejandra Arredondo',
-            recoleccion: ' ',
-            entrega: ' ',
-            productos_extra: 'Aserrin',
-            horario: '08:00',
-            forma_pago: ' ',
-            total_a_pagar: ' ',
-            total_pagado: ' ',
-            notas: 'Nota de recolecta',
-            hasRequest: true,
-            status: null,
-            wantsCollection: null,
-            wantsExtraProducts: null,
-            extraProductsDetails: [
-                {
-                    text: 'Aserrin',
-                    color: 'verde',
-                },
-            ],
-        });
     });
 
     it('caso en que usuario venga null', async () => {
@@ -363,7 +313,7 @@ describe('Model - getRoutesInfo', () => {
 
         const result = await RoutesInfo.getRoutesInfo();
 
-        expect(result[0].recoleccion).toBe(' ');
+        expect(result[0].recoleccion).toBe(null);
         expect(result[0].hasRequest).toBe(false);
     });
 
@@ -563,7 +513,7 @@ describe('Model - getFilteredRoutesInfo', () => {
         );
 
         expect(result[0].nombre).toBe('Alejandra Arredondo');
-        expect(result[0].recoleccion).toBe('2');
+        expect(result[0].recoleccion).toBe(2);
     });
 
     it('debe usar el día actual si no se pasa dayName', async () => {

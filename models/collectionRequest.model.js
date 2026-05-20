@@ -12,6 +12,8 @@
 
 const prisma = require("../config/prisma");
 
+const bucketCostMap = require('../utils/bucketCostMap');
+
 module.exports = class CollectionRequest {
 
     /**
@@ -153,6 +155,7 @@ module.exports = class CollectionRequest {
                 cantidad: true,
                 imagen_url: true,
                 estatus: true,
+                color: true,
             }
         });
 
@@ -391,4 +394,178 @@ module.exports = class CollectionRequest {
             }
         })
     }
+
+    static async updateRequest(requestData, productsData) {
+
+        try {
+        return await prisma.$transaction(async (tx) => {
+
+            const requestId = requestData.id_solicitud;
+
+            const productsIds = productsData.map(
+                product => product.id_producto
+            );
+
+            const productsInfo = await tx.productos_extra.findMany({
+                where: {
+                    id_producto: {
+                        in: productsIds,
+                    },
+                },
+                select: {
+                    id_producto: true,
+                    precio: true,
+                },
+            });
+
+            const priceMap = new Map(
+                productsInfo.map(product => [
+                    product.id_producto,
+                    product.precio,
+                ])
+            );
+
+            const collectionCost = bucketCostMap[requestData.cubetas_entregadas] || 0;
+            const productsCost = productsData.reduce(
+                (total, product) => {
+                    const price = priceMap.get(product.id_producto) || 0;
+
+                    return total + (price * product.cantidad);
+                },
+                0
+            );
+
+            const totalToPay = collectionCost + productsCost;
+
+            let scheduleDate = requestData.horario
+                ? new Date(`1970-01-01T${requestData.horario}:00Z`)
+                : null;
+
+            if(Number.isNaN(scheduleDate.valueOf())){
+                scheduleDate = null;    
+            }
+
+            const currentRequest = await tx.solicitudes_recoleccion.findUnique({
+                where: {
+                    id_solicitud: requestId,
+                },
+                include: {
+                    productos_solicitud: true,
+                },
+            });
+
+            if (!currentRequest) {
+                throw new Error("Solicitud no encontrada");
+            }
+            const updatedRequest = await tx.solicitudes_recoleccion.update({
+                where: {
+                    id_solicitud: requestId,
+                },
+                data: {
+                    cubetas_recolectadas:
+                        requestData.cubetas_recolectadas,
+
+                    cubetas_entregadas:
+                        requestData.cubetas_entregadas,
+
+                    notas:
+                        requestData.notas,
+
+                    total_pagado:
+                        Number(requestData.total_pagado),
+
+                    total_a_pagar:
+                        totalToPay,
+
+                    quiere_productos_extra:
+                        requestData.quiere_productos_extra,
+
+                    quiere_recoleccion:
+                        requestData.quiere_recoleccion,
+
+                    id_pago:
+                        requestData.id_pago,
+
+                    horario:
+                        scheduleDate,
+                },
+            });
+
+            const oldProductsMap = new Map(
+                currentRequest.productos_solicitud.map(product => [
+                    product.id_producto,
+                    product.cantidad
+                ])
+            );
+
+            const newProductsMap = new Map(
+                productsData.map(product => [
+                    product.id_producto,
+                    product.cantidad
+                ])
+            );
+
+            const allIds = new Set([
+                ...oldProductsMap.keys(),
+                ...newProductsMap.keys(),
+            ]);
+
+            for (const productId of allIds) {
+
+                const oldQty = oldProductsMap.get(productId) || 0;
+                const newQty = newProductsMap.get(productId) || 0;
+
+                const difference = newQty - oldQty;
+
+                if (difference > 0) {
+                    await tx.productos_extra.update({
+                        where: {
+                            id_producto: productId,
+                        },
+                        data: {
+                            cantidad: {
+                                decrement: difference,
+                            },
+                        },
+                    });
+                }
+
+                if (difference < 0) {
+                    await tx.productos_extra.update({
+                        where: {
+                            id_producto: productId,
+                        },
+                        data: {
+                            cantidad: {
+                                increment: Math.abs(difference),
+                            },
+                        },
+                    });
+                }
+            }
+
+            await tx.productos_solicitud.deleteMany({
+                where: {
+                    id_solicitud: requestId,
+                },
+            });
+
+            if (productsData.length > 0) {
+                await tx.productos_solicitud.createMany({
+                    data: productsData.map(product => ({
+                        id_solicitud: requestId,
+                        id_producto: product.id_producto,
+                        cantidad: product.cantidad,
+                        fecha: new Date(),
+                    })),
+                });
+            }
+
+            return updatedRequest;
+        });
+    } catch (error){
+        console.error(error);
+        throw new Error('Error al actualizar la solicitud de recolección');
+    }
+    } 
 };
