@@ -139,6 +139,13 @@ const generateConfirmationMessages = async (req, res) => {
 
         const googleToken = req.cookies.googleToken;
 
+        if (weekIndex === undefined || weekIndex === null || !dayName) {
+            return res.status(400).json({
+                success: false,
+                message: "Faltan datos para generar los mensajes de confirmación",
+            });
+        }
+
         if (!googleToken) {
             return res.status(401).json({
                 success: false,
