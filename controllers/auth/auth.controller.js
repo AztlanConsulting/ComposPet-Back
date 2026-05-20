@@ -235,7 +235,7 @@ const refreshToken = async (req, res) => {
     const token = req.cookies.refreshToken;
 
     if (!token) {
-        return res.status(403).json({ message: 'No refresh token found.' });
+        return res.status(403).json({ message: 'No hay token de refresco.' });
     }
 
     try {
@@ -244,7 +244,7 @@ const refreshToken = async (req, res) => {
 
         if (!session) {
             res.clearCookie('refreshToken', cookieOptions);
-            return res.status(403).json({ message: 'Session not found or inactive.' });
+            return res.status(403).json({ message: 'Sesión no encontrada o inactiva.' });
         }
 
         if (new Date() > new Date(session.expira_en)) {
@@ -274,7 +274,7 @@ const refreshToken = async (req, res) => {
     } catch (error) {
         res.clearCookie('refreshToken');
         console.error('Error refreshing token:', error);
-        return res.status(403).json({ message: 'Invalid or expired refresh token.' });
+        return res.status(403).json({ message: 'Token de refresco inválido o expirado.' });
     }
 };
 
