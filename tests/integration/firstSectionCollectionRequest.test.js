@@ -25,7 +25,7 @@ const createAuthToken = () => {
         id_usuario: TEST_USER_ID,
         correo: TEST_EMAIL,
         id_rol: TEST_ROLE_ID,
-        role: "cliente",
+        role: "Cliente",
     });
 };
 
@@ -100,6 +100,7 @@ const createCollectionRequest = async () => {
             notas: null,
             quiere_recoleccion: true,
             quiere_productos_extra: true,
+            estatus: false,
         },
     });
 };

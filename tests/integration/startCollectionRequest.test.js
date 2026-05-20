@@ -1,26 +1,22 @@
 const request = require("supertest");
-const { randomUUID } = require("crypto");
+const { randomUUID, randomInt } = require("crypto");
 
 const app = require("../../app");
 const prisma = require("../../config/prisma");
 
-// Para generar Token
+//Para generar token
 const { generateAccessToken } = require("../../utils/jwt.utils");
 
-//Constantes 
-
+// Constantes
 const TEST_CP_ID = randomUUID();
 const TEST_ROLE_ID = randomUUID();
 const TEST_USER_ID = randomUUID();
 const TEST_CLIENT_ID = randomUUID();
-const TEST_EMAIL = "saldo.test@compospet.com";
-const ENDPOINT = "/api/saldo/consultar-saldo";
-const TEST_RUTA_ID = 3;
+const TEST_EMAIL = "cliente.test@compospet.com";
+const ENDPOINT = "/api/cliente/obtener-cliente-y-ruta";
+const TEST_RUTA_ID = 2255;
 
-
-//Helpers
-
-// Crear un token válido para el test
+// Helpers
 const createAuthToken = () => {
     return generateAccessToken({
         id_usuario: TEST_USER_ID,
@@ -42,7 +38,7 @@ const createTestUserAndClient = async () => {
         update: {},
         create: {
             id_rol: TEST_ROLE_ID,
-            nombre: "test-role-saldo",
+            nombre: "test-role-cliente-ruta",
         },
     });
 
@@ -52,7 +48,7 @@ const createTestUserAndClient = async () => {
             id_cp: TEST_CP_ID,
             id_rol: TEST_ROLE_ID,
             nombre: "Cliente",
-            apellido: "Saldo Test",
+            apellido: "Ruta Test",
             correo: TEST_EMAIL,
             contrasena: "hash-test",
             estatus: true,
@@ -62,21 +58,22 @@ const createTestUserAndClient = async () => {
         },
     });
 
-    await prisma.ruta.create({
-        data: {
+    await prisma.ruta.upsert({
+        where: { id_ruta: TEST_RUTA_ID },
+        update: {},
+        create: {
             id_ruta: TEST_RUTA_ID,
-            dia_ruta: "Lunes",
+            dia_ruta: "Miércoles",
             turno_ruta: "Matutino",
         },
     });
-
 
     await prisma.cliente.create({
         data: {
             id_cliente: TEST_CLIENT_ID,
             id_usuario: TEST_USER_ID,
             id_ruta: TEST_RUTA_ID,
-            mascotas: "1 perro 1 gato",
+            mascotas: "1 perro",
             familia: "3",
             direccion: "Dirección de prueba",
             orden_horario: 1,
@@ -87,10 +84,6 @@ const createTestUserAndClient = async () => {
 };
 
 const cleanDb = async () => {
-    await prisma.saldo.deleteMany({
-        where: { id_cliente: TEST_CLIENT_ID },
-    });
-
     await prisma.cliente.deleteMany({
         where: { id_cliente: TEST_CLIENT_ID },
     });
@@ -130,58 +123,26 @@ afterAll(async () => {
     await prisma.$disconnect();
 });
 
-//Casos de prueba
-
-describe("Credit Balance Integration", () => {
-    it("retorna 400 si no se envía clientId", async () => {
-        
-        //Arrange 
+describe("Client Route Integration", () => {
+    it("retorna 400 si no se envía userId", async () => {
+        //Arrange
         const token = createAuthToken();
 
-
-        // Actuar
+        //Actuar
         const res = await request(app)
             .post(ENDPOINT)
             .set("Authorization", `Bearer ${token}`)
             .send({});
 
-        // Afirmar
+        //Afirmar
         expect(res.status).toBe(400);
         expect(res.body).toEqual({
             success: false,
-            message: "Falta id del cliente para obtener el balance de tarjeta",
+            message: "Falta el id del usuario para obtener la información del cliente.",
         });
     });
 
-    it("retorna 200 con el saldo existente del cliente", async () => {
-        
-        // Arrange 
-        const token = createAuthToken();
-
-        await prisma.saldo.create({
-            data: {
-                id_cliente: TEST_CLIENT_ID,
-                saldo: 500,
-            },
-        });
-
-        // Actuar
-        const res = await request(app)
-            .post(ENDPOINT)
-            .set("Authorization", `Bearer ${token}`)
-            .send({
-                clientId: TEST_CLIENT_ID,
-            });
-
-        //Afirmar
-        expect(res.status).toBe(200);
-        expect(res.body.success).toBe(true);
-        expect(res.body.message).toBe("Saldo de tarjeta obtenido exitosamente");
-        expect(res.body.data.id_cliente).toBe(TEST_CLIENT_ID);
-        expect(Number(res.body.data.saldo)).toBe(500);
-    });
-
-    it("retorna 200 y crea saldo inicial si el cliente no tiene saldo previo", async () => {
+    it("retorna 200 con el cliente y su ruta asignada", async () => {
         
         //Arrange
         const token = createAuthToken();
@@ -191,42 +152,37 @@ describe("Credit Balance Integration", () => {
             .post(ENDPOINT)
             .set("Authorization", `Bearer ${token}`)
             .send({
-                clientId: TEST_CLIENT_ID,
+                userId: TEST_USER_ID,
             });
 
         //Afirmar
         expect(res.status).toBe(200);
         expect(res.body.success).toBe(true);
-        expect(res.body.message).toBe("Saldo de tarjeta obtenido exitosamente");
+        expect(res.body.message).toBe("Información del cliente obtenida exitosamente.");
+
         expect(res.body.data.id_cliente).toBe(TEST_CLIENT_ID);
-        expect(Number(res.body.data.saldo)).toBe(0);
+        expect(res.body.data.id_ruta).toBe(TEST_RUTA_ID);
 
-        const saldoCreado = await prisma.saldo.findFirst({
-            where: {
-                id_cliente: TEST_CLIENT_ID,
-            },
+        expect(res.body.data.ruta).toEqual({
+            dia_ruta: "Miércoles",
         });
-
-        expect(saldoCreado).not.toBeNull();
-        expect(Number(saldoCreado.saldo)).toBe(0);
     });
 
-    it("retorna 500 si ocurre un error al crear saldo para un cliente inexistente", async () => {
+    it("retorna 404 si no existe cliente asociado al usuario", async () => {
         const token = createAuthToken();
-
-        const  NON_CLIENT= randomUUID();
+        const NON_USER = randomUUID();
 
         const res = await request(app)
             .post(ENDPOINT)
             .set("Authorization", `Bearer ${token}`)
             .send({
-                clientId: NON_CLIENT,
+                userId: NON_USER,
             });
 
-        //Afirmar
-        expect(res.status).toBe(500);
-        expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe("Error servidor al obtener el saldo del cliente.");
+        expect(res.status).toBe(404);
+        expect(res.body).toEqual({
+            success: false,
+            message: "No se encontró la información del cliente asociado a este usuario.",
+        });
     });
-
 });

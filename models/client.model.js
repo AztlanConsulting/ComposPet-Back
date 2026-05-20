@@ -14,7 +14,8 @@ const prisma = require("../config/prisma");
 
 module.exports = class Client {
     /**
-     * Obtiene el cliente asociado al id de usuario proporcionado.
+     * Obtiene la información cliente asociado al id de usuario proporcionado,
+     * incluyendo el dia de ruta asignada al cliente
      *
      * @async
      * @static
@@ -22,15 +23,42 @@ module.exports = class Client {
      * @returns {Promise<Object|null>} Objeto con el id del cliente o `null` si no existe.
      */
     static async getClientByUserId(userId) {
-        //obtiene el cliente dependiendo del id de usuario
+        //obtiene la información del cliente dependiendo del id de usuario
         const client = await prisma.cliente.findUnique({
             where: {
                 id_usuario: userId,
             },
+            select: {
+                id_cliente: true,
+                id_ruta: true,
+                ruta: {
+                    select: {
+                        dia_ruta: true,
+                    },
+                },
+            }
         });
 
         return client;
     }
+
+    /**
+     * Obtiene la información cliente asociado al id de cliente proporcionado,
+     *
+     * @async
+     * @static
+     * @param {string} clientId - Id del cliente.
+     * @returns {Promise<Object|null>} Objeto con el id del cliente o `null` si no existe.
+     */
+    static async getClientById(clientId) {
+        const client = await prisma.cliente.findUnique({
+            where: {
+                id_cliente: clientId,
+            },
+        });
+
+        return client;
+    }    
 
     /**
      * Crea un nuevo registro de cliente en la base de datos vinculado a un usuario existente.
@@ -82,20 +110,27 @@ module.exports = class Client {
 
     static async getClients(){
         const clientListRaw = await prisma.cliente.findMany({
-            orderBy: {
-                usuarios_cp: {
-                    estatus: "desc"
+            orderBy: [
+                {
+                    usuarios_cp: {
+                        estatus: "desc",
+                    }
+                },
+                {
+                    orden_horario: "asc",
                 }
-            },
+            ],
             select: {
                 id_cliente: true,
                 mascotas: true,
                 familia: true,
                 direccion: true,
                 notas: true,
+                orden_horario: true,
 
                 usuarios_cp: {
                 select: {
+                    id_usuario: true,
                     nombre: true,
                     apellido: true,
                     telefono: true,
@@ -111,6 +146,7 @@ module.exports = class Client {
 
                 ruta: {
                 select: {
+                    id_ruta: true,
                     dia_ruta: true,
                     turno_ruta: true,
                 }
@@ -130,16 +166,19 @@ module.exports = class Client {
 
         const clientList = clientListRaw.map(client => ({
             clientId: client.id_cliente,
+            userId: client.usuarios_cp.id_usuario,
             pets: client.mascotas,
             family: client.familia,
             address: client.direccion,
             notes: client.notas,
+            order: client.orden_horario,
 
             name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
             cellphone: client.usuarios_cp.telefono,
             status: client.usuarios_cp.estatus,
 
-            route: client.ruta ? client.ruta.dia_ruta + ' ' + client.ruta.turno_ruta : null,
+            routeId: client.ruta.id_ruta,
+            route: client.ruta ? client.ruta.dia_ruta : null,
 
             balance: client.saldo ? client.saldo.saldo: null,
 
@@ -149,6 +188,190 @@ module.exports = class Client {
         }))
 
         return clientList
+    }
+
+    /** Actualiza la información del usuario
+     *
+     * @async
+     * @static
+     * @param {string} userId - Id del usuario.
+     * @param {string} clientId - Id del cliente.
+     * @param {Object} userData - Objeto con la información del usuario.
+     * @param {Object} clientData - Objeto con la información del cliente.
+     * @param {Object} balanceData - Objeto con la información del saldo del cliente.
+     * @returns {Promise<Boolean>} - success
+     */
+    static async updateClient(
+        userId, 
+        clientId, 
+        userData, 
+        clientData, 
+        balanceData,
+    ){
+        try {
+            await prisma.$transaction(async (tx) => {
+
+                const actualClient = await tx.cliente.findUnique({
+                    where: {
+                        id_cliente: clientId,
+                    },
+                    select: {
+                        id_ruta: true,
+                        orden_horario: true,
+                    }
+                })
+
+                const newOrder = clientData.orden_horario;
+                const oldOrder = actualClient.orden_horario;
+                const newRouteId = clientData.id_ruta;
+                const oldRouteId = actualClient.id_ruta;
+
+                const orderChanged =  newOrder !== oldOrder;
+                const routeChanged =  newRouteId !== oldRouteId;
+
+                if(routeChanged){
+                    await this.handleRouteChange(
+                        tx,
+                        clientId,
+                        oldRouteId,
+                        oldOrder,
+                        newRouteId,
+                        newOrder,
+                    );
+                }
+                else if(orderChanged) {
+                    await this.handleOrderChange(
+                        tx,
+                        clientId,
+                        oldRouteId,
+                        oldOrder,
+                        newOrder,
+                    );
+                }
+
+                if(Object.keys(userData).length){
+                    await tx.usuarios_cp.update({
+                        where: {
+                            id_usuario: userId,
+                        },
+                        data: userData,
+                    });
+                }
+
+                if(Object.keys(clientData).length){
+                    await tx.cliente.update({
+                        where: {
+                            id_cliente: clientId,
+                        },
+                        data: clientData,
+                    })
+                }
+
+                if(Object.keys(balanceData).length){
+                    await tx.saldo.update({
+                        where: {
+                            id_cliente: clientId,
+                        },
+                        data: balanceData,
+                    })
+                }
+
+            })
+        } catch(error){
+            console.log(error)
+        } finally {
+            return true;
+        }
+    }
+
+    static async handleOrderChange(
+        tx,
+        clientId,
+        routeId,
+        oldOrder,
+        newOrder,
+    ){
+
+        if(newOrder > oldOrder){
+            await tx.cliente.updateMany({
+                where: {
+                    id_ruta: routeId,
+                    id_cliente: {
+                        not: clientId,
+                    },
+                    orden_horario: {
+                        gt: oldOrder,
+                        lte: newOrder,
+                    }
+                },
+                data: {
+                    orden_horario: {
+                        decrement: 1,
+                    }
+                }
+            });
+        }
+
+        if(newOrder < oldOrder){
+            await tx.cliente.updateMany({
+                where: {
+                    id_ruta: routeId,
+                    id_cliente: {
+                        not: clientId,
+                    },
+                    orden_horario: {
+                        gte: newOrder,
+                        lte: oldOrder,
+                    }
+                },
+                data: {
+                    orden_horario: {
+                        increment: 1,
+                    }
+                }
+            });
+        }
+    }
+
+    static async handleRouteChange(
+        tx,
+        clientId,
+        oldRouteId,
+        oldOrder,
+        newRouteId,
+        newOrder,
+    ){
+
+        await tx.cliente.updateMany({
+            where: {
+                id_ruta: oldRouteId,
+                orden_horario: {
+                    gt: oldOrder,
+                }
+            },
+            data: {
+                orden_horario: {
+                    decrement: 1,
+                }
+            }
+        });
+
+        await tx.cliente.updateMany({
+            where: {
+                id_ruta: newRouteId,
+                id_cliente: {
+                    not: clientId,
+                },
+                orden_horario: {
+                    gte: newOrder,
+                },
+            },
+            data: {
+                orden_horario: {
+                    increment: 1,
+                }
+            }
+        });
     }
 
 };

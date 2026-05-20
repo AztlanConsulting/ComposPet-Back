@@ -19,6 +19,8 @@ const TEST_RUTA_ID = 10;
 
 const ENDPOINT = "/api/cliente/informacion";
 
+const UPDATE_ENDPOINT = "/api/admin/actualizar-cliente";
+
 // ======================
 // AUTH
 // ======================
@@ -28,7 +30,7 @@ const createAuthToken = () => {
         id_usuario: TEST_USER_ID,
         correo: TEST_EMAIL,
         id_rol: TEST_ROLE_ID,
-        role: "cliente",
+        role: "Administrador",
     });
 };
 
@@ -86,6 +88,7 @@ const createBaseData = async () => {
             direccion: "Dirección test",
             notas: "Notas test",
             fecha_entrada: new Date(),
+            orden_horario: 1,
         },
     });
 
@@ -197,8 +200,9 @@ describe("Integración - Client - getClientsInfo", () => {
             name: "Juan M",
             cellphone: "4423486456",
             status: true,
-            route: "Lunes 1",
+            route: "Lunes",
             balance: 150,
+            order: 1,
         });
 
         expect(client.lastRequest).toBe("2026-04-28");
@@ -207,9 +211,15 @@ describe("Integración - Client - getClientsInfo", () => {
     it("retorna lista vacía si no hay clientes", async () => {
         const token = createAuthToken();
 
-        await prisma.solicitudes_recoleccion.deleteMany({});
-        await prisma.saldo.deleteMany({});
-        await prisma.cliente.deleteMany({});
+        await prisma.solicitudes_recoleccion.deleteMany({
+            where: {id_cliente: TEST_CLIENT_ID},
+        });
+        await prisma.saldo.deleteMany({
+            where: {id_cliente: TEST_CLIENT_ID},
+        });
+        await prisma.cliente.deleteMany({
+            where: {id_cliente: TEST_CLIENT_ID},
+        });
 
         const res = await request(app)
             .get(ENDPOINT)
@@ -217,7 +227,165 @@ describe("Integración - Client - getClientsInfo", () => {
 
         expect(res.status).toBe(200);
         expect(res.body.success).toBe(true);
-        expect(res.body.clientList).toEqual([]);
+
+        const client = res.body.clientList.find(
+            c => c.clientId === TEST_CLIENT_ID
+        );
+
+        expect(client).toBeUndefined();
+    });
+
+});
+
+describe("Integración - Admin - updateClient", () => {
+
+    it("retorna 200 al actualizar todos los campos correctamente", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .post(UPDATE_ENDPOINT)
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                clientObject: {
+                    clientId: TEST_CLIENT_ID,
+                    userId: TEST_USER_ID,
+                    cellphone: "4421234567",
+                    status: true,
+                    notes: "Nota actualizada",
+                    address: "Dirección actualizada 456",
+                    pets: "2 gatos",
+                    family: "2 adultos",
+                    routeId: TEST_RUTA_ID,
+                    balance: 300,
+                    order: 1,
+                },
+            });
+
+        expect(res.status).toBe(200);
+        expect(res.body.success).toBe(true);
+
+        const usuario = await prisma.usuarios_cp.findUnique({
+            where: { id_usuario: TEST_USER_ID },
+        });
+        expect(usuario.telefono).toBe("4421234567");
+
+        const cliente = await prisma.cliente.findUnique({
+            where: { id_cliente: TEST_CLIENT_ID },
+        });
+        expect(cliente.notas).toBe("Nota actualizada");
+        expect(cliente.direccion).toBe("Dirección actualizada 456");
+        expect(cliente.mascotas).toBe("2 gatos");
+        expect(cliente.familia).toBe("2 adultos");
+
+        const saldo = await prisma.saldo.findUnique({
+            where: { id_cliente: TEST_CLIENT_ID },
+        });
+        expect(saldo.saldo).toBe(300);
+    });
+
+    it("retorna 200 al actualizar solo el saldo", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .post(UPDATE_ENDPOINT)
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                clientObject: {
+                    clientId: TEST_CLIENT_ID,
+                    userId: TEST_USER_ID,
+                    balance: 999,
+                },
+            });
+
+        expect(res.status).toBe(200);
+        expect(res.body.success).toBe(true);
+
+        const saldo = await prisma.saldo.findUnique({
+            where: { id_cliente: TEST_CLIENT_ID },
+        });
+        expect(saldo.saldo).toBe(999);
+
+        const usuario = await prisma.usuarios_cp.findUnique({
+            where: { id_usuario: TEST_USER_ID },
+        });
+        expect(usuario.telefono).toBe("4423486456");
+    });
+
+    it("retorna 200 al actualizar solo el teléfono", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .post(UPDATE_ENDPOINT)
+            .set("Authorization", `Bearer ${token}`)
+            .send({
+                clientObject: {
+                    clientId: TEST_CLIENT_ID,
+                    userId: TEST_USER_ID,
+                    cellphone: "4429999999",
+                },
+            });
+
+        expect(res.status).toBe(200);
+
+        const usuario = await prisma.usuarios_cp.findUnique({
+            where: { id_usuario: TEST_USER_ID },
+        });
+        expect(usuario.telefono).toBe("4429999999");
+    });
+
+    it("retorna 401 sin token de autenticación", async () => {
+        const res = await request(app)
+            .post(UPDATE_ENDPOINT)
+            .send({
+                clientObject: {
+                    clientId: TEST_CLIENT_ID,
+                    userId: TEST_USER_ID,
+                    balance: 100,
+                },
+            });
+
+        expect(res.status).toBe(401);
+    });
+
+    it("retorna 401 con token inválido", async () => {
+        const res = await request(app)
+            .post(UPDATE_ENDPOINT)
+            .set("Authorization", "Bearer token_invalido")
+            .send({
+                clientObject: {
+                    clientId: TEST_CLIENT_ID,
+                    userId: TEST_USER_ID,
+                    balance: 100,
+                },
+            });
+
+        expect(res.status).toBe(401);
+    });
+
+});
+
+describe("Integración - Admin - getRoutes", () => {
+
+    it("retorna 200 con la lista de rutas", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .get(UPDATE_ENDPOINT)
+            .set("Authorization", `Bearer ${token}`);
+
+        expect(res.status).toBe(200);
+        expect(res.body.success).toBe(true);
+        expect(Array.isArray(res.body.routes)).toBe(true);
+
+        const ruta = res.body.routes.find(r => r.id_ruta === TEST_RUTA_ID);
+        expect(ruta).toBeDefined();
+        expect(ruta.dia_ruta).toBe("Lunes");
+    });
+
+    it("retorna 401 sin token", async () => {
+        const res = await request(app).get(UPDATE_ENDPOINT);
+
+        expect(res.status).toBe(401);
     });
 
 });

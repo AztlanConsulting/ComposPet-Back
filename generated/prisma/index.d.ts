@@ -109,10 +109,10 @@ export type saldo = $Result.DefaultSelection<Prisma.$saldoPayload>
  */
 export type usuarios_cp = $Result.DefaultSelection<Prisma.$usuarios_cpPayload>
 /**
- * Model sesiones
+ * Model zona
  * 
  */
-export type sesiones = $Result.DefaultSelection<Prisma.$sesionesPayload>
+export type zona = $Result.DefaultSelection<Prisma.$zonaPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -426,14 +426,14 @@ export class PrismaClient<
   get usuarios_cp(): Prisma.usuarios_cpDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.sesiones`: Exposes CRUD operations for the **sesiones** model.
+   * `prisma.zona`: Exposes CRUD operations for the **zona** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Sesiones
-    * const sesiones = await prisma.sesiones.findMany()
+    * // Fetch zero or more Zonas
+    * const zonas = await prisma.zona.findMany()
     * ```
     */
-  get sesiones(): Prisma.sesionesDelegate<ExtArgs, ClientOptions>;
+  get zona(): Prisma.zonaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -887,7 +887,7 @@ export namespace Prisma {
     solicitudes_recoleccion: 'solicitudes_recoleccion',
     saldo: 'saldo',
     usuarios_cp: 'usuarios_cp',
-    sesiones: 'sesiones'
+    zona: 'zona'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -903,7 +903,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "saldo" | "usuarios_cp" | "sesiones"
+      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "saldo" | "usuarios_cp" | "zona"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2313,77 +2313,77 @@ export namespace Prisma {
           }
         }
       }
-      sesiones: {
-        payload: Prisma.$sesionesPayload<ExtArgs>
-        fields: Prisma.sesionesFieldRefs
+      zona: {
+        payload: Prisma.$zonaPayload<ExtArgs>
+        fields: Prisma.zonaFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.sesionesFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload> | null
+            args: Prisma.zonaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.sesionesFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+            args: Prisma.zonaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>
           }
           findFirst: {
-            args: Prisma.sesionesFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload> | null
+            args: Prisma.zonaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.sesionesFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+            args: Prisma.zonaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>
           }
           findMany: {
-            args: Prisma.sesionesFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>[]
+            args: Prisma.zonaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>[]
           }
           create: {
-            args: Prisma.sesionesCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+            args: Prisma.zonaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>
           }
           createMany: {
-            args: Prisma.sesionesCreateManyArgs<ExtArgs>
+            args: Prisma.zonaCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.sesionesCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>[]
+            args: Prisma.zonaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>[]
           }
           delete: {
-            args: Prisma.sesionesDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+            args: Prisma.zonaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>
           }
           update: {
-            args: Prisma.sesionesUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+            args: Prisma.zonaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>
           }
           deleteMany: {
-            args: Prisma.sesionesDeleteManyArgs<ExtArgs>
+            args: Prisma.zonaDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.sesionesUpdateManyArgs<ExtArgs>
+            args: Prisma.zonaUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.sesionesUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>[]
+            args: Prisma.zonaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>[]
           }
           upsert: {
-            args: Prisma.sesionesUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+            args: Prisma.zonaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$zonaPayload>
           }
           aggregate: {
-            args: Prisma.SesionesAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateSesiones>
+            args: Prisma.ZonaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateZona>
           }
           groupBy: {
-            args: Prisma.sesionesGroupByArgs<ExtArgs>
-            result: $Utils.Optional<SesionesGroupByOutputType>[]
+            args: Prisma.zonaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ZonaGroupByOutputType>[]
           }
           count: {
-            args: Prisma.sesionesCountArgs<ExtArgs>
-            result: $Utils.Optional<SesionesCountAggregateOutputType> | number
+            args: Prisma.zonaCountArgs<ExtArgs>
+            result: $Utils.Optional<ZonaCountAggregateOutputType> | number
           }
         }
       }
@@ -2514,7 +2514,7 @@ export namespace Prisma {
     solicitudes_recoleccion?: solicitudes_recoleccionOmit
     saldo?: saldoOmit
     usuarios_cp?: usuarios_cpOmit
-    sesiones?: sesionesOmit
+    zona?: zonaOmit
   }
 
   /* Types for Logging */
@@ -14203,6 +14203,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    color: string | null
   }
 
   export type Productos_extraMaxAggregateOutputType = {
@@ -14214,6 +14215,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    color: string | null
   }
 
   export type Productos_extraCountAggregateOutputType = {
@@ -14225,6 +14227,7 @@ export namespace Prisma {
     imagen_url: number
     orden: number
     estatus: number
+    color: number
     _all: number
   }
 
@@ -14252,6 +14255,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    color?: true
   }
 
   export type Productos_extraMaxAggregateInputType = {
@@ -14263,6 +14267,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    color?: true
   }
 
   export type Productos_extraCountAggregateInputType = {
@@ -14274,6 +14279,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    color?: true
     _all?: true
   }
 
@@ -14372,6 +14378,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    color: string | null
     _count: Productos_extraCountAggregateOutputType | null
     _avg: Productos_extraAvgAggregateOutputType | null
     _sum: Productos_extraSumAggregateOutputType | null
@@ -14402,6 +14409,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productos_extra"]>
@@ -14415,6 +14423,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -14426,6 +14435,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectScalar = {
@@ -14437,9 +14447,10 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    color?: boolean
   }
 
-  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus", ExtArgs["result"]["productos_extra"]>
+  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus" | "color", ExtArgs["result"]["productos_extra"]>
   export type productos_extraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -14461,6 +14472,7 @@ export namespace Prisma {
       imagen_url: string | null
       orden: number | null
       estatus: boolean | null
+      color: string | null
     }, ExtArgs["result"]["productos_extra"]>
     composites: {}
   }
@@ -14893,6 +14905,7 @@ export namespace Prisma {
     readonly imagen_url: FieldRef<"productos_extra", 'String'>
     readonly orden: FieldRef<"productos_extra", 'Int'>
     readonly estatus: FieldRef<"productos_extra", 'Boolean'>
+    readonly color: FieldRef<"productos_extra", 'String'>
   }
     
 
@@ -20999,7 +21012,7 @@ export namespace Prisma {
     quiere_productos_extra: boolean | null
     quiere_recoleccion: boolean | null
     id_pago: number | null
-    estatus: boolean | null
+    estatus: boolean
     _count: Solicitudes_recoleccionCountAggregateOutputType | null
     _avg: Solicitudes_recoleccionAvgAggregateOutputType | null
     _sum: Solicitudes_recoleccionSumAggregateOutputType | null
@@ -21129,7 +21142,7 @@ export namespace Prisma {
       quiere_productos_extra: boolean | null
       quiere_recoleccion: boolean | null
       id_pago: number | null
-      estatus: boolean | null
+      estatus: boolean
     }, ExtArgs["result"]["solicitudes_recoleccion"]>
     composites: {}
   }
@@ -24457,399 +24470,359 @@ export namespace Prisma {
 
 
   /**
-   * Model sesiones
+   * Model zona
    */
 
-  export type AggregateSesiones = {
-    _count: SesionesCountAggregateOutputType | null
-    _min: SesionesMinAggregateOutputType | null
-    _max: SesionesMaxAggregateOutputType | null
+  export type AggregateZona = {
+    _count: ZonaCountAggregateOutputType | null
+    _avg: ZonaAvgAggregateOutputType | null
+    _sum: ZonaSumAggregateOutputType | null
+    _min: ZonaMinAggregateOutputType | null
+    _max: ZonaMaxAggregateOutputType | null
   }
 
-  export type SesionesMinAggregateOutputType = {
-    id: string | null
-    id_usuario: string | null
-    refresh_token: string | null
-    dispositivo: string | null
-    ip: string | null
-    iniciada_en: Date | null
-    expira_en: Date | null
-    ultima_actividad: Date | null
-    activa: boolean | null
+  export type ZonaAvgAggregateOutputType = {
+    id_zona: number | null
   }
 
-  export type SesionesMaxAggregateOutputType = {
-    id: string | null
-    id_usuario: string | null
-    refresh_token: string | null
-    dispositivo: string | null
-    ip: string | null
-    iniciada_en: Date | null
-    expira_en: Date | null
-    ultima_actividad: Date | null
-    activa: boolean | null
+  export type ZonaSumAggregateOutputType = {
+    id_zona: number | null
   }
 
-  export type SesionesCountAggregateOutputType = {
-    id: number
-    id_usuario: number
-    refresh_token: number
-    dispositivo: number
-    ip: number
-    iniciada_en: number
-    expira_en: number
-    ultima_actividad: number
-    activa: number
+  export type ZonaMinAggregateOutputType = {
+    id_zona: number | null
+    municipio: string | null
+    descripcion: string | null
+    estado: string | null
+  }
+
+  export type ZonaMaxAggregateOutputType = {
+    id_zona: number | null
+    municipio: string | null
+    descripcion: string | null
+    estado: string | null
+  }
+
+  export type ZonaCountAggregateOutputType = {
+    id_zona: number
+    municipio: number
+    descripcion: number
+    estado: number
     _all: number
   }
 
 
-  export type SesionesMinAggregateInputType = {
-    id?: true
-    id_usuario?: true
-    refresh_token?: true
-    dispositivo?: true
-    ip?: true
-    iniciada_en?: true
-    expira_en?: true
-    ultima_actividad?: true
-    activa?: true
+  export type ZonaAvgAggregateInputType = {
+    id_zona?: true
   }
 
-  export type SesionesMaxAggregateInputType = {
-    id?: true
-    id_usuario?: true
-    refresh_token?: true
-    dispositivo?: true
-    ip?: true
-    iniciada_en?: true
-    expira_en?: true
-    ultima_actividad?: true
-    activa?: true
+  export type ZonaSumAggregateInputType = {
+    id_zona?: true
   }
 
-  export type SesionesCountAggregateInputType = {
-    id?: true
-    id_usuario?: true
-    refresh_token?: true
-    dispositivo?: true
-    ip?: true
-    iniciada_en?: true
-    expira_en?: true
-    ultima_actividad?: true
-    activa?: true
+  export type ZonaMinAggregateInputType = {
+    id_zona?: true
+    municipio?: true
+    descripcion?: true
+    estado?: true
+  }
+
+  export type ZonaMaxAggregateInputType = {
+    id_zona?: true
+    municipio?: true
+    descripcion?: true
+    estado?: true
+  }
+
+  export type ZonaCountAggregateInputType = {
+    id_zona?: true
+    municipio?: true
+    descripcion?: true
+    estado?: true
     _all?: true
   }
 
-  export type SesionesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ZonaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which sesiones to aggregate.
+     * Filter which zona to aggregate.
      */
-    where?: sesionesWhereInput
+    where?: zonaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sesiones to fetch.
+     * Determine the order of zonas to fetch.
      */
-    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    orderBy?: zonaOrderByWithRelationInput | zonaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: sesionesWhereUniqueInput
+    cursor?: zonaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sesiones from the position of the cursor.
+     * Take `±n` zonas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sesiones.
+     * Skip the first `n` zonas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned sesiones
+     * Count returned zonas
     **/
-    _count?: true | SesionesCountAggregateInputType
+    _count?: true | ZonaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ZonaAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ZonaSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: SesionesMinAggregateInputType
+    _min?: ZonaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: SesionesMaxAggregateInputType
+    _max?: ZonaMaxAggregateInputType
   }
 
-  export type GetSesionesAggregateType<T extends SesionesAggregateArgs> = {
-        [P in keyof T & keyof AggregateSesiones]: P extends '_count' | 'count'
+  export type GetZonaAggregateType<T extends ZonaAggregateArgs> = {
+        [P in keyof T & keyof AggregateZona]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateSesiones[P]>
-      : GetScalarType<T[P], AggregateSesiones[P]>
+        : GetScalarType<T[P], AggregateZona[P]>
+      : GetScalarType<T[P], AggregateZona[P]>
   }
 
 
 
 
-  export type sesionesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: sesionesWhereInput
-    orderBy?: sesionesOrderByWithAggregationInput | sesionesOrderByWithAggregationInput[]
-    by: SesionesScalarFieldEnum[] | SesionesScalarFieldEnum
-    having?: sesionesScalarWhereWithAggregatesInput
+  export type zonaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: zonaWhereInput
+    orderBy?: zonaOrderByWithAggregationInput | zonaOrderByWithAggregationInput[]
+    by: ZonaScalarFieldEnum[] | ZonaScalarFieldEnum
+    having?: zonaScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: SesionesCountAggregateInputType | true
-    _min?: SesionesMinAggregateInputType
-    _max?: SesionesMaxAggregateInputType
+    _count?: ZonaCountAggregateInputType | true
+    _avg?: ZonaAvgAggregateInputType
+    _sum?: ZonaSumAggregateInputType
+    _min?: ZonaMinAggregateInputType
+    _max?: ZonaMaxAggregateInputType
   }
 
-  export type SesionesGroupByOutputType = {
-    id: string
-    id_usuario: string
-    refresh_token: string
-    dispositivo: string | null
-    ip: string | null
-    iniciada_en: Date | null
-    expira_en: Date
-    ultima_actividad: Date | null
-    activa: boolean
-    _count: SesionesCountAggregateOutputType | null
-    _min: SesionesMinAggregateOutputType | null
-    _max: SesionesMaxAggregateOutputType | null
+  export type ZonaGroupByOutputType = {
+    id_zona: number
+    municipio: string
+    descripcion: string | null
+    estado: string
+    _count: ZonaCountAggregateOutputType | null
+    _avg: ZonaAvgAggregateOutputType | null
+    _sum: ZonaSumAggregateOutputType | null
+    _min: ZonaMinAggregateOutputType | null
+    _max: ZonaMaxAggregateOutputType | null
   }
 
-  type GetSesionesGroupByPayload<T extends sesionesGroupByArgs> = Prisma.PrismaPromise<
+  type GetZonaGroupByPayload<T extends zonaGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<SesionesGroupByOutputType, T['by']> &
+      PickEnumerable<ZonaGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof SesionesGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ZonaGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], SesionesGroupByOutputType[P]>
-            : GetScalarType<T[P], SesionesGroupByOutputType[P]>
+              : GetScalarType<T[P], ZonaGroupByOutputType[P]>
+            : GetScalarType<T[P], ZonaGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type sesionesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    id_usuario?: boolean
-    refresh_token?: boolean
-    dispositivo?: boolean
-    ip?: boolean
-    iniciada_en?: boolean
-    expira_en?: boolean
-    ultima_actividad?: boolean
-    activa?: boolean
-    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["sesiones"]>
+  export type zonaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_zona?: boolean
+    municipio?: boolean
+    descripcion?: boolean
+    estado?: boolean
+  }, ExtArgs["result"]["zona"]>
 
-  export type sesionesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    id_usuario?: boolean
-    refresh_token?: boolean
-    dispositivo?: boolean
-    ip?: boolean
-    iniciada_en?: boolean
-    expira_en?: boolean
-    ultima_actividad?: boolean
-    activa?: boolean
-    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["sesiones"]>
+  export type zonaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_zona?: boolean
+    municipio?: boolean
+    descripcion?: boolean
+    estado?: boolean
+  }, ExtArgs["result"]["zona"]>
 
-  export type sesionesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    id_usuario?: boolean
-    refresh_token?: boolean
-    dispositivo?: boolean
-    ip?: boolean
-    iniciada_en?: boolean
-    expira_en?: boolean
-    ultima_actividad?: boolean
-    activa?: boolean
-    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["sesiones"]>
+  export type zonaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_zona?: boolean
+    municipio?: boolean
+    descripcion?: boolean
+    estado?: boolean
+  }, ExtArgs["result"]["zona"]>
 
-  export type sesionesSelectScalar = {
-    id?: boolean
-    id_usuario?: boolean
-    refresh_token?: boolean
-    dispositivo?: boolean
-    ip?: boolean
-    iniciada_en?: boolean
-    expira_en?: boolean
-    ultima_actividad?: boolean
-    activa?: boolean
+  export type zonaSelectScalar = {
+    id_zona?: boolean
+    municipio?: boolean
+    descripcion?: boolean
+    estado?: boolean
   }
 
-  export type sesionesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_usuario" | "refresh_token" | "dispositivo" | "ip" | "iniciada_en" | "expira_en" | "ultima_actividad" | "activa", ExtArgs["result"]["sesiones"]>
-  export type sesionesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
-  }
-  export type sesionesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
-  }
-  export type sesionesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
-  }
+  export type zonaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_zona" | "municipio" | "descripcion" | "estado", ExtArgs["result"]["zona"]>
 
-  export type $sesionesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "sesiones"
-    objects: {
-      usuarios_cp: Prisma.$usuarios_cpPayload<ExtArgs>
-    }
+  export type $zonaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "zona"
+    objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      id: string
-      id_usuario: string
-      refresh_token: string
-      dispositivo: string | null
-      ip: string | null
-      iniciada_en: Date | null
-      expira_en: Date
-      ultima_actividad: Date | null
-      activa: boolean
-    }, ExtArgs["result"]["sesiones"]>
+      id_zona: number
+      municipio: string
+      descripcion: string | null
+      estado: string
+    }, ExtArgs["result"]["zona"]>
     composites: {}
   }
 
-  type sesionesGetPayload<S extends boolean | null | undefined | sesionesDefaultArgs> = $Result.GetResult<Prisma.$sesionesPayload, S>
+  type zonaGetPayload<S extends boolean | null | undefined | zonaDefaultArgs> = $Result.GetResult<Prisma.$zonaPayload, S>
 
-  type sesionesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<sesionesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: SesionesCountAggregateInputType | true
+  type zonaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<zonaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ZonaCountAggregateInputType | true
     }
 
-  export interface sesionesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['sesiones'], meta: { name: 'sesiones' } }
+  export interface zonaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['zona'], meta: { name: 'zona' } }
     /**
-     * Find zero or one Sesiones that matches the filter.
-     * @param {sesionesFindUniqueArgs} args - Arguments to find a Sesiones
+     * Find zero or one Zona that matches the filter.
+     * @param {zonaFindUniqueArgs} args - Arguments to find a Zona
      * @example
-     * // Get one Sesiones
-     * const sesiones = await prisma.sesiones.findUnique({
+     * // Get one Zona
+     * const zona = await prisma.zona.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends sesionesFindUniqueArgs>(args: SelectSubset<T, sesionesFindUniqueArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends zonaFindUniqueArgs>(args: SelectSubset<T, zonaFindUniqueArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one Sesiones that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Zona that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {sesionesFindUniqueOrThrowArgs} args - Arguments to find a Sesiones
+     * @param {zonaFindUniqueOrThrowArgs} args - Arguments to find a Zona
      * @example
-     * // Get one Sesiones
-     * const sesiones = await prisma.sesiones.findUniqueOrThrow({
+     * // Get one Zona
+     * const zona = await prisma.zona.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends sesionesFindUniqueOrThrowArgs>(args: SelectSubset<T, sesionesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends zonaFindUniqueOrThrowArgs>(args: SelectSubset<T, zonaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Sesiones that matches the filter.
+     * Find the first Zona that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {sesionesFindFirstArgs} args - Arguments to find a Sesiones
+     * @param {zonaFindFirstArgs} args - Arguments to find a Zona
      * @example
-     * // Get one Sesiones
-     * const sesiones = await prisma.sesiones.findFirst({
+     * // Get one Zona
+     * const zona = await prisma.zona.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends sesionesFindFirstArgs>(args?: SelectSubset<T, sesionesFindFirstArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends zonaFindFirstArgs>(args?: SelectSubset<T, zonaFindFirstArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first Sesiones that matches the filter or
+     * Find the first Zona that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {sesionesFindFirstOrThrowArgs} args - Arguments to find a Sesiones
+     * @param {zonaFindFirstOrThrowArgs} args - Arguments to find a Zona
      * @example
-     * // Get one Sesiones
-     * const sesiones = await prisma.sesiones.findFirstOrThrow({
+     * // Get one Zona
+     * const zona = await prisma.zona.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends sesionesFindFirstOrThrowArgs>(args?: SelectSubset<T, sesionesFindFirstOrThrowArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends zonaFindFirstOrThrowArgs>(args?: SelectSubset<T, zonaFindFirstOrThrowArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more Sesiones that matches the filter.
+     * Find zero or more Zonas that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {sesionesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {zonaFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Sesiones
-     * const sesiones = await prisma.sesiones.findMany()
+     * // Get all Zonas
+     * const zonas = await prisma.zona.findMany()
      * 
-     * // Get first 10 Sesiones
-     * const sesiones = await prisma.sesiones.findMany({ take: 10 })
+     * // Get first 10 Zonas
+     * const zonas = await prisma.zona.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const sesionesWithIdOnly = await prisma.sesiones.findMany({ select: { id: true } })
+     * // Only select the `id_zona`
+     * const zonaWithId_zonaOnly = await prisma.zona.findMany({ select: { id_zona: true } })
      * 
      */
-    findMany<T extends sesionesFindManyArgs>(args?: SelectSubset<T, sesionesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends zonaFindManyArgs>(args?: SelectSubset<T, zonaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a Sesiones.
-     * @param {sesionesCreateArgs} args - Arguments to create a Sesiones.
+     * Create a Zona.
+     * @param {zonaCreateArgs} args - Arguments to create a Zona.
      * @example
-     * // Create one Sesiones
-     * const Sesiones = await prisma.sesiones.create({
+     * // Create one Zona
+     * const Zona = await prisma.zona.create({
      *   data: {
-     *     // ... data to create a Sesiones
+     *     // ... data to create a Zona
      *   }
      * })
      * 
      */
-    create<T extends sesionesCreateArgs>(args: SelectSubset<T, sesionesCreateArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends zonaCreateArgs>(args: SelectSubset<T, zonaCreateArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many Sesiones.
-     * @param {sesionesCreateManyArgs} args - Arguments to create many Sesiones.
+     * Create many Zonas.
+     * @param {zonaCreateManyArgs} args - Arguments to create many Zonas.
      * @example
-     * // Create many Sesiones
-     * const sesiones = await prisma.sesiones.createMany({
+     * // Create many Zonas
+     * const zona = await prisma.zona.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends sesionesCreateManyArgs>(args?: SelectSubset<T, sesionesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends zonaCreateManyArgs>(args?: SelectSubset<T, zonaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Sesiones and returns the data saved in the database.
-     * @param {sesionesCreateManyAndReturnArgs} args - Arguments to create many Sesiones.
+     * Create many Zonas and returns the data saved in the database.
+     * @param {zonaCreateManyAndReturnArgs} args - Arguments to create many Zonas.
      * @example
-     * // Create many Sesiones
-     * const sesiones = await prisma.sesiones.createManyAndReturn({
+     * // Create many Zonas
+     * const zona = await prisma.zona.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Sesiones and only return the `id`
-     * const sesionesWithIdOnly = await prisma.sesiones.createManyAndReturn({
-     *   select: { id: true },
+     * // Create many Zonas and only return the `id_zona`
+     * const zonaWithId_zonaOnly = await prisma.zona.createManyAndReturn({
+     *   select: { id_zona: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -24858,28 +24831,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends sesionesCreateManyAndReturnArgs>(args?: SelectSubset<T, sesionesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends zonaCreateManyAndReturnArgs>(args?: SelectSubset<T, zonaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a Sesiones.
-     * @param {sesionesDeleteArgs} args - Arguments to delete one Sesiones.
+     * Delete a Zona.
+     * @param {zonaDeleteArgs} args - Arguments to delete one Zona.
      * @example
-     * // Delete one Sesiones
-     * const Sesiones = await prisma.sesiones.delete({
+     * // Delete one Zona
+     * const Zona = await prisma.zona.delete({
      *   where: {
-     *     // ... filter to delete one Sesiones
+     *     // ... filter to delete one Zona
      *   }
      * })
      * 
      */
-    delete<T extends sesionesDeleteArgs>(args: SelectSubset<T, sesionesDeleteArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends zonaDeleteArgs>(args: SelectSubset<T, zonaDeleteArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one Sesiones.
-     * @param {sesionesUpdateArgs} args - Arguments to update one Sesiones.
+     * Update one Zona.
+     * @param {zonaUpdateArgs} args - Arguments to update one Zona.
      * @example
-     * // Update one Sesiones
-     * const sesiones = await prisma.sesiones.update({
+     * // Update one Zona
+     * const zona = await prisma.zona.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -24889,30 +24862,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends sesionesUpdateArgs>(args: SelectSubset<T, sesionesUpdateArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends zonaUpdateArgs>(args: SelectSubset<T, zonaUpdateArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more Sesiones.
-     * @param {sesionesDeleteManyArgs} args - Arguments to filter Sesiones to delete.
+     * Delete zero or more Zonas.
+     * @param {zonaDeleteManyArgs} args - Arguments to filter Zonas to delete.
      * @example
-     * // Delete a few Sesiones
-     * const { count } = await prisma.sesiones.deleteMany({
+     * // Delete a few Zonas
+     * const { count } = await prisma.zona.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends sesionesDeleteManyArgs>(args?: SelectSubset<T, sesionesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends zonaDeleteManyArgs>(args?: SelectSubset<T, zonaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Sesiones.
+     * Update zero or more Zonas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {sesionesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {zonaUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Sesiones
-     * const sesiones = await prisma.sesiones.updateMany({
+     * // Update many Zonas
+     * const zona = await prisma.zona.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -24922,14 +24895,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends sesionesUpdateManyArgs>(args: SelectSubset<T, sesionesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends zonaUpdateManyArgs>(args: SelectSubset<T, zonaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Sesiones and returns the data updated in the database.
-     * @param {sesionesUpdateManyAndReturnArgs} args - Arguments to update many Sesiones.
+     * Update zero or more Zonas and returns the data updated in the database.
+     * @param {zonaUpdateManyAndReturnArgs} args - Arguments to update many Zonas.
      * @example
-     * // Update many Sesiones
-     * const sesiones = await prisma.sesiones.updateManyAndReturn({
+     * // Update many Zonas
+     * const zona = await prisma.zona.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -24938,9 +24911,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Sesiones and only return the `id`
-     * const sesionesWithIdOnly = await prisma.sesiones.updateManyAndReturn({
-     *   select: { id: true },
+     * // Update zero or more Zonas and only return the `id_zona`
+     * const zonaWithId_zonaOnly = await prisma.zona.updateManyAndReturn({
+     *   select: { id_zona: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -24952,56 +24925,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends sesionesUpdateManyAndReturnArgs>(args: SelectSubset<T, sesionesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends zonaUpdateManyAndReturnArgs>(args: SelectSubset<T, zonaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one Sesiones.
-     * @param {sesionesUpsertArgs} args - Arguments to update or create a Sesiones.
+     * Create or update one Zona.
+     * @param {zonaUpsertArgs} args - Arguments to update or create a Zona.
      * @example
-     * // Update or create a Sesiones
-     * const sesiones = await prisma.sesiones.upsert({
+     * // Update or create a Zona
+     * const zona = await prisma.zona.upsert({
      *   create: {
-     *     // ... data to create a Sesiones
+     *     // ... data to create a Zona
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Sesiones we want to update
+     *     // ... the filter for the Zona we want to update
      *   }
      * })
      */
-    upsert<T extends sesionesUpsertArgs>(args: SelectSubset<T, sesionesUpsertArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends zonaUpsertArgs>(args: SelectSubset<T, zonaUpsertArgs<ExtArgs>>): Prisma__zonaClient<$Result.GetResult<Prisma.$zonaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of Sesiones.
+     * Count the number of Zonas.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {sesionesCountArgs} args - Arguments to filter Sesiones to count.
+     * @param {zonaCountArgs} args - Arguments to filter Zonas to count.
      * @example
-     * // Count the number of Sesiones
-     * const count = await prisma.sesiones.count({
+     * // Count the number of Zonas
+     * const count = await prisma.zona.count({
      *   where: {
-     *     // ... the filter for the Sesiones we want to count
+     *     // ... the filter for the Zonas we want to count
      *   }
      * })
     **/
-    count<T extends sesionesCountArgs>(
-      args?: Subset<T, sesionesCountArgs>,
+    count<T extends zonaCountArgs>(
+      args?: Subset<T, zonaCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], SesionesCountAggregateOutputType>
+          : GetScalarType<T['select'], ZonaCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Sesiones.
+     * Allows you to perform aggregations operations on a Zona.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {SesionesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ZonaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -25021,13 +24994,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends SesionesAggregateArgs>(args: Subset<T, SesionesAggregateArgs>): Prisma.PrismaPromise<GetSesionesAggregateType<T>>
+    aggregate<T extends ZonaAggregateArgs>(args: Subset<T, ZonaAggregateArgs>): Prisma.PrismaPromise<GetZonaAggregateType<T>>
 
     /**
-     * Group by Sesiones.
+     * Group by Zona.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {sesionesGroupByArgs} args - Group by arguments.
+     * @param {zonaGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -25042,14 +25015,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends sesionesGroupByArgs,
+      T extends zonaGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: sesionesGroupByArgs['orderBy'] }
-        : { orderBy?: sesionesGroupByArgs['orderBy'] },
+        ? { orderBy: zonaGroupByArgs['orderBy'] }
+        : { orderBy?: zonaGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -25098,22 +25071,21 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, sesionesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSesionesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, zonaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetZonaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the sesiones model
+   * Fields of the zona model
    */
-  readonly fields: sesionesFieldRefs;
+  readonly fields: zonaFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for sesiones.
+   * The delegate class that acts as a "Promise-like" for zona.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__sesionesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__zonaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    usuarios_cp<T extends usuarios_cpDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuarios_cpDefaultArgs<ExtArgs>>): Prisma__usuarios_cpClient<$Result.GetResult<Prisma.$usuarios_cpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -25140,434 +25112,381 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the sesiones model
+   * Fields of the zona model
    */
-  interface sesionesFieldRefs {
-    readonly id: FieldRef<"sesiones", 'String'>
-    readonly id_usuario: FieldRef<"sesiones", 'String'>
-    readonly refresh_token: FieldRef<"sesiones", 'String'>
-    readonly dispositivo: FieldRef<"sesiones", 'String'>
-    readonly ip: FieldRef<"sesiones", 'String'>
-    readonly iniciada_en: FieldRef<"sesiones", 'DateTime'>
-    readonly expira_en: FieldRef<"sesiones", 'DateTime'>
-    readonly ultima_actividad: FieldRef<"sesiones", 'DateTime'>
-    readonly activa: FieldRef<"sesiones", 'Boolean'>
+  interface zonaFieldRefs {
+    readonly id_zona: FieldRef<"zona", 'Int'>
+    readonly municipio: FieldRef<"zona", 'String'>
+    readonly descripcion: FieldRef<"zona", 'String'>
+    readonly estado: FieldRef<"zona", 'String'>
   }
     
 
   // Custom InputTypes
   /**
-   * sesiones findUnique
+   * zona findUnique
    */
-  export type sesionesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which zona to fetch.
      */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * Filter, which sesiones to fetch.
-     */
-    where: sesionesWhereUniqueInput
+    where: zonaWhereUniqueInput
   }
 
   /**
-   * sesiones findUniqueOrThrow
+   * zona findUniqueOrThrow
    */
-  export type sesionesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which zona to fetch.
      */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * Filter, which sesiones to fetch.
-     */
-    where: sesionesWhereUniqueInput
+    where: zonaWhereUniqueInput
   }
 
   /**
-   * sesiones findFirst
+   * zona findFirst
    */
-  export type sesionesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which zona to fetch.
      */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * Filter, which sesiones to fetch.
-     */
-    where?: sesionesWhereInput
+    where?: zonaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sesiones to fetch.
+     * Determine the order of zonas to fetch.
      */
-    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    orderBy?: zonaOrderByWithRelationInput | zonaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for sesiones.
+     * Sets the position for searching for zonas.
      */
-    cursor?: sesionesWhereUniqueInput
+    cursor?: zonaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sesiones from the position of the cursor.
+     * Take `±n` zonas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sesiones.
+     * Skip the first `n` zonas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of sesiones.
+     * Filter by unique combinations of zonas.
      */
-    distinct?: SesionesScalarFieldEnum | SesionesScalarFieldEnum[]
+    distinct?: ZonaScalarFieldEnum | ZonaScalarFieldEnum[]
   }
 
   /**
-   * sesiones findFirstOrThrow
+   * zona findFirstOrThrow
    */
-  export type sesionesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which zona to fetch.
      */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * Filter, which sesiones to fetch.
-     */
-    where?: sesionesWhereInput
+    where?: zonaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sesiones to fetch.
+     * Determine the order of zonas to fetch.
      */
-    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    orderBy?: zonaOrderByWithRelationInput | zonaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for sesiones.
+     * Sets the position for searching for zonas.
      */
-    cursor?: sesionesWhereUniqueInput
+    cursor?: zonaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sesiones from the position of the cursor.
+     * Take `±n` zonas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sesiones.
+     * Skip the first `n` zonas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of sesiones.
+     * Filter by unique combinations of zonas.
      */
-    distinct?: SesionesScalarFieldEnum | SesionesScalarFieldEnum[]
+    distinct?: ZonaScalarFieldEnum | ZonaScalarFieldEnum[]
   }
 
   /**
-   * sesiones findMany
+   * zona findMany
    */
-  export type sesionesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * Filter, which zonas to fetch.
      */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * Filter, which sesiones to fetch.
-     */
-    where?: sesionesWhereInput
+    where?: zonaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of sesiones to fetch.
+     * Determine the order of zonas to fetch.
      */
-    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    orderBy?: zonaOrderByWithRelationInput | zonaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing sesiones.
+     * Sets the position for listing zonas.
      */
-    cursor?: sesionesWhereUniqueInput
+    cursor?: zonaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` sesiones from the position of the cursor.
+     * Take `±n` zonas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` sesiones.
+     * Skip the first `n` zonas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of sesiones.
+     * Filter by unique combinations of zonas.
      */
-    distinct?: SesionesScalarFieldEnum | SesionesScalarFieldEnum[]
+    distinct?: ZonaScalarFieldEnum | ZonaScalarFieldEnum[]
   }
 
   /**
-   * sesiones create
+   * zona create
    */
-  export type sesionesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * The data needed to create a zona.
      */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * The data needed to create a sesiones.
-     */
-    data: XOR<sesionesCreateInput, sesionesUncheckedCreateInput>
+    data: XOR<zonaCreateInput, zonaUncheckedCreateInput>
   }
 
   /**
-   * sesiones createMany
+   * zona createMany
    */
-  export type sesionesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many sesiones.
+     * The data used to create many zonas.
      */
-    data: sesionesCreateManyInput | sesionesCreateManyInput[]
+    data: zonaCreateManyInput | zonaCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * sesiones createManyAndReturn
+   * zona createManyAndReturn
    */
-  export type sesionesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelectCreateManyAndReturn<ExtArgs> | null
+    select?: zonaSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * The data used to create many sesiones.
+     * The data used to create many zonas.
      */
-    data: sesionesCreateManyInput | sesionesCreateManyInput[]
+    data: zonaCreateManyInput | zonaCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: sesionesIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * sesiones update
+   * zona update
    */
-  export type sesionesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * The data needed to update a zona.
      */
-    include?: sesionesInclude<ExtArgs> | null
+    data: XOR<zonaUpdateInput, zonaUncheckedUpdateInput>
     /**
-     * The data needed to update a sesiones.
+     * Choose, which zona to update.
      */
-    data: XOR<sesionesUpdateInput, sesionesUncheckedUpdateInput>
-    /**
-     * Choose, which sesiones to update.
-     */
-    where: sesionesWhereUniqueInput
+    where: zonaWhereUniqueInput
   }
 
   /**
-   * sesiones updateMany
+   * zona updateMany
    */
-  export type sesionesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update sesiones.
+     * The data used to update zonas.
      */
-    data: XOR<sesionesUpdateManyMutationInput, sesionesUncheckedUpdateManyInput>
+    data: XOR<zonaUpdateManyMutationInput, zonaUncheckedUpdateManyInput>
     /**
-     * Filter which sesiones to update
+     * Filter which zonas to update
      */
-    where?: sesionesWhereInput
+    where?: zonaWhereInput
     /**
-     * Limit how many sesiones to update.
+     * Limit how many zonas to update.
      */
     limit?: number
   }
 
   /**
-   * sesiones updateManyAndReturn
+   * zona updateManyAndReturn
    */
-  export type sesionesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: zonaSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * The data used to update sesiones.
+     * The data used to update zonas.
      */
-    data: XOR<sesionesUpdateManyMutationInput, sesionesUncheckedUpdateManyInput>
+    data: XOR<zonaUpdateManyMutationInput, zonaUncheckedUpdateManyInput>
     /**
-     * Filter which sesiones to update
+     * Filter which zonas to update
      */
-    where?: sesionesWhereInput
+    where?: zonaWhereInput
     /**
-     * Limit how many sesiones to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: sesionesIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * sesiones upsert
-   */
-  export type sesionesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sesiones
-     */
-    select?: sesionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sesiones
-     */
-    omit?: sesionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * The filter to search for the sesiones to update in case it exists.
-     */
-    where: sesionesWhereUniqueInput
-    /**
-     * In case the sesiones found by the `where` argument doesn't exist, create a new sesiones with this data.
-     */
-    create: XOR<sesionesCreateInput, sesionesUncheckedCreateInput>
-    /**
-     * In case the sesiones was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<sesionesUpdateInput, sesionesUncheckedUpdateInput>
-  }
-
-  /**
-   * sesiones delete
-   */
-  export type sesionesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the sesiones
-     */
-    select?: sesionesSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the sesiones
-     */
-    omit?: sesionesOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: sesionesInclude<ExtArgs> | null
-    /**
-     * Filter which sesiones to delete.
-     */
-    where: sesionesWhereUniqueInput
-  }
-
-  /**
-   * sesiones deleteMany
-   */
-  export type sesionesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which sesiones to delete
-     */
-    where?: sesionesWhereInput
-    /**
-     * Limit how many sesiones to delete.
+     * Limit how many zonas to update.
      */
     limit?: number
   }
 
   /**
-   * sesiones without action
+   * zona upsert
    */
-  export type sesionesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type zonaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the sesiones
+     * Select specific fields to fetch from the zona
      */
-    select?: sesionesSelect<ExtArgs> | null
+    select?: zonaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the sesiones
+     * Omit specific fields from the zona
      */
-    omit?: sesionesOmit<ExtArgs> | null
+    omit?: zonaOmit<ExtArgs> | null
     /**
-     * Choose, which related nodes to fetch as well
+     * The filter to search for the zona to update in case it exists.
      */
-    include?: sesionesInclude<ExtArgs> | null
+    where: zonaWhereUniqueInput
+    /**
+     * In case the zona found by the `where` argument doesn't exist, create a new zona with this data.
+     */
+    create: XOR<zonaCreateInput, zonaUncheckedCreateInput>
+    /**
+     * In case the zona was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<zonaUpdateInput, zonaUncheckedUpdateInput>
+  }
+
+  /**
+   * zona delete
+   */
+  export type zonaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the zona
+     */
+    select?: zonaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the zona
+     */
+    omit?: zonaOmit<ExtArgs> | null
+    /**
+     * Filter which zona to delete.
+     */
+    where: zonaWhereUniqueInput
+  }
+
+  /**
+   * zona deleteMany
+   */
+  export type zonaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which zonas to delete
+     */
+    where?: zonaWhereInput
+    /**
+     * Limit how many zonas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * zona without action
+   */
+  export type zonaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the zona
+     */
+    select?: zonaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the zona
+     */
+    omit?: zonaOmit<ExtArgs> | null
   }
 
 
@@ -25709,7 +25628,8 @@ export namespace Prisma {
     cantidad: 'cantidad',
     imagen_url: 'imagen_url',
     orden: 'orden',
-    estatus: 'estatus'
+    estatus: 'estatus',
+    color: 'color'
   };
 
   export type Productos_extraScalarFieldEnum = (typeof Productos_extraScalarFieldEnum)[keyof typeof Productos_extraScalarFieldEnum]
@@ -25816,19 +25736,14 @@ export namespace Prisma {
   export type Usuarios_cpScalarFieldEnum = (typeof Usuarios_cpScalarFieldEnum)[keyof typeof Usuarios_cpScalarFieldEnum]
 
 
-  export const SesionesScalarFieldEnum: {
-    id: 'id',
-    id_usuario: 'id_usuario',
-    refresh_token: 'refresh_token',
-    dispositivo: 'dispositivo',
-    ip: 'ip',
-    iniciada_en: 'iniciada_en',
-    expira_en: 'expira_en',
-    ultima_actividad: 'ultima_actividad',
-    activa: 'activa'
+  export const ZonaScalarFieldEnum: {
+    id_zona: 'id_zona',
+    municipio: 'municipio',
+    descripcion: 'descripcion',
+    estado: 'estado'
   };
 
-  export type SesionesScalarFieldEnum = (typeof SesionesScalarFieldEnum)[keyof typeof SesionesScalarFieldEnum]
+  export type ZonaScalarFieldEnum = (typeof ZonaScalarFieldEnum)[keyof typeof ZonaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -26600,6 +26515,7 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolNullableFilter<"productos_extra"> | boolean | null
+    color?: StringNullableFilter<"productos_extra"> | string | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }
 
@@ -26612,6 +26528,7 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
   }
 
@@ -26627,6 +26544,7 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolNullableFilter<"productos_extra"> | boolean | null
+    color?: StringNullableFilter<"productos_extra"> | string | null
     productos_solicitud?: Productos_solicitudListRelationFilter
   }, "id_producto">
 
@@ -26639,6 +26557,7 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrderInput | SortOrder
+    color?: SortOrderInput | SortOrder
     _count?: productos_extraCountOrderByAggregateInput
     _avg?: productos_extraAvgOrderByAggregateInput
     _max?: productos_extraMaxOrderByAggregateInput
@@ -26658,6 +26577,7 @@ export namespace Prisma {
     imagen_url?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
     orden?: IntNullableWithAggregatesFilter<"productos_extra"> | number | null
     estatus?: BoolNullableWithAggregatesFilter<"productos_extra"> | boolean | null
+    color?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
   }
 
   export type productos_solicitudWhereInput = {
@@ -26956,7 +26876,7 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    estatus?: BoolFilter<"solicitudes_recoleccion"> | boolean
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
     formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
@@ -26975,7 +26895,7 @@ export namespace Prisma {
     quiere_productos_extra?: SortOrderInput | SortOrder
     quiere_recoleccion?: SortOrderInput | SortOrder
     id_pago?: SortOrderInput | SortOrder
-    estatus?: SortOrderInput | SortOrder
+    estatus?: SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
     formas_pago?: formas_pagoOrderByWithRelationInput
@@ -26997,7 +26917,7 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    estatus?: BoolFilter<"solicitudes_recoleccion"> | boolean
     productos_solicitud?: Productos_solicitudListRelationFilter
     cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
     formas_pago?: XOR<Formas_pagoNullableScalarRelationFilter, formas_pagoWhereInput> | null
@@ -27016,7 +26936,7 @@ export namespace Prisma {
     quiere_productos_extra?: SortOrderInput | SortOrder
     quiere_recoleccion?: SortOrderInput | SortOrder
     id_pago?: SortOrderInput | SortOrder
-    estatus?: SortOrderInput | SortOrder
+    estatus?: SortOrder
     _count?: solicitudes_recoleccionCountOrderByAggregateInput
     _avg?: solicitudes_recoleccionAvgOrderByAggregateInput
     _max?: solicitudes_recoleccionMaxOrderByAggregateInput
@@ -27040,54 +26960,7 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableWithAggregatesFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableWithAggregatesFilter<"solicitudes_recoleccion"> | boolean | null
-  }
-
-  export type saldoWhereInput = {
-    AND?: saldoWhereInput | saldoWhereInput[]
-    OR?: saldoWhereInput[]
-    NOT?: saldoWhereInput | saldoWhereInput[]
-    id_saldo?: UuidFilter<"saldo"> | string
-    id_cliente?: UuidFilter<"saldo"> | string
-    saldo?: FloatFilter<"saldo"> | number
-    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-  }
-
-  export type saldoOrderByWithRelationInput = {
-    id_saldo?: SortOrder
-    id_cliente?: SortOrder
-    saldo?: SortOrder
-    cliente?: clienteOrderByWithRelationInput
-  }
-
-  export type saldoWhereUniqueInput = Prisma.AtLeast<{
-    id_saldo?: string
-    id_cliente?: string
-    AND?: saldoWhereInput | saldoWhereInput[]
-    OR?: saldoWhereInput[]
-    NOT?: saldoWhereInput | saldoWhereInput[]
-    saldo?: FloatFilter<"saldo"> | number
-    cliente?: XOR<ClienteScalarRelationFilter, clienteWhereInput>
-  }, "id_saldo" | "id_cliente">
-
-  export type saldoOrderByWithAggregationInput = {
-    id_saldo?: SortOrder
-    id_cliente?: SortOrder
-    saldo?: SortOrder
-    _count?: saldoCountOrderByAggregateInput
-    _avg?: saldoAvgOrderByAggregateInput
-    _max?: saldoMaxOrderByAggregateInput
-    _min?: saldoMinOrderByAggregateInput
-    _sum?: saldoSumOrderByAggregateInput
-  }
-
-  export type saldoScalarWhereWithAggregatesInput = {
-    AND?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
-    OR?: saldoScalarWhereWithAggregatesInput[]
-    NOT?: saldoScalarWhereWithAggregatesInput | saldoScalarWhereWithAggregatesInput[]
-    id_saldo?: UuidWithAggregatesFilter<"saldo"> | string
-    id_cliente?: UuidWithAggregatesFilter<"saldo"> | string
-    saldo?: FloatWithAggregatesFilter<"saldo"> | number
+    estatus?: BoolWithAggregatesFilter<"solicitudes_recoleccion"> | boolean
   }
 
   export type usuarios_cpWhereInput = {
@@ -27210,79 +27083,53 @@ export namespace Prisma {
     codigo_verificacion?: StringNullableWithAggregatesFilter<"usuarios_cp"> | string | null
   }
 
-  export type sesionesWhereInput = {
-    AND?: sesionesWhereInput | sesionesWhereInput[]
-    OR?: sesionesWhereInput[]
-    NOT?: sesionesWhereInput | sesionesWhereInput[]
-    id?: UuidFilter<"sesiones"> | string
-    id_usuario?: UuidFilter<"sesiones"> | string
-    refresh_token?: StringFilter<"sesiones"> | string
-    dispositivo?: StringNullableFilter<"sesiones"> | string | null
-    ip?: StringNullableFilter<"sesiones"> | string | null
-    iniciada_en?: DateTimeNullableFilter<"sesiones"> | Date | string | null
-    expira_en?: DateTimeFilter<"sesiones"> | Date | string
-    ultima_actividad?: DateTimeNullableFilter<"sesiones"> | Date | string | null
-    activa?: BoolFilter<"sesiones"> | boolean
-    usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
+  export type zonaWhereInput = {
+    AND?: zonaWhereInput | zonaWhereInput[]
+    OR?: zonaWhereInput[]
+    NOT?: zonaWhereInput | zonaWhereInput[]
+    id_zona?: IntFilter<"zona"> | number
+    municipio?: StringFilter<"zona"> | string
+    descripcion?: StringNullableFilter<"zona"> | string | null
+    estado?: StringFilter<"zona"> | string
   }
 
-  export type sesionesOrderByWithRelationInput = {
-    id?: SortOrder
-    id_usuario?: SortOrder
-    refresh_token?: SortOrder
-    dispositivo?: SortOrderInput | SortOrder
-    ip?: SortOrderInput | SortOrder
-    iniciada_en?: SortOrderInput | SortOrder
-    expira_en?: SortOrder
-    ultima_actividad?: SortOrderInput | SortOrder
-    activa?: SortOrder
-    usuarios_cp?: usuarios_cpOrderByWithRelationInput
+  export type zonaOrderByWithRelationInput = {
+    id_zona?: SortOrder
+    municipio?: SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    estado?: SortOrder
   }
 
-  export type sesionesWhereUniqueInput = Prisma.AtLeast<{
-    id?: string
-    refresh_token?: string
-    AND?: sesionesWhereInput | sesionesWhereInput[]
-    OR?: sesionesWhereInput[]
-    NOT?: sesionesWhereInput | sesionesWhereInput[]
-    id_usuario?: UuidFilter<"sesiones"> | string
-    dispositivo?: StringNullableFilter<"sesiones"> | string | null
-    ip?: StringNullableFilter<"sesiones"> | string | null
-    iniciada_en?: DateTimeNullableFilter<"sesiones"> | Date | string | null
-    expira_en?: DateTimeFilter<"sesiones"> | Date | string
-    ultima_actividad?: DateTimeNullableFilter<"sesiones"> | Date | string | null
-    activa?: BoolFilter<"sesiones"> | boolean
-    usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
-  }, "id" | "refresh_token">
+  export type zonaWhereUniqueInput = Prisma.AtLeast<{
+    id_zona?: number
+    AND?: zonaWhereInput | zonaWhereInput[]
+    OR?: zonaWhereInput[]
+    NOT?: zonaWhereInput | zonaWhereInput[]
+    municipio?: StringFilter<"zona"> | string
+    descripcion?: StringNullableFilter<"zona"> | string | null
+    estado?: StringFilter<"zona"> | string
+  }, "id_zona">
 
-  export type sesionesOrderByWithAggregationInput = {
-    id?: SortOrder
-    id_usuario?: SortOrder
-    refresh_token?: SortOrder
-    dispositivo?: SortOrderInput | SortOrder
-    ip?: SortOrderInput | SortOrder
-    iniciada_en?: SortOrderInput | SortOrder
-    expira_en?: SortOrder
-    ultima_actividad?: SortOrderInput | SortOrder
-    activa?: SortOrder
-    _count?: sesionesCountOrderByAggregateInput
-    _max?: sesionesMaxOrderByAggregateInput
-    _min?: sesionesMinOrderByAggregateInput
+  export type zonaOrderByWithAggregationInput = {
+    id_zona?: SortOrder
+    municipio?: SortOrder
+    descripcion?: SortOrderInput | SortOrder
+    estado?: SortOrder
+    _count?: zonaCountOrderByAggregateInput
+    _avg?: zonaAvgOrderByAggregateInput
+    _max?: zonaMaxOrderByAggregateInput
+    _min?: zonaMinOrderByAggregateInput
+    _sum?: zonaSumOrderByAggregateInput
   }
 
-  export type sesionesScalarWhereWithAggregatesInput = {
-    AND?: sesionesScalarWhereWithAggregatesInput | sesionesScalarWhereWithAggregatesInput[]
-    OR?: sesionesScalarWhereWithAggregatesInput[]
-    NOT?: sesionesScalarWhereWithAggregatesInput | sesionesScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"sesiones"> | string
-    id_usuario?: UuidWithAggregatesFilter<"sesiones"> | string
-    refresh_token?: StringWithAggregatesFilter<"sesiones"> | string
-    dispositivo?: StringNullableWithAggregatesFilter<"sesiones"> | string | null
-    ip?: StringNullableWithAggregatesFilter<"sesiones"> | string | null
-    iniciada_en?: DateTimeNullableWithAggregatesFilter<"sesiones"> | Date | string | null
-    expira_en?: DateTimeWithAggregatesFilter<"sesiones"> | Date | string
-    ultima_actividad?: DateTimeNullableWithAggregatesFilter<"sesiones"> | Date | string | null
-    activa?: BoolWithAggregatesFilter<"sesiones"> | boolean
+  export type zonaScalarWhereWithAggregatesInput = {
+    AND?: zonaScalarWhereWithAggregatesInput | zonaScalarWhereWithAggregatesInput[]
+    OR?: zonaScalarWhereWithAggregatesInput[]
+    NOT?: zonaScalarWhereWithAggregatesInput | zonaScalarWhereWithAggregatesInput[]
+    id_zona?: IntWithAggregatesFilter<"zona"> | number
+    municipio?: StringWithAggregatesFilter<"zona"> | string
+    descripcion?: StringNullableWithAggregatesFilter<"zona"> | string | null
+    estado?: StringWithAggregatesFilter<"zona"> | string
   }
 
   export type administradorCreateInput = {
@@ -27921,6 +27768,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -27933,6 +27781,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -27945,6 +27794,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     productos_solicitud?: productos_solicitudUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -27957,6 +27807,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -27969,6 +27820,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
   }
 
   export type productos_extraUpdateManyMutationInput = {
@@ -27980,6 +27832,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productos_extraUncheckedUpdateManyInput = {
@@ -27991,6 +27844,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productos_solicitudCreateInput = {
@@ -28278,7 +28132,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
     formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
@@ -28297,7 +28151,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -28312,7 +28166,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
     formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
@@ -28331,7 +28185,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -28348,7 +28202,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionUpdateManyMutationInput = {
@@ -28362,7 +28216,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type solicitudes_recoleccionUncheckedUpdateManyInput = {
@@ -28378,48 +28232,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
-  }
-
-  export type saldoCreateInput = {
-    id_saldo?: string
-    saldo?: number
-    cliente: clienteCreateNestedOneWithoutSaldoInput
-  }
-
-  export type saldoUncheckedCreateInput = {
-    id_saldo?: string
-    id_cliente: string
-    saldo?: number
-  }
-
-  export type saldoUpdateInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-    cliente?: clienteUpdateOneRequiredWithoutSaldoNestedInput
-  }
-
-  export type saldoUncheckedUpdateInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type saldoCreateManyInput = {
-    id_saldo?: string
-    id_cliente: string
-    saldo?: number
-  }
-
-  export type saldoUpdateManyMutationInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
-  }
-
-  export type saldoUncheckedUpdateManyInput = {
-    id_saldo?: StringFieldUpdateOperationsInput | string
-    id_cliente?: StringFieldUpdateOperationsInput | string
-    saldo?: FloatFieldUpdateOperationsInput | number
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type usuarios_cpCreateInput = {
@@ -28559,87 +28372,53 @@ export namespace Prisma {
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type sesionesCreateInput = {
-    id?: string
-    refresh_token: string
-    dispositivo?: string | null
-    ip?: string | null
-    iniciada_en?: Date | string | null
-    expira_en: Date | string
-    ultima_actividad?: Date | string | null
-    activa?: boolean
-    usuarios_cp: usuarios_cpCreateNestedOneWithoutSesionesInput
+  export type zonaCreateInput = {
+    id_zona: number
+    municipio: string
+    descripcion?: string | null
+    estado: string
   }
 
-  export type sesionesUncheckedCreateInput = {
-    id?: string
-    id_usuario: string
-    refresh_token: string
-    dispositivo?: string | null
-    ip?: string | null
-    iniciada_en?: Date | string | null
-    expira_en: Date | string
-    ultima_actividad?: Date | string | null
-    activa?: boolean
+  export type zonaUncheckedCreateInput = {
+    id_zona: number
+    municipio: string
+    descripcion?: string | null
+    estado: string
   }
 
-  export type sesionesUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    refresh_token?: StringFieldUpdateOperationsInput | string
-    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
-    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activa?: BoolFieldUpdateOperationsInput | boolean
-    usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutSesionesNestedInput
+  export type zonaUpdateInput = {
+    id_zona?: IntFieldUpdateOperationsInput | number
+    municipio?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
   }
 
-  export type sesionesUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    refresh_token?: StringFieldUpdateOperationsInput | string
-    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
-    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activa?: BoolFieldUpdateOperationsInput | boolean
+  export type zonaUncheckedUpdateInput = {
+    id_zona?: IntFieldUpdateOperationsInput | number
+    municipio?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
   }
 
-  export type sesionesCreateManyInput = {
-    id?: string
-    id_usuario: string
-    refresh_token: string
-    dispositivo?: string | null
-    ip?: string | null
-    iniciada_en?: Date | string | null
-    expira_en: Date | string
-    ultima_actividad?: Date | string | null
-    activa?: boolean
+  export type zonaCreateManyInput = {
+    id_zona: number
+    municipio: string
+    descripcion?: string | null
+    estado: string
   }
 
-  export type sesionesUpdateManyMutationInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    refresh_token?: StringFieldUpdateOperationsInput | string
-    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
-    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activa?: BoolFieldUpdateOperationsInput | boolean
+  export type zonaUpdateManyMutationInput = {
+    id_zona?: IntFieldUpdateOperationsInput | number
+    municipio?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
   }
 
-  export type sesionesUncheckedUpdateManyInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    refresh_token?: StringFieldUpdateOperationsInput | string
-    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
-    ip?: NullableStringFieldUpdateOperationsInput | string | null
-    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
-    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    activa?: BoolFieldUpdateOperationsInput | boolean
+  export type zonaUncheckedUpdateManyInput = {
+    id_zona?: IntFieldUpdateOperationsInput | number
+    municipio?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
+    estado?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -29420,6 +29199,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    color?: SortOrder
   }
 
   export type productos_extraAvgOrderByAggregateInput = {
@@ -29438,6 +29218,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    color?: SortOrder
   }
 
   export type productos_extraMinOrderByAggregateInput = {
@@ -29449,6 +29230,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    color?: SortOrder
   }
 
   export type productos_extraSumOrderByAggregateInput = {
@@ -29877,40 +29659,33 @@ export namespace Prisma {
     intentos_fallidos?: SortOrder
   }
 
-  export type sesionesCountOrderByAggregateInput = {
-    id?: SortOrder
-    id_usuario?: SortOrder
-    refresh_token?: SortOrder
-    dispositivo?: SortOrder
-    ip?: SortOrder
-    iniciada_en?: SortOrder
-    expira_en?: SortOrder
-    ultima_actividad?: SortOrder
-    activa?: SortOrder
+  export type zonaCountOrderByAggregateInput = {
+    id_zona?: SortOrder
+    municipio?: SortOrder
+    descripcion?: SortOrder
+    estado?: SortOrder
   }
 
-  export type sesionesMaxOrderByAggregateInput = {
-    id?: SortOrder
-    id_usuario?: SortOrder
-    refresh_token?: SortOrder
-    dispositivo?: SortOrder
-    ip?: SortOrder
-    iniciada_en?: SortOrder
-    expira_en?: SortOrder
-    ultima_actividad?: SortOrder
-    activa?: SortOrder
+  export type zonaAvgOrderByAggregateInput = {
+    id_zona?: SortOrder
   }
 
-  export type sesionesMinOrderByAggregateInput = {
-    id?: SortOrder
-    id_usuario?: SortOrder
-    refresh_token?: SortOrder
-    dispositivo?: SortOrder
-    ip?: SortOrder
-    iniciada_en?: SortOrder
-    expira_en?: SortOrder
-    ultima_actividad?: SortOrder
-    activa?: SortOrder
+  export type zonaMaxOrderByAggregateInput = {
+    id_zona?: SortOrder
+    municipio?: SortOrder
+    descripcion?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type zonaMinOrderByAggregateInput = {
+    id_zona?: SortOrder
+    municipio?: SortOrder
+    descripcion?: SortOrder
+    estado?: SortOrder
+  }
+
+  export type zonaSumOrderByAggregateInput = {
+    id_zona?: SortOrder
   }
 
   export type usuarios_cpCreateNestedOneWithoutAdministradorInput = {
@@ -31753,7 +31528,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -31770,7 +31545,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -31913,7 +31688,7 @@ export namespace Prisma {
     quiere_productos_extra?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     quiere_recoleccion?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
     id_pago?: IntNullableFilter<"solicitudes_recoleccion"> | number | null
-    estatus?: BoolNullableFilter<"solicitudes_recoleccion"> | boolean | null
+    estatus?: BoolFilter<"solicitudes_recoleccion"> | boolean
   }
 
   export type faqCreateWithoutCompospetInput = {
@@ -32212,7 +31987,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutSolicitudes_recoleccionInput
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -32229,7 +32004,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutSolicitudes_recoleccionInput
   }
 
@@ -32446,6 +32221,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
   }
 
   export type productos_extraUncheckedCreateWithoutProductos_solicitudInput = {
@@ -32457,6 +32233,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean | null
+    color?: string | null
   }
 
   export type productos_extraCreateOrConnectWithoutProductos_solicitudInput = {
@@ -32475,7 +32252,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
     cliente: clienteCreateNestedOneWithoutSolicitudes_recoleccionInput
     formas_pago?: formas_pagoCreateNestedOneWithoutSolicitudes_recoleccionInput
   }
@@ -32493,7 +32270,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionCreateOrConnectWithoutProductos_solicitudInput = {
@@ -32521,6 +32298,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productos_extraUncheckedUpdateWithoutProductos_solicitudInput = {
@@ -32532,6 +32310,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    color?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type solicitudes_recoleccionUpsertWithoutProductos_solicitudInput = {
@@ -32556,7 +32335,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
     formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
   }
@@ -32574,7 +32353,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type roles_permisosCreateWithoutRolesInput = {
@@ -33709,7 +33488,7 @@ export namespace Prisma {
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
     id_pago?: number | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionUpdateWithoutClienteInput = {
@@ -33723,7 +33502,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     formas_pago?: formas_pagoUpdateOneWithoutSolicitudes_recoleccionNestedInput
   }
@@ -33740,7 +33519,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -33756,7 +33535,7 @@ export namespace Prisma {
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
     id_pago?: NullableIntFieldUpdateOperationsInput | number | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type faqCreateManyCompospetInput = {
@@ -33929,7 +33708,7 @@ export namespace Prisma {
     notas?: string | null
     quiere_productos_extra?: boolean | null
     quiere_recoleccion?: boolean | null
-    estatus?: boolean | null
+    estatus?: boolean
   }
 
   export type solicitudes_recoleccionUpdateWithoutFormas_pagoInput = {
@@ -33943,7 +33722,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUpdateManyWithoutSolicitudes_recoleccionNestedInput
     cliente?: clienteUpdateOneRequiredWithoutSolicitudes_recoleccionNestedInput
   }
@@ -33960,7 +33739,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutSolicitudes_recoleccionNestedInput
   }
 
@@ -33976,7 +33755,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     quiere_productos_extra?: NullableBoolFieldUpdateOperationsInput | boolean | null
     quiere_recoleccion?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    estatus?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    estatus?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type roles_permisosCreateManyPermisosInput = {

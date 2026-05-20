@@ -214,7 +214,8 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   cantidad: 'cantidad',
   imagen_url: 'imagen_url',
   orden: 'orden',
-  estatus: 'estatus'
+  estatus: 'estatus',
+  color: 'color'
 };
 
 exports.Prisma.Productos_solicitudScalarFieldEnum = {
@@ -294,16 +295,11 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   codigo_verificacion: 'codigo_verificacion'
 };
 
-exports.Prisma.SesionesScalarFieldEnum = {
-  id: 'id',
-  id_usuario: 'id_usuario',
-  refresh_token: 'refresh_token',
-  dispositivo: 'dispositivo',
-  ip: 'ip',
-  iniciada_en: 'iniciada_en',
-  expira_en: 'expira_en',
-  ultima_actividad: 'ultima_actividad',
-  activa: 'activa'
+exports.Prisma.ZonaScalarFieldEnum = {
+  id_zona: 'id_zona',
+  municipio: 'municipio',
+  descripcion: 'descripcion',
+  estado: 'estado'
 };
 
 exports.Prisma.SortOrder = {
@@ -353,7 +349,7 @@ exports.Prisma.ModelName = {
   solicitudes_recoleccion: 'solicitudes_recoleccion',
   saldo: 'saldo',
   usuarios_cp: 'usuarios_cp',
-  sesiones: 'sesiones'
+  zona: 'zona'
 };
 
 /**
