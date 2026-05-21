@@ -6,6 +6,8 @@ const { requireRole } = require('../middlewares/roleAccess');
 
 // Ruta para consultar tabla de rutas
 router.get('/informacion', requireRole("Administrador"),  routesController.getTableInfo);
+router.get('/informacion-editar', requireRole("Administrador"), routesController.getEditTableInfo);
+router.post('/informacion-editar', requireRole("Administrador"), routesController.updateRequest);
 
 router.get('/semanas', requireRole("Administrador"), routesController.getAvailableWeeks);
 
@@ -15,6 +17,6 @@ router.get('/filtrar-informacion', requireRole("Administrador"), routesControlle
 
 router.post('/mensajes-de-confirmacion', requireRole("Administrador"), routesController.generateConfirmationMessages);
 
-router.get('/exportar-tabla-rutas', routesController.exportDailyRoutesInfo);
+router.post('/exportar-tabla-rutas', routesController.exportDailyRoutesInfo);
 
 module.exports = router;

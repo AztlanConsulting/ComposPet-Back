@@ -127,6 +127,12 @@ const formatRouteInfo = (routeInfo) => {
             })
             .filter(Boolean);
 
+        const extraProductsArray = Object.fromEntries(
+            sortedProducts
+                .filter(p => p.productos_extra)
+                .map(p => [p.id_producto, p.cantidad ?? 1])
+        );
+
         // Construye el nombre completo del cliente.
         const name = client.usuarios_cp?.nombre || "";
         const lastName = client.usuarios_cp?.apellido || "";
@@ -136,10 +142,11 @@ const formatRouteInfo = (routeInfo) => {
         return {
             nombre: fullName,
             dia_ruta: client.ruta?.dia_ruta || " ",
-            recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
-            entrega: request?.cubetas_entregadas?.toString() ?? " ",
+            recoleccion: request?.cubetas_recolectadas ?? null,
+            entrega: request?.cubetas_entregadas ?? null,
             productos_extra: extraProducts || " ",
             horario: formattedTime(request?.horario),
+            id_pago: request?.formas_pago?.id_pago || null,
             forma_pago: request?.formas_pago?.tipo || " ",
             total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
             total_pagado: request?.total_pagado?.toString() ?? " ",
@@ -151,6 +158,10 @@ const formatRouteInfo = (routeInfo) => {
             wantsCollection: request?.quiere_recoleccion ?? null,
             wantsExtraProducts: request?.quiere_productos_extra ?? null,
             extraProductsDetails: extraProductsDetail || [],
+            extraProductsArray: extraProductsArray || [],
+            clientId: client?.id_cliente || null,
+            requestId: request?.id_solicitud || null,
+
         };
     });
 };
@@ -291,6 +302,7 @@ module.exports = class Route {
 
                             formas_pago: {
                                 select: {
+                                    id_pago: true,
                                     tipo: true,
                                 },
                             },
@@ -417,6 +429,7 @@ module.exports = class Route {
 
                             formas_pago: {
                                 select: {
+                                    id_pago: true,
                                     tipo: true,
                                 },
                             },
