@@ -10,28 +10,34 @@ const WEEK_DAYS = [
  * Genera un arreglo de semanas comprendidas en los últimos dos meses hasta la fecha actual.
  * Cada semana incluye su fecha de inicio, fecha de fin y una etiqueta legible en formato
  * `dd/mm/aaaa - dd/mm/aaaa`.
- * La última semana puede ser parcial si no ha concluido al momento de la consulta.
  *
  * @param {Date} [now=new Date()] - Fecha de referencia para el cálculo. Por defecto es la fecha actual.
  * @returns {Array<{ weekStart: Date, weekEnd: Date, label: string }>}
  * Arreglo de semanas ordenadas de la más antigua a la más reciente.
  */
-function getLastTwoMonthsWeeks(now = new Date()){
-    const start = new Date(now.getFullYear(), now.getMonth() - 2, 1);
-    const weeks = [];
-    let weekStart = new Date(start);
+function getLastTwoMonthsWeeks(now = new Date()) {
+    const currentMonday = new Date(now);
+    const day = currentMonday.getDay();
+    const diffToMonday = day === 0 ? -6 : 1 - day;
+    currentMonday.setDate(currentMonday.getDate() + diffToMonday);
+    currentMonday.setHours(0, 0, 0, 0);
 
-    while (weekStart < now) {
-        let weekEnd = new Date(weekStart);
+    const startMonday = new Date(currentMonday);
+    startMonday.setDate(startMonday.getDate() - 9 * 7);
+
+    const weeks = [];
+    let weekStart = new Date(startMonday);
+
+    while (weekStart <= currentMonday) {
+        const weekEnd = new Date(weekStart);
         weekEnd.setDate(weekEnd.getDate() + 7);
-        if (weekEnd > now) weekEnd = new Date(now);
 
         const displayEnd = new Date(weekEnd);
         displayEnd.setDate(displayEnd.getDate() - 1);
 
         weeks.push({
             weekStart: new Date(weekStart),
-            weekEnd:   new Date(weekEnd),
+            weekEnd: new Date(weekEnd),
             label: `${weekStart.toLocaleDateString("es-MX")} - ${displayEnd.toLocaleDateString("es-MX")}`,
         });
 
@@ -49,8 +55,8 @@ function getLastTwoMonthsWeeks(now = new Date()){
  */
 function getCurrentWeekIndex(now = new Date()) {
     const weeks = getLastTwoMonthsWeeks(now);
-    return weeks.findIndex(week => 
-        now >= week.weekStart && now <= week.weekEnd
+    return weeks.findIndex(
+        (week) => now >= week.weekStart && now < week.weekEnd
     );
 }
 
@@ -505,8 +511,13 @@ module.exports = class Route {
             //Filtra las rutas que tienen una solicitud válida y horario definido para mensajes de confirmación.
             return filteredRoutes.filter(route => 
                 route.hasRequest === true &&
+                route.status === true &&
                 route.horario &&
-                route.horario.trim() !== ""
+                route.horario.trim() !== "" &&
+                (
+                    route.wantsCollection === true ||
+                    route.wantsExtraProducts === true
+                )
             );
     
         } catch (error) {

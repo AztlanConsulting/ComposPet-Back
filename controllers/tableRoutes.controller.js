@@ -19,8 +19,6 @@ const getTableInfo = async(req,res) => {
         // Obtiene la información de rutas desde el modelo
         const routeInfo = await Routes.getRoutesInfo();
 
-        console.log("getTableInfo", routeInfo);
-
         // Retorna la información obtenida exitosamente
         return res.status(200).json({
             success: true,
@@ -142,6 +140,7 @@ const getFilteredRoutesInfo = async(req, res) => {
         })
 
     } catch (error) {
+        console.error("Error en getFilteredRoutesInfo:", error);
         return res.status(500).json({
             success: false,
             message: "Ocurrió un error obteniendo la información.",
@@ -171,6 +170,13 @@ const generateConfirmationMessages = async (req, res) => {
 
         const googleToken = req.cookies.googleToken;
 
+        if (weekIndex === undefined || weekIndex === null || !dayName) {
+            return res.status(400).json({
+                success: false,
+                message: "Faltan datos para generar los mensajes de confirmación",
+            });
+        }
+
         if (!googleToken) {
             return res.status(401).json({
                 success: false,
@@ -199,9 +205,16 @@ const generateConfirmationMessages = async (req, res) => {
             // Se usa solo el primer nombre
             const firstName = route.nombre.split(" ")[0];
 
+            const serviceText =
+                route.wantsCollection === true && route.wantsExtraProducts === true
+                    ? "recolección y entrega de productos"
+                    : route.wantsExtraProducts === true
+                        ? "entrega de productos"
+                        : "recolección";
+
             return[`¡Linda Tarde! ${firstName}, ⛅
 
-            Mañana nos vemos para tu recolección aprox.
+            Mañana nos vemos para tu ${serviceText} aprox.
             ${route.horario} 🪣🤩 con "Nombre Operador"
 
             Disfruta el resto de tu tarde.😄`, `${route.nombre}`]
@@ -234,7 +247,6 @@ const generateConfirmationMessages = async (req, res) => {
 
 const exportDailyRoutes = async () => {
     const routeInfo = await Routes.getRoutesInfo();
-    console.log("exportDailyRoutes", routeInfo);
     const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
 
     return sheetUrl;
@@ -244,8 +256,6 @@ const exportDailyRoutesInfo = async (req, res) => {
     try {
         
         const routeInfo = await exportDailyRoutes();
-        
-        console.log("exportDailyRoutesInfo", routeInfo);
 
         return res.status(200).json({
             success: true,
