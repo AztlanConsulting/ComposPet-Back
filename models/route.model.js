@@ -50,7 +50,7 @@ function getLastTwoMonthsWeeks(now = new Date()){
 function getCurrentWeekIndex(now = new Date()) {
     const weeks = getLastTwoMonthsWeeks(now);
     return weeks.findIndex(week => 
-        now >= week.weekStart && now < week.weekEnd
+        now >= week.weekStart && now <= week.weekEnd
     );
 }
 
@@ -135,6 +135,7 @@ const formatRouteInfo = (routeInfo) => {
         // Retorna el objeto final con los campos requeridos por la tabla de rutas.
         return {
             nombre: fullName,
+            dia_ruta: client.ruta?.dia_ruta || " ",
             recoleccion: request?.cubetas_recolectadas?.toString() ?? " ",
             entrega: request?.cubetas_entregadas?.toString() ?? " ",
             productos_extra: extraProducts || " ",
@@ -324,6 +325,7 @@ module.exports = class Route {
             });
 
             return formatRouteInfo(routeInfo);
+            console.log("Entra al de ale");
         } catch(error){
             throw new Error('Error obteniendo rutas');
         }
@@ -347,6 +349,9 @@ module.exports = class Route {
      */
     static async getFilteredRoutesInfo({ weekIndex, dayName } = {}) {
         try {
+
+            console.log("Entra al mio");
+
             const now = new Date();
             const weeks = getLastTwoMonthsWeeks(now);
 
@@ -357,8 +362,15 @@ module.exports = class Route {
             const { weekStart, weekEnd } = weeks[weekIndex];
             const dayObtained = dayName ?? WEEK_DAYS[now.getDay()];
 
+            console.log("Entra al mio");
+
             const routeInfo = await prisma.cliente.findMany({
                 where: {
+                    usuarios_cp: {
+                        is: {
+                            estatus: true,
+                        },
+                    },
                     ruta: {
                         dia_ruta: { startsWith: dayObtained },
                     },
@@ -439,6 +451,7 @@ module.exports = class Route {
 
             });
 
+            console.log("Entra al mio");
             return formatRouteInfo(routeInfo);
         } catch (error) {
             throw new Error(`Error obteniendo rutas filtradas: ${error.message}`);

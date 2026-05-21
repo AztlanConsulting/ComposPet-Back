@@ -1,7 +1,6 @@
 const Routes = require('../models/route.model');
 const GoogleSheetsMessagesService = require('../config/googleSheetsMessages.service');
-
-
+const GoogleSheetsRoutesService = require('../config/googleSheetsRoutes.service');
 
 /**
  * Obtiene la información general de todas las rutas para mostrarla en la tabla principal.
@@ -16,6 +15,9 @@ const getTableInfo = async(req,res) => {
     try {
         // Obtiene la información de rutas desde el modelo
         const routeInfo = await Routes.getRoutesInfo();
+        console.log("El route info de Ale:", routeInfo);
+        console.log("--------------------");
+
         // Retorna la información obtenida exitosamente
         return res.status(200).json({
             success: true,
@@ -200,10 +202,41 @@ const generateConfirmationMessages = async (req, res) => {
     }
 }
 
+const exportDailyRoutes = async () => {
+    const routeInfo = await Routes.getRoutesInfo();
+    console.log("Mi route info:", routeInfo);
+    const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
+
+    return routeInfo;
+}
+
+const exportDailyRoutesInfo = async (req, res) => {
+    try {
+        
+        const routeInfo = await exportDailyRoutes();
+
+        return res.status(200).json({
+            success: true,
+            message: "Exportación exitosa",
+            data: { routeInfo },
+        });
+
+    } catch(error){
+        console.error("Error exportando rutas a Sheets:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Ocurrió un error obteniendo la información.",
+            error: error.message,
+        });
+    }
+};
+
 module.exports = {
     getTableInfo,
     getAvailableWeeks,
     getDaysOfRoutes,
     getFilteredRoutesInfo,
     generateConfirmationMessages,
+    exportDailyRoutes,
+    exportDailyRoutesInfo,
 }

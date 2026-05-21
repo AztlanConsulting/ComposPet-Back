@@ -6,8 +6,10 @@ const monitorMiddleware = require('./middlewares/monitor');
 const config = require('./config/env')
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
-
+const cron = require('node-cron');
+const { DailyRoutes } = require('./controllers/tableRoutes.controller');
 const routes = require('./routes/general_routes.routes');
+const { exportDailyRoutes } = require('./config/googleSheetsRoutes.service');
 
 /**
  * Configuración de opciones para el middleware CORS.
@@ -88,6 +90,16 @@ app.use((req, res) => {
         error: 'NOT_FOUND',
         message: `La ruta ${req.originalUrl} no existe en este servidor.`
     });
+});
+
+cron.schedule('0 18 * * *', async () => {
+    try {
+        const sheetUrl = await DailyRoutes();
+    } catch (error) {
+        console.error('[Cron] Error en exportación diaria:', error.message);
+    }
+}, {
+    timezone: "America/Mexico_City"
 });
 
 module.exports = app;
