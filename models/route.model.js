@@ -334,7 +334,6 @@ module.exports = class Route {
                     },
                 ],
             });
-
             return formatRouteInfo(routeInfo);
         } catch(error){
             throw new Error('Error obteniendo rutas');
@@ -451,7 +450,6 @@ module.exports = class Route {
                 ],
 
             });
-
             return formatRouteInfo(routeInfo);
         } catch (error) {
             throw new Error(`Error obteniendo rutas filtradas: ${error.message}`);
