@@ -245,6 +245,15 @@ const generateConfirmationMessages = async (req, res) => {
     }
 }
 
+/**
+ * Obtiene las rutas del día actual y las exporta a Google Sheets.
+ * Función utilitaria compartida entre el controlador HTTP y la tarea programada de cron.
+ *
+ * @returns {Promise<string>} URL de la hoja de cálculo generada en Google Sheets.
+ * @throws {Error} Si falla la consulta de rutas o la exportación a Google Sheets.
+ * @see Routes.getRoutesInfo
+ * @see GoogleSheetsRoutesService.exportDailyRoutes
+ */
 const exportDailyRoutes = async () => {
     const routeInfo = await Routes.getRoutesInfo();
     const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
@@ -252,6 +261,17 @@ const exportDailyRoutes = async () => {
     return sheetUrl;
 }
 
+/**
+ * Controlador HTTP que dispara manualmente la exportación de rutas del día a Google Sheets.
+ * Internamente delega en `exportDailyRoutes`, la misma función utilizada por la tarea cron.
+ * Responde con la URL de la hoja generada si la exportación es exitosa.
+ *
+ * @param {import('express').Request} req - Objeto de solicitud de Express.
+ * @param {import('express').Response} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Responde con status 200 y la URL de la hoja, o 500 si ocurre un error.
+ * @throws {Error} Responde con status 500 si falla la consulta de rutas o la exportación.
+ * @see exportDailyRoutes
+ */
 const exportDailyRoutesInfo = async (req, res) => {
     try {
         
@@ -273,7 +293,7 @@ const exportDailyRoutesInfo = async (req, res) => {
     }
 };
 
-/* Actualiza la información de la solicitud de recolección
+/** Actualiza la información de la solicitud de recolección
  *
  * @param {import('express').Request} req - Objeto de solicitud de Express.
  * @param {Int} req.body.collectedBuckets - Número de cubetas a recolectar.

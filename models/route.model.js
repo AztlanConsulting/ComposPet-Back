@@ -471,6 +471,14 @@ module.exports = class Route {
         }
     }
 
+    /**
+     * Retorna el índice de la semana actual dentro del arreglo generado por `getLastTwoMonthsWeeks`.
+     * Delega el cálculo a la función utilitaria `getCurrentWeekIndex` del módulo.
+     *
+     * @returns {number} Índice de la semana actual.
+     * @see getLastTwoMonthsWeeks
+     * @see getCurrentWeekIndex
+     */
     static getCurrentWeekIndex() {
         return getCurrentWeekIndex();
     }

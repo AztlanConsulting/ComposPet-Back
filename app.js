@@ -91,6 +91,13 @@ app.use((req, res) => {
     });
 });
 
+/**
+ * Tarea programada que exporta automáticamente las rutas del día a una hoja de cálculo.
+ * Se ejecuta diariamente a las 18:00 hora de la Ciudad de México.
+ * En caso de error, registra el mensaje en consola sin interrumpir el proceso principal.
+ *
+ * @see exportDailyRoutes
+ */
 cron.schedule('0 18 * * *', async () => {
     try {
         const sheetUrl = await exportDailyRoutes();
