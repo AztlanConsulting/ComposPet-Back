@@ -278,6 +278,18 @@ const refreshToken = async (req, res) => {
     }
 };
 
+/**
+ * Controlador del endpoint de cierre de sesión.
+ * Invalida la sesión activa del usuario en la base de datos y elimina
+ * la cookie de refresco del navegador.
+ *
+ * @async
+ * @param {import('express').Request} req - Solicitud HTTP. Se espera la cookie `refreshToken`.
+ * @param {import('express').Response} res - Respuesta HTTP.
+ * @returns {Promise<void>} 200 si la sesión se cerró correctamente, 500 si ocurrió un error.
+ * @throws {Error} Errores inesperados de base de datos se capturan y responden con HTTP 500.
+ * @see AuthModel.closeSession
+ */
 const logout = async (req, res) => {
     const token = req.cookies.refreshToken;
 
