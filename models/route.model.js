@@ -337,7 +337,6 @@ module.exports = class Route {
             });
 
             return formatRouteInfo(routeInfo);
-            console.log("Entra al de ale");
         } catch(error){
             throw new Error('Error obteniendo rutas');
         }
@@ -362,8 +361,6 @@ module.exports = class Route {
     static async getFilteredRoutesInfo({ weekIndex, dayName } = {}) {
         try {
 
-            console.log("Entra al mio");
-
             const now = new Date();
             const weeks = getLastTwoMonthsWeeks(now);
 
@@ -373,8 +370,6 @@ module.exports = class Route {
 
             const { weekStart, weekEnd } = weeks[weekIndex];
             const dayObtained = dayName ?? WEEK_DAYS[now.getDay()];
-
-            console.log("Entra al mio");
 
             const routeInfo = await prisma.cliente.findMany({
                 where: {
@@ -464,7 +459,6 @@ module.exports = class Route {
 
             });
 
-            console.log("Entra al mio");
             return formatRouteInfo(routeInfo);
         } catch (error) {
             throw new Error(`Error obteniendo rutas filtradas: ${error.message}`);

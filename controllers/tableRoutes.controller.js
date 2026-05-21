@@ -18,8 +18,8 @@ const getTableInfo = async(req,res) => {
     try {
         // Obtiene la información de rutas desde el modelo
         const routeInfo = await Routes.getRoutesInfo();
-        console.log("El route info de Ale:", routeInfo);
-        console.log("--------------------");
+
+        console.log("getTableInfo", routeInfo);
 
         // Retorna la información obtenida exitosamente
         return res.status(200).json({
@@ -234,6 +234,7 @@ const generateConfirmationMessages = async (req, res) => {
 
 const exportDailyRoutes = async () => {
     const routeInfo = await Routes.getRoutesInfo();
+    console.log("exportDailyRoutes", routeInfo);
     const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
 
     return sheetUrl;
@@ -243,6 +244,8 @@ const exportDailyRoutesInfo = async (req, res) => {
     try {
         
         const routeInfo = await exportDailyRoutes();
+        
+        console.log("exportDailyRoutesInfo", routeInfo);
 
         return res.status(200).json({
             success: true,
@@ -287,9 +290,7 @@ const exportDailyRoutesInfo = async (req, res) => {
  */
 const updateRequest = async(req, res) => {
     try {
-
         const { data } = req.body;
-
         const {
             requestData,
             productsData
@@ -297,9 +298,13 @@ const updateRequest = async(req, res) => {
 
         await CollectionRequest.updateRequest(requestData, productsData);
 
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
         })
+
+        exportDailyRoutes().catch((err) =>
+            console.error("Error sincronizando Sheets tras edición:", err)
+        );
     } catch (error) {
         return res.status(500).json({
             success: false,
