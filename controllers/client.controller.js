@@ -206,7 +206,7 @@ const getCompostStatus = async(req, res) =>{
 
         return res.status(200).json({
             success:true,
-            status: status,
+            data: status,
         })
     } catch (error){
         console.error(error);
@@ -219,8 +219,13 @@ const getCompostStatus = async(req, res) =>{
 
 const updateCompostStatus = async(req, res) => {
     try{
-        const { newStatus } = req.body;
-        await Client.updateCompostStatus(newStatus);
+        const { status } = req.body;
+
+        if (typeof status !== 'boolean') {
+            throw new Error('INVALID_COMPOST_STATUS');
+        }
+
+        const result = await Client.updateCompostStatus(status);
 
         return res.status(200).json({
             success:true,

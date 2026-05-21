@@ -386,6 +386,10 @@ module.exports = class Client {
             },
         });
 
+        if (compostStatus.length !== 2) {
+        return false;
+    }
+
         const isEnabled = compostStatus.every(
             product => product.estatus === true
         );
