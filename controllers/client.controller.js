@@ -30,7 +30,7 @@ const getClientByUserId = async (req, res) => {
 
         // Consulta el modelo para obtener el cliente 
         const client = await Client.getClientByUserId(userId);
-        
+
 
         if (!client) {
             return res.status(404).json({
@@ -116,7 +116,7 @@ const getRoutes = async (req, res) => {
  */
 const updateClient = async (req, res) => {
     try {
-        const {clientObject} = req.body;
+        const { clientObject } = req.body;
 
         const {
             userData, clientData, balanceData
@@ -134,7 +134,7 @@ const updateClient = async (req, res) => {
             success: true,
         })
 
-    } catch (error){
+    } catch (error) {
         console.error(error);
         res.status(500).json({
             success: false,
@@ -158,46 +158,81 @@ function buildDataObjects(clientObject) {
     const balanceData = {};
 
     // Campos de la tabla usuarios_cp
-    if(clientObject.cellphone !== undefined){
+    if (clientObject.cellphone !== undefined) {
         userData.telefono = clientObject.cellphone;
     }
 
-    if(clientObject.status !== undefined){
+    if (clientObject.status !== undefined) {
         userData.estatus = clientObject.status;
     }
 
     // Campos para la tabla clientes
-    if(clientObject.notes !== undefined){
+    if (clientObject.notes !== undefined) {
         clientData.notas = clientObject.notes;
     }
 
-    if(clientObject.address !== undefined){
+    if (clientObject.address !== undefined) {
         clientData.direccion = clientObject.address;
     }
 
-    if(clientObject.pets !== undefined){
+    if (clientObject.pets !== undefined) {
         clientData.mascotas = clientObject.pets;
     }
 
-    if(clientObject.family !== undefined){
+    if (clientObject.family !== undefined) {
         clientData.familia = clientObject.family;
     }
 
-    if(clientObject.routeId !== undefined){
+    if (clientObject.routeId !== undefined) {
         clientData.id_ruta = clientObject.routeId;
     }
 
-    if(clientObject.order !== undefined){
+    if (clientObject.order !== undefined) {
         clientData.orden_horario = clientObject.order;
     }
 
     // Campos para saldo
-    if(clientObject.balance !== undefined){
+    if (clientObject.balance !== undefined) {
         balanceData.saldo = clientObject.balance;
     }
 
-    return {userData, clientData, balanceData};
+    return { userData, clientData, balanceData };
 
+}
+
+const getCompostStatus = async(req, res) =>{
+    try {
+        const status = await Client.getCompostStatus();
+
+        return res.status(200).json({
+            success:true,
+            status: status,
+        })
+    } catch (error){
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al obtener el estatus de la composta.',
+        })
+    }
+}
+
+const updateCompostStatus = async(req, res) => {
+    try{
+        const { newStatus } = req.body;
+        await Client.updateCompostStatus(newStatus);
+
+        return res.status(200).json({
+            success:true,
+            message: 'Estatus de composta actualizado exitosamente.',
+        })
+    } catch (error){
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al actualizar el estatus de la composta.',
+        })
+    }
 }
 
 module.exports = {
@@ -205,4 +240,6 @@ module.exports = {
     getClientsInfo,
     getRoutes,
     updateClient,
+    getCompostStatus,
+    updateCompostStatus,
 };
