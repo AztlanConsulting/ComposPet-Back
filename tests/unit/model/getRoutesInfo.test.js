@@ -108,6 +108,7 @@ describe('Model - getRoutesInfo', () => {
         expect(result).toEqual([
             {
                 clientId: 'client-123',
+                dia_ruta: 'Miércoles',
                 nombre: 'Alejandra Arredondo',
                 recoleccion: 4,
                 entrega: 2,
@@ -162,6 +163,7 @@ describe('Model - getRoutesInfo', () => {
         expect(result).toEqual([
             {
                 clientId: 'client-456',
+                dia_ruta: 'Miércoles',
                 nombre: 'Leonardo Alvarado',
                 recoleccion: null,
                 entrega: null,
@@ -508,6 +510,9 @@ describe('Model - getFilteredRoutesInfo', () => {
                     ruta: {
                         dia_ruta: { startsWith: 'Miércoles 1' },
                     },
+                    usuarios_cp: {
+                        is: { estatus: true }
+                    }
                 },
             })
         );
@@ -527,6 +532,9 @@ describe('Model - getFilteredRoutesInfo', () => {
                     ruta: {
                         dia_ruta: { startsWith: 'Miércoles' },
                     },
+                    usuarios_cp: {
+                        is: { estatus: true }
+                    }
                 },
             })
         );
