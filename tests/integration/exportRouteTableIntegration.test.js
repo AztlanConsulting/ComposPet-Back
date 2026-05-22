@@ -150,6 +150,11 @@ afterEach(async () => {
     await cleanDb();
 });
 
+beforeAll(async () => {
+    await cleanDb();
+    await createTestData();
+});
+
 afterAll(async () => {
     await cleanDb();
     await prisma.$disconnect();

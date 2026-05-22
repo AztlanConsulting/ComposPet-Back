@@ -98,14 +98,14 @@ app.use((req, res) => {
  *
  * @see exportDailyRoutes
  */
-cron.schedule('0 18 * * *', async () => {
-    try {
-        const sheetUrl = await exportDailyRoutes();
-    } catch (error) {
-        console.error('[Cron] Error en exportación diaria:', error.message);
-    }
-}, {
-    timezone: "America/Mexico_City"
-});
+if (process.env.NODE_ENV !== "test") {
+    cron.schedule('0 18 * * *', async () => {
+        try {
+            const sheetUrl = await exportDailyRoutes();
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
 
 module.exports = app;
