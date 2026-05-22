@@ -1,7 +1,6 @@
 const Routes = require('../models/route.model');
 const GoogleSheetsMessagesService = require('../config/googleSheetsMessages.service');
-
-
+const GoogleSheetsRoutesService = require('../config/googleSheetsRoutes.service');
 const Payment = require('../models/payment.model');
 const CollectionRequest = require('../models/collectionRequest.model');
 const { request } = require('express');
@@ -19,6 +18,7 @@ const getTableInfo = async(req,res) => {
     try {
         // Obtiene la información de rutas desde el modelo
         const routeInfo = await Routes.getRoutesInfo();
+
         // Retorna la información obtenida exitosamente
         return res.status(200).json({
             success: true,
@@ -140,6 +140,7 @@ const getFilteredRoutesInfo = async(req, res) => {
         })
 
     } catch (error) {
+        console.error("Error en getFilteredRoutesInfo:", error);
         return res.status(500).json({
             success: false,
             message: "Ocurrió un error obteniendo la información.",
@@ -244,7 +245,55 @@ const generateConfirmationMessages = async (req, res) => {
     }
 }
 
-/* Actualiza la información de la solicitud de recolección
+/**
+ * Obtiene las rutas del día actual y las exporta a Google Sheets.
+ * Función utilitaria compartida entre el controlador HTTP y la tarea programada de cron.
+ *
+ * @returns {Promise<string>} URL de la hoja de cálculo generada en Google Sheets.
+ * @throws {Error} Si falla la consulta de rutas o la exportación a Google Sheets.
+ * @see Routes.getRoutesInfo
+ * @see GoogleSheetsRoutesService.exportDailyRoutes
+ */
+const exportDailyRoutes = async () => {
+    const routeInfo = await Routes.getRoutesInfo();
+    const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
+
+    return sheetUrl;
+}
+
+/**
+ * Controlador HTTP que dispara manualmente la exportación de rutas del día a Google Sheets.
+ * Internamente delega en `exportDailyRoutes`, la misma función utilizada por la tarea cron.
+ * Responde con la URL de la hoja generada si la exportación es exitosa.
+ *
+ * @param {import('express').Request} req - Objeto de solicitud de Express.
+ * @param {import('express').Response} res - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Responde con status 200 y la URL de la hoja, o 500 si ocurre un error.
+ * @throws {Error} Responde con status 500 si falla la consulta de rutas o la exportación.
+ * @see exportDailyRoutes
+ */
+const exportDailyRoutesInfo = async (req, res) => {
+    try {
+        
+        const routeInfo = await exportDailyRoutes();
+
+        return res.status(200).json({
+            success: true,
+            message: "Exportación exitosa",
+            data: { routeInfo },
+        });
+
+    } catch(error){
+        console.error("Error exportando rutas a Sheets:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Ocurrió un error obteniendo la información.",
+            error: error.message,
+        });
+    }
+};
+
+/** Actualiza la información de la solicitud de recolección
  *
  * @param {import('express').Request} req - Objeto de solicitud de Express.
  * @param {Int} req.body.collectedBuckets - Número de cubetas a recolectar.
@@ -271,9 +320,7 @@ const generateConfirmationMessages = async (req, res) => {
  */
 const updateRequest = async(req, res) => {
     try {
-
         const { data } = req.body;
-
         const {
             requestData,
             productsData
@@ -281,9 +328,13 @@ const updateRequest = async(req, res) => {
 
         await CollectionRequest.updateRequest(requestData, productsData);
 
-        return res.status(200).json({
+        res.status(200).json({
             success: true,
         })
+
+        exportDailyRoutes().catch((err) =>
+            console.error("Error sincronizando Sheets tras edición:", err)
+        );
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -370,5 +421,7 @@ module.exports = {
     getDaysOfRoutes,
     getFilteredRoutesInfo,
     generateConfirmationMessages,
+    exportDailyRoutes,
+    exportDailyRoutesInfo,
     updateRequest,
 }

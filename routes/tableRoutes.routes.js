@@ -17,4 +17,6 @@ router.get('/filtrar-informacion', requireRole("Administrador"), routesControlle
 
 router.post('/mensajes-de-confirmacion', requireRole("Administrador"), routesController.generateConfirmationMessages);
 
+router.post('/exportar-tabla-rutas', routesController.exportDailyRoutesInfo);
+
 module.exports = router;

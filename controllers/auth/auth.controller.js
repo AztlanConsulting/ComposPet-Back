@@ -233,6 +233,7 @@ const googleAuth = async (req, res) => {
  */
 const refreshToken = async (req, res) => {
     const token = req.cookies.refreshToken;
+    console.log("INTENTA REFRESH TOKEN");
 
     if (!token) {
         return res.status(403).json({ message: 'No hay token de refresco.' });
@@ -259,8 +260,12 @@ const refreshToken = async (req, res) => {
             email: payload.email,
             role,
         });
-
-        await AuthModel.updateSession(token, newRefreshToken, role);
+        try {
+            await AuthModel.updateSession(token, newRefreshToken, role);
+        } catch {
+            return res.status(401).json({ message: 'Sesión inválida o expirada' });
+        }
+        
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,
