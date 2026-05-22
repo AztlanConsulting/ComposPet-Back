@@ -218,6 +218,7 @@ model usuarios_cp {
   bitacora             bitacora[]
   cliente              cliente?
   solicitud_registro   solicitud_registro[]
+  sesiones             sesiones[] 
   compospet            compospet            @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
   roles                roles                @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
 }
@@ -227,4 +228,17 @@ model zona {
   municipio   String  @db.VarChar
   descripcion String? @db.VarChar
   estado      String  @db.VarChar
+}
+
+model sesiones {
+  id               String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_usuario       String      @db.Uuid
+  refresh_token    String      @unique
+  dispositivo      String?     @db.VarChar
+  ip               String?     @db.VarChar
+  iniciada_en      DateTime?   @default(now()) @db.Timestamp(6)
+  expira_en        DateTime    @db.Timestamp(6)
+  ultima_actividad DateTime?   @default(now()) @db.Timestamp(6)
+  activa           Boolean     @default(true)
+  usuarios_cp      usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_sesiones_usuario")
 }

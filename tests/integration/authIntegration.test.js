@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { randomUUID } = require('crypto');
 const app = require('../../app');
 const prisma = require('../../config/prisma');
+const AuthModel = require('../../models/auth/auth.model');
 
 const { generateRefreshToken } = require('../../utils/jwt.utils');
 
@@ -21,6 +22,15 @@ const TEST_PASSWORD = 'TestPass123!';
 // ─────────────────────────────────────────────────────────────────
 // BLOQUE 3 — HELPERS
 // ─────────────────────────────────────────────────────────────────
+
+const createValidSession = async (refreshToken) => {
+    await AuthModel.createSession(
+        TEST_USER_ID,
+        refreshToken,
+        'test-role-integration',
+        '127.0.0.1'
+    );
+};
 
 const createTestUser = async (overrides = {}) => {
     const hashedPwd = await bcrypt.hash(TEST_PASSWORD, 12);
@@ -221,6 +231,8 @@ describe('POST /api/auth/refresh', () => {
         /* No hacemos login primero porque eso acoplaría este test
         al comportamiento de login. Cada test debe ser independiente.*/
 
+        await createValidSession(validRefreshToken);
+
         // Act
         const res = await request(app)
         .post('/api/refresh')
@@ -235,7 +247,10 @@ describe('POST /api/auth/refresh', () => {
     it('la respuesta setea una nueva cookie refreshToken', async () => {
         // Arrange
         await createTestUser();
+        
         const validRefreshToken = generateValidRefreshToken();
+
+        await createValidSession(validRefreshToken);
 
         // Act
         const res = await request(app)

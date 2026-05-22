@@ -113,6 +113,11 @@ export type usuarios_cp = $Result.DefaultSelection<Prisma.$usuarios_cpPayload>
  * 
  */
 export type zona = $Result.DefaultSelection<Prisma.$zonaPayload>
+/**
+ * Model sesiones
+ * 
+ */
+export type sesiones = $Result.DefaultSelection<Prisma.$sesionesPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -434,6 +439,16 @@ export class PrismaClient<
     * ```
     */
   get zona(): Prisma.zonaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.sesiones`: Exposes CRUD operations for the **sesiones** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Sesiones
+    * const sesiones = await prisma.sesiones.findMany()
+    * ```
+    */
+  get sesiones(): Prisma.sesionesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -887,7 +902,8 @@ export namespace Prisma {
     solicitudes_recoleccion: 'solicitudes_recoleccion',
     saldo: 'saldo',
     usuarios_cp: 'usuarios_cp',
-    zona: 'zona'
+    zona: 'zona',
+    sesiones: 'sesiones'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -903,7 +919,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "saldo" | "usuarios_cp" | "zona"
+      modelProps: "administrador" | "avisos" | "bitacora" | "cliente" | "compospet" | "faq" | "formas_pago" | "metricas" | "permisos" | "personas_equipo" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitud_registro" | "solicitudes_recoleccion" | "saldo" | "usuarios_cp" | "zona" | "sesiones"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2387,6 +2403,80 @@ export namespace Prisma {
           }
         }
       }
+      sesiones: {
+        payload: Prisma.$sesionesPayload<ExtArgs>
+        fields: Prisma.sesionesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.sesionesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.sesionesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+          }
+          findFirst: {
+            args: Prisma.sesionesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.sesionesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+          }
+          findMany: {
+            args: Prisma.sesionesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>[]
+          }
+          create: {
+            args: Prisma.sesionesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+          }
+          createMany: {
+            args: Prisma.sesionesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.sesionesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>[]
+          }
+          delete: {
+            args: Prisma.sesionesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+          }
+          update: {
+            args: Prisma.sesionesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+          }
+          deleteMany: {
+            args: Prisma.sesionesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.sesionesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.sesionesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>[]
+          }
+          upsert: {
+            args: Prisma.sesionesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$sesionesPayload>
+          }
+          aggregate: {
+            args: Prisma.SesionesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSesiones>
+          }
+          groupBy: {
+            args: Prisma.sesionesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SesionesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.sesionesCountArgs<ExtArgs>
+            result: $Utils.Optional<SesionesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2515,6 +2605,7 @@ export namespace Prisma {
     saldo?: saldoOmit
     usuarios_cp?: usuarios_cpOmit
     zona?: zonaOmit
+    sesiones?: sesionesOmit
   }
 
   /* Types for Logging */
@@ -2912,11 +3003,13 @@ export namespace Prisma {
   export type Usuarios_cpCountOutputType = {
     bitacora: number
     solicitud_registro: number
+    sesiones: number
   }
 
   export type Usuarios_cpCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bitacora?: boolean | Usuarios_cpCountOutputTypeCountBitacoraArgs
     solicitud_registro?: boolean | Usuarios_cpCountOutputTypeCountSolicitud_registroArgs
+    sesiones?: boolean | Usuarios_cpCountOutputTypeCountSesionesArgs
   }
 
   // Custom InputTypes
@@ -2942,6 +3035,13 @@ export namespace Prisma {
    */
   export type Usuarios_cpCountOutputTypeCountSolicitud_registroArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: solicitud_registroWhereInput
+  }
+
+  /**
+   * Usuarios_cpCountOutputType without action
+   */
+  export type Usuarios_cpCountOutputTypeCountSesionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sesionesWhereInput
   }
 
 
@@ -23380,6 +23480,7 @@ export namespace Prisma {
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
     solicitud_registro?: boolean | usuarios_cp$solicitud_registroArgs<ExtArgs>
+    sesiones?: boolean | usuarios_cp$sesionesArgs<ExtArgs>
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
     _count?: boolean | Usuarios_cpCountOutputTypeDefaultArgs<ExtArgs>
@@ -23446,6 +23547,7 @@ export namespace Prisma {
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
     solicitud_registro?: boolean | usuarios_cp$solicitud_registroArgs<ExtArgs>
+    sesiones?: boolean | usuarios_cp$sesionesArgs<ExtArgs>
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
     _count?: boolean | Usuarios_cpCountOutputTypeDefaultArgs<ExtArgs>
@@ -23466,6 +23568,7 @@ export namespace Prisma {
       bitacora: Prisma.$bitacoraPayload<ExtArgs>[]
       cliente: Prisma.$clientePayload<ExtArgs> | null
       solicitud_registro: Prisma.$solicitud_registroPayload<ExtArgs>[]
+      sesiones: Prisma.$sesionesPayload<ExtArgs>[]
       compospet: Prisma.$compospetPayload<ExtArgs>
       roles: Prisma.$rolesPayload<ExtArgs>
     }
@@ -23882,6 +23985,7 @@ export namespace Prisma {
     bitacora<T extends usuarios_cp$bitacoraArgs<ExtArgs> = {}>(args?: Subset<T, usuarios_cp$bitacoraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$bitacoraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     cliente<T extends usuarios_cp$clienteArgs<ExtArgs> = {}>(args?: Subset<T, usuarios_cp$clienteArgs<ExtArgs>>): Prisma__clienteClient<$Result.GetResult<Prisma.$clientePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     solicitud_registro<T extends usuarios_cp$solicitud_registroArgs<ExtArgs> = {}>(args?: Subset<T, usuarios_cp$solicitud_registroArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$solicitud_registroPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sesiones<T extends usuarios_cp$sesionesArgs<ExtArgs> = {}>(args?: Subset<T, usuarios_cp$sesionesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     compospet<T extends compospetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, compospetDefaultArgs<ExtArgs>>): Prisma__compospetClient<$Result.GetResult<Prisma.$compospetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     roles<T extends rolesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, rolesDefaultArgs<ExtArgs>>): Prisma__rolesClient<$Result.GetResult<Prisma.$rolesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -24411,6 +24515,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: Solicitud_registroScalarFieldEnum | Solicitud_registroScalarFieldEnum[]
+  }
+
+  /**
+   * usuarios_cp.sesiones
+   */
+  export type usuarios_cp$sesionesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    where?: sesionesWhereInput
+    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    cursor?: sesionesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SesionesScalarFieldEnum | SesionesScalarFieldEnum[]
   }
 
   /**
@@ -25454,6 +25582,1121 @@ export namespace Prisma {
 
 
   /**
+   * Model sesiones
+   */
+
+  export type AggregateSesiones = {
+    _count: SesionesCountAggregateOutputType | null
+    _min: SesionesMinAggregateOutputType | null
+    _max: SesionesMaxAggregateOutputType | null
+  }
+
+  export type SesionesMinAggregateOutputType = {
+    id: string | null
+    id_usuario: string | null
+    refresh_token: string | null
+    dispositivo: string | null
+    ip: string | null
+    iniciada_en: Date | null
+    expira_en: Date | null
+    ultima_actividad: Date | null
+    activa: boolean | null
+  }
+
+  export type SesionesMaxAggregateOutputType = {
+    id: string | null
+    id_usuario: string | null
+    refresh_token: string | null
+    dispositivo: string | null
+    ip: string | null
+    iniciada_en: Date | null
+    expira_en: Date | null
+    ultima_actividad: Date | null
+    activa: boolean | null
+  }
+
+  export type SesionesCountAggregateOutputType = {
+    id: number
+    id_usuario: number
+    refresh_token: number
+    dispositivo: number
+    ip: number
+    iniciada_en: number
+    expira_en: number
+    ultima_actividad: number
+    activa: number
+    _all: number
+  }
+
+
+  export type SesionesMinAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    refresh_token?: true
+    dispositivo?: true
+    ip?: true
+    iniciada_en?: true
+    expira_en?: true
+    ultima_actividad?: true
+    activa?: true
+  }
+
+  export type SesionesMaxAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    refresh_token?: true
+    dispositivo?: true
+    ip?: true
+    iniciada_en?: true
+    expira_en?: true
+    ultima_actividad?: true
+    activa?: true
+  }
+
+  export type SesionesCountAggregateInputType = {
+    id?: true
+    id_usuario?: true
+    refresh_token?: true
+    dispositivo?: true
+    ip?: true
+    iniciada_en?: true
+    expira_en?: true
+    ultima_actividad?: true
+    activa?: true
+    _all?: true
+  }
+
+  export type SesionesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sesiones to aggregate.
+     */
+    where?: sesionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sesiones to fetch.
+     */
+    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: sesionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sesiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sesiones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned sesiones
+    **/
+    _count?: true | SesionesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SesionesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SesionesMaxAggregateInputType
+  }
+
+  export type GetSesionesAggregateType<T extends SesionesAggregateArgs> = {
+        [P in keyof T & keyof AggregateSesiones]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSesiones[P]>
+      : GetScalarType<T[P], AggregateSesiones[P]>
+  }
+
+
+
+
+  export type sesionesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: sesionesWhereInput
+    orderBy?: sesionesOrderByWithAggregationInput | sesionesOrderByWithAggregationInput[]
+    by: SesionesScalarFieldEnum[] | SesionesScalarFieldEnum
+    having?: sesionesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SesionesCountAggregateInputType | true
+    _min?: SesionesMinAggregateInputType
+    _max?: SesionesMaxAggregateInputType
+  }
+
+  export type SesionesGroupByOutputType = {
+    id: string
+    id_usuario: string
+    refresh_token: string
+    dispositivo: string | null
+    ip: string | null
+    iniciada_en: Date | null
+    expira_en: Date
+    ultima_actividad: Date | null
+    activa: boolean
+    _count: SesionesCountAggregateOutputType | null
+    _min: SesionesMinAggregateOutputType | null
+    _max: SesionesMaxAggregateOutputType | null
+  }
+
+  type GetSesionesGroupByPayload<T extends sesionesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SesionesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SesionesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SesionesGroupByOutputType[P]>
+            : GetScalarType<T[P], SesionesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type sesionesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario?: boolean
+    refresh_token?: boolean
+    dispositivo?: boolean
+    ip?: boolean
+    iniciada_en?: boolean
+    expira_en?: boolean
+    ultima_actividad?: boolean
+    activa?: boolean
+    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sesiones"]>
+
+  export type sesionesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario?: boolean
+    refresh_token?: boolean
+    dispositivo?: boolean
+    ip?: boolean
+    iniciada_en?: boolean
+    expira_en?: boolean
+    ultima_actividad?: boolean
+    activa?: boolean
+    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sesiones"]>
+
+  export type sesionesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    id_usuario?: boolean
+    refresh_token?: boolean
+    dispositivo?: boolean
+    ip?: boolean
+    iniciada_en?: boolean
+    expira_en?: boolean
+    ultima_actividad?: boolean
+    activa?: boolean
+    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["sesiones"]>
+
+  export type sesionesSelectScalar = {
+    id?: boolean
+    id_usuario?: boolean
+    refresh_token?: boolean
+    dispositivo?: boolean
+    ip?: boolean
+    iniciada_en?: boolean
+    expira_en?: boolean
+    ultima_actividad?: boolean
+    activa?: boolean
+  }
+
+  export type sesionesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "id_usuario" | "refresh_token" | "dispositivo" | "ip" | "iniciada_en" | "expira_en" | "ultima_actividad" | "activa", ExtArgs["result"]["sesiones"]>
+  export type sesionesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
+  }
+  export type sesionesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
+  }
+  export type sesionesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
+  }
+
+  export type $sesionesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "sesiones"
+    objects: {
+      usuarios_cp: Prisma.$usuarios_cpPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      id_usuario: string
+      refresh_token: string
+      dispositivo: string | null
+      ip: string | null
+      iniciada_en: Date | null
+      expira_en: Date
+      ultima_actividad: Date | null
+      activa: boolean
+    }, ExtArgs["result"]["sesiones"]>
+    composites: {}
+  }
+
+  type sesionesGetPayload<S extends boolean | null | undefined | sesionesDefaultArgs> = $Result.GetResult<Prisma.$sesionesPayload, S>
+
+  type sesionesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<sesionesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SesionesCountAggregateInputType | true
+    }
+
+  export interface sesionesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['sesiones'], meta: { name: 'sesiones' } }
+    /**
+     * Find zero or one Sesiones that matches the filter.
+     * @param {sesionesFindUniqueArgs} args - Arguments to find a Sesiones
+     * @example
+     * // Get one Sesiones
+     * const sesiones = await prisma.sesiones.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends sesionesFindUniqueArgs>(args: SelectSubset<T, sesionesFindUniqueArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Sesiones that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {sesionesFindUniqueOrThrowArgs} args - Arguments to find a Sesiones
+     * @example
+     * // Get one Sesiones
+     * const sesiones = await prisma.sesiones.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends sesionesFindUniqueOrThrowArgs>(args: SelectSubset<T, sesionesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sesiones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sesionesFindFirstArgs} args - Arguments to find a Sesiones
+     * @example
+     * // Get one Sesiones
+     * const sesiones = await prisma.sesiones.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends sesionesFindFirstArgs>(args?: SelectSubset<T, sesionesFindFirstArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Sesiones that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sesionesFindFirstOrThrowArgs} args - Arguments to find a Sesiones
+     * @example
+     * // Get one Sesiones
+     * const sesiones = await prisma.sesiones.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends sesionesFindFirstOrThrowArgs>(args?: SelectSubset<T, sesionesFindFirstOrThrowArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Sesiones that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sesionesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Sesiones
+     * const sesiones = await prisma.sesiones.findMany()
+     * 
+     * // Get first 10 Sesiones
+     * const sesiones = await prisma.sesiones.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const sesionesWithIdOnly = await prisma.sesiones.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends sesionesFindManyArgs>(args?: SelectSubset<T, sesionesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Sesiones.
+     * @param {sesionesCreateArgs} args - Arguments to create a Sesiones.
+     * @example
+     * // Create one Sesiones
+     * const Sesiones = await prisma.sesiones.create({
+     *   data: {
+     *     // ... data to create a Sesiones
+     *   }
+     * })
+     * 
+     */
+    create<T extends sesionesCreateArgs>(args: SelectSubset<T, sesionesCreateArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Sesiones.
+     * @param {sesionesCreateManyArgs} args - Arguments to create many Sesiones.
+     * @example
+     * // Create many Sesiones
+     * const sesiones = await prisma.sesiones.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends sesionesCreateManyArgs>(args?: SelectSubset<T, sesionesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Sesiones and returns the data saved in the database.
+     * @param {sesionesCreateManyAndReturnArgs} args - Arguments to create many Sesiones.
+     * @example
+     * // Create many Sesiones
+     * const sesiones = await prisma.sesiones.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Sesiones and only return the `id`
+     * const sesionesWithIdOnly = await prisma.sesiones.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends sesionesCreateManyAndReturnArgs>(args?: SelectSubset<T, sesionesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Sesiones.
+     * @param {sesionesDeleteArgs} args - Arguments to delete one Sesiones.
+     * @example
+     * // Delete one Sesiones
+     * const Sesiones = await prisma.sesiones.delete({
+     *   where: {
+     *     // ... filter to delete one Sesiones
+     *   }
+     * })
+     * 
+     */
+    delete<T extends sesionesDeleteArgs>(args: SelectSubset<T, sesionesDeleteArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Sesiones.
+     * @param {sesionesUpdateArgs} args - Arguments to update one Sesiones.
+     * @example
+     * // Update one Sesiones
+     * const sesiones = await prisma.sesiones.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends sesionesUpdateArgs>(args: SelectSubset<T, sesionesUpdateArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Sesiones.
+     * @param {sesionesDeleteManyArgs} args - Arguments to filter Sesiones to delete.
+     * @example
+     * // Delete a few Sesiones
+     * const { count } = await prisma.sesiones.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends sesionesDeleteManyArgs>(args?: SelectSubset<T, sesionesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sesiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sesionesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Sesiones
+     * const sesiones = await prisma.sesiones.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends sesionesUpdateManyArgs>(args: SelectSubset<T, sesionesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Sesiones and returns the data updated in the database.
+     * @param {sesionesUpdateManyAndReturnArgs} args - Arguments to update many Sesiones.
+     * @example
+     * // Update many Sesiones
+     * const sesiones = await prisma.sesiones.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Sesiones and only return the `id`
+     * const sesionesWithIdOnly = await prisma.sesiones.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends sesionesUpdateManyAndReturnArgs>(args: SelectSubset<T, sesionesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Sesiones.
+     * @param {sesionesUpsertArgs} args - Arguments to update or create a Sesiones.
+     * @example
+     * // Update or create a Sesiones
+     * const sesiones = await prisma.sesiones.upsert({
+     *   create: {
+     *     // ... data to create a Sesiones
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Sesiones we want to update
+     *   }
+     * })
+     */
+    upsert<T extends sesionesUpsertArgs>(args: SelectSubset<T, sesionesUpsertArgs<ExtArgs>>): Prisma__sesionesClient<$Result.GetResult<Prisma.$sesionesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Sesiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sesionesCountArgs} args - Arguments to filter Sesiones to count.
+     * @example
+     * // Count the number of Sesiones
+     * const count = await prisma.sesiones.count({
+     *   where: {
+     *     // ... the filter for the Sesiones we want to count
+     *   }
+     * })
+    **/
+    count<T extends sesionesCountArgs>(
+      args?: Subset<T, sesionesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SesionesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Sesiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SesionesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SesionesAggregateArgs>(args: Subset<T, SesionesAggregateArgs>): Prisma.PrismaPromise<GetSesionesAggregateType<T>>
+
+    /**
+     * Group by Sesiones.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {sesionesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends sesionesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: sesionesGroupByArgs['orderBy'] }
+        : { orderBy?: sesionesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, sesionesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSesionesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the sesiones model
+   */
+  readonly fields: sesionesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for sesiones.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__sesionesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    usuarios_cp<T extends usuarios_cpDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usuarios_cpDefaultArgs<ExtArgs>>): Prisma__usuarios_cpClient<$Result.GetResult<Prisma.$usuarios_cpPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the sesiones model
+   */
+  interface sesionesFieldRefs {
+    readonly id: FieldRef<"sesiones", 'String'>
+    readonly id_usuario: FieldRef<"sesiones", 'String'>
+    readonly refresh_token: FieldRef<"sesiones", 'String'>
+    readonly dispositivo: FieldRef<"sesiones", 'String'>
+    readonly ip: FieldRef<"sesiones", 'String'>
+    readonly iniciada_en: FieldRef<"sesiones", 'DateTime'>
+    readonly expira_en: FieldRef<"sesiones", 'DateTime'>
+    readonly ultima_actividad: FieldRef<"sesiones", 'DateTime'>
+    readonly activa: FieldRef<"sesiones", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * sesiones findUnique
+   */
+  export type sesionesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * Filter, which sesiones to fetch.
+     */
+    where: sesionesWhereUniqueInput
+  }
+
+  /**
+   * sesiones findUniqueOrThrow
+   */
+  export type sesionesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * Filter, which sesiones to fetch.
+     */
+    where: sesionesWhereUniqueInput
+  }
+
+  /**
+   * sesiones findFirst
+   */
+  export type sesionesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * Filter, which sesiones to fetch.
+     */
+    where?: sesionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sesiones to fetch.
+     */
+    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sesiones.
+     */
+    cursor?: sesionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sesiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sesiones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sesiones.
+     */
+    distinct?: SesionesScalarFieldEnum | SesionesScalarFieldEnum[]
+  }
+
+  /**
+   * sesiones findFirstOrThrow
+   */
+  export type sesionesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * Filter, which sesiones to fetch.
+     */
+    where?: sesionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sesiones to fetch.
+     */
+    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for sesiones.
+     */
+    cursor?: sesionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sesiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sesiones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sesiones.
+     */
+    distinct?: SesionesScalarFieldEnum | SesionesScalarFieldEnum[]
+  }
+
+  /**
+   * sesiones findMany
+   */
+  export type sesionesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * Filter, which sesiones to fetch.
+     */
+    where?: sesionesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of sesiones to fetch.
+     */
+    orderBy?: sesionesOrderByWithRelationInput | sesionesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing sesiones.
+     */
+    cursor?: sesionesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` sesiones from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` sesiones.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of sesiones.
+     */
+    distinct?: SesionesScalarFieldEnum | SesionesScalarFieldEnum[]
+  }
+
+  /**
+   * sesiones create
+   */
+  export type sesionesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a sesiones.
+     */
+    data: XOR<sesionesCreateInput, sesionesUncheckedCreateInput>
+  }
+
+  /**
+   * sesiones createMany
+   */
+  export type sesionesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many sesiones.
+     */
+    data: sesionesCreateManyInput | sesionesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * sesiones createManyAndReturn
+   */
+  export type sesionesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * The data used to create many sesiones.
+     */
+    data: sesionesCreateManyInput | sesionesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * sesiones update
+   */
+  export type sesionesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a sesiones.
+     */
+    data: XOR<sesionesUpdateInput, sesionesUncheckedUpdateInput>
+    /**
+     * Choose, which sesiones to update.
+     */
+    where: sesionesWhereUniqueInput
+  }
+
+  /**
+   * sesiones updateMany
+   */
+  export type sesionesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update sesiones.
+     */
+    data: XOR<sesionesUpdateManyMutationInput, sesionesUncheckedUpdateManyInput>
+    /**
+     * Filter which sesiones to update
+     */
+    where?: sesionesWhereInput
+    /**
+     * Limit how many sesiones to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * sesiones updateManyAndReturn
+   */
+  export type sesionesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * The data used to update sesiones.
+     */
+    data: XOR<sesionesUpdateManyMutationInput, sesionesUncheckedUpdateManyInput>
+    /**
+     * Filter which sesiones to update
+     */
+    where?: sesionesWhereInput
+    /**
+     * Limit how many sesiones to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * sesiones upsert
+   */
+  export type sesionesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the sesiones to update in case it exists.
+     */
+    where: sesionesWhereUniqueInput
+    /**
+     * In case the sesiones found by the `where` argument doesn't exist, create a new sesiones with this data.
+     */
+    create: XOR<sesionesCreateInput, sesionesUncheckedCreateInput>
+    /**
+     * In case the sesiones was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<sesionesUpdateInput, sesionesUncheckedUpdateInput>
+  }
+
+  /**
+   * sesiones delete
+   */
+  export type sesionesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+    /**
+     * Filter which sesiones to delete.
+     */
+    where: sesionesWhereUniqueInput
+  }
+
+  /**
+   * sesiones deleteMany
+   */
+  export type sesionesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which sesiones to delete
+     */
+    where?: sesionesWhereInput
+    /**
+     * Limit how many sesiones to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * sesiones without action
+   */
+  export type sesionesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the sesiones
+     */
+    select?: sesionesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the sesiones
+     */
+    omit?: sesionesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: sesionesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -25707,6 +26950,21 @@ export namespace Prisma {
   };
 
   export type ZonaScalarFieldEnum = (typeof ZonaScalarFieldEnum)[keyof typeof ZonaScalarFieldEnum]
+
+
+  export const SesionesScalarFieldEnum: {
+    id: 'id',
+    id_usuario: 'id_usuario',
+    refresh_token: 'refresh_token',
+    dispositivo: 'dispositivo',
+    ip: 'ip',
+    iniciada_en: 'iniciada_en',
+    expira_en: 'expira_en',
+    ultima_actividad: 'ultima_actividad',
+    activa: 'activa'
+  };
+
+  export type SesionesScalarFieldEnum = (typeof SesionesScalarFieldEnum)[keyof typeof SesionesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -26995,6 +28253,7 @@ export namespace Prisma {
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
     solicitud_registro?: Solicitud_registroListRelationFilter
+    sesiones?: SesionesListRelationFilter
     compospet?: XOR<CompospetScalarRelationFilter, compospetWhereInput>
     roles?: XOR<RolesScalarRelationFilter, rolesWhereInput>
   }
@@ -27018,6 +28277,7 @@ export namespace Prisma {
     bitacora?: bitacoraOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
     solicitud_registro?: solicitud_registroOrderByRelationAggregateInput
+    sesiones?: sesionesOrderByRelationAggregateInput
     compospet?: compospetOrderByWithRelationInput
     roles?: rolesOrderByWithRelationInput
   }
@@ -27044,6 +28304,7 @@ export namespace Prisma {
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
     solicitud_registro?: Solicitud_registroListRelationFilter
+    sesiones?: SesionesListRelationFilter
     compospet?: XOR<CompospetScalarRelationFilter, compospetWhereInput>
     roles?: XOR<RolesScalarRelationFilter, rolesWhereInput>
   }, "id_usuario" | "correo">
@@ -27137,6 +28398,81 @@ export namespace Prisma {
     municipio?: StringWithAggregatesFilter<"zona"> | string
     descripcion?: StringNullableWithAggregatesFilter<"zona"> | string | null
     estado?: StringWithAggregatesFilter<"zona"> | string
+  }
+
+  export type sesionesWhereInput = {
+    AND?: sesionesWhereInput | sesionesWhereInput[]
+    OR?: sesionesWhereInput[]
+    NOT?: sesionesWhereInput | sesionesWhereInput[]
+    id?: UuidFilter<"sesiones"> | string
+    id_usuario?: UuidFilter<"sesiones"> | string
+    refresh_token?: StringFilter<"sesiones"> | string
+    dispositivo?: StringNullableFilter<"sesiones"> | string | null
+    ip?: StringNullableFilter<"sesiones"> | string | null
+    iniciada_en?: DateTimeNullableFilter<"sesiones"> | Date | string | null
+    expira_en?: DateTimeFilter<"sesiones"> | Date | string
+    ultima_actividad?: DateTimeNullableFilter<"sesiones"> | Date | string | null
+    activa?: BoolFilter<"sesiones"> | boolean
+    usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
+  }
+
+  export type sesionesOrderByWithRelationInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    refresh_token?: SortOrder
+    dispositivo?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    iniciada_en?: SortOrderInput | SortOrder
+    expira_en?: SortOrder
+    ultima_actividad?: SortOrderInput | SortOrder
+    activa?: SortOrder
+    usuarios_cp?: usuarios_cpOrderByWithRelationInput
+  }
+
+  export type sesionesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    refresh_token?: string
+    AND?: sesionesWhereInput | sesionesWhereInput[]
+    OR?: sesionesWhereInput[]
+    NOT?: sesionesWhereInput | sesionesWhereInput[]
+    id_usuario?: UuidFilter<"sesiones"> | string
+    dispositivo?: StringNullableFilter<"sesiones"> | string | null
+    ip?: StringNullableFilter<"sesiones"> | string | null
+    iniciada_en?: DateTimeNullableFilter<"sesiones"> | Date | string | null
+    expira_en?: DateTimeFilter<"sesiones"> | Date | string
+    ultima_actividad?: DateTimeNullableFilter<"sesiones"> | Date | string | null
+    activa?: BoolFilter<"sesiones"> | boolean
+    usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
+  }, "id" | "refresh_token">
+
+  export type sesionesOrderByWithAggregationInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    refresh_token?: SortOrder
+    dispositivo?: SortOrderInput | SortOrder
+    ip?: SortOrderInput | SortOrder
+    iniciada_en?: SortOrderInput | SortOrder
+    expira_en?: SortOrder
+    ultima_actividad?: SortOrderInput | SortOrder
+    activa?: SortOrder
+    _count?: sesionesCountOrderByAggregateInput
+    _max?: sesionesMaxOrderByAggregateInput
+    _min?: sesionesMinOrderByAggregateInput
+  }
+
+  export type sesionesScalarWhereWithAggregatesInput = {
+    AND?: sesionesScalarWhereWithAggregatesInput | sesionesScalarWhereWithAggregatesInput[]
+    OR?: sesionesScalarWhereWithAggregatesInput[]
+    NOT?: sesionesScalarWhereWithAggregatesInput | sesionesScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"sesiones"> | string
+    id_usuario?: UuidWithAggregatesFilter<"sesiones"> | string
+    refresh_token?: StringWithAggregatesFilter<"sesiones"> | string
+    dispositivo?: StringNullableWithAggregatesFilter<"sesiones"> | string | null
+    ip?: StringNullableWithAggregatesFilter<"sesiones"> | string | null
+    iniciada_en?: DateTimeNullableWithAggregatesFilter<"sesiones"> | Date | string | null
+    expira_en?: DateTimeWithAggregatesFilter<"sesiones"> | Date | string
+    ultima_actividad?: DateTimeNullableWithAggregatesFilter<"sesiones"> | Date | string | null
+    activa?: BoolWithAggregatesFilter<"sesiones"> | boolean
   }
 
   export type administradorCreateInput = {
@@ -28300,6 +29636,7 @@ export namespace Prisma {
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
     roles: rolesCreateNestedOneWithoutUsuarios_cpInput
   }
@@ -28323,6 +29660,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
 
   export type usuarios_cpUpdateInput = {
@@ -28342,6 +29680,7 @@ export namespace Prisma {
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
     roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
   }
@@ -28365,6 +29704,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type usuarios_cpCreateManyInput = {
@@ -28463,6 +29803,89 @@ export namespace Prisma {
     municipio?: StringFieldUpdateOperationsInput | string
     descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     estado?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type sesionesCreateInput = {
+    id?: string
+    refresh_token: string
+    dispositivo?: string | null
+    ip?: string | null
+    iniciada_en?: Date | string | null
+    expira_en: Date | string
+    ultima_actividad?: Date | string | null
+    activa?: boolean
+    usuarios_cp: usuarios_cpCreateNestedOneWithoutSesionesInput
+  }
+
+  export type sesionesUncheckedCreateInput = {
+    id?: string
+    id_usuario: string
+    refresh_token: string
+    dispositivo?: string | null
+    ip?: string | null
+    iniciada_en?: Date | string | null
+    expira_en: Date | string
+    ultima_actividad?: Date | string | null
+    activa?: boolean
+  }
+
+  export type sesionesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
+    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activa?: BoolFieldUpdateOperationsInput | boolean
+    usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutSesionesNestedInput
+  }
+
+  export type sesionesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_usuario?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
+    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activa?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type sesionesCreateManyInput = {
+    id?: string
+    id_usuario: string
+    refresh_token: string
+    dispositivo?: string | null
+    ip?: string | null
+    iniciada_en?: Date | string | null
+    expira_en: Date | string
+    ultima_actividad?: Date | string | null
+    activa?: boolean
+  }
+
+  export type sesionesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
+    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activa?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type sesionesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    id_usuario?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
+    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activa?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -29626,11 +31049,21 @@ export namespace Prisma {
     none?: solicitud_registroWhereInput
   }
 
+  export type SesionesListRelationFilter = {
+    every?: sesionesWhereInput
+    some?: sesionesWhereInput
+    none?: sesionesWhereInput
+  }
+
   export type bitacoraOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type solicitud_registroOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type sesionesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -29720,6 +31153,42 @@ export namespace Prisma {
 
   export type zonaSumOrderByAggregateInput = {
     id_zona?: SortOrder
+  }
+
+  export type sesionesCountOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    refresh_token?: SortOrder
+    dispositivo?: SortOrder
+    ip?: SortOrder
+    iniciada_en?: SortOrder
+    expira_en?: SortOrder
+    ultima_actividad?: SortOrder
+    activa?: SortOrder
+  }
+
+  export type sesionesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    refresh_token?: SortOrder
+    dispositivo?: SortOrder
+    ip?: SortOrder
+    iniciada_en?: SortOrder
+    expira_en?: SortOrder
+    ultima_actividad?: SortOrder
+    activa?: SortOrder
+  }
+
+  export type sesionesMinOrderByAggregateInput = {
+    id?: SortOrder
+    id_usuario?: SortOrder
+    refresh_token?: SortOrder
+    dispositivo?: SortOrder
+    ip?: SortOrder
+    iniciada_en?: SortOrder
+    expira_en?: SortOrder
+    ultima_actividad?: SortOrder
+    activa?: SortOrder
   }
 
   export type usuarios_cpCreateNestedOneWithoutAdministradorInput = {
@@ -30618,6 +32087,13 @@ export namespace Prisma {
     connect?: solicitud_registroWhereUniqueInput | solicitud_registroWhereUniqueInput[]
   }
 
+  export type sesionesCreateNestedManyWithoutUsuarios_cpInput = {
+    create?: XOR<sesionesCreateWithoutUsuarios_cpInput, sesionesUncheckedCreateWithoutUsuarios_cpInput> | sesionesCreateWithoutUsuarios_cpInput[] | sesionesUncheckedCreateWithoutUsuarios_cpInput[]
+    connectOrCreate?: sesionesCreateOrConnectWithoutUsuarios_cpInput | sesionesCreateOrConnectWithoutUsuarios_cpInput[]
+    createMany?: sesionesCreateManyUsuarios_cpInputEnvelope
+    connect?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+  }
+
   export type compospetCreateNestedOneWithoutUsuarios_cpInput = {
     create?: XOR<compospetCreateWithoutUsuarios_cpInput, compospetUncheckedCreateWithoutUsuarios_cpInput>
     connectOrCreate?: compospetCreateOrConnectWithoutUsuarios_cpInput
@@ -30654,6 +32130,13 @@ export namespace Prisma {
     connectOrCreate?: solicitud_registroCreateOrConnectWithoutUsuarios_cpInput | solicitud_registroCreateOrConnectWithoutUsuarios_cpInput[]
     createMany?: solicitud_registroCreateManyUsuarios_cpInputEnvelope
     connect?: solicitud_registroWhereUniqueInput | solicitud_registroWhereUniqueInput[]
+  }
+
+  export type sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput = {
+    create?: XOR<sesionesCreateWithoutUsuarios_cpInput, sesionesUncheckedCreateWithoutUsuarios_cpInput> | sesionesCreateWithoutUsuarios_cpInput[] | sesionesUncheckedCreateWithoutUsuarios_cpInput[]
+    connectOrCreate?: sesionesCreateOrConnectWithoutUsuarios_cpInput | sesionesCreateOrConnectWithoutUsuarios_cpInput[]
+    createMany?: sesionesCreateManyUsuarios_cpInputEnvelope
+    connect?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
   }
 
   export type administradorUpdateOneWithoutUsuarios_cpNestedInput = {
@@ -30702,6 +32185,20 @@ export namespace Prisma {
     update?: solicitud_registroUpdateWithWhereUniqueWithoutUsuarios_cpInput | solicitud_registroUpdateWithWhereUniqueWithoutUsuarios_cpInput[]
     updateMany?: solicitud_registroUpdateManyWithWhereWithoutUsuarios_cpInput | solicitud_registroUpdateManyWithWhereWithoutUsuarios_cpInput[]
     deleteMany?: solicitud_registroScalarWhereInput | solicitud_registroScalarWhereInput[]
+  }
+
+  export type sesionesUpdateManyWithoutUsuarios_cpNestedInput = {
+    create?: XOR<sesionesCreateWithoutUsuarios_cpInput, sesionesUncheckedCreateWithoutUsuarios_cpInput> | sesionesCreateWithoutUsuarios_cpInput[] | sesionesUncheckedCreateWithoutUsuarios_cpInput[]
+    connectOrCreate?: sesionesCreateOrConnectWithoutUsuarios_cpInput | sesionesCreateOrConnectWithoutUsuarios_cpInput[]
+    upsert?: sesionesUpsertWithWhereUniqueWithoutUsuarios_cpInput | sesionesUpsertWithWhereUniqueWithoutUsuarios_cpInput[]
+    createMany?: sesionesCreateManyUsuarios_cpInputEnvelope
+    set?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    disconnect?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    delete?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    connect?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    update?: sesionesUpdateWithWhereUniqueWithoutUsuarios_cpInput | sesionesUpdateWithWhereUniqueWithoutUsuarios_cpInput[]
+    updateMany?: sesionesUpdateManyWithWhereWithoutUsuarios_cpInput | sesionesUpdateManyWithWhereWithoutUsuarios_cpInput[]
+    deleteMany?: sesionesScalarWhereInput | sesionesScalarWhereInput[]
   }
 
   export type compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput = {
@@ -30766,6 +32263,34 @@ export namespace Prisma {
     update?: solicitud_registroUpdateWithWhereUniqueWithoutUsuarios_cpInput | solicitud_registroUpdateWithWhereUniqueWithoutUsuarios_cpInput[]
     updateMany?: solicitud_registroUpdateManyWithWhereWithoutUsuarios_cpInput | solicitud_registroUpdateManyWithWhereWithoutUsuarios_cpInput[]
     deleteMany?: solicitud_registroScalarWhereInput | solicitud_registroScalarWhereInput[]
+  }
+
+  export type sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput = {
+    create?: XOR<sesionesCreateWithoutUsuarios_cpInput, sesionesUncheckedCreateWithoutUsuarios_cpInput> | sesionesCreateWithoutUsuarios_cpInput[] | sesionesUncheckedCreateWithoutUsuarios_cpInput[]
+    connectOrCreate?: sesionesCreateOrConnectWithoutUsuarios_cpInput | sesionesCreateOrConnectWithoutUsuarios_cpInput[]
+    upsert?: sesionesUpsertWithWhereUniqueWithoutUsuarios_cpInput | sesionesUpsertWithWhereUniqueWithoutUsuarios_cpInput[]
+    createMany?: sesionesCreateManyUsuarios_cpInputEnvelope
+    set?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    disconnect?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    delete?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    connect?: sesionesWhereUniqueInput | sesionesWhereUniqueInput[]
+    update?: sesionesUpdateWithWhereUniqueWithoutUsuarios_cpInput | sesionesUpdateWithWhereUniqueWithoutUsuarios_cpInput[]
+    updateMany?: sesionesUpdateManyWithWhereWithoutUsuarios_cpInput | sesionesUpdateManyWithWhereWithoutUsuarios_cpInput[]
+    deleteMany?: sesionesScalarWhereInput | sesionesScalarWhereInput[]
+  }
+
+  export type usuarios_cpCreateNestedOneWithoutSesionesInput = {
+    create?: XOR<usuarios_cpCreateWithoutSesionesInput, usuarios_cpUncheckedCreateWithoutSesionesInput>
+    connectOrCreate?: usuarios_cpCreateOrConnectWithoutSesionesInput
+    connect?: usuarios_cpWhereUniqueInput
+  }
+
+  export type usuarios_cpUpdateOneRequiredWithoutSesionesNestedInput = {
+    create?: XOR<usuarios_cpCreateWithoutSesionesInput, usuarios_cpUncheckedCreateWithoutSesionesInput>
+    connectOrCreate?: usuarios_cpCreateOrConnectWithoutSesionesInput
+    upsert?: usuarios_cpUpsertWithoutSesionesInput
+    connect?: usuarios_cpWhereUniqueInput
+    update?: XOR<XOR<usuarios_cpUpdateToOneWithWhereWithoutSesionesInput, usuarios_cpUpdateWithoutSesionesInput>, usuarios_cpUncheckedUpdateWithoutSesionesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -31130,6 +32655,7 @@ export namespace Prisma {
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
     roles: rolesCreateNestedOneWithoutUsuarios_cpInput
   }
@@ -31152,6 +32678,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
 
   export type usuarios_cpCreateOrConnectWithoutAdministradorInput = {
@@ -31212,6 +32739,7 @@ export namespace Prisma {
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
     roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
   }
@@ -31234,6 +32762,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type avisosUpsertWithWhereUniqueWithoutAdministradorInput = {
@@ -31328,6 +32857,7 @@ export namespace Prisma {
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
     roles: rolesCreateNestedOneWithoutUsuarios_cpInput
   }
@@ -31350,6 +32880,7 @@ export namespace Prisma {
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
 
   export type usuarios_cpCreateOrConnectWithoutBitacoraInput = {
@@ -31384,6 +32915,7 @@ export namespace Prisma {
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
     roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
   }
@@ -31406,6 +32938,7 @@ export namespace Prisma {
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type rutaCreateWithoutClienteInput = {
@@ -31441,6 +32974,7 @@ export namespace Prisma {
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
     roles: rolesCreateNestedOneWithoutUsuarios_cpInput
   }
@@ -31463,6 +32997,7 @@ export namespace Prisma {
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
 
   export type usuarios_cpCreateOrConnectWithoutClienteInput = {
@@ -31577,6 +33112,7 @@ export namespace Prisma {
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
     roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
   }
@@ -31599,6 +33135,7 @@ export namespace Prisma {
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type saldoUpsertWithoutClienteInput = {
@@ -31746,6 +33283,7 @@ export namespace Prisma {
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     roles: rolesCreateNestedOneWithoutUsuarios_cpInput
   }
 
@@ -31767,6 +33305,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
 
   export type usuarios_cpCreateOrConnectWithoutCompospetInput = {
@@ -32355,6 +33894,7 @@ export namespace Prisma {
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
   }
 
@@ -32376,6 +33916,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
+    sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
 
   export type usuarios_cpCreateOrConnectWithoutRolesInput = {
@@ -32586,6 +34127,7 @@ export namespace Prisma {
     administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
+    sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
     roles: rolesCreateNestedOneWithoutUsuarios_cpInput
   }
@@ -32608,6 +34150,7 @@ export namespace Prisma {
     administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
+    sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
 
   export type usuarios_cpCreateOrConnectWithoutSolicitud_registroInput = {
@@ -32642,6 +34185,7 @@ export namespace Prisma {
     administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
     roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
   }
@@ -32664,6 +34208,7 @@ export namespace Prisma {
     administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type productos_solicitudCreateWithoutSolicitudes_recoleccionInput = {
@@ -33021,6 +34566,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type sesionesCreateWithoutUsuarios_cpInput = {
+    id?: string
+    refresh_token: string
+    dispositivo?: string | null
+    ip?: string | null
+    iniciada_en?: Date | string | null
+    expira_en: Date | string
+    ultima_actividad?: Date | string | null
+    activa?: boolean
+  }
+
+  export type sesionesUncheckedCreateWithoutUsuarios_cpInput = {
+    id?: string
+    refresh_token: string
+    dispositivo?: string | null
+    ip?: string | null
+    iniciada_en?: Date | string | null
+    expira_en: Date | string
+    ultima_actividad?: Date | string | null
+    activa?: boolean
+  }
+
+  export type sesionesCreateOrConnectWithoutUsuarios_cpInput = {
+    where: sesionesWhereUniqueInput
+    create: XOR<sesionesCreateWithoutUsuarios_cpInput, sesionesUncheckedCreateWithoutUsuarios_cpInput>
+  }
+
+  export type sesionesCreateManyUsuarios_cpInputEnvelope = {
+    data: sesionesCreateManyUsuarios_cpInput | sesionesCreateManyUsuarios_cpInput[]
+    skipDuplicates?: boolean
+  }
+
   export type compospetCreateWithoutUsuarios_cpInput = {
     id_cp?: string
     faq?: faqCreateNestedManyWithoutCompospetInput
@@ -33191,6 +34768,37 @@ export namespace Prisma {
     estatus?: BoolFilter<"solicitud_registro"> | boolean
   }
 
+  export type sesionesUpsertWithWhereUniqueWithoutUsuarios_cpInput = {
+    where: sesionesWhereUniqueInput
+    update: XOR<sesionesUpdateWithoutUsuarios_cpInput, sesionesUncheckedUpdateWithoutUsuarios_cpInput>
+    create: XOR<sesionesCreateWithoutUsuarios_cpInput, sesionesUncheckedCreateWithoutUsuarios_cpInput>
+  }
+
+  export type sesionesUpdateWithWhereUniqueWithoutUsuarios_cpInput = {
+    where: sesionesWhereUniqueInput
+    data: XOR<sesionesUpdateWithoutUsuarios_cpInput, sesionesUncheckedUpdateWithoutUsuarios_cpInput>
+  }
+
+  export type sesionesUpdateManyWithWhereWithoutUsuarios_cpInput = {
+    where: sesionesScalarWhereInput
+    data: XOR<sesionesUpdateManyMutationInput, sesionesUncheckedUpdateManyWithoutUsuarios_cpInput>
+  }
+
+  export type sesionesScalarWhereInput = {
+    AND?: sesionesScalarWhereInput | sesionesScalarWhereInput[]
+    OR?: sesionesScalarWhereInput[]
+    NOT?: sesionesScalarWhereInput | sesionesScalarWhereInput[]
+    id?: UuidFilter<"sesiones"> | string
+    id_usuario?: UuidFilter<"sesiones"> | string
+    refresh_token?: StringFilter<"sesiones"> | string
+    dispositivo?: StringNullableFilter<"sesiones"> | string | null
+    ip?: StringNullableFilter<"sesiones"> | string | null
+    iniciada_en?: DateTimeNullableFilter<"sesiones"> | Date | string | null
+    expira_en?: DateTimeFilter<"sesiones"> | Date | string
+    ultima_actividad?: DateTimeNullableFilter<"sesiones"> | Date | string | null
+    activa?: BoolFilter<"sesiones"> | boolean
+  }
+
   export type compospetUpsertWithoutUsuarios_cpInput = {
     update: XOR<compospetUpdateWithoutUsuarios_cpInput, compospetUncheckedUpdateWithoutUsuarios_cpInput>
     create: XOR<compospetCreateWithoutUsuarios_cpInput, compospetUncheckedCreateWithoutUsuarios_cpInput>
@@ -33237,6 +34845,106 @@ export namespace Prisma {
     id_rol?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     roles_permisos?: roles_permisosUncheckedUpdateManyWithoutRolesNestedInput
+  }
+
+  export type usuarios_cpCreateWithoutSesionesInput = {
+    id_usuario?: string
+    nombre: string
+    apellido?: string | null
+    contrasena: string
+    estatus?: boolean
+    telefono?: string | null
+    correo: string
+    primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
+    codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
+    administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
+    bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
+    cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
+    solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
+    compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
+    roles: rolesCreateNestedOneWithoutUsuarios_cpInput
+  }
+
+  export type usuarios_cpUncheckedCreateWithoutSesionesInput = {
+    id_usuario?: string
+    id_cp: string
+    id_rol: string
+    nombre: string
+    apellido?: string | null
+    contrasena: string
+    estatus?: boolean
+    telefono?: string | null
+    correo: string
+    primer_inicio_sesion?: boolean
+    intentos_fallidos?: number
+    bloqueado_hasta?: Date | string | null
+    codigo_expiracion?: Date | string | null
+    codigo_verificacion?: string | null
+    administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
+    bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
+    cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
+    solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
+  }
+
+  export type usuarios_cpCreateOrConnectWithoutSesionesInput = {
+    where: usuarios_cpWhereUniqueInput
+    create: XOR<usuarios_cpCreateWithoutSesionesInput, usuarios_cpUncheckedCreateWithoutSesionesInput>
+  }
+
+  export type usuarios_cpUpsertWithoutSesionesInput = {
+    update: XOR<usuarios_cpUpdateWithoutSesionesInput, usuarios_cpUncheckedUpdateWithoutSesionesInput>
+    create: XOR<usuarios_cpCreateWithoutSesionesInput, usuarios_cpUncheckedCreateWithoutSesionesInput>
+    where?: usuarios_cpWhereInput
+  }
+
+  export type usuarios_cpUpdateToOneWithWhereWithoutSesionesInput = {
+    where?: usuarios_cpWhereInput
+    data: XOR<usuarios_cpUpdateWithoutSesionesInput, usuarios_cpUncheckedUpdateWithoutSesionesInput>
+  }
+
+  export type usuarios_cpUpdateWithoutSesionesInput = {
+    id_usuario?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    apellido?: NullableStringFieldUpdateOperationsInput | string | null
+    contrasena?: StringFieldUpdateOperationsInput | string
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    correo?: StringFieldUpdateOperationsInput | string
+    primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
+    bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
+    cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
+    solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
+    compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
+    roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
+  }
+
+  export type usuarios_cpUncheckedUpdateWithoutSesionesInput = {
+    id_usuario?: StringFieldUpdateOperationsInput | string
+    id_cp?: StringFieldUpdateOperationsInput | string
+    id_rol?: StringFieldUpdateOperationsInput | string
+    nombre?: StringFieldUpdateOperationsInput | string
+    apellido?: NullableStringFieldUpdateOperationsInput | string | null
+    contrasena?: StringFieldUpdateOperationsInput | string
+    estatus?: BoolFieldUpdateOperationsInput | boolean
+    telefono?: NullableStringFieldUpdateOperationsInput | string | null
+    correo?: StringFieldUpdateOperationsInput | string
+    primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
+    intentos_fallidos?: IntFieldUpdateOperationsInput | number
+    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
+    administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
+    bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
+    cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
+    solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type avisosCreateManyAdministradorInput = {
@@ -33450,6 +35158,7 @@ export namespace Prisma {
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
   }
 
@@ -33471,6 +35180,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type usuarios_cpUncheckedUpdateManyWithoutCompospetInput = {
@@ -33640,6 +35350,7 @@ export namespace Prisma {
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
   }
 
@@ -33661,6 +35372,7 @@ export namespace Prisma {
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
+    sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
 
   export type usuarios_cpUncheckedUpdateManyWithoutRolesInput = {
@@ -33783,6 +35495,17 @@ export namespace Prisma {
     estatus?: boolean
   }
 
+  export type sesionesCreateManyUsuarios_cpInput = {
+    id?: string
+    refresh_token: string
+    dispositivo?: string | null
+    ip?: string | null
+    iniciada_en?: Date | string | null
+    expira_en: Date | string
+    ultima_actividad?: Date | string | null
+    activa?: boolean
+  }
+
   export type bitacoraUpdateWithoutUsuarios_cpInput = {
     origen?: StringFieldUpdateOperationsInput | string
     accion?: StringFieldUpdateOperationsInput | string
@@ -33864,6 +35587,39 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha?: DateTimeFieldUpdateOperationsInput | Date | string
     estatus?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type sesionesUpdateWithoutUsuarios_cpInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
+    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activa?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type sesionesUncheckedUpdateWithoutUsuarios_cpInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
+    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activa?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type sesionesUncheckedUpdateManyWithoutUsuarios_cpInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    refresh_token?: StringFieldUpdateOperationsInput | string
+    dispositivo?: NullableStringFieldUpdateOperationsInput | string | null
+    ip?: NullableStringFieldUpdateOperationsInput | string | null
+    iniciada_en?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    expira_en?: DateTimeFieldUpdateOperationsInput | Date | string
+    ultima_actividad?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    activa?: BoolFieldUpdateOperationsInput | boolean
   }
 
 
