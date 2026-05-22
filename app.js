@@ -6,7 +6,8 @@ const monitorMiddleware = require('./middlewares/monitor');
 const config = require('./config/env')
 const cookieParser = require('cookie-parser');
 const helmet = require('helmet');
-
+const cron = require('node-cron');
+const { exportDailyRoutes } = require('./controllers/tableRoutes.controller');
 const routes = require('./routes/general_routes.routes');
 
 /**
@@ -89,5 +90,22 @@ app.use((req, res) => {
         message: `La ruta ${req.originalUrl} no existe en este servidor.`
     });
 });
+
+/**
+ * Tarea programada que exporta automáticamente las rutas del día a una hoja de cálculo.
+ * Se ejecuta diariamente a las 18:00 hora de la Ciudad de México.
+ * En caso de error, registra el mensaje en consola sin interrumpir el proceso principal.
+ *
+ * @see exportDailyRoutes
+ */
+if (process.env.NODE_ENV !== "test") {
+    cron.schedule('0 18 * * *', async () => {
+        try {
+            const sheetUrl = await exportDailyRoutes();
+        } catch (error) {
+            console.error(error);
+        }
+    });
+}
 
 module.exports = app;
