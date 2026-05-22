@@ -154,8 +154,8 @@ const formatRouteInfo = (routeInfo) => {
             horario: formattedTime(request?.horario),
             id_pago: request?.formas_pago?.id_pago || null,
             forma_pago: request?.formas_pago?.tipo || " ",
-            total_a_pagar: request?.total_a_pagar?.toString() ?? " ",
-            total_pagado: request?.total_pagado?.toString() ?? " ",
+            total_a_pagar: request?.total_a_pagar || null,
+            total_pagado: request?.total_pagado || null,
             notas: request?.notas || " ",
 
             hasRequest: !!request,
