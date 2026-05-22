@@ -302,6 +302,18 @@ exports.Prisma.ZonaScalarFieldEnum = {
   estado: 'estado'
 };
 
+exports.Prisma.SesionesScalarFieldEnum = {
+  id: 'id',
+  id_usuario: 'id_usuario',
+  refresh_token: 'refresh_token',
+  dispositivo: 'dispositivo',
+  ip: 'ip',
+  iniciada_en: 'iniciada_en',
+  expira_en: 'expira_en',
+  ultima_actividad: 'ultima_actividad',
+  activa: 'activa'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -349,7 +361,8 @@ exports.Prisma.ModelName = {
   solicitudes_recoleccion: 'solicitudes_recoleccion',
   saldo: 'saldo',
   usuarios_cp: 'usuarios_cp',
-  zona: 'zona'
+  zona: 'zona',
+  sesiones: 'sesiones'
 };
 
 /**

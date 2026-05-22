@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 
 const authController = require('../controllers/auth/auth.controller');
-const firstLoginController = require('../controllers/auth/password.controller');
+const passwordController = require('../controllers/auth/password.controller');
+const { requireRole } = require('../middlewares/roleAccess');
+const { authMiddleware } = require('../middlewares/auth')
 
 /**
  * Rutas del módulo de autenticación.
@@ -34,21 +36,21 @@ router.post('/auth/google', authController.googleAuth);
  * @description Valida el correo y dispara el envío del código vía GmailService.
  * @returns {Object} 200 - seedToken (JWT temporal) para el siguiente paso.
  */
-router.post('/request-otp', firstLoginController.requestOTP);
+router.post('/request-otp', passwordController.requestOTP);
 
 /**
  * @route POST /api/auth/verify-otp
  * @description Compara el OTP ingresado con el de la BD y valida expiración.
  * @returns {Object} 200 - flowToken para permitir el cambio de contraseña.
  */
-router.post('/verify-otp', firstLoginController.verifyOTP);
+router.post('/verify-otp', passwordController.verifyOTP);
 
 /**
  * @route POST /api/auth/update-password
  * @description Paso final: Hashea la nueva contraseña y activa formalmente la cuenta.
  * @returns {Object} 200 - Confirmación de actualización exitosa.
  */
-router.post('/update-password', firstLoginController.updatePassword);
+router.post('/update-password', passwordController.updatePassword);
 
 /**
  * @route POST /refresh
@@ -58,5 +60,13 @@ router.post('/update-password', firstLoginController.updatePassword);
  * @see authController.refreshToken
  */
 router.post('/refresh', authController.refreshToken);
+
+/**
+ * @route POST /cerrar-sesion
+ * @description Elimina el refresh token de las cookies y base de datos. 
+ * @access Privado (Requiere cookie refreshToken)
+ * @see authController.logout
+ */
+router.post('/cerrar-sesion', authMiddleware, requireRole("Administrador", "Cliente"), authController.logout);
 
 module.exports = router;

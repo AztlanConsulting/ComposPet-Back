@@ -27,6 +27,14 @@ const cookieOptions = {
         && { domain: process.env.COOKIE_DOMAIN }),
 };
 
+const getClientIp = (req) => {
+    return (
+        req.headers['x-forwarded-for']?.split(',')[0]?.trim() ||
+        req.socket?.remoteAddress ||
+        null
+    );
+};
+
 /**
  * Controlador del endpoint de inicio de sesión.
  * Orquesta la autenticación del usuario aplicando las siguientes validaciones en orden:
@@ -106,6 +114,17 @@ const login = async(req, res) => {
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
 
+        try {
+            const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
+            if (activeSessions >= 2) {
+                await AuthModel.closeOldestSession(user.id_usuario);
+            }
+            const ip = getClientIp(req); // ← obtener IP
+            await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
+        } catch (dbError) {
+            console.error('Error saving session:', dbError);
+        }
+
         res.cookie('refreshToken', refreshToken, cookieOptions);
 
         return res.status(200).json({
@@ -169,6 +188,17 @@ const googleAuth = async (req, res) => {
     const accessToken = generateAccessToken(tokenPayload);
     const refreshToken = generateRefreshToken(tokenPayload);
 
+    try {
+        const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
+        if (activeSessions >= 2) {
+            await AuthModel.closeOldestSession(user.id_usuario);
+        }
+        const ip = getClientIp(req); // ← obtener IP
+        await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
+    } catch (dbError) {
+        console.error('Error saving session:', dbError);
+    }
+
     await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
     res.cookie('refreshToken', refreshToken, cookieOptions);
@@ -202,35 +232,76 @@ const googleAuth = async (req, res) => {
  * @throws {Error} Si el token ha expirado o ha sido manipulado.
  */
 const refreshToken = async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
+    const token = req.cookies.refreshToken;
 
-    if (!refreshToken) {
+    if (!token) {
         return res.status(403).json({ message: 'No hay token de refresco.' });
     }
 
     try {
-        const payload = verifyRefreshToken(refreshToken);
+        const payload = verifyRefreshToken(token);
+        const session = await AuthModel.findSession(token);
+
+        if (!session) {
+            res.clearCookie('refreshToken', cookieOptions);
+            return res.status(403).json({ message: 'Sesión no encontrada o inactiva.' });
+        }
+
+        if (new Date() > new Date(session.expira_en)) {
+            await AuthModel.closeSession(token);
+            res.clearCookie('refreshToken', cookieOptions);
+            return res.status(403).json({ message: 'Session expired due to inactivity.' });
+        }
+
+        const role = session.usuarios_cp.roles.nombre;
+        const newRefreshToken = generateRefreshToken({
+            userId: payload.userId,
+            email: payload.email,
+            role,
+        });
+
+        await AuthModel.updateSession(token, newRefreshToken, role);
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,
             email: payload.email,
-            role: payload.role
-        });
-
-        const newRefreshToken = generateRefreshToken({
-            userId: payload.userId,
-            email: payload.email,
-            role: payload.role
+            role,
         });
 
         res.cookie('refreshToken', newRefreshToken, cookieOptions);
-
         return res.status(200).json({ accessToken: newAccessToken });
 
     } catch (error) {
         res.clearCookie('refreshToken');
-        console.error('Error al refrescar token:', error);
+        console.error('Error refreshing token:', error);
         return res.status(403).json({ message: 'Token de refresco inválido o expirado.' });
+    }
+};
+
+/**
+ * Controlador del endpoint de cierre de sesión.
+ * Invalida la sesión activa del usuario en la base de datos y elimina
+ * la cookie de refresco del navegador.
+ *
+ * @async
+ * @param {import('express').Request} req - Solicitud HTTP. Se espera la cookie `refreshToken`.
+ * @param {import('express').Response} res - Respuesta HTTP.
+ * @returns {Promise<void>} 200 si la sesión se cerró correctamente, 500 si ocurrió un error.
+ * @throws {Error} Errores inesperados de base de datos se capturan y responden con HTTP 500.
+ * @see AuthModel.closeSession
+ */
+const logout = async (req, res) => {
+    const token = req.cookies.refreshToken;
+
+    try {
+        if (token) {
+            await AuthModel.closeSession(token);
+        }
+        res.clearCookie('refreshToken', cookieOptions);
+        return res.status(200).json({ message: 'Session closed successfully.' });
+    } catch (error) {
+        console.error('Error closing session:', error);
+        return res.status(500).json({ message: 'Error closing session.' });
     }
 };
 
@@ -238,4 +309,5 @@ module.exports = {
     login, 
     googleAuth,
     refreshToken,
+    logout,
 };

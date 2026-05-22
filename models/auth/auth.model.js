@@ -108,6 +108,77 @@ const AuthModel = {
             }
         });
     },
+    createSession: async (id_usuario, refresh_token, rol, ip) => {
+        const timeouts = {
+            'Cliente': 5 * 60 * 60 * 1000,
+            'Administrador': 8 * 60 * 60 * 1000,
+        };
+        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['Cliente']));
+
+        return await prisma.sesiones.create({
+            data: {
+                id_usuario,
+                refresh_token,
+                expira_en: expires_at,
+                ip,
+            }
+        });
+    },
+
+    findSession: async (refresh_token) => {
+        return await prisma.sesiones.findFirst({
+            where: { refresh_token, activa: true },
+            include: {
+                usuarios_cp: {
+                    include: { roles: { select: { nombre: true } } }
+                }
+            }
+        });
+    },
+
+    updateSession: async (refresh_token, new_token, rol) => {
+        const timeouts = {
+            'Cliente': 5 * 60 * 60 * 1000,
+            'Administrador': 8 * 60 * 60 * 1000,
+        };
+        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['Cliente']));
+
+        return await prisma.sesiones.update({
+            where: { refresh_token },
+            data: {
+                refresh_token: new_token,
+                ultima_actividad: new Date(),
+                expira_en: expires_at,
+            }
+        });
+    },
+
+    closeSession: async (refresh_token) => {
+        return await prisma.sesiones.updateMany({
+            where: { refresh_token },
+            data: { activa: false }
+        });
+    },
+
+    countActiveSessions: async (id_usuario) => {
+        return await prisma.sesiones.count({
+            where: { id_usuario, activa: true }
+        });
+    },
+
+    closeOldestSession: async (id_usuario) => {
+        const oldest = await prisma.sesiones.findFirst({
+            where: { id_usuario, activa: true },
+            orderBy: { iniciada_en: 'asc' },
+        });
+        if (oldest) {
+            return await prisma.sesiones.update({
+                where: { id: oldest.id },
+                data: { activa: false }
+            });
+        }
+        return null;
+    },
 };
 
 module.exports = AuthModel;
