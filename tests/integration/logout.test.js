@@ -12,6 +12,18 @@ const TEST_ROLE_ID = randomUUID();
 const TEST_USER_ID = randomUUID();
 const TEST_EMAIL = 'logout.test@compospet.com';
 
+const generateTestAccessToken = () => {
+    return jwt.sign(
+        { userId: TEST_USER_ID, email: TEST_EMAIL, role: 'cliente' },
+        process.env.JWT_ACCESS_SECRET,
+        {
+            expiresIn: '15m',
+            issuer: 'compospet-api',
+            audience: 'compospet-client',
+        }
+    );
+};
+
 const createTestUser = async () => {
     return prisma.usuarios_cp.create({
         data: {
@@ -82,6 +94,7 @@ describe('Auth Logout Integration', () => {
     it('debe cerrar sesión exitosamente y marcar sesión como inactiva en DB', async () => {
         // --- Arrange ---
         await createTestUser();
+        const accessToken = generateTestAccessToken();
         const fakeRefreshToken = jwt.sign(
             { userId: TEST_USER_ID, email: TEST_EMAIL, role: 'cliente' },
             process.env.JWT_REFRESH_SECRET,
@@ -92,29 +105,41 @@ describe('Auth Logout Integration', () => {
         // --- Act ---
         const res = await request(app)
             .post('/api/cerrar-sesion')
+            .set('Authorization', `Bearer ${accessToken}`)
             .set('Cookie', [`refreshToken=${fakeRefreshToken}`]);
 
         // --- Assert ---
         expect(res.status).toBe(200);
         expect(res.body.message).toBe('Session closed successfully.');
 
-        // Verificar en DB que la sesión quedó inactiva
         const session = await prisma.sesiones.findFirst({
             where: { refresh_token: fakeRefreshToken }
         });
         expect(session.activa).toBe(false);
 
-        // Verificar que la cookie fue limpiada
         const cookies = res.headers['set-cookie'];
         expect(cookies).toBeDefined();
         expect(cookies.some(c => c.includes('refreshToken=;'))).toBe(true);
     });
 
-    it('debe retornar 200 aunque no haya cookie de sesión', async () => {
+    it('debe retornar 401 si no se envía Access Token', async () => {
         // --- Act ---
         const res = await request(app)
             .post('/api/cerrar-sesion');
-            // Sin cookie
+
+        // --- Assert ---
+        expect(res.status).toBe(401);
+    });
+
+    it('debe retornar 200 aunque no haya cookie de refreshToken', async () => {
+        // --- Arrange ---
+        await createTestUser();
+        const accessToken = generateTestAccessToken();
+
+        // --- Act ---
+        const res = await request(app)
+            .post('/api/cerrar-sesion')
+            .set('Authorization', `Bearer ${accessToken}`);
 
         // --- Assert ---
         expect(res.status).toBe(200);
@@ -124,19 +149,20 @@ describe('Auth Logout Integration', () => {
     it('debe retornar 200 aunque el token no exista en DB (sesión ya cerrada)', async () => {
         // --- Arrange ---
         await createTestUser();
+        const accessToken = generateTestAccessToken();
         const fakeRefreshToken = jwt.sign(
             { userId: TEST_USER_ID, email: TEST_EMAIL, role: 'cliente' },
             process.env.JWT_REFRESH_SECRET,
             { expiresIn: '7d' }
         );
-        // No creamos sesión en DB — simula token huérfano
 
         // --- Act ---
         const res = await request(app)
             .post('/api/cerrar-sesion')
+            .set('Authorization', `Bearer ${accessToken}`)
             .set('Cookie', [`refreshToken=${fakeRefreshToken}`]);
 
         // --- Assert ---
-        expect(res.status).toBe(200); // igual debe responder 200, no fallar
+        expect(res.status).toBe(200);
     });
 });
