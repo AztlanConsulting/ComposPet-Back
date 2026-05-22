@@ -374,4 +374,41 @@ module.exports = class Client {
         });
     }
 
+    static async getCompostStatus(){
+        const compostStatus = await prisma.productos_extra.findMany({
+            where:{
+                id_producto:{
+                    in: [2, 3],
+                },
+            },
+            select:{
+                estatus: true,
+            },
+        });
+
+        if (compostStatus.length !== 2) {
+        return false;
+    }
+
+        const isEnabled = compostStatus.every(
+            product => product.estatus === true
+        );
+
+        return isEnabled;
+    };
+
+    static async updateCompostStatus(newStatus){
+        const updateResult = await prisma.productos_extra.updateMany({
+            where:{
+                id_producto:{
+                    in:[2,3],
+                },
+            },
+            data:{
+                estatus: newStatus,
+            }
+        })
+        return updateResult;
+    };
+
 };

@@ -233,7 +233,6 @@ const googleAuth = async (req, res) => {
  */
 const refreshToken = async (req, res) => {
     const token = req.cookies.refreshToken;
-    console.log("INTENTA REFRESH TOKEN");
 
     if (!token) {
         return res.status(403).json({ message: 'No hay token de refresco.' });

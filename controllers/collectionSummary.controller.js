@@ -30,7 +30,6 @@ const getSummary = async (req, res) => {
     );
 
     const productsList = await CollectionRequest.getProductsByCollection(collectionObject.id_solicitud);
-
     const collectionTotal = calculateCollectionTotal(collectionObject, productsList);
 
     const balanceObject = await Client.getClientBalance(idClient);
@@ -119,9 +118,7 @@ const updateCollectionTotal = async(req, res) => {
 }
 
 const calculateCollectionTotal = (collectionObject, productsList) => {
-
     const collectionCost = bucketCostMap[collectionObject.cubetas_entregadas]
-
     let productsCost = 0;
     for (let product of productsList){
         productsCost += product.productos_extra.precio * product.cantidad;
