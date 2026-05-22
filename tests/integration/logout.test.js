@@ -14,7 +14,7 @@ const TEST_EMAIL = 'logout.test@compospet.com';
 
 const generateTestAccessToken = () => {
     return jwt.sign(
-        { userId: TEST_USER_ID, email: TEST_EMAIL, role: 'cliente' },
+        { userId: TEST_USER_ID, email: TEST_EMAIL, role: 'Cliente' },
         process.env.JWT_ACCESS_SECRET,
         {
             expiresIn: '15m',
