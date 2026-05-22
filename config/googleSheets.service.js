@@ -34,6 +34,18 @@ const GoogleSheetsService = {
         });
     },
 
+    createSheetsClientServiceAccount: () => {
+        const auth = new google.auth.OAuth2(
+            process.env.GOOGLE_CLIENT_ID,
+            process.env.GOOGLE_CLIENT_SECRET,
+        );
+        auth.setCredentials({
+            refresh_token: process.env.GOOGLE_REFRESH_TOKEN,
+        });
+        // Con refresh_token, Google renueva el access_token automáticamente
+        return google.sheets({ version: 'v4', auth });
+    },
+
     /**
      * Limpia un rango específico de una hoja.
      *
