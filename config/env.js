@@ -26,7 +26,7 @@ const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
   sessionTimeouts: {
-    'cliente': 5 * 60 * 60 * 1000,    
+    'Cliente': 5 * 60 * 60 * 1000,    
     'Administrador': 8 * 60 * 60 * 1000, 
   },
 };

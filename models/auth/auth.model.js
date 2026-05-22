@@ -110,10 +110,10 @@ const AuthModel = {
     },
     createSession: async (id_usuario, refresh_token, rol, ip) => {
         const timeouts = {
-            'cliente': 5 * 60 * 60 * 1000,
+            'Cliente': 5 * 60 * 60 * 1000,
             'Administrador': 8 * 60 * 60 * 1000,
         };
-        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['cliente']));
+        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['Cliente']));
 
         return await prisma.sesiones.create({
             data: {
@@ -138,10 +138,10 @@ const AuthModel = {
 
     updateSession: async (refresh_token, new_token, rol) => {
         const timeouts = {
-            'cliente': 5 * 60 * 60 * 1000,
+            'Cliente': 5 * 60 * 60 * 1000,
             'Administrador': 8 * 60 * 60 * 1000,
         };
-        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['cliente']));
+        const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['Cliente']));
 
         return await prisma.sesiones.update({
             where: { refresh_token },

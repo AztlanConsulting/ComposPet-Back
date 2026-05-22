@@ -3,6 +3,7 @@ const router = express.Router();
 
 const authController = require('../controllers/auth/auth.controller');
 const passwordController = require('../controllers/auth/password.controller');
+const { requireRole } = require('../middlewares/roleAccess');
 
 /**
  * Rutas del módulo de autenticación.
@@ -65,6 +66,6 @@ router.post('/refresh', authController.refreshToken);
  * @access Privado (Requiere cookie refreshToken)
  * @see authController.logout
  */
-router.post('/cerrar-sesion', authController.logout);
+router.post('/cerrar-sesion', requireRole("Administrador", "Cliente"), authController.logout);
 
 module.exports = router;
