@@ -189,12 +189,12 @@ const googleAuth = async (req, res) => {
     const refreshToken = generateRefreshToken(tokenPayload);
 
     try {
-        const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
+        const activeSessions = await AuthModel.countActiveSessions(userDB.id_usuario);
         if (activeSessions >= 2) {
-            await AuthModel.closeOldestSession(user.id_usuario);
+            await AuthModel.closeOldestSession(userDB.id_usuario);
         }
         const ip = getClientIp(req); // ← obtener IP
-        await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
+        await AuthModel.createSession(userDB.id_usuario, refreshToken, userDB.roles.nombre, ip);
     } catch (dbError) {
         console.error('Error saving session:', dbError);
     }
