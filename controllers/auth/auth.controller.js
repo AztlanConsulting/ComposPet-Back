@@ -189,12 +189,12 @@ const googleAuth = async (req, res) => {
     const refreshToken = generateRefreshToken(tokenPayload);
 
     try {
-        const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
+        const activeSessions = await AuthModel.countActiveSessions(userDB.id_usuario);
         if (activeSessions >= 2) {
-            await AuthModel.closeOldestSession(user.id_usuario);
+            await AuthModel.closeOldestSession(userDB.id_usuario);
         }
         const ip = getClientIp(req); // ← obtener IP
-        await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
+        await AuthModel.createSession(userDB.id_usuario, refreshToken, userDB.roles.nombre, ip);
     } catch (dbError) {
         console.error('Error saving session:', dbError);
     }
@@ -233,6 +233,7 @@ const googleAuth = async (req, res) => {
  */
 const refreshToken = async (req, res) => {
     const token = req.cookies.refreshToken;
+    console.log("INTENTA REFRESH TOKEN");
 
     if (!token) {
         return res.status(403).json({ message: 'No hay token de refresco.' });
@@ -259,8 +260,12 @@ const refreshToken = async (req, res) => {
             email: payload.email,
             role,
         });
-
-        await AuthModel.updateSession(token, newRefreshToken, role);
+        try {
+            await AuthModel.updateSession(token, newRefreshToken, role);
+        } catch {
+            return res.status(401).json({ message: 'Sesión inválida o expirada' });
+        }
+        
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,

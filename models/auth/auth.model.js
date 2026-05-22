@@ -171,6 +171,14 @@ const AuthModel = {
         };
         const expires_at = new Date(Date.now() + (timeouts[rol] ?? timeouts['Cliente']));
 
+        const session = await prisma.sesiones.findUnique({
+            where: { refresh_token }
+        });
+
+        if (!session) {
+            throw new Error('Sesión no encontrada o token inválido');
+        }
+
         return await prisma.sesiones.update({
             where: { refresh_token },
             data: {
