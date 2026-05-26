@@ -198,8 +198,8 @@ describe("Integración - Ruta - getTableInfo",  () => {
             entrega: 3,
             productos_extra: ' ',
             forma_pago: ' ',
-            total_a_pagar: '150',
-            total_pagado: '100',
+            total_a_pagar: 150,
+            total_pagado: 100,
             notas: 'Tocar timbre',
         });
     });

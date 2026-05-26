@@ -9,5 +9,9 @@ router.post('/obtener-cliente-y-ruta', requireRole("Administrador", "Cliente"), 
 
 router.get('/informacion', requireRole("Administrador"), clientController.getClientsInfo);
 
+router.get('/estatus-composta', requireRole('Administrador'), clientController.getCompostStatus);
+
+router.post('/modificar-estatus-composta', requireRole('Administrador'), clientController.updateCompostStatus);
+
 
 module.exports = router;
