@@ -120,23 +120,6 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.AdministradorScalarFieldEnum = {
-  id_admin: 'id_admin',
-  id_usuario: 'id_usuario',
-  clave: 'clave',
-  nombre: 'nombre',
-  banco: 'banco'
-};
-
-exports.Prisma.AvisosScalarFieldEnum = {
-  id_aviso: 'id_aviso',
-  id_admin: 'id_admin',
-  titulo: 'titulo',
-  texto: 'texto',
-  foto: 'foto',
-  fecha: 'fecha'
-};
-
 exports.Prisma.BitacoraScalarFieldEnum = {
   id_bitacora: 'id_bitacora',
   origen: 'origen',
@@ -169,13 +152,6 @@ exports.Prisma.CompospetScalarFieldEnum = {
   id_cp: 'id_cp'
 };
 
-exports.Prisma.FaqScalarFieldEnum = {
-  id_faq: 'id_faq',
-  id_cp: 'id_cp',
-  pregunta: 'pregunta',
-  respuesta: 'respuesta'
-};
-
 exports.Prisma.Formas_pagoScalarFieldEnum = {
   tipo: 'tipo',
   texto: 'texto',
@@ -195,15 +171,6 @@ exports.Prisma.PermisosScalarFieldEnum = {
   id_permiso: 'id_permiso',
   nombre: 'nombre',
   descripcion: 'descripcion'
-};
-
-exports.Prisma.Personas_equipoScalarFieldEnum = {
-  id_personas_equipo: 'id_personas_equipo',
-  id_cp: 'id_cp',
-  nombre: 'nombre',
-  apellido_paterno: 'apellido_paterno',
-  apellido_materno: 'apellido_materno',
-  foto: 'foto'
 };
 
 exports.Prisma.Productos_extraScalarFieldEnum = {
@@ -239,21 +206,6 @@ exports.Prisma.RutaScalarFieldEnum = {
   id_ruta: 'id_ruta',
   dia_ruta: 'dia_ruta',
   turno_ruta: 'turno_ruta'
-};
-
-exports.Prisma.Solicitud_registroScalarFieldEnum = {
-  id_solicitud_registro: 'id_solicitud_registro',
-  id_usuario: 'id_usuario',
-  nombre: 'nombre',
-  apellido: 'apellido',
-  telefono: 'telefono',
-  correo: 'correo',
-  direccion: 'direccion',
-  mascotas: 'mascotas',
-  familia: 'familia',
-  notas: 'notas',
-  fecha: 'fecha',
-  estatus: 'estatus'
 };
 
 exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {
@@ -295,13 +247,6 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   codigo_verificacion: 'codigo_verificacion'
 };
 
-exports.Prisma.ZonaScalarFieldEnum = {
-  id_zona: 'id_zona',
-  municipio: 'municipio',
-  descripcion: 'descripcion',
-  estado: 'estado'
-};
-
 exports.Prisma.SesionesScalarFieldEnum = {
   id: 'id',
   id_usuario: 'id_usuario',
@@ -329,39 +274,33 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
-exports.Prisma.NullsOrder = {
-  first: 'first',
-  last: 'last'
-};
-
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+
 
 exports.Prisma.ModelName = {
-  administrador: 'administrador',
-  avisos: 'avisos',
   bitacora: 'bitacora',
   cliente: 'cliente',
   compospet: 'compospet',
-  faq: 'faq',
   formas_pago: 'formas_pago',
   metricas: 'metricas',
   permisos: 'permisos',
-  personas_equipo: 'personas_equipo',
   productos_extra: 'productos_extra',
   productos_solicitud: 'productos_solicitud',
   roles: 'roles',
   roles_permisos: 'roles_permisos',
   ruta: 'ruta',
-  solicitud_registro: 'solicitud_registro',
   solicitudes_recoleccion: 'solicitudes_recoleccion',
   saldo: 'saldo',
   usuarios_cp: 'usuarios_cp',
-  zona: 'zona',
   sesiones: 'sesiones'
 };
 
