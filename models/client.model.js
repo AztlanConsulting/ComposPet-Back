@@ -291,8 +291,28 @@ module.exports = class Client {
         oldOrder,
         newOrder,
     ){
+        if(oldOrder == null){
+            await tx.cliente.updateMany({
+                where: {
+                    id_ruta: routeId,
+                    id_cliente: {
+                        not: clientId,
+                    },
+                    orden_horario: {
+                        gte: newOrder,
+                    }
+                },
+                data: {
+                    orden_horario: {
+                        increment: 1,
+                    }
+                }
+            });
 
+            return;
+        }
         if(newOrder > oldOrder){
+            console.log("Actualizar orden del ", oldOrder, " al ", newOrder);
             await tx.cliente.updateMany({
                 where: {
                     id_ruta: routeId,
@@ -313,6 +333,7 @@ module.exports = class Client {
         }
 
         if(newOrder < oldOrder){
+            console.log("Actualizar orden del ", newOrder, " al ", oldOrder);
             await tx.cliente.updateMany({
                 where: {
                     id_ruta: routeId,
