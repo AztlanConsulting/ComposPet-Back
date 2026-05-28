@@ -18,14 +18,15 @@ const getWebVitalMetric = (req, res) => {
             timestamp,
         } = req.body;
 
-        console.log('[Web Vital Received]', {
-            name,
-            value,
-            delta,
-            unit,
-            id,
-            url,
-            timestamp,
+        console.log('\n[Web Vital Received]');
+
+        console.table({
+                [`Metrica: ${name}`]: {
+                    Valor: `${value} ${unit}`,
+                    Delta: `${delta} ${unit}`,
+                    URL: url,
+                    Fecha: timestamp,
+                },
         });
 
         return res.status(200).json({
