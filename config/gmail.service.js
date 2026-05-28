@@ -2,6 +2,7 @@ const { google } = require('googleapis');
 const { callExternalApi } = require('../middlewares/externalApiClient');
 const { getBaseLayout } = require('../utils/templates/baseLayout'); 
 const { getOtpContent } = require('../utils/templates/authTemplates');
+const nodemailer = require('nodemailer');
 
 /**
  * GmailService proporciona métodos para autenticar, formatear y enviar correos 
@@ -50,6 +51,7 @@ const GmailService = {
             .toString('base64')
             .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
     },
+
 
     /**
      * Ejecuta el envío de un correo electrónico estático a través de la API de Gmail.
