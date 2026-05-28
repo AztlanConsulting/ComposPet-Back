@@ -20,7 +20,6 @@ const MAX_ATTEMPTS = 5;
  */
 const requestOTP = async (req, res) => {
     const { email, isFirstLogin: requestedFirstLogin } = req.body;
-    console.log("Correo destino recibido:", email);
 
     try {
 
