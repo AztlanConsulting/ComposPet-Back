@@ -257,8 +257,10 @@ module.exports = class Client {
                             oldRouteId,
                             oldOrder,
                             newRouteId,
-                            newOrder,
                         );
+
+                        delete clientData.orden_horario;
+                        delete clientData.id_ruta;
                     }
                     else if(orderChanged) {
                         await this.handleOrderChange(
@@ -380,39 +382,55 @@ module.exports = class Client {
         oldRouteId,
         oldOrder,
         newRouteId,
-        newOrder,
     ){
 
-        await tx.cliente.updateMany({
-            where: {
-                id_ruta: oldRouteId,
-                orden_horario: {
-                    gt: oldOrder,
-                }
+    await tx.cliente.updateMany({
+        where: {
+            id_ruta: oldRouteId,
+            id_cliente: {
+                not: clientId,
             },
-            data: {
-                orden_horario: {
-                    decrement: 1,
-                }
+            orden_horario: {
+                gt: oldOrder,
             }
-        });
+        },
+        data: {
+            orden_horario: {
+                decrement: 1,
+            }
+        }
+    });
 
-        await tx.cliente.updateMany({
-            where: {
-                id_ruta: newRouteId,
-                id_cliente: {
-                    not: clientId,
-                },
-                orden_horario: {
-                    gte: newOrder,
-                },
+    const lastClient = await tx.cliente.findFirst({
+        where: {
+            id_ruta: newRouteId,
+            id_cliente: {
+                not: clientId,
             },
-            data: {
-                orden_horario: {
-                    increment: 1,
-                }
+            orden_horario: {
+                not: null,
             }
-        });
+        },
+        orderBy: {
+            orden_horario: "desc"
+        },
+        select: {
+            orden_horario: true,
+        }
+    });
+
+    const lastOrder =
+        (lastClient?.orden_horario ?? 0) + 1;
+
+    await tx.cliente.update({
+        where: {
+            id_cliente: clientId,
+        },
+        data: {
+            id_ruta: newRouteId,
+            orden_horario: lastOrder,
+        }
+    });
     }
 
     static async moveClientToLastOrder(
