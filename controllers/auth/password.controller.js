@@ -20,6 +20,7 @@ const MAX_ATTEMPTS = 5;
  */
 const requestOTP = async (req, res) => {
     const { email, isFirstLogin: requestedFirstLogin } = req.body;
+    console.log("Correo destino recibido:", email);
 
     try {
 
@@ -27,7 +28,7 @@ const requestOTP = async (req, res) => {
 
         if (!user) {
             return res.status(404).json({ 
-                message: 'El correo proporcionado no está registrado.' 
+                message:'Si existe una cuenta asociada a este correo, revisa tu bandeja de entrada y correo no deseado.'
             });
         }
 
@@ -35,13 +36,13 @@ const requestOTP = async (req, res) => {
 
         if (!requestedFirstLogin && actuallyIsFirstLogin) {
             return res.status(400).json({ 
-                message: 'Tu cuenta aún no ha sido activada.' 
+                message: 'Si existe una cuenta asociada a este correo, revisa tu bandeja de entrada y correo no deseado.'
             });
         }
 
         if (requestedFirstLogin && !actuallyIsFirstLogin) {
             return res.status(400).json({ 
-                message: 'Esta cuenta ya se encuentra activa.' 
+                message: 'Si existe una cuenta asociada a este correo, revisa tu bandeja de entrada y correo no deseado.'
             });
         }
 
@@ -72,6 +73,7 @@ const requestOTP = async (req, res) => {
               };
 
         await GmailService.sendStaticEmail(email, subject, code, emailOptions);
+
         const actionLog = actuallyIsFirstLogin ? 'SOLICITUD_OTP_PRIMER_LOGIN' : 'SOLICITUD_OTP_RECOVERY';
         await logIfAdmin(user, actionLog, `Correo: ${email}`);
 
