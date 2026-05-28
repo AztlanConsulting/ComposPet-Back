@@ -111,15 +111,15 @@ model personas_equipo {
 }
 
 model productos_extra {
-  id_producto         Int                   @id
+  id_producto         Int                   @id @default(autoincrement())
   nombre              String                @db.VarChar
   precio              Float
   descripcion         String?               @db.VarChar
   cantidad            Int
   imagen_url          String?               @db.VarChar
   orden               Int?
-  estatus             Boolean?
-  color               String?               @db.VarChar
+  estatus             Boolean              @default(true)
+  color               String               @db.VarChar
   productos_solicitud productos_solicitud[]
 }
 
