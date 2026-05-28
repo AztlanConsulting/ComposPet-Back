@@ -37,7 +37,7 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
 
             expect(res.status).toHaveBeenCalledWith(404);
             expect(res.json).toHaveBeenCalledWith({ 
-                message: 'El correo proporcionado no está registrado.' 
+                message: 'Si existe una cuenta asociada a este correo, revisa tu bandeja de entrada y correo no deseado.'
             });
         });
 
