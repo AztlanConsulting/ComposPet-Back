@@ -82,7 +82,7 @@ describe('Auth OTP Integration - Error Flows', () => {
 
         // --- Assert (Afirmar) ---
         expect(res.status).toBe(400);
-        expect(res.body.message).toBe('Esta cuenta ya se encuentra activa.');
+        expect(res.body.message).toBe('Si existe una cuenta asociada a este correo, revisa tu bandeja de entrada y correo no deseado.');
     });
 
     it('retorna 404 si el correo no existe en la base de datos', async () => {
@@ -96,7 +96,7 @@ describe('Auth OTP Integration - Error Flows', () => {
 
         // --- Assert ---
         expect(res.status).toBe(404);
-        expect(res.body.message).toBe('El correo proporcionado no está registrado.');
+        expect(res.body.message).toBe('Si existe una cuenta asociada a este correo, revisa tu bandeja de entrada y correo no deseado.');
     });
 
     it('retorna 500 si falla el envío de correo (GmailService error)', async () => {
