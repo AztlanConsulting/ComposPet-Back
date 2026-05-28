@@ -8,6 +8,7 @@ const clientRoutes = require('./client.routes');
 const adminRoutes = require('./admin.routes');
 const creditRoutes = require('./credit.routes');
 const tableRoutes = require('../routes/tableRoutes.routes');
+const performanceRoutes = require('../routes/performance.routes');
 
 const { authMiddleware, requireRole } = require('../middlewares/auth');
 
@@ -29,6 +30,9 @@ router.use('/saldo', authMiddleware, creditRoutes);
 
 // Agrega las rutas de la vista de rutas del administrador
 router.use('/rutas', authMiddleware, tableRoutes);
+
+// ruta para performance
+router.use('/desempeno', performanceRoutes);
 
 router.get('/', (req, res) => {
     res.send('API funcionando correctamente');
