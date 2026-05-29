@@ -7,26 +7,6 @@ datasource db {
   provider = "postgresql"
 }
 
-model administrador {
-  id_admin    String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_usuario  String      @unique @db.Uuid
-  clave       BigInt?
-  nombre      String      @db.VarChar
-  banco       String?     @db.VarChar
-  usuarios_cp usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_administrador_usuario")
-  avisos      avisos[]
-}
-
-model avisos {
-  id_aviso      Int           @id
-  id_admin      String        @db.Uuid
-  titulo        String        @db.VarChar
-  texto         String
-  foto          String?       @db.VarChar
-  fecha         DateTime      @db.Date
-  administrador administrador @relation(fields: [id_admin], references: [id_admin], onDelete: NoAction, onUpdate: NoAction, map: "fk_avisos_administrador")
-}
-
 model bitacora {
   id_bitacora      Int          @id @default(autoincrement())
   origen           String       @db.VarChar
@@ -61,19 +41,9 @@ model cliente {
 }
 
 model compospet {
-  id_cp           String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  faq             faq[]
-  metricas        metricas[]
-  personas_equipo personas_equipo[]
-  usuarios_cp     usuarios_cp[]
-}
-
-model faq {
-  id_faq    Int       @id
-  id_cp     String    @db.Uuid
-  pregunta  String    @db.VarChar
-  respuesta String
-  compospet compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_faq_compospet")
+  id_cp       String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  metricas    metricas[]
+  usuarios_cp usuarios_cp[]
 }
 
 model formas_pago {
@@ -98,16 +68,6 @@ model permisos {
   nombre         String           @db.VarChar
   descripcion    String?
   roles_permisos roles_permisos[]
-}
-
-model personas_equipo {
-  id_personas_equipo Int       @id
-  id_cp              String    @db.Uuid
-  nombre             String    @db.VarChar
-  apellido_paterno   String    @db.VarChar
-  apellido_materno   String    @db.VarChar
-  foto               String?   @db.VarChar
-  compospet          compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_personas_equipo_compospet")
 }
 
 model productos_extra {
@@ -157,22 +117,6 @@ model ruta {
   cliente    cliente[]
 }
 
-model solicitud_registro {
-  id_solicitud_registro String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_usuario            String      @db.Uuid
-  nombre                String      @db.VarChar
-  apellido              String      @db.VarChar
-  telefono              String?     @db.VarChar
-  correo                String      @db.VarChar
-  direccion             String?     @db.VarChar
-  mascotas              String?     @db.VarChar
-  familia               String?     @db.VarChar
-  notas                 String?
-  fecha                 DateTime    @db.Date
-  estatus               Boolean     @default(false)
-  usuarios_cp           usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitud_registro_usuario")
-}
-
 model solicitudes_recoleccion {
   id_solicitud           String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   id_cliente             String                @db.Uuid
@@ -200,34 +144,25 @@ model saldo {
 }
 
 model usuarios_cp {
-  id_usuario           String               @id(map: "usuarios_cp_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  id_cp                String               @db.Uuid
-  id_rol               String               @db.Uuid
-  nombre               String               @db.VarChar
-  apellido             String?              @db.VarChar
-  contrasena           String               @db.VarChar
-  estatus              Boolean              @default(false)
-  telefono             String?              @db.VarChar
-  correo               String               @unique(map: "usuarios_cp_unique_correo") @db.VarChar
-  primer_inicio_sesion Boolean              @default(true)
-  intentos_fallidos    Int                  @default(0)
-  bloqueado_hasta      DateTime?            @db.Timestamp(6)
-  codigo_expiracion    DateTime?            @db.Timestamp(6)
-  codigo_verificacion  String?              @db.VarChar
-  administrador        administrador?
+  id_usuario           String     @id(map: "usuarios_cp_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cp                String     @db.Uuid
+  id_rol               String     @db.Uuid
+  nombre               String     @db.VarChar
+  apellido             String?    @db.VarChar
+  contrasena           String     @db.VarChar
+  estatus              Boolean    @default(false)
+  telefono             String?    @db.VarChar
+  correo               String     @unique(map: "usuarios_cp_unique_correo") @db.VarChar
+  primer_inicio_sesion Boolean    @default(true)
+  intentos_fallidos    Int        @default(0)
+  bloqueado_hasta      DateTime?  @db.Timestamp(6)
+  codigo_expiracion    DateTime?  @db.Timestamp(6)
+  codigo_verificacion  String?    @db.VarChar
   bitacora             bitacora[]
   cliente              cliente?
-  solicitud_registro   solicitud_registro[]
   sesiones             sesiones[]
-  compospet            compospet            @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
-  roles                roles                @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
-}
-
-model zona {
-  id_zona     Int     @id
-  municipio   String  @db.VarChar
-  descripcion String? @db.VarChar
-  estado      String  @db.VarChar
+  compospet            compospet  @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
+  roles                roles      @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
 }
 
 model sesiones {
