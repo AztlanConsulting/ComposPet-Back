@@ -128,6 +128,8 @@ const login = async(req, res) => {
         res.cookie('refreshToken', refreshToken, cookieOptions);
 
         return res.status(200).json({
+            authProvider: "credentials",
+            isGoogleAuthenticated: false,
             id_usuario: user.id_usuario,
             correo: user.correo,
             rol: user.roles.nombre,
@@ -207,6 +209,8 @@ const googleAuth = async (req, res) => {
     res.status(200).json({ 
         msg: "Login correcto", 
         accessToken,
+        authProvider: "google",
+        isGoogleAuthenticated: true,
         user: { 
             id_usuario: userDB.id_usuario,
             name: name, 
