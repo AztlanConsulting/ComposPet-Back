@@ -45,7 +45,7 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
 
             expect(res.status).toHaveBeenCalledWith(400);
             expect(res.json).toHaveBeenCalledWith({ 
-                message: 'Esta cuenta ya se encuentra activa.' 
+                message: 'Si existe una cuenta asociada a este correo, revisa tu bandeja de entrada y correo no deseado.'
             });
         });
 
