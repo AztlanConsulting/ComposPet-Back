@@ -6,8 +6,18 @@
 * @param {Object} res - Objeto de respuesta de Express.
 * @returns {Object} Respuesta JSON que confirma la recepción de la métrica.
 */
-const getWebVitalMetric = (req, res) => {
+const registerWebVitalMetric = (req, res) => {
     try {
+        
+        const metricData = req.body;
+
+        if (!metricData) {
+            return res.status(400).json({
+                message: 'Metric data is required',
+            });
+        }
+
+
         const {
             name,
             value,
@@ -21,11 +31,11 @@ const getWebVitalMetric = (req, res) => {
         console.log('\n[Web Vital Received]');
 
         console.table({
-                [`Metrica: ${name}`]: {
-                    Valor: `${value} ${unit}`,
+                [`Metric: ${name}`]: {
+                    Value: `${value} ${unit}`,
                     Delta: `${delta} ${unit}`,
                     URL: url,
-                    Fecha: timestamp,
+                    Date: timestamp,
                 },
         });
 
@@ -42,5 +52,5 @@ const getWebVitalMetric = (req, res) => {
 };
 
 module.exports = {
-    getWebVitalMetric,
+    registerWebVitalMetric,
 };
