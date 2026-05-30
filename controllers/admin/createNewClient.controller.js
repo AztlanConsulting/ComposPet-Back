@@ -8,6 +8,106 @@ const User = require('../../models/user.model');
 const Role =  require('../../models/role.model');
 const Credit = require('../../models/credit.model');
 
+const normalizeText = (value = '') =>
+    String(value).trim();
+
+const escapeHtml = (value = '') =>
+    String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+
+
+const isOnlyLetters = (value) =>
+    /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(value);
+
+const isSafeFreeText = (value) =>
+    /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,#\-]*$/.test(value);
+
+const isValidPhone = (value) =>
+    /^\+?\d{10,15}$/.test(value);
+
+const isValidEmail = (value) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+const isPositiveInteger = (value) =>
+    Number.isInteger(Number(value)) && Number(value) > 0;
+
+const validateRegisterClient = (body) => {
+    const errors = {};
+
+    const name = normalizeText(body.name);
+    const lastName = normalizeText(body.lastName);
+    const phone = normalizeText(body.phone);
+    const email = normalizeText(body.email).toLowerCase();
+    const address = normalizeText(body.address);
+    const id_ruta = Number(body.id_ruta);
+
+    const pets = normalizeText(body.pets);
+    const family = normalizeText(body.family);
+    const notes = normalizeText(body.notes);
+
+    if (!name || name.length < 2 || name.length > 80 || !isOnlyLetters(name)) {
+        errors.name = 'Nombre inválido.';
+    }
+
+    if (!lastName || lastName.length < 2 || lastName.length > 80 || !isOnlyLetters(lastName)) {
+        errors.lastName = 'Apellido inválido.';
+    }
+
+    if (!isValidPhone(phone)) {
+        errors.phone = 'El teléfono debe tener 10 dígitos.';
+    }
+
+    if (!email || email.length > 120 || !isValidEmail(email)) {
+        errors.email = 'Correo inválido.';
+    }
+
+    if (!address || address.length < 5 || address.length > 255) {
+        errors.address = 'Dirección inválida.';
+    }
+
+    if (!isPositiveInteger(body.id_ruta)) {
+        errors.id_ruta = 'Ruta inválida.';
+    }
+
+    if (pets.length > 255) {
+        errors.pets = 'Mascotas es demasiado largo.';
+    } else if (pets && !isSafeFreeText(pets)) {
+        errors.pets = 'Mascotas contiene caracteres no permitidos.';
+    }
+
+    if (family.length > 255) {
+        errors.family = 'Familia es demasiado largo.';
+    } else if (family && !isSafeFreeText(family)) {
+        errors.family = 'Familia contiene caracteres no permitidos.';
+    }
+
+    if (notes.length > 500) {
+        errors.notes = 'Notas es demasiado largo.';
+    } else if (notes && !isSafeFreeText(notes)) {
+        errors.notes = 'Notas contiene caracteres no permitidos.';
+    }
+
+    return {
+        isValid: Object.keys(errors).length === 0,
+        errors,
+        data: {
+            name: escapeHtml(name),
+            lastName: escapeHtml(lastName),
+            phone,
+            email,
+            address: escapeHtml(address),
+            id_ruta,
+            pets: escapeHtml(pets),
+            family: escapeHtml(family),
+            notes: escapeHtml(notes),
+        },
+    };
+};
+
 /**
  * Obtiene los datos necesarios para renderizar el formulario de registro de un nuevo cliente.
  * Consulta en paralelo el catálogo de días de ruta.
@@ -71,34 +171,29 @@ const getRegisterClient = async (req, res) => {
  */
 const postRegisterClient = async (req, res) => {
     try{
+        console.log("ENTRÉ AL CONTROLLER");
+        const validation = validateRegisterClient(req.body);
 
-        const {
-            name: rawName,
-            lastName: rawLastName,
-            phone,
-            email,
-            pets: rawPets,
-            family: rawFamily,
-            address: rawAddress,
-            notes: rawNotes,
-            id_ruta,
-        } = req.body;
-
-        const sanitize = (str) => str?.replace(/[<>"'%;()&+]/g, '').trim() ?? '';
-
-        const name = sanitize(rawName);
-        const lastName = sanitize(rawLastName);
-        const pets = sanitize(rawPets);
-        const family = sanitize(rawFamily);
-        const address = sanitize(rawAddress);
-        const notes = sanitize(rawNotes);
-
-        if (!name || !lastName || !phone || !email || !address || !id_ruta) {
+        if (!validation.isValid) {
             return res.status(400).json({
                 success: false,
-                message: 'Faltan datos requeridos para registrar al cliente.',
+                message: 'Los datos enviados no son válidos.',
+                errors: validation.errors,
             });
         }
+
+        const {
+            name,
+            lastName,
+            phone,
+            email,
+            address,
+            id_ruta,
+            pets,
+            family,
+            notes,
+        } = validation.data;
+
 
         const existingUser = await User.findByEmail(email);
         if (existingUser) {
