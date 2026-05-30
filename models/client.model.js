@@ -440,6 +440,36 @@ module.exports = class Client {
         oldOrder,
     ){
 
+        if(oldOrder == null){
+            const lastClient = await tx.cliente.findFirst({
+                where: {
+                    id_ruta: routeId,
+                    id_cliente: {
+                        not: clientId,
+                    },
+                },
+                orderBy: {
+                    orden_horario: "desc",
+                },
+                select: {
+                    orden_horario: true,
+                }
+            })
+
+            const lastOrder = (lastClient?.orden_horario ?? 0) + 1;
+
+            await tx.cliente.update({
+                where: {
+                    id_cliente: clientId,
+                },
+                data: {
+                    orden_horario: lastOrder,
+                }
+            });
+
+            return;
+        }
+
         await tx.cliente.updateMany({
             where: {
                 id_ruta: routeId,
