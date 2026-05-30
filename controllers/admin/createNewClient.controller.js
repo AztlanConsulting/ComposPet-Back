@@ -75,20 +75,14 @@ const validateRegisterClient = (body) => {
 
     if (pets.length > 255) {
         errors.pets = 'Mascotas es demasiado largo.';
-    } else if (pets && !isSafeFreeText(pets)) {
-        errors.pets = 'Mascotas contiene caracteres no permitidos.';
     }
 
     if (family.length > 255) {
         errors.family = 'Familia es demasiado largo.';
-    } else if (family && !isSafeFreeText(family)) {
-        errors.family = 'Familia contiene caracteres no permitidos.';
     }
 
     if (notes.length > 500) {
         errors.notes = 'Notas es demasiado largo.';
-    } else if (notes && !isSafeFreeText(notes)) {
-        errors.notes = 'Notas contiene caracteres no permitidos.';
     }
 
     return {
