@@ -16,32 +16,32 @@ const WEEK_DAYS = [
  * Arreglo de semanas ordenadas de la más antigua a la más reciente.
  */
 function getLastTwoMonthsWeeks(now = new Date()) {
-    const currentMonday = new Date(now);
-    const day = currentMonday.getDay();
-    const diffToMonday = day === 0 ? -6 : 1 - day;
-    currentMonday.setDate(currentMonday.getDate() + diffToMonday);
-    currentMonday.setHours(0, 0, 0, 0);
+    const nowUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    const today = new Date(nowUtc);
 
-    const startMonday = new Date(currentMonday);
-    startMonday.setDate(startMonday.getDate() - 9 * 7);
+    const day = today.getUTCDay();
+    const diffToMonday = day === 0 ? -6 : 1 - day;
+
+    const currentDay = new Date(today);
+    currentDay.setUTCDate(currentDay.getUTCDate() + diffToMonday);
+
+    const startMonday = new Date(currentDay);
+    startMonday.setUTCDate(startMonday.getUTCDate() - 9 * 7);
 
     const weeks = [];
     let weekStart = new Date(startMonday);
 
-    while (weekStart <= currentMonday) {
+    while (weekStart <= currentDay) {
         const weekEnd = new Date(weekStart);
-        weekEnd.setDate(weekEnd.getDate() + 7);
-
-        const displayEnd = new Date(weekEnd);
-        displayEnd.setDate(displayEnd.getDate() - 1);
+        weekEnd.setUTCDate(weekEnd.getUTCDate() + 6); // domingo
 
         weeks.push({
             weekStart: new Date(weekStart),
             weekEnd: new Date(weekEnd),
-            label: `${weekStart.toLocaleDateString("es-MX")} - ${displayEnd.toLocaleDateString("es-MX")}`,
+            label: `${weekStart.toLocaleDateString("es-MX", { timeZone: "UTC" })} - ${weekEnd.toLocaleDateString("es-MX", { timeZone: "UTC" })}`,
         });
 
-        weekStart = new Date(weekEnd);
+        weekStart.setUTCDate(weekStart.getUTCDate() + 7); // siguiente lunes
     }
 
     return weeks;

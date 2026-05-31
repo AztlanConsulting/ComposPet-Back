@@ -99,7 +99,7 @@ app.use((req, res) => {
  * @see exportDailyRoutes
  */
 if (process.env.NODE_ENV !== "test") {
-    cron.schedule('0 18 * * *', async () => {
+    cron.schedule('00 18 * * *', async () => {
         try {
             const sheetUrl = await exportDailyRoutes();
         } catch (error) {
