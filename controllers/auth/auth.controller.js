@@ -206,7 +206,7 @@ const googleAuth = async (req, res) => {
             role: userDB.roles.nombre 
         };
 
-        const accessToken    = generateAccessToken(tokenPayload);
+        const accessToken = generateAccessToken(tokenPayload);
         const newRefreshToken = generateRefreshToken(tokenPayload);
 
         try {
