@@ -36,6 +36,32 @@ const getClientIp = (req) => {
 };
 
 /**
+ * Gestiona el límite de sesiones concurrentes para un usuario.
+ * 1. Cierra la sesión previa del mismo navegador/dispositivo si ya trae cookie activa.
+ * 2. Cierra la sesión más antigua si el usuario ya tiene 2 sesiones activas en otros dispositivos.
+ * 3. Crea la nueva sesión.
+ *
+ * @param {import('express').Request} req
+ * @param {number|string} id_usuario
+ * @param {string} newRefreshToken - Token recién generado para la nueva sesión.
+ * @param {string} rol
+ */
+const handleSessionLimit = async (req, id_usuario, newRefreshToken, rol) => {
+    const existingRefreshToken = req.cookies.refreshToken;
+    if (existingRefreshToken) {
+        await AuthModel.closeSession(existingRefreshToken);
+    }
+
+    const activeSessions = await AuthModel.countActiveSessions(id_usuario);
+    if (activeSessions >= 2) {
+        await AuthModel.closeOldestSession(id_usuario);
+    }
+
+    const ip = getClientIp(req);
+    await AuthModel.createSession(id_usuario, newRefreshToken, rol, ip);
+};
+
+/**
  * Controlador del endpoint de inicio de sesión.
  * Orquesta la autenticación del usuario aplicando las siguientes validaciones en orden:
  * 1. Existencia del usuario por correo (solo usuarios con `estatus: true`).
@@ -111,23 +137,16 @@ const login = async(req, res) => {
             role: user.roles.nombre,
         };
 
-        const accessToken = generateAccessToken(tokenPayload);
-        const refreshToken = generateRefreshToken(tokenPayload);
+        const accessToken      = generateAccessToken(tokenPayload);
+        const newRefreshToken  = generateRefreshToken(tokenPayload);
 
-        const existingRefreshToken = req.cookies.refreshToken;
-        if (existingRefreshToken) {
-            await AuthModel.closeSession(existingRefreshToken);
+        try {
+            await handleSessionLimit(req, user.id_usuario, newRefreshToken, user.roles.nombre);
+        } catch (dbError) {
+            console.error('Error al gestionar sesión en login:', dbError);
         }
 
-        const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
-        if (activeSessions >= 2) {
-            await AuthModel.closeOldestSession(user.id_usuario);
-        }
-
-        const ip = getClientIp(req);
-        await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
-
-        res.cookie('refreshToken', refreshToken, cookieOptions);
+        res.cookie('refreshToken', newRefreshToken, cookieOptions);
 
         return res.status(200).json({
             authProvider: "credentials",
@@ -189,25 +208,18 @@ const googleAuth = async (req, res) => {
             role: userDB.roles.nombre 
         };
 
-        const accessToken = generateAccessToken(tokenPayload);
-        const refreshToken = generateRefreshToken(tokenPayload);
+        const accessToken     = generateAccessToken(tokenPayload);
+        const newRefreshToken = generateRefreshToken(tokenPayload);
 
-        const existingRefreshToken = req.cookies.refreshToken;
-        if (existingRefreshToken) {
-            await AuthModel.closeSession(existingRefreshToken);
+        try {
+            await handleSessionLimit(req, userDB.id_usuario, newRefreshToken, userDB.roles.nombre);
+        } catch (dbError) {
+            console.error('[SESSION] Error al gestionar sesión en googleAuth:', dbError);
         }
-
-        const activeSessions = await AuthModel.countActiveSessions(userDB.id_usuario);
-        if (activeSessions >= 2) {
-            await AuthModel.closeOldestSession(userDB.id_usuario);
-        }
-
-        const ip = getClientIp(req);
-        await AuthModel.createSession(userDB.id_usuario, refreshToken, userDB.roles.nombre, ip);
 
         await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
-        res.cookie('refreshToken', refreshToken, cookieOptions);
+        res.cookie('refreshToken', newRefreshToken, cookieOptions);
         res.cookie('googleToken', token, cookieOptions);
 
         res.status(200).json({ 
@@ -267,12 +279,12 @@ const refreshToken = async (req, res) => {
             email: payload.email,
             role,
         });
+
         try {
             await AuthModel.updateSession(token, newRefreshToken, role);
         } catch {
             return res.status(401).json({ message: 'Sesión inválida o expirada' });
         }
-        
 
         const newAccessToken = generateAccessToken({
             userId: payload.userId,
