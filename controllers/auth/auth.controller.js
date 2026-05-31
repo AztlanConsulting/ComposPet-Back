@@ -114,16 +114,18 @@ const login = async(req, res) => {
         const accessToken = generateAccessToken(tokenPayload);
         const refreshToken = generateRefreshToken(tokenPayload);
 
-        try {
-            const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
-            if (activeSessions >= 2) {
-                await AuthModel.closeOldestSession(user.id_usuario);
-            }
-            const ip = getClientIp(req); // ← obtener IP
-            await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
-        } catch (dbError) {
-            console.error('Error saving session:', dbError);
+        const existingRefreshToken = req.cookies.refreshToken;
+        if (existingRefreshToken) {
+            await AuthModel.closeSession(existingRefreshToken);
         }
+
+        const activeSessions = await AuthModel.countActiveSessions(user.id_usuario);
+        if (activeSessions >= 2) {
+            await AuthModel.closeOldestSession(user.id_usuario);
+        }
+
+        const ip = getClientIp(req);
+        await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
 
         res.cookie('refreshToken', refreshToken, cookieOptions);
 
@@ -155,76 +157,78 @@ const login = async(req, res) => {
  * @returns {Promise<void>} Responde con el JWT y datos del usuario o un error de autenticación.
  */
 const googleAuth = async (req, res) => {
-  const { token } = req.body; 
-
-  try {
-    const auth = new google.auth.OAuth2();
-    auth.setCredentials({ access_token: token });
-    const oauth2 = google.oauth2({ version: 'v2', auth });
-
-    const userInfo = await callExternalApi(
-        () => oauth2.userinfo.get(),
-        'google-userinfo'
-    );
-
-    const { email, name, picture } = userInfo.data;
-
-
-    const userDB = await AuthModel.findUserByEmail(email);
-
-
-    if (!userDB) {
-      await logIfAdmin(userDB, "LOGIN_GOOGLE_FALLIDO", `Intento con correo no registrado: ${email}`);
-      
-      return res.status(401).json({ 
-        msg: "Este correo de Google no tiene acceso a ComposPet. Contacta al administrador." 
-      });
-    }
-
-    const tokenPayload = { 
-        userId: userDB.id_usuario, 
-        email: userDB.correo, 
-        role: userDB.roles.nombre 
-    };
-
-    const accessToken = generateAccessToken(tokenPayload);
-    const refreshToken = generateRefreshToken(tokenPayload);
+    const { token } = req.body; 
 
     try {
+        const auth = new google.auth.OAuth2();
+        auth.setCredentials({ access_token: token });
+        const oauth2 = google.oauth2({ version: 'v2', auth });
+
+        const userInfo = await callExternalApi(
+            () => oauth2.userinfo.get(),
+            'google-userinfo'
+        );
+
+        const { email, name, picture } = userInfo.data;
+
+
+        const userDB = await AuthModel.findUserByEmail(email);
+
+
+        if (!userDB) {
+            await logIfAdmin(userDB, "LOGIN_GOOGLE_FALLIDO", `Intento con correo no registrado: ${email}`);
+            
+            return res.status(401).json({ 
+                msg: "Este correo de Google no tiene acceso a ComposPet. Contacta al administrador." 
+            });
+        }
+
+        const tokenPayload = { 
+            userId: userDB.id_usuario, 
+            email: userDB.correo, 
+            role: userDB.roles.nombre 
+        };
+
+        const accessToken = generateAccessToken(tokenPayload);
+        const refreshToken = generateRefreshToken(tokenPayload);
+
+        const existingRefreshToken = req.cookies.refreshToken;
+        if (existingRefreshToken) {
+            await AuthModel.closeSession(existingRefreshToken);
+        }
+
         const activeSessions = await AuthModel.countActiveSessions(userDB.id_usuario);
         if (activeSessions >= 2) {
             await AuthModel.closeOldestSession(userDB.id_usuario);
         }
-        const ip = getClientIp(req); // ← obtener IP
+
+        const ip = getClientIp(req);
         await AuthModel.createSession(userDB.id_usuario, refreshToken, userDB.roles.nombre, ip);
-    } catch (dbError) {
-        console.error('Error saving session:', dbError);
+
+        await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
+
+        res.cookie('refreshToken', refreshToken, cookieOptions);
+        res.cookie('googleToken', token, cookieOptions);
+
+        res.status(200).json({ 
+            msg: "Login correcto", 
+            accessToken,
+            authProvider: "google",
+            isGoogleAuthenticated: true,
+            user: { 
+                id_usuario: userDB.id_usuario,
+                name: name, 
+                email: userDB.correo, 
+                rol: userDB.roles.nombre,
+                primer_inicio_sesion: userDB.primer_inicio_sesion,
+                picture: picture 
+            } 
+        });
+
+    } catch (error) {
+        console.error("Error en Google Login:", error);
+        res.status(400).json({ msg: "Token de Google inválido o expirado" });
     }
-
-    await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
-
-    res.cookie('refreshToken', refreshToken, cookieOptions);
-    res.cookie('googleToken', token, cookieOptions);
-
-    res.status(200).json({ 
-        msg: "Login correcto", 
-        accessToken,
-        authProvider: "google",
-        isGoogleAuthenticated: true,
-        user: { 
-            id_usuario: userDB.id_usuario,
-            name: name, 
-            email: userDB.correo, 
-            rol: userDB.roles.nombre,
-            primer_inicio_sesion: userDB.primer_inicio_sesion,
-            picture: picture 
-        } 
-    });
-
-  } catch (error) {
-    console.error("Error en Google Login:", error);
-    res.status(400).json({ msg: "Token de Google inválido o expirado" });
-  }
 };
 
 /**
