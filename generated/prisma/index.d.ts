@@ -16994,11 +16994,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-<<<<<<< Updated upstream
     codigo_expiracion: Date | null
     codigo_verificacion: string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type Usuarios_cpMaxAggregateOutputType = {
@@ -17014,11 +17011,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean | null
     intentos_fallidos: number | null
     bloqueado_hasta: Date | null
-<<<<<<< Updated upstream
     codigo_expiracion: Date | null
     codigo_verificacion: string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type Usuarios_cpCountAggregateOutputType = {
@@ -17034,11 +17028,8 @@ export namespace Prisma {
     primer_inicio_sesion: number
     intentos_fallidos: number
     bloqueado_hasta: number
-<<<<<<< Updated upstream
     codigo_expiracion: number
     codigo_verificacion: number
-=======
->>>>>>> Stashed changes
     _all: number
   }
 
@@ -17064,11 +17055,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-<<<<<<< Updated upstream
     codigo_expiracion?: true
     codigo_verificacion?: true
-=======
->>>>>>> Stashed changes
   }
 
   export type Usuarios_cpMaxAggregateInputType = {
@@ -17084,11 +17072,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-<<<<<<< Updated upstream
     codigo_expiracion?: true
     codigo_verificacion?: true
-=======
->>>>>>> Stashed changes
   }
 
   export type Usuarios_cpCountAggregateInputType = {
@@ -17104,11 +17089,8 @@ export namespace Prisma {
     primer_inicio_sesion?: true
     intentos_fallidos?: true
     bloqueado_hasta?: true
-<<<<<<< Updated upstream
     codigo_expiracion?: true
     codigo_verificacion?: true
-=======
->>>>>>> Stashed changes
     _all?: true
   }
 
@@ -17211,11 +17193,8 @@ export namespace Prisma {
     primer_inicio_sesion: boolean
     intentos_fallidos: number
     bloqueado_hasta: Date | null
-<<<<<<< Updated upstream
     codigo_expiracion: Date | null
     codigo_verificacion: string | null
-=======
->>>>>>> Stashed changes
     _count: Usuarios_cpCountAggregateOutputType | null
     _avg: Usuarios_cpAvgAggregateOutputType | null
     _sum: Usuarios_cpSumAggregateOutputType | null
@@ -17250,12 +17229,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-<<<<<<< Updated upstream
     codigo_expiracion?: boolean
     codigo_verificacion?: boolean
-=======
-    administrador?: boolean | usuarios_cp$administradorArgs<ExtArgs>
->>>>>>> Stashed changes
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
     sesiones?: boolean | usuarios_cp$sesionesArgs<ExtArgs>
@@ -17277,11 +17252,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-<<<<<<< Updated upstream
     codigo_expiracion?: boolean
     codigo_verificacion?: boolean
-=======
->>>>>>> Stashed changes
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -17299,11 +17271,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-<<<<<<< Updated upstream
     codigo_expiracion?: boolean
     codigo_verificacion?: boolean
-=======
->>>>>>> Stashed changes
     compospet?: boolean | compospetDefaultArgs<ExtArgs>
     roles?: boolean | rolesDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuarios_cp"]>
@@ -17321,17 +17290,11 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: boolean
     bloqueado_hasta?: boolean
-<<<<<<< Updated upstream
     codigo_expiracion?: boolean
     codigo_verificacion?: boolean
   }
 
   export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta" | "codigo_expiracion" | "codigo_verificacion", ExtArgs["result"]["usuarios_cp"]>
-=======
-  }
-
-  export type usuarios_cpOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_usuario" | "id_cp" | "id_rol" | "nombre" | "apellido" | "contrasena" | "estatus" | "telefono" | "correo" | "primer_inicio_sesion" | "intentos_fallidos" | "bloqueado_hasta", ExtArgs["result"]["usuarios_cp"]>
->>>>>>> Stashed changes
   export type usuarios_cpInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     bitacora?: boolean | usuarios_cp$bitacoraArgs<ExtArgs>
     cliente?: boolean | usuarios_cp$clienteArgs<ExtArgs>
@@ -17371,11 +17334,8 @@ export namespace Prisma {
       primer_inicio_sesion: boolean
       intentos_fallidos: number
       bloqueado_hasta: Date | null
-<<<<<<< Updated upstream
       codigo_expiracion: Date | null
       codigo_verificacion: string | null
-=======
->>>>>>> Stashed changes
     }, ExtArgs["result"]["usuarios_cp"]>
     composites: {}
   }
@@ -17816,11 +17776,8 @@ export namespace Prisma {
     readonly primer_inicio_sesion: FieldRef<"usuarios_cp", 'Boolean'>
     readonly intentos_fallidos: FieldRef<"usuarios_cp", 'Int'>
     readonly bloqueado_hasta: FieldRef<"usuarios_cp", 'DateTime'>
-<<<<<<< Updated upstream
     readonly codigo_expiracion: FieldRef<"usuarios_cp", 'DateTime'>
     readonly codigo_verificacion: FieldRef<"usuarios_cp", 'String'>
-=======
->>>>>>> Stashed changes
   }
     
 
@@ -19597,13 +19554,9 @@ export namespace Prisma {
     correo: 'correo',
     primer_inicio_sesion: 'primer_inicio_sesion',
     intentos_fallidos: 'intentos_fallidos',
-<<<<<<< Updated upstream
     bloqueado_hasta: 'bloqueado_hasta',
     codigo_expiracion: 'codigo_expiracion',
     codigo_verificacion: 'codigo_verificacion'
-=======
-    bloqueado_hasta: 'bloqueado_hasta'
->>>>>>> Stashed changes
   };
 
   export type Usuarios_cpScalarFieldEnum = (typeof Usuarios_cpScalarFieldEnum)[keyof typeof Usuarios_cpScalarFieldEnum]
@@ -20558,12 +20511,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
-=======
-    administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
->>>>>>> Stashed changes
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
     sesiones?: SesionesListRelationFilter
@@ -20584,12 +20533,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-<<<<<<< Updated upstream
     codigo_expiracion?: SortOrderInput | SortOrder
     codigo_verificacion?: SortOrderInput | SortOrder
-=======
-    administrador?: administradorOrderByWithRelationInput
->>>>>>> Stashed changes
     bitacora?: bitacoraOrderByRelationAggregateInput
     cliente?: clienteOrderByWithRelationInput
     sesiones?: sesionesOrderByRelationAggregateInput
@@ -20613,12 +20558,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
-=======
-    administrador?: XOR<AdministradorNullableScalarRelationFilter, administradorWhereInput> | null
->>>>>>> Stashed changes
     bitacora?: BitacoraListRelationFilter
     cliente?: XOR<ClienteNullableScalarRelationFilter, clienteWhereInput> | null
     sesiones?: SesionesListRelationFilter
@@ -20639,11 +20580,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrderInput | SortOrder
-<<<<<<< Updated upstream
     codigo_expiracion?: SortOrderInput | SortOrder
     codigo_verificacion?: SortOrderInput | SortOrder
-=======
->>>>>>> Stashed changes
     _count?: usuarios_cpCountOrderByAggregateInput
     _avg?: usuarios_cpAvgOrderByAggregateInput
     _max?: usuarios_cpMaxOrderByAggregateInput
@@ -20667,11 +20605,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolWithAggregatesFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntWithAggregatesFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: DateTimeNullableWithAggregatesFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableWithAggregatesFilter<"usuarios_cp"> | string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type sesionesWhereInput = {
@@ -21561,12 +21496,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
@@ -21587,12 +21518,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -21609,12 +21536,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
@@ -21635,12 +21558,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -21659,11 +21578,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type usuarios_cpUpdateManyMutationInput = {
@@ -21677,11 +21593,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type usuarios_cpUncheckedUpdateManyInput = {
@@ -21697,11 +21610,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type sesionesCreateInput = {
@@ -22726,11 +22636,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-<<<<<<< Updated upstream
     codigo_expiracion?: SortOrder
     codigo_verificacion?: SortOrder
-=======
->>>>>>> Stashed changes
   }
 
   export type usuarios_cpAvgOrderByAggregateInput = {
@@ -22750,11 +22657,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-<<<<<<< Updated upstream
     codigo_expiracion?: SortOrder
     codigo_verificacion?: SortOrder
-=======
->>>>>>> Stashed changes
   }
 
   export type usuarios_cpMinOrderByAggregateInput = {
@@ -22770,11 +22674,8 @@ export namespace Prisma {
     primer_inicio_sesion?: SortOrder
     intentos_fallidos?: SortOrder
     bloqueado_hasta?: SortOrder
-<<<<<<< Updated upstream
     codigo_expiracion?: SortOrder
     codigo_verificacion?: SortOrder
-=======
->>>>>>> Stashed changes
   }
 
   export type usuarios_cpSumOrderByAggregateInput = {
@@ -23952,203 +23853,12 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
-<<<<<<< Updated upstream
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-=======
-  export type usuarios_cpCreateWithoutAdministradorInput = {
-    id_usuario?: string
-    nombre: string
-    apellido?: string | null
-    contrasena: string
-    estatus?: boolean
-    telefono?: string | null
-    correo: string
-    primer_inicio_sesion?: boolean
-    intentos_fallidos?: number
-    bloqueado_hasta?: Date | string | null
-    bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
-    cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
-    solicitud_registro?: solicitud_registroCreateNestedManyWithoutUsuarios_cpInput
-    compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
-    roles: rolesCreateNestedOneWithoutUsuarios_cpInput
-  }
-
-  export type usuarios_cpUncheckedCreateWithoutAdministradorInput = {
-    id_usuario?: string
-    id_cp: string
-    id_rol: string
-    nombre: string
-    apellido?: string | null
-    contrasena: string
-    estatus?: boolean
-    telefono?: string | null
-    correo: string
-    primer_inicio_sesion?: boolean
-    intentos_fallidos?: number
-    bloqueado_hasta?: Date | string | null
-    bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
-    cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
-    solicitud_registro?: solicitud_registroUncheckedCreateNestedManyWithoutUsuarios_cpInput
-  }
-
-  export type usuarios_cpCreateOrConnectWithoutAdministradorInput = {
-    where: usuarios_cpWhereUniqueInput
-    create: XOR<usuarios_cpCreateWithoutAdministradorInput, usuarios_cpUncheckedCreateWithoutAdministradorInput>
-  }
-
-  export type avisosCreateWithoutAdministradorInput = {
-    id_aviso: number
-    titulo: string
-    texto: string
-    foto?: string | null
-    fecha: Date | string
-  }
-
-  export type avisosUncheckedCreateWithoutAdministradorInput = {
-    id_aviso: number
-    titulo: string
-    texto: string
-    foto?: string | null
-    fecha: Date | string
-  }
-
-  export type avisosCreateOrConnectWithoutAdministradorInput = {
-    where: avisosWhereUniqueInput
-    create: XOR<avisosCreateWithoutAdministradorInput, avisosUncheckedCreateWithoutAdministradorInput>
-  }
-
-  export type avisosCreateManyAdministradorInputEnvelope = {
-    data: avisosCreateManyAdministradorInput | avisosCreateManyAdministradorInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type usuarios_cpUpsertWithoutAdministradorInput = {
-    update: XOR<usuarios_cpUpdateWithoutAdministradorInput, usuarios_cpUncheckedUpdateWithoutAdministradorInput>
-    create: XOR<usuarios_cpCreateWithoutAdministradorInput, usuarios_cpUncheckedCreateWithoutAdministradorInput>
-    where?: usuarios_cpWhereInput
-  }
-
-  export type usuarios_cpUpdateToOneWithWhereWithoutAdministradorInput = {
-    where?: usuarios_cpWhereInput
-    data: XOR<usuarios_cpUpdateWithoutAdministradorInput, usuarios_cpUncheckedUpdateWithoutAdministradorInput>
-  }
-
-  export type usuarios_cpUpdateWithoutAdministradorInput = {
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: NullableStringFieldUpdateOperationsInput | string | null
-    contrasena?: StringFieldUpdateOperationsInput | string
-    estatus?: BoolFieldUpdateOperationsInput | boolean
-    telefono?: NullableStringFieldUpdateOperationsInput | string | null
-    correo?: StringFieldUpdateOperationsInput | string
-    primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
-    intentos_fallidos?: IntFieldUpdateOperationsInput | number
-    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
-    cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
-    solicitud_registro?: solicitud_registroUpdateManyWithoutUsuarios_cpNestedInput
-    compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
-    roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
-  }
-
-  export type usuarios_cpUncheckedUpdateWithoutAdministradorInput = {
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    id_cp?: StringFieldUpdateOperationsInput | string
-    id_rol?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: NullableStringFieldUpdateOperationsInput | string | null
-    contrasena?: StringFieldUpdateOperationsInput | string
-    estatus?: BoolFieldUpdateOperationsInput | boolean
-    telefono?: NullableStringFieldUpdateOperationsInput | string | null
-    correo?: StringFieldUpdateOperationsInput | string
-    primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
-    intentos_fallidos?: IntFieldUpdateOperationsInput | number
-    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
-    cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
-    solicitud_registro?: solicitud_registroUncheckedUpdateManyWithoutUsuarios_cpNestedInput
-  }
-
-  export type avisosUpsertWithWhereUniqueWithoutAdministradorInput = {
-    where: avisosWhereUniqueInput
-    update: XOR<avisosUpdateWithoutAdministradorInput, avisosUncheckedUpdateWithoutAdministradorInput>
-    create: XOR<avisosCreateWithoutAdministradorInput, avisosUncheckedCreateWithoutAdministradorInput>
-  }
-
-  export type avisosUpdateWithWhereUniqueWithoutAdministradorInput = {
-    where: avisosWhereUniqueInput
-    data: XOR<avisosUpdateWithoutAdministradorInput, avisosUncheckedUpdateWithoutAdministradorInput>
-  }
-
-  export type avisosUpdateManyWithWhereWithoutAdministradorInput = {
-    where: avisosScalarWhereInput
-    data: XOR<avisosUpdateManyMutationInput, avisosUncheckedUpdateManyWithoutAdministradorInput>
-  }
-
-  export type avisosScalarWhereInput = {
-    AND?: avisosScalarWhereInput | avisosScalarWhereInput[]
-    OR?: avisosScalarWhereInput[]
-    NOT?: avisosScalarWhereInput | avisosScalarWhereInput[]
-    id_aviso?: IntFilter<"avisos"> | number
-    id_admin?: UuidFilter<"avisos"> | string
-    titulo?: StringFilter<"avisos"> | string
-    texto?: StringFilter<"avisos"> | string
-    foto?: StringNullableFilter<"avisos"> | string | null
-    fecha?: DateTimeFilter<"avisos"> | Date | string
-  }
-
-  export type administradorCreateWithoutAvisosInput = {
-    id_admin?: string
-    clave?: bigint | number | null
-    nombre: string
-    banco?: string | null
-    usuarios_cp: usuarios_cpCreateNestedOneWithoutAdministradorInput
-  }
-
-  export type administradorUncheckedCreateWithoutAvisosInput = {
-    id_admin?: string
-    id_usuario: string
-    clave?: bigint | number | null
-    nombre: string
-    banco?: string | null
-  }
-
-  export type administradorCreateOrConnectWithoutAvisosInput = {
-    where: administradorWhereUniqueInput
-    create: XOR<administradorCreateWithoutAvisosInput, administradorUncheckedCreateWithoutAvisosInput>
-  }
-
-  export type administradorUpsertWithoutAvisosInput = {
-    update: XOR<administradorUpdateWithoutAvisosInput, administradorUncheckedUpdateWithoutAvisosInput>
-    create: XOR<administradorCreateWithoutAvisosInput, administradorUncheckedCreateWithoutAvisosInput>
-    where?: administradorWhereInput
-  }
-
-  export type administradorUpdateToOneWithWhereWithoutAvisosInput = {
-    where?: administradorWhereInput
-    data: XOR<administradorUpdateWithoutAvisosInput, administradorUncheckedUpdateWithoutAvisosInput>
-  }
-
-  export type administradorUpdateWithoutAvisosInput = {
-    id_admin?: StringFieldUpdateOperationsInput | string
-    clave?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    nombre?: StringFieldUpdateOperationsInput | string
-    banco?: NullableStringFieldUpdateOperationsInput | string | null
-    usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutAdministradorNestedInput
-  }
-
-  export type administradorUncheckedUpdateWithoutAvisosInput = {
-    id_admin?: StringFieldUpdateOperationsInput | string
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    clave?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
-    nombre?: StringFieldUpdateOperationsInput | string
-    banco?: NullableStringFieldUpdateOperationsInput | string | null
->>>>>>> Stashed changes
   }
 
   export type usuarios_cpCreateWithoutBitacoraInput = {
@@ -24162,12 +23872,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
@@ -24187,12 +23893,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
@@ -24224,12 +23926,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
@@ -24249,12 +23947,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
@@ -24287,12 +23981,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
     compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
@@ -24312,12 +24002,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
   }
@@ -24429,12 +24115,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
     compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
@@ -24454,12 +24136,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
   }
@@ -24555,12 +24233,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
@@ -24579,12 +24253,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -24659,55 +24329,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFilter<"usuarios_cp"> | boolean
     intentos_fallidos?: IntFilter<"usuarios_cp"> | number
     bloqueado_hasta?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: DateTimeNullableFilter<"usuarios_cp"> | Date | string | null
     codigo_verificacion?: StringNullableFilter<"usuarios_cp"> | string | null
-=======
-  }
-
-  export type compospetCreateWithoutFaqInput = {
-    id_cp?: string
-    metricas?: metricasCreateNestedManyWithoutCompospetInput
-    personas_equipo?: personas_equipoCreateNestedManyWithoutCompospetInput
-    usuarios_cp?: usuarios_cpCreateNestedManyWithoutCompospetInput
-  }
-
-  export type compospetUncheckedCreateWithoutFaqInput = {
-    id_cp?: string
-    metricas?: metricasUncheckedCreateNestedManyWithoutCompospetInput
-    personas_equipo?: personas_equipoUncheckedCreateNestedManyWithoutCompospetInput
-    usuarios_cp?: usuarios_cpUncheckedCreateNestedManyWithoutCompospetInput
-  }
-
-  export type compospetCreateOrConnectWithoutFaqInput = {
-    where: compospetWhereUniqueInput
-    create: XOR<compospetCreateWithoutFaqInput, compospetUncheckedCreateWithoutFaqInput>
-  }
-
-  export type compospetUpsertWithoutFaqInput = {
-    update: XOR<compospetUpdateWithoutFaqInput, compospetUncheckedUpdateWithoutFaqInput>
-    create: XOR<compospetCreateWithoutFaqInput, compospetUncheckedCreateWithoutFaqInput>
-    where?: compospetWhereInput
-  }
-
-  export type compospetUpdateToOneWithWhereWithoutFaqInput = {
-    where?: compospetWhereInput
-    data: XOR<compospetUpdateWithoutFaqInput, compospetUncheckedUpdateWithoutFaqInput>
-  }
-
-  export type compospetUpdateWithoutFaqInput = {
-    id_cp?: StringFieldUpdateOperationsInput | string
-    metricas?: metricasUpdateManyWithoutCompospetNestedInput
-    personas_equipo?: personas_equipoUpdateManyWithoutCompospetNestedInput
-    usuarios_cp?: usuarios_cpUpdateManyWithoutCompospetNestedInput
-  }
-
-  export type compospetUncheckedUpdateWithoutFaqInput = {
-    id_cp?: StringFieldUpdateOperationsInput | string
-    metricas?: metricasUncheckedUpdateManyWithoutCompospetNestedInput
-    personas_equipo?: personas_equipoUncheckedUpdateManyWithoutCompospetNestedInput
-    usuarios_cp?: usuarios_cpUncheckedUpdateManyWithoutCompospetNestedInput
->>>>>>> Stashed changes
   }
 
   export type solicitudes_recoleccionCreateWithoutFormas_pagoInput = {
@@ -25067,12 +24690,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesCreateNestedManyWithoutUsuarios_cpInput
@@ -25091,12 +24710,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-    administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
     cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
     sesiones?: sesionesUncheckedCreateNestedManyWithoutUsuarios_cpInput
@@ -25294,124 +24909,6 @@ export namespace Prisma {
     fecha_salida?: DateTimeNullableFilter<"cliente"> | Date | string | null
   }
 
-<<<<<<< Updated upstream
-=======
-  export type zonaUpsertWithoutRutaInput = {
-    update: XOR<zonaUpdateWithoutRutaInput, zonaUncheckedUpdateWithoutRutaInput>
-    create: XOR<zonaCreateWithoutRutaInput, zonaUncheckedCreateWithoutRutaInput>
-    where?: zonaWhereInput
-  }
-
-  export type zonaUpdateToOneWithWhereWithoutRutaInput = {
-    where?: zonaWhereInput
-    data: XOR<zonaUpdateWithoutRutaInput, zonaUncheckedUpdateWithoutRutaInput>
-  }
-
-  export type zonaUpdateWithoutRutaInput = {
-    id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
-    municipio?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type zonaUncheckedUpdateWithoutRutaInput = {
-    id_zona?: IntFieldUpdateOperationsInput | number
-    nombre_zona?: StringFieldUpdateOperationsInput | string
-    municipio?: StringFieldUpdateOperationsInput | string
-    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
-    estado?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type usuarios_cpCreateWithoutSolicitud_registroInput = {
-    id_usuario?: string
-    nombre: string
-    apellido?: string | null
-    contrasena: string
-    estatus?: boolean
-    telefono?: string | null
-    correo: string
-    primer_inicio_sesion?: boolean
-    intentos_fallidos?: number
-    bloqueado_hasta?: Date | string | null
-    administrador?: administradorCreateNestedOneWithoutUsuarios_cpInput
-    bitacora?: bitacoraCreateNestedManyWithoutUsuarios_cpInput
-    cliente?: clienteCreateNestedOneWithoutUsuarios_cpInput
-    compospet: compospetCreateNestedOneWithoutUsuarios_cpInput
-    roles: rolesCreateNestedOneWithoutUsuarios_cpInput
-  }
-
-  export type usuarios_cpUncheckedCreateWithoutSolicitud_registroInput = {
-    id_usuario?: string
-    id_cp: string
-    id_rol: string
-    nombre: string
-    apellido?: string | null
-    contrasena: string
-    estatus?: boolean
-    telefono?: string | null
-    correo: string
-    primer_inicio_sesion?: boolean
-    intentos_fallidos?: number
-    bloqueado_hasta?: Date | string | null
-    administrador?: administradorUncheckedCreateNestedOneWithoutUsuarios_cpInput
-    bitacora?: bitacoraUncheckedCreateNestedManyWithoutUsuarios_cpInput
-    cliente?: clienteUncheckedCreateNestedOneWithoutUsuarios_cpInput
-  }
-
-  export type usuarios_cpCreateOrConnectWithoutSolicitud_registroInput = {
-    where: usuarios_cpWhereUniqueInput
-    create: XOR<usuarios_cpCreateWithoutSolicitud_registroInput, usuarios_cpUncheckedCreateWithoutSolicitud_registroInput>
-  }
-
-  export type usuarios_cpUpsertWithoutSolicitud_registroInput = {
-    update: XOR<usuarios_cpUpdateWithoutSolicitud_registroInput, usuarios_cpUncheckedUpdateWithoutSolicitud_registroInput>
-    create: XOR<usuarios_cpCreateWithoutSolicitud_registroInput, usuarios_cpUncheckedCreateWithoutSolicitud_registroInput>
-    where?: usuarios_cpWhereInput
-  }
-
-  export type usuarios_cpUpdateToOneWithWhereWithoutSolicitud_registroInput = {
-    where?: usuarios_cpWhereInput
-    data: XOR<usuarios_cpUpdateWithoutSolicitud_registroInput, usuarios_cpUncheckedUpdateWithoutSolicitud_registroInput>
-  }
-
-  export type usuarios_cpUpdateWithoutSolicitud_registroInput = {
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: NullableStringFieldUpdateOperationsInput | string | null
-    contrasena?: StringFieldUpdateOperationsInput | string
-    estatus?: BoolFieldUpdateOperationsInput | boolean
-    telefono?: NullableStringFieldUpdateOperationsInput | string | null
-    correo?: StringFieldUpdateOperationsInput | string
-    primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
-    intentos_fallidos?: IntFieldUpdateOperationsInput | number
-    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
-    bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
-    cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
-    compospet?: compospetUpdateOneRequiredWithoutUsuarios_cpNestedInput
-    roles?: rolesUpdateOneRequiredWithoutUsuarios_cpNestedInput
-  }
-
-  export type usuarios_cpUncheckedUpdateWithoutSolicitud_registroInput = {
-    id_usuario?: StringFieldUpdateOperationsInput | string
-    id_cp?: StringFieldUpdateOperationsInput | string
-    id_rol?: StringFieldUpdateOperationsInput | string
-    nombre?: StringFieldUpdateOperationsInput | string
-    apellido?: NullableStringFieldUpdateOperationsInput | string | null
-    contrasena?: StringFieldUpdateOperationsInput | string
-    estatus?: BoolFieldUpdateOperationsInput | boolean
-    telefono?: NullableStringFieldUpdateOperationsInput | string | null
-    correo?: StringFieldUpdateOperationsInput | string
-    primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
-    intentos_fallidos?: IntFieldUpdateOperationsInput | number
-    bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
-    bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
-    cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
-  }
-
->>>>>>> Stashed changes
   export type productos_solicitudCreateWithoutSolicitudes_recoleccionInput = {
     fecha?: Date | string | null
     cantidad: number
@@ -26093,29 +25590,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
-  }
-
-  export type faqUpdateWithoutCompospetInput = {
-    id_faq?: IntFieldUpdateOperationsInput | number
-    pregunta?: StringFieldUpdateOperationsInput | string
-    respuesta?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type faqUncheckedUpdateWithoutCompospetInput = {
-    id_faq?: IntFieldUpdateOperationsInput | number
-    pregunta?: StringFieldUpdateOperationsInput | string
-    respuesta?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type faqUncheckedUpdateManyWithoutCompospetInput = {
-    id_faq?: IntFieldUpdateOperationsInput | number
-    pregunta?: StringFieldUpdateOperationsInput | string
-    respuesta?: StringFieldUpdateOperationsInput | string
->>>>>>> Stashed changes
   }
 
   export type metricasUpdateWithoutCompospetInput = {
@@ -26150,12 +25626,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
@@ -26174,12 +25646,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -26197,11 +25665,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type solicitudes_recoleccionCreateManyFormas_pagoInput = {
@@ -26322,11 +25787,8 @@ export namespace Prisma {
     primer_inicio_sesion?: boolean
     intentos_fallidos?: number
     bloqueado_hasta?: Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: Date | string | null
     codigo_verificacion?: string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type roles_permisosUpdateWithoutRolesInput = {
@@ -26352,12 +25814,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUpdateManyWithoutUsuarios_cpNestedInput
@@ -26376,12 +25834,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    administrador?: administradorUncheckedUpdateOneWithoutUsuarios_cpNestedInput
->>>>>>> Stashed changes
     bitacora?: bitacoraUncheckedUpdateManyWithoutUsuarios_cpNestedInput
     cliente?: clienteUncheckedUpdateOneWithoutUsuarios_cpNestedInput
     sesiones?: sesionesUncheckedUpdateManyWithoutUsuarios_cpNestedInput
@@ -26399,11 +25853,8 @@ export namespace Prisma {
     primer_inicio_sesion?: BoolFieldUpdateOperationsInput | boolean
     intentos_fallidos?: IntFieldUpdateOperationsInput | number
     bloqueado_hasta?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-<<<<<<< Updated upstream
     codigo_expiracion?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     codigo_verificacion?: NullableStringFieldUpdateOperationsInput | string | null
-=======
->>>>>>> Stashed changes
   }
 
   export type clienteCreateManyRutaInput = {

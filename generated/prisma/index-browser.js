@@ -242,13 +242,9 @@ exports.Prisma.Usuarios_cpScalarFieldEnum = {
   correo: 'correo',
   primer_inicio_sesion: 'primer_inicio_sesion',
   intentos_fallidos: 'intentos_fallidos',
-<<<<<<< Updated upstream
   bloqueado_hasta: 'bloqueado_hasta',
   codigo_expiracion: 'codigo_expiracion',
   codigo_verificacion: 'codigo_verificacion'
-=======
-  bloqueado_hasta: 'bloqueado_hasta'
->>>>>>> Stashed changes
 };
 
 exports.Prisma.SesionesScalarFieldEnum = {

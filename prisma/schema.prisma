@@ -157,12 +157,8 @@ model usuarios_cp {
   primer_inicio_sesion Boolean              @default(true)
   intentos_fallidos    Int                  @default(0)
   bloqueado_hasta      DateTime?            @db.Timestamp(6)
-<<<<<<< Updated upstream
   codigo_expiracion    DateTime?            @db.Timestamp(6)
   codigo_verificacion  String?              @db.VarChar
-=======
-  administrador        administrador?
->>>>>>> Stashed changes
   bitacora             bitacora[]
   cliente              cliente?
   sesiones             sesiones[] 

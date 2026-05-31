@@ -63,7 +63,6 @@ app.get('/metrics', async (req, res) => {
     res.end(await register.metrics());
 });
 
-<<<<<<< Updated upstream
 // Definición de las rutas de negocio de la aplicación
 app.use('/api', routes);
 
@@ -75,12 +74,7 @@ app.use('/api', routes);
  * @returns {void}
  */
 app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
-=======
-app.use((req, res, next) => {
-    console.log("Content-Type recibido:", req.headers["content-type"]);
-    next();
->>>>>>> Stashed changes
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 /**

@@ -1,9 +1,5 @@
 {
-<<<<<<< Updated upstream
   "name": "prisma-client-13546551d5c72dce17b449403dae783e006748b9eb9b699ebb3a0d1c54f4db0a",
-=======
-  "name": "prisma-client-a319f7bff5695badc26d0becfc65392b8e824891280a24a756139e0d18635549",
->>>>>>> Stashed changes
   "main": "index.js",
   "types": "index.d.ts",
   "browser": "default.js",

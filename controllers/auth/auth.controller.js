@@ -111,8 +111,8 @@ const login = async(req, res) => {
             role: user.roles.nombre,
         };
 
-        const accessToken = generateAccessToken(tokenPayload);
-        const refreshToken = generateRefreshToken(tokenPayload);
+        const accessToken    = generateAccessToken(tokenPayload);
+        const newRefreshToken = generateRefreshToken(tokenPayload);
 
         const existingRefreshToken = req.cookies.refreshToken;
         if (existingRefreshToken) {
@@ -125,12 +125,12 @@ const login = async(req, res) => {
         }
 
         const ip = getClientIp(req);
-        await AuthModel.createSession(user.id_usuario, refreshToken, user.roles.nombre, ip);
+        await AuthModel.createSession(user.id_usuario, newRefreshToken, user.roles.nombre, ip);
 
-        res.cookie('refreshToken', refreshToken, cookieOptions);
+        res.cookie('refreshToken', newRefreshToken, cookieOptions);
 
         return res.status(200).json({
-            authProvider: "credentials",
+            authProvider: 'credentials',
             isGoogleAuthenticated: false,
             id_usuario: user.id_usuario,
             correo: user.correo,
@@ -171,9 +171,7 @@ const googleAuth = async (req, res) => {
 
         const { email, name, picture } = userInfo.data;
 
-
         const userDB = await AuthModel.findUserByEmail(email);
-
 
         if (!userDB) {
             await logIfAdmin(userDB, "LOGIN_GOOGLE_FALLIDO", `Intento con correo no registrado: ${email}`);
@@ -189,8 +187,8 @@ const googleAuth = async (req, res) => {
             role: userDB.roles.nombre 
         };
 
-        const accessToken = generateAccessToken(tokenPayload);
-        const refreshToken = generateRefreshToken(tokenPayload);
+        const accessToken    = generateAccessToken(tokenPayload);
+        const newRefreshToken = generateRefreshToken(tokenPayload);
 
         const existingRefreshToken = req.cookies.refreshToken;
         if (existingRefreshToken) {
@@ -207,9 +205,9 @@ const googleAuth = async (req, res) => {
 
         await logIfAdmin(userDB, "LOGIN_GOOGLE_EXITOSO", "Acceso mediante Google OAuth");
 
-        res.cookie('refreshToken', refreshToken, cookieOptions);
+        res.cookie('refreshToken', newRefreshToken, cookieOptions);
         res.cookie('googleToken', token, cookieOptions);
-
+        
         res.status(200).json({ 
             msg: "Login correcto", 
             accessToken,

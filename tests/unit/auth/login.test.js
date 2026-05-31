@@ -31,6 +31,21 @@ const mockResponse = () => {
     return res;
 };
 
+const mockRequest = (body = {}) => ({
+    body,
+    cookies: {},
+    headers: {},
+    socket: {},
+});
+
+beforeEach(() => {
+    jest.clearAllMocks();
+    AuthModel.countActiveSessions = jest.fn().mockResolvedValue(0);
+    AuthModel.closeOldestSession  = jest.fn().mockResolvedValue(null);
+    AuthModel.closeSession        = jest.fn().mockResolvedValue(null);
+    AuthModel.createSession       = jest.fn().mockResolvedValue({});
+});
+
 /**
  * @group Autenticación
  * Suite de pruebas del controlador `login`.
@@ -97,9 +112,9 @@ test('debe hacer login correctamente', async () => {
     jwtUtils.generateAccessToken.mockReturnValue('access-token');
     jwtUtils.generateRefreshToken.mockReturnValue('refresh-token');
 
-    const req = {
-        body: { email: 'test@test.com', password: '1234' }
-    };
+    const req = mockRequest(
+        { email: 'test@test.com', password: '1234' }
+    );
     const res = mockResponse();
 
     await login(req, res);
