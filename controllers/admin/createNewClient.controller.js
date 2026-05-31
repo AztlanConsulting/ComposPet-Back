@@ -48,6 +48,7 @@ const validateRegisterClient = (body) => {
     const pets = normalizeText(body.pets);
     const family = normalizeText(body.family);
     const notes = normalizeText(body.notes);
+    console.log("NOTAS: ", notes);
 
     if (!name || name.length < 2 || name.length > 80 || !isOnlyLetters(name)) {
         errors.name = 'Nombre inválido.';
