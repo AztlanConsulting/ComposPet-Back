@@ -46,11 +46,22 @@ const mockResponse = () => {
     return res;
 };
 
+const mockRequest = (body = {}) => ({
+    body,
+    cookies: {},
+    headers: {},
+    socket: {},
+});
+
 // ─── TESTS ────────────────────────────────────────────────────────
 describe('Pruebas Unitarias: Google Auth', () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+        AuthModel.countActiveSessions = jest.fn().mockResolvedValue(0);
+        AuthModel.closeOldestSession  = jest.fn().mockResolvedValue(null);
+        AuthModel.closeSession        = jest.fn().mockResolvedValue(null);
+        AuthModel.createSession       = jest.fn().mockResolvedValue({});
     });
 
     test('debe retornar 401 si el correo de Google no está registrado', async () => {
@@ -85,7 +96,7 @@ describe('Pruebas Unitarias: Google Auth', () => {
             roles: { nombre: 'admin' },
         });
 
-        const req = { body: { token: 'google-token-valido' } };
+        const req = mockRequest({ token: 'google-token-valido' });
         const res = mockResponse();
 
         // Act
@@ -135,7 +146,7 @@ describe('Pruebas Unitarias: Google Auth', () => {
         });
         AuthModel.findUserByEmail.mockResolvedValue(fakeUser);
 
-        const req = { body: { token: 'google-token-valido' } };
+        const req = mockRequest({ token: 'google-token-valido' });
         const res = mockResponse();
 
         // Act

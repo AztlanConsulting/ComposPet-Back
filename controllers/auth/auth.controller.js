@@ -137,8 +137,8 @@ const login = async(req, res) => {
             role: user.roles.nombre,
         };
 
-        const accessToken      = generateAccessToken(tokenPayload);
-        const newRefreshToken  = generateRefreshToken(tokenPayload);
+        const accessToken = generateAccessToken(tokenPayload);
+        const newRefreshToken = generateRefreshToken(tokenPayload);
 
         try {
             await handleSessionLimit(req, user.id_usuario, newRefreshToken, user.roles.nombre);
@@ -149,7 +149,7 @@ const login = async(req, res) => {
         res.cookie('refreshToken', newRefreshToken, cookieOptions);
 
         return res.status(200).json({
-            authProvider: "credentials",
+            authProvider: 'credentials',
             isGoogleAuthenticated: false,
             id_usuario: user.id_usuario,
             correo: user.correo,
@@ -190,9 +190,7 @@ const googleAuth = async (req, res) => {
 
         const { email, name, picture } = userInfo.data;
 
-
         const userDB = await AuthModel.findUserByEmail(email);
-
 
         if (!userDB) {
             await logIfAdmin(userDB, "LOGIN_GOOGLE_FALLIDO", `Intento con correo no registrado: ${email}`);
@@ -208,7 +206,7 @@ const googleAuth = async (req, res) => {
             role: userDB.roles.nombre 
         };
 
-        const accessToken     = generateAccessToken(tokenPayload);
+        const accessToken = generateAccessToken(tokenPayload);
         const newRefreshToken = generateRefreshToken(tokenPayload);
 
         try {
@@ -221,7 +219,7 @@ const googleAuth = async (req, res) => {
 
         res.cookie('refreshToken', newRefreshToken, cookieOptions);
         res.cookie('googleToken', token, cookieOptions);
-
+        
         res.status(200).json({ 
             msg: "Login correcto", 
             accessToken,
