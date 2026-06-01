@@ -8,30 +8,58 @@ const User = require('../../models/user.model');
 const Role =  require('../../models/role.model');
 const Credit = require('../../models/credit.model');
 
+/**
+ * Convierte cualquier valor recibido a string
+ * y elimina los espacios del inicio y final.
+ */
 const normalizeText = (value = '') =>
     String(value).trim();
 
-const escapeHtml = (value = '') =>
-    String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-
-
+/**
+ * Valida que el texto contenga únicamente:
+ * - Letras mayúsculas/minúsculas
+ * - Letras acentuadas
+ * - Ñ/ñ
+ * - 1 Espacio entre palabras (no permite espacios al inicio o final)
+ *
+ * No acepta guiones, números, ni caracteres especiales.
+ */
 const isOnlyLetters = (value) =>
-    /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(value);
+    /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?: [A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/.test(value);
 
-const isSafeFreeText = (value) =>
-    /^[A-Za-zÁÉÍÓÚáéíóúÑñ0-9\s.,#\-]*$/.test(value);
-
+/**
+ * Valida números telefónicos con:
+ * - Opcional signo +
+ * - Entre 10 y 15 dígitos
+ */
 const isValidPhone = (value) =>
     /^\+?\d{10,15}$/.test(value);
 
+/**
+ *  Valida formato básico de correo electrónico.
+ *
+ * Ejemplos válidos:
+ * correo@test.com
+ * nombre.apellido@mail.mx
+ *
+ * Nota:
+ * No garantiza que el correo exista,
+ * únicamente valida formato.
+ */
 const isValidEmail = (value) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
+/**
+ * Verifica que el valor recibido sea:
+ * - Número entero
+ * - Mayor que cero
+ *
+ * Ejemplos válidos:
+ * 1, 25, "10"
+ *
+ * Inválidos:
+ * 0, -5, 2.5, "abc"
+ */
 const isPositiveInteger = (value) =>
     Number.isInteger(Number(value)) && Number(value) > 0;
 
@@ -69,7 +97,7 @@ const validateRegisterClient = (body) => {
         errors.address = 'Dirección inválida.';
     }
 
-    if (!isPositiveInteger(body.id_ruta)) {
+    if (!isPositiveInteger(id_ruta)) {
         errors.id_ruta = 'Ruta inválida.';
     }
 
@@ -89,15 +117,15 @@ const validateRegisterClient = (body) => {
         isValid: Object.keys(errors).length === 0,
         errors,
         data: {
-            name: escapeHtml(name),
-            lastName: escapeHtml(lastName),
+            name,
+            lastName,
             phone,
             email,
-            address: escapeHtml(address),
+            address,
             id_ruta,
-            pets: escapeHtml(pets),
-            family: escapeHtml(family),
-            notes: escapeHtml(notes),
+            pets,
+            family,
+            notes
         },
     };
 };
