@@ -138,7 +138,7 @@ const updateClient = async (req, res) => {
         console.error(error);
         res.status(500).json({
             success: false,
-            message: 'Error al actualizar la información del cliente.',
+            message: error.message,
             error,
         })
     }
@@ -164,6 +164,10 @@ function buildDataObjects(clientObject) {
 
     if (clientObject.status !== undefined) {
         userData.estatus = clientObject.status;
+    }
+
+    if (clientObject.email !== undefined) {
+        userData.correo = clientObject.email;
     }
 
     // Campos para la tabla clientes

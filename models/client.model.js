@@ -149,7 +149,8 @@ module.exports = class Client {
                     nombre: true,
                     apellido: true,
                     telefono: true,
-                    estatus: true
+                    estatus: true,
+                    correo: true,
                 }
                 },
 
@@ -191,7 +192,7 @@ module.exports = class Client {
             name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
             cellphone: client.usuarios_cp.telefono,
             status: client.usuarios_cp.estatus,
-
+            email: client.usuarios_cp.correo,
             routeId: client.ruta.id_ruta,
             route: client.ruta ? client.ruta.dia_ruta : null,
 
@@ -240,6 +241,23 @@ module.exports = class Client {
                         }
                     }
                 })
+
+                const existingEmmails = await tx.usuarios_cp.findMany({
+                    where: {
+                        correo: userData.correo,
+                        id_usuario: {
+                            not: userId,
+                        }
+                    },
+                    select: {
+                        id_usuario: true,
+                        correo: true,
+                    }
+                });
+
+                if(existingEmmails.length > 0){
+                    throw new Error("El correo " + userData.correo + " ya está registrado.");
+                }
 
                 const oldStatus = actualClient.usuarios_cp.estatus;
                 const newStatus = userData.estatus;
@@ -317,9 +335,8 @@ module.exports = class Client {
 
             })
         } catch(error){
-            console.log(error)
-        } finally {
-            return true;
+            console.log(error);
+            throw error;
         }
     }
 
