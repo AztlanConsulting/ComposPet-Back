@@ -305,16 +305,18 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
             expect(callData.total_a_pagar).toBeGreaterThanOrEqual(100);
         });
 
-        it('debe asignar total_a_pagar = 0 cuando no hay cubetas ni productos (cubetas_entregadas inválido)', async () => {
-            const dataZero = {
+        it('debe lanzar error cuando cubetas_entregadas es mayor a 20', async () => {
+
+            const dataInvalid = {
                 ...REQUEST_DATA,
                 cubetas_entregadas: 9999,
             };
 
-            await CollectionRequest.updateRequest(dataZero, []);
-
-            const callData = prisma.solicitudes_recoleccion.update.mock.calls[0][0].data;
-            expect(callData.total_a_pagar).toBe(0);
+            await expect(
+                CollectionRequest.updateRequest(dataInvalid, [])
+            ).rejects.toThrow(
+                'Error al actualizar la solicitud de recolección'
+            );
         });
 
         it('debe consultar los precios solo de los productos enviados', async () => {

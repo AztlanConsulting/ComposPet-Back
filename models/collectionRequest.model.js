@@ -402,6 +402,71 @@ module.exports = class CollectionRequest {
 
             const requestId = requestData.id_solicitud;
 
+            // Validaciones de inputs
+
+            if (!requestId) {
+                throw new Error("ID de solicitud es requerido.");
+            }
+
+            const collectedBuckets = Number(requestData.cubetas_recolectadas ?? 0);
+
+            if(!Number.isInteger(collectedBuckets) || collectedBuckets < 0){
+                throw new Error("Cantidad de cubetas recolectadas no válida.");
+            }
+
+            const deliveredBuckets = Number(requestData.cubetas_entregadas ?? 0);
+
+            if(!Number.isInteger(deliveredBuckets) || deliveredBuckets < 0){
+                throw new Error("Cantidad de cubetas entregadas no válida.");
+            }
+
+            if(deliveredBuckets > 20){
+                throw new Error("No se pueden solicitar más de 20 cubetas.");
+            }
+
+            const totalPaid = Number(requestData.total_pagado ?? 0);
+
+            if(Number.isNaN(totalPaid) || totalPaid < 0){
+                throw new Error("Total pagado no válido.");
+            }
+
+            if(!Array.isArray(productsData)){
+                throw new Error("Datos de productos no válidos.");
+            }
+
+            for (const product of productsData) {
+                if(!Number.isInteger(product.id_producto)){
+                    throw new Error("ID de producto no válido.");
+                }
+
+                if(!Number.isInteger(product.cantidad) || product.cantidad < 0){
+                    throw new Error("Cantidad de producto no válida.");
+                }
+            }
+
+            // Validación de existencia de datos
+            if (requestData.id_pago !== null &&
+                requestData.id_pago !== undefined
+            ) {
+
+                const paymentMethod =
+                    await tx.formas_pago.findUnique({
+                        where: {
+                            id_pago:
+                                Number(requestData.id_pago),
+                        },
+                        select: {
+                            id_pago: true,
+                        },
+                    });
+
+                if (!paymentMethod) {
+                    throw new Error(
+                        "La forma de pago no existe"
+                    );
+                }
+            }
+
             const productsIds = productsData.map(
                 product => product.id_producto
             );
