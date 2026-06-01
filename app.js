@@ -74,7 +74,7 @@ app.use('/api', routes);
  * @returns {void}
  */
 app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 /**
