@@ -48,7 +48,6 @@ const validateRegisterClient = (body) => {
     const pets = normalizeText(body.pets);
     const family = normalizeText(body.family);
     const notes = normalizeText(body.notes);
-    console.log("NOTAS: ", notes);
 
     if (!name || name.length < 2 || name.length > 80 || !isOnlyLetters(name)) {
         errors.name = 'Nombre inválido.';
@@ -166,7 +165,6 @@ const getRegisterClient = async (req, res) => {
  */
 const postRegisterClient = async (req, res) => {
     try{
-        console.log("ENTRÉ AL CONTROLLER");
         const validation = validateRegisterClient(req.body);
 
         if (!validation.isValid) {
