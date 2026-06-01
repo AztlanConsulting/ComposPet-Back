@@ -49,7 +49,7 @@ describe('Controller - saveSecondSection', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       success: false,
-      message: 'Faltan datos requeridos para guardar la segunda sección de la solicitud de recolección.',
+      message: 'Cada producto debe incluir su información completa correspondiente.',
     });
   });
 
