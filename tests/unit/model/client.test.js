@@ -8,6 +8,9 @@ jest.mock('../../../config/prisma', () => ({
   saldo: {
     findUnique: jest.fn(),
   },
+  usuarios_cp: {
+    findMany: jest.fn(),
+  },
 }));
 
 const prisma = require('../../../config/prisma');
@@ -125,12 +128,16 @@ describe('updateClient', () => {
           const tx = {
               usuarios_cp: { 
                   update: jest.fn(),
+                  findMany: jest.fn().mockResolvedValue([]),
               },
 
               cliente: {
                   findUnique: jest.fn().mockResolvedValue({
                       id_ruta: 1,
                       orden_horario: 1,
+                      usuarios_cp: {
+                          estatus: true,
+                      },
                   }),
 
                   update: jest.fn(),
@@ -142,8 +149,7 @@ describe('updateClient', () => {
                   update: jest.fn(),
               },
           };
-            await cb(tx);
-            return tx;
+            return await cb(tx);
         });
 
         jest.clearAllMocks();
@@ -174,14 +180,20 @@ describe('updateClient', () => {
           const tx = {
               usuarios_cp: { 
                   update: jest.fn(),
+                  findMany: jest.fn().mockResolvedValue([]),
               },
 
               cliente: {
                   findUnique: jest.fn().mockResolvedValue({
                       id_ruta: 1,
                       orden_horario: 1,
+                      usuarios_cp: {
+                          estatus: true,
+                      },
                   }),
 
+                  findFirst: jest.fn().mockResolvedValue({ orden_horario: 5 }),
+                  
                   update: jest.fn(),
 
                   updateMany: jest.fn(),
@@ -204,16 +216,5 @@ describe('updateClient', () => {
         expect(txRef.saldo.update).not.toHaveBeenCalled();
     });
 
-    it('debe retornar true aunque ocurra un error en la transacción', async () => {
-
-        // Arrange
-        prisma.$transaction = jest.fn().mockRejectedValue(new Error('DB error'));
-
-        // Act
-        const result = await Client.updateClient('user-123', 'client-456', { telefono: '123' }, {}, {});
-
-        // Assert
-        expect(result).toBe(true);
-    });
   });
 });

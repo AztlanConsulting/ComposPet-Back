@@ -1,5 +1,6 @@
 const Client = require('../models/client.model');
 const Route = require('../models/route.model');
+const { validateEditClient } = require('../utils/editValidations');
 
 /**
  * Obtiene la información básica del cliente asociado a un usuario,
@@ -118,6 +119,16 @@ const updateClient = async (req, res) => {
     try {
         const { clientObject } = req.body;
 
+        const validationResult = validateEditClient(clientObject);
+
+        if (!validationResult.isValid) {
+            return res.status(400).json({
+                success: false,
+                message: 'Datos inválidos.',
+                errors: validationResult.errors
+            });
+        }
+
         const {
             userData, clientData, balanceData
         } = buildDataObjects(clientObject);
@@ -138,7 +149,7 @@ const updateClient = async (req, res) => {
         console.error(error);
         res.status(500).json({
             success: false,
-            message: error.message,
+            message: 'Error al actualizar la información del cliente.',
             error,
         })
     }

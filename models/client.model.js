@@ -225,7 +225,7 @@ module.exports = class Client {
         balanceData,
     ){
         try {
-            await prisma.$transaction(async (tx) => {
+            return await prisma.$transaction(async (tx) => {
 
                 const actualClient = await tx.cliente.findUnique({
                     where: {
@@ -242,7 +242,7 @@ module.exports = class Client {
                     }
                 })
 
-                const existingEmmails = await tx.usuarios_cp.findMany({
+                const existingEmails = await tx.usuarios_cp.findMany({
                     where: {
                         correo: userData.correo,
                         id_usuario: {
@@ -255,7 +255,7 @@ module.exports = class Client {
                     }
                 });
 
-                if(existingEmmails.length > 0){
+                if(existingEmails.length > 0){
                     throw new Error("El correo " + userData.correo + " ya está registrado.");
                 }
 
@@ -268,8 +268,8 @@ module.exports = class Client {
                 const newRouteId = clientData.id_ruta;
                 const oldRouteId = actualClient.id_ruta;
 
-                const orderChanged =  newOrder !== oldOrder;
-                const routeChanged =  newRouteId !== oldRouteId;
+                const orderChanged = clientData.orden_horario !== undefined && newOrder !== oldOrder;
+                const routeChanged = clientData.id_ruta !== undefined && newRouteId !== oldRouteId;
 
                 if(wasDeactivated){
                     await this.moveClientToLastOrder(
@@ -332,6 +332,8 @@ module.exports = class Client {
                         data: balanceData,
                     })
                 }
+
+                return true;
 
             })
         } catch(error){
