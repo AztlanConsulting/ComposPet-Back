@@ -70,7 +70,7 @@ const validateEditClient = (body) => {
         if (containsEmoji(pets)) {
             errors.pets = 'Mascotas no puede contener emojis.';
         } else if (pets.length > 100) {
-            errors.pets = 'Mascotas demasiado largo.';
+            errors.pets = 'La información de mascotas es demasiado larga.';
         }
     }
 
@@ -78,7 +78,7 @@ const validateEditClient = (body) => {
         if (containsEmoji(family)) {
             errors.family = 'Familia no puede contener emojis.';
         } else if (family.length > 100) {
-            errors.family = 'Familia demasiado largo.';
+            errors.family = 'La información de familia es demasiado larga.';
         }
     }
 

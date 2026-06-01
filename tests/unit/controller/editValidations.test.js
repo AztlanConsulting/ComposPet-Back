@@ -148,7 +148,7 @@ describe('Unit - Utils - validateEditClient', () => {
         it('debe rechazar mascotas mayor a 100 caracteres', () => {
             const result = validateEditClient({ pets: 'a'.repeat(101) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.pets).toBe('Mascotas demasiado largo.');
+            expect(result.errors.pets).toBe('La información de mascotas es demasiado larga.');
         });
 
         it('debe aceptar mascotas de exactamente 100 caracteres', () => {
@@ -179,7 +179,7 @@ describe('Unit - Utils - validateEditClient', () => {
         it('debe rechazar familia mayor a 100 caracteres', () => {
             const result = validateEditClient({ family: 'b'.repeat(101) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.family).toBe('Familia demasiado largo.');
+            expect(result.errors.family).toBe('La información de familia es demasiado larga.');
         });
 
         it('no debe validar family si no fue enviado', () => {

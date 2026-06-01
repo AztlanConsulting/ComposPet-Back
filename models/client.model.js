@@ -242,22 +242,26 @@ module.exports = class Client {
                     }
                 })
 
-                const existingEmails = await tx.usuarios_cp.findMany({
-                    where: {
-                        correo: userData.correo,
-                        id_usuario: {
-                            not: userId,
+                if(userData.correo !== undefined){
+                    const existingEmails = await tx.usuarios_cp.findFirst({
+                        where: {
+                            correo: userData.correo,
+                            id_usuario: {
+                                not: userId,
+                            }
+                        },
+                        select: {
+                            id_usuario: true,
+                            correo: true,
                         }
-                    },
-                    select: {
-                        id_usuario: true,
-                        correo: true,
-                    }
-                });
+                    });
 
-                if(existingEmails.length > 0){
-                    throw new Error("El correo " + userData.correo + " ya está registrado.");
+                    if(existingEmails){
+                        throw new Error("El correo " + userData.correo + " ya está registrado.");
+                    }
                 }
+
+
 
                 const oldStatus = actualClient.usuarios_cp.estatus;
                 const newStatus = userData.estatus;
@@ -337,7 +341,7 @@ module.exports = class Client {
 
             })
         } catch(error){
-            console.log(error);
+            console.error(error);
             throw error;
         }
     }
