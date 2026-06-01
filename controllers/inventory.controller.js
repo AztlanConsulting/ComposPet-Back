@@ -32,13 +32,20 @@ const postRegisterProduct = async (req, res) => {
                 ? str.replace(/[<>"'%;()&+]/g, '').trim()
                 : '';
 
+        const containsEmoji = (str) =>
+        /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu.test(str);
+
+        const invalidCharacters = /[<>"'%;()&+]/;
+        const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
+
         const name = sanitize(rawName);
         const description = sanitize(rawDescription);
+        const cleanColor = typeof color === 'string' ? color.trim() : '';
 
         const numericPrice = Number(price);
         const numericQuantity = Number(quantity);
 
-        if (!name || price === undefined || quantity === undefined || !color) {
+        if (!rawName || price === undefined || quantity === undefined || !color) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para registrar el producto.',
@@ -47,13 +54,27 @@ const postRegisterProduct = async (req, res) => {
 
         if (
             typeof rawName !== 'string' ||
+            typeof color !== 'string' ||
             Number.isNaN(numericPrice) ||
-            Number.isNaN(numericQuantity) ||
-            typeof color !== 'string'
+            Number.isNaN(numericQuantity)
         ) {
             return res.status(400).json({
                 success: false,
                 message: 'Los datos del producto tienen un tipo inválido.',
+            });
+        }
+
+        if (!name || !cleanColor) {
+            return res.status(400).json({
+                success: false,
+                message: 'Faltan datos requeridos para registrar el producto.',
+            });
+        }
+
+        if (invalidCharacters.test(rawName)) {
+            return res.status(400).json({
+                success: false,
+                message: 'El nombre contiene caracteres inválidos.',
             });
         }
 
@@ -64,10 +85,77 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
+        if (rawDescription && invalidCharacters.test(rawDescription)) {
+            return res.status(400).json({
+                success: false,
+                message: 'La descripción contiene caracteres inválidos.',
+            });
+        }
+
         if (imageUrl !== undefined && typeof imageUrl !== 'string') {
             return res.status(400).json({
                 success: false,
                 message: 'La imagen debe ser una URL válida.',
+            });
+        }
+
+        if (imageUrl) {
+            try {
+                new URL(imageUrl);
+            } catch {
+                return res.status(400).json({
+                    success: false,
+                    message: 'La URL de la imagen es inválida.',
+                });
+            }
+        }
+
+        if (name.length > 60) {
+            return res.status(400).json({
+                success: false,
+                message: 'El nombre excede la longitud permitida.',
+            });
+        }
+
+        if (description && description.length > 255) {
+            return res.status(400).json({
+                success: false,
+                message: 'La descripción excede la longitud permitida.',
+            });
+        }
+
+        if (containsEmoji(name)) {
+            return res.status(400).json({
+                success: false,
+                message: 'El nombre no puede contener emojis.',
+            });
+        }
+
+        if (description && containsEmoji(description)) {
+            return res.status(400).json({
+                success: false,
+                message: 'La descripción no puede contener emojis.',
+            });
+        }
+
+        if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'El precio es inválido.',
+            });
+        }
+
+        if (!Number.isInteger(numericQuantity) || numericQuantity < 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'La cantidad es inválida.',
+            });
+        }
+
+        if (!hexColorRegex.test(cleanColor)) {
+            return res.status(400).json({
+                success: false,
+                message: 'El color es inválido.',
             });
         }
 
@@ -85,8 +173,8 @@ const postRegisterProduct = async (req, res) => {
             price: numericPrice,
             description,
             quantity: numericQuantity,
-            imageUrl,
-            color,
+            imageUrl: imageUrl || null,
+            color: cleanColor,
         });
 
         return res.status(201).json({
