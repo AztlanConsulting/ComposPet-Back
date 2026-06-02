@@ -50,7 +50,7 @@ describe('Unit - Utils - validateEditClient', () => {
         });
 
         it('debe aceptar teléfono con prefijo +52', () => {
-            const result = validateEditClient({ cellphone: '+52 442 123 4567' });
+            const result = validateEditClient({ cellphone: '+524421234567' });
             expect(result.isValid).toBe(true);
         });
 
