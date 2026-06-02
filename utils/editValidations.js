@@ -9,13 +9,13 @@ const containsEmoji = (value = '') =>
     emojiRegex.test(value);
 
 const isValidPhone = (value) =>
-    /^(\+52[\s-]?)?[0-9]{3}[\s-]?[0-9]{3}[\s-]?[0-9]{4}$/.test(value);
+    /^\+?\d{10,15}$/.test(value);
 
 const isValidEmail = (value) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
 const isValidAddress = (value) =>
-    /^[a-zA-ZÀ-ÿ0-9\s.,#-]{5,150}$/.test(value);
+    /^(?=.*[A-Za-zÀ-ÿ])[A-Za-zÀ-ÿ0-9.,#\-\s]{5,150}$/.test(value);
 
 const isValidSchedule = (value) =>
     /^(0[1-9]|1[0-2]):[0-5]\d$/.test(value);
