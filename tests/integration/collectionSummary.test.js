@@ -124,6 +124,7 @@ const createCollectionRequest = async () => {
             quiere_recoleccion: true,
             quiere_productos_extra: true,
             id_pago: null,
+            estatus: false,
         },
     });
 };

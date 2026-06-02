@@ -145,6 +145,15 @@ const cleanDb = async () => {
   await prisma.compospet.deleteMany({
     where: { id_cp: TEST_CP_ID },
   });
+
+  await prisma.productos_extra.deleteMany({
+    where: {
+      id_producto: {
+        in: [PRODUCT_ID_1, PRODUCT_ID_2],
+      },
+    },
+});
+
 };
 
 beforeAll(async () => {
@@ -192,6 +201,13 @@ describe("CollectionRequest - flujo completo segunda página (integration)", () 
         fecha: new Date(),
         quiere_productos_extra: false,
         quiere_recoleccion: false,
+        cubetas_recolectadas: 0,
+        cubetas_entregadas: 0,
+        total_a_pagar: 0,
+        total_pagado: 0,
+        notas: null,
+        id_pago: null,
+        estatus: false,
       },
     });
 
