@@ -46,6 +46,7 @@ const postRegisterProduct = async (req, res) => {
         const cleanColor = typeof color === 'string' ? color.trim() : '';
 
         const numericPrice = Number(price);
+        const priceRegex = /^\d+(\.\d{1,2})?$/;
         const numericQuantity = Number(quantity);
 
         if (!rawName || price === undefined || quantity === undefined || !color) {
@@ -123,10 +124,24 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
+        if (!priceRegex.test(String(price))) {
+            return res.status(400).json({
+                success: false,
+                message: 'El precio solo puede tener hasta 2 decimales.',
+            });
+        }
+        
         if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
             return res.status(400).json({
                 success: false,
                 message: 'El precio es inválido.',
+            });
+        }
+        
+        if (numericPrice > 100000) {
+            return res.status(400).json({
+                success: false,
+                message: 'El precio no puede exceder $100,000.00.',
             });
         }
 
