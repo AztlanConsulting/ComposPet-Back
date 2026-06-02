@@ -174,6 +174,25 @@ const validateRequestUpdate = (data) => {
         }
     }
 
+    if (
+        data.extraProductsArray &&
+        typeof data.extraProductsArray === 'object'
+    ) {
+        Object.entries(data.extraProductsArray).forEach(
+            ([productId, quantity]) => {
+                const parsedQuantity = Number(quantity);
+
+                if (isNaN(parsedQuantity)) {
+                    errors[`extraProductsArray.${productId}`] =
+                        'La cantidad debe de ser un número.';
+                } else if (parsedQuantity < 0) {
+                    errors[`extraProductsArray.${productId}`] =
+                        'La cantidad no puede ser negativa.';
+                }
+            }
+        );
+    }
+
     return {
         isValid: Object.keys(errors).length === 0,
         errors,
