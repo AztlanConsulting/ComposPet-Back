@@ -77,11 +77,11 @@ const validateRegisterClient = (body) => {
     const family = normalizeText(body.family);
     const notes = normalizeText(body.notes);
 
-    if (!name || name.length < 2 || name.length > 80 || !isOnlyLetters(name)) {
+    if (!name || name.length < 1 || name.length > 100 || !isOnlyLetters(name)) {
         errors.name = 'Nombre inválido.';
     }
 
-    if (!lastName || lastName.length < 2 || lastName.length > 80 || !isOnlyLetters(lastName)) {
+    if (!lastName || lastName.length < 1 || lastName.length > 200 || !isOnlyLetters(lastName)) {
         errors.lastName = 'Apellido inválido.';
     }
 
@@ -89,7 +89,7 @@ const validateRegisterClient = (body) => {
         errors.phone = 'El teléfono debe tener 10 dígitos.';
     }
 
-    if (!email || email.length > 120 || !isValidEmail(email)) {
+    if (!email || email.length > 150 || !isValidEmail(email)) {
         errors.email = 'Correo inválido.';
     }
 
@@ -101,11 +101,11 @@ const validateRegisterClient = (body) => {
         errors.id_ruta = 'Ruta inválida.';
     }
 
-    if (pets.length > 255) {
+    if (pets.length > 50) {
         errors.pets = 'Mascotas es demasiado largo.';
     }
 
-    if (family.length > 255) {
+    if (family.length > 50) {
         errors.family = 'Familia es demasiado largo.';
     }
 
