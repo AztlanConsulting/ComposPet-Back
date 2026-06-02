@@ -49,7 +49,7 @@ module.exports = class CollectionRequest {
             throw new Error("Solicitud no encontrada");
         }
 
-        if (collectionRequest.estatus === true || collectionRequest.id_pago !== null) {
+        if (collectionRequest.estatus === true) {
             throw new Error("La solicitud de recolección ya fue enviada y no puede modificarse.");
         }
 
