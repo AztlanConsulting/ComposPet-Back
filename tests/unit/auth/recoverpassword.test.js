@@ -78,7 +78,7 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
             expect(res.status).toHaveBeenCalledWith(200);
             expect(res.json).toHaveBeenCalledWith({ success: true, flowToken: 'fake-flow-token' });
         });
-        test('debe retornar 401 si el código es incorrecto', async () => {
+        test('debe retornar 400 si el código es incorrecto', async () => {
             jwt.verify.mockReturnValue({ step: 'CAN_VERIFY_FIRST_LOGIN', email: 'test@test.com' });
             
             PasswordModel.findUserByStatus.mockResolvedValue({
@@ -93,7 +93,7 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
 
             await verifyOTP(req, res);
 
-            expect(res.status).toHaveBeenCalledWith(401);
+            expect(res.status).toHaveBeenCalledWith(400);
             expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: 'Código incorrecto.' }));
             // Verificamos que se aumentó el contador de intentos
             expect(AuthModel.updateLoginTry).toHaveBeenCalledWith(1, 1);

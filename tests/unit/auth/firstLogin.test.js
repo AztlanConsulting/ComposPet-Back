@@ -77,7 +77,7 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
     // 2. VERIFICACIÓN DE OTP (verifyOTP)
     // ─────────────────────────────────────────────────────────────────
     describe('verifyOTP - Primer Inicio', () => {
-        test('debe retornar 401 si el código no coincide', async () => {
+        test('debe retornar 400 si el código no coincide', async () => {
             jwt.verify.mockReturnValue({ 
                 email: 'kamila@compospet.com', 
                 step: 'CAN_VERIFY_FIRST_LOGIN' 
@@ -100,7 +100,7 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
 
             // Debe aumentar el contador de intentos (2 + 1 = 3)
             expect(AuthModel.updateLoginTry).toHaveBeenCalledWith(1, 3);
-            expect(res.status).toHaveBeenCalledWith(401);
+            expect(res.status).toHaveBeenCalledWith(400);
             expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ 
                 message: 'Código incorrecto.' 
             }));
