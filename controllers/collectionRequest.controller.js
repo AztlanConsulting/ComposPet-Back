@@ -1,5 +1,29 @@
 const CollectionRequest = require('../models/collectionRequest.model');
 
+const MAX_BUCKETS = 20;
+const MIN_BUCKETS = 0;
+const MAX_PRODUCT_QUANTITY = 999;
+const MAX_COMPOST_QUANTITY = 1;
+
+const isBoolean = (value) => typeof value === 'boolean';
+
+const isValidBucketNumber = (value) => {
+    return Number.isInteger(value) &&
+    value >= MIN_BUCKETS &&
+    value <= MAX_BUCKETS;
+}
+
+const isValidProductQuantity = (value) => {
+    return Number.isInteger(value) &&
+    value >= 0 &&
+    value <= MAX_PRODUCT_QUANTITY;
+}
+
+const isCompostProduct = (productId) =>
+    productId === 2 || productId === 3;
+
+const isValidProductId = (value) =>
+    Number.isInteger(value) && value > 0;
 
 /**
  * Obtiene la solicitud de recolección actual del cliente para la semana indicada.
@@ -91,10 +115,31 @@ const saveCollectionRequestFirstSection = async (req, res) => {
         } = req.body;
 
         // Validación de que lleguen los datos
-        if (!requestId || wantsCollection === undefined || wantsExtraProducts === undefined) {
+        if (!requestId || !isBoolean(wantsCollection) || !isBoolean(wantsExtraProducts)) {
             return res.status(400).json({
                 success: false,
                 message: 'Faltan datos requeridos para guardar la primera sección de la solicitud de recolección.',
+            });
+        }
+
+        if (!isValidBucketNumber(collectedBuckets) || !isValidBucketNumber(deliveredBuckets)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Las cantidades de cubetas deben ser números enteros entre 0 y 20.',
+            });
+        }
+
+        if (wantsCollection && collectedBuckets === 0 && deliveredBuckets === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Si deseas recolección, al menos una cantidad de cubetas debe ser mayor a 0.',
+            });
+        }
+
+        if (!wantsCollection && (collectedBuckets !== 0 || deliveredBuckets !== 0)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Si no deseas recolección, las cantidades de cubetas deben ser 0.',
             });
         }
 
@@ -171,17 +216,22 @@ const saveSecondSection = async (req, res) => {
             });
         }
 
-        if (
-            !products.every(
-                (product) =>
-                    (product.id_producto !== undefined) &&
-                    product.cantidad !== undefined
-            )
-        ) {
-            return res.status(400).json({
-                success: false,
-                message: 'Cada producto debe incluir id_producto y cantidad.',
-            });
+        for (const product of products) {
+            const { id_producto, cantidad } = product;
+
+            if (!isValidProductId(id_producto) || !isValidProductQuantity(cantidad)) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Cada producto debe incluir su información completa correspondiente.',
+                });
+            }
+
+            if (isCompostProduct(id_producto) && cantidad > MAX_COMPOST_QUANTITY) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'La cantidad máxima permitida para productos de composta es 1.',
+                });
+            }
         }
 
         if (products.length === 0) {

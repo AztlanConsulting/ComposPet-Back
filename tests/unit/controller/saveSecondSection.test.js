@@ -49,7 +49,7 @@ describe('Controller - saveSecondSection', () => {
     expect(res.status).toHaveBeenCalledWith(400);
     expect(res.json).toHaveBeenCalledWith({
       success: false,
-      message: 'Cada producto debe incluir id_producto y cantidad.',
+      message: 'Cada producto debe incluir su información completa correspondiente.',
     });
   });
 

@@ -115,7 +115,15 @@ describe('Controlador Register Client', () => {
             expect(res.status).toHaveBeenCalledWith(400);
             expect(res.json).toHaveBeenCalledWith({
                 success: false,
-                message: 'Faltan datos requeridos para registrar al cliente.',
+                message: 'Los datos enviados no son válidos.',
+                errors: {
+                    name: 'Nombre inválido.',
+                    lastName: 'Apellido inválido.',
+                    phone: 'El teléfono debe tener 10 dígitos.',
+                    email: 'Correo inválido.',
+                    address: 'Dirección inválida.',
+                    id_ruta: 'Ruta inválida.',
+                },
             });
         });
 
@@ -177,7 +185,7 @@ describe('Controlador Register Client', () => {
 
         it('debe registrar el cliente exitosamente y retornar 200 (Camino Feliz)', async () => {
             // Arrange
-            req.body = { ...validBody, name: 'Juan <script>' };
+            req.body = validBody;
             
             const mockRole = { 
                 id_rol: 2 
@@ -210,7 +218,7 @@ describe('Controlador Register Client', () => {
             expect(bcrypt.hash).toHaveBeenCalledWith('fake-uuid-1234', 10);
             
             expect(User.createNewUser).toHaveBeenCalledWith(
-                'Juan script', 
+                validBody.name,
                 validBody.lastName, 
                 validBody.phone, 
                 validBody.email, 

@@ -65,11 +65,11 @@ const requestOTP = async (req, res) => {
             ? {
                 title: '¡Bienvenido!',
                 message: 'Gracias por registrarte en <strong>Compospet</strong>. Para activar tu cuenta, por favor ingresa el siguiente código de verificación:'
-              }
+                }
             : {
                 title: 'Recuperar Contraseña',
                 message: 'Has solicitado restablecer tu acceso a <strong>Compospet</strong>. Utiliza el siguiente código para continuar con el proceso:'
-              };
+                };
 
         await GmailService.sendStaticEmail(email, subject, code, emailOptions);
 
@@ -125,7 +125,7 @@ const verifyOTP = async (req, res) => {
             }
 
             await AuthModel.updateLoginTry(user.id_usuario, attempts);
-            return res.status(401).json({ message: isExpired ? 'Código expirado.' : 'Código incorrecto.' });
+            return res.status(400).json({ message: isExpired ? 'Código expirado.' : 'Código incorrecto.' });
         }
 
         if (isCodeValid && !isExpired) {
