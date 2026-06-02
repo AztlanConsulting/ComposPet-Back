@@ -323,8 +323,6 @@ const updateRequest = async(req, res) => {
     try {
         const { data } = req.body;
 
-        console.log("Data recibida para actualización:", data);
-
         const validation = validateRequestUpdate(data);
 
         if(!validation.isValid){
