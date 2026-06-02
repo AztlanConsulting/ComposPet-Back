@@ -9203,6 +9203,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    deleted: boolean | null
     color: string | null
   }
 
@@ -9215,6 +9216,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
+    deleted: boolean | null
     color: string | null
   }
 
@@ -9227,6 +9229,7 @@ export namespace Prisma {
     imagen_url: number
     orden: number
     estatus: number
+    deleted: number
     color: number
     _all: number
   }
@@ -9255,6 +9258,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    deleted?: true
     color?: true
   }
 
@@ -9267,6 +9271,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    deleted?: true
     color?: true
   }
 
@@ -9279,6 +9284,7 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
+    deleted?: true
     color?: true
     _all?: true
   }
@@ -9378,6 +9384,7 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean
+    deleted: boolean
     color: string
     _count: Productos_extraCountAggregateOutputType | null
     _avg: Productos_extraAvgAggregateOutputType | null
@@ -9409,6 +9416,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    deleted?: boolean
     color?: boolean
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -9423,6 +9431,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    deleted?: boolean
     color?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
@@ -9435,6 +9444,7 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    deleted?: boolean
     color?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
@@ -9447,10 +9457,11 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
+    deleted?: boolean
     color?: boolean
   }
 
-  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus" | "color", ExtArgs["result"]["productos_extra"]>
+  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus" | "deleted" | "color", ExtArgs["result"]["productos_extra"]>
   export type productos_extraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -9472,6 +9483,7 @@ export namespace Prisma {
       imagen_url: string | null
       orden: number | null
       estatus: boolean
+      deleted: boolean
       color: string
     }, ExtArgs["result"]["productos_extra"]>
     composites: {}
@@ -9905,6 +9917,7 @@ export namespace Prisma {
     readonly imagen_url: FieldRef<"productos_extra", 'String'>
     readonly orden: FieldRef<"productos_extra", 'Int'>
     readonly estatus: FieldRef<"productos_extra", 'Boolean'>
+    readonly deleted: FieldRef<"productos_extra", 'Boolean'>
     readonly color: FieldRef<"productos_extra", 'String'>
   }
     
@@ -19473,6 +19486,7 @@ export namespace Prisma {
     imagen_url: 'imagen_url',
     orden: 'orden',
     estatus: 'estatus',
+    deleted: 'deleted',
     color: 'color'
   };
 
@@ -20090,6 +20104,7 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolFilter<"productos_extra"> | boolean
+    deleted?: BoolFilter<"productos_extra"> | boolean
     color?: StringFilter<"productos_extra"> | string
     productos_solicitud?: Productos_solicitudListRelationFilter
   }
@@ -20103,6 +20118,7 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrder
+    deleted?: SortOrder
     color?: SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
   }
@@ -20119,6 +20135,7 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolFilter<"productos_extra"> | boolean
+    deleted?: BoolFilter<"productos_extra"> | boolean
     color?: StringFilter<"productos_extra"> | string
     productos_solicitud?: Productos_solicitudListRelationFilter
   }, "id_producto">
@@ -20132,6 +20149,7 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrder
+    deleted?: SortOrder
     color?: SortOrder
     _count?: productos_extraCountOrderByAggregateInput
     _avg?: productos_extraAvgOrderByAggregateInput
@@ -20152,6 +20170,7 @@ export namespace Prisma {
     imagen_url?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
     orden?: IntNullableWithAggregatesFilter<"productos_extra"> | number | null
     estatus?: BoolWithAggregatesFilter<"productos_extra"> | boolean
+    deleted?: BoolWithAggregatesFilter<"productos_extra"> | boolean
     color?: StringWithAggregatesFilter<"productos_extra"> | string
   }
 
@@ -21080,6 +21099,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
+    deleted?: boolean
     color: string
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutProductos_extraInput
   }
@@ -21093,6 +21113,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
+    deleted?: boolean
     color: string
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutProductos_extraInput
   }
@@ -21105,6 +21126,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
     productos_solicitud?: productos_solicitudUpdateManyWithoutProductos_extraNestedInput
   }
@@ -21118,6 +21140,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutProductos_extraNestedInput
   }
@@ -21131,6 +21154,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
+    deleted?: boolean
     color: string
   }
 
@@ -21142,6 +21166,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
   }
 
@@ -21154,6 +21179,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
   }
 
@@ -22279,6 +22305,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    deleted?: SortOrder
     color?: SortOrder
   }
 
@@ -22298,6 +22325,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    deleted?: SortOrder
     color?: SortOrder
   }
 
@@ -22310,6 +22338,7 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
+    deleted?: SortOrder
     color?: SortOrder
   }
 
@@ -24522,6 +24551,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
+    deleted?: boolean
     color: string
   }
 
@@ -24534,6 +24564,7 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
+    deleted?: boolean
     color: string
   }
 
@@ -24598,6 +24629,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
   }
 
@@ -24610,6 +24642,7 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
   }
 

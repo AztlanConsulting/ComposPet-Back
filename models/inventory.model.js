@@ -89,6 +89,7 @@ module.exports = class Inventory {
                 orden: lastOrder + 1,
                 estatus: true,
                 color: color,
+                deleted: false,
             },
         });
 

@@ -23,9 +23,10 @@ const postRegisterProduct = async (req, res) => {
             price,
             description: rawDescription,
             quantity,
-            imageUrl,
             color,
-        } = req.body;
+        } = req.body || {};
+
+        const imageFile = req.file || null;
 
         const sanitize = (str) =>
             typeof str === 'string'
@@ -33,10 +34,12 @@ const postRegisterProduct = async (req, res) => {
                 : '';
 
         const containsEmoji = (str) =>
-        /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu.test(str);
+            /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu.test(str);
 
         const invalidCharacters = /[<>"'%;()&+]/;
         const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
+        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
         const name = sanitize(rawName);
         const description = sanitize(rawDescription);
@@ -92,24 +95,6 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
-        if (imageUrl !== undefined && typeof imageUrl !== 'string') {
-            return res.status(400).json({
-                success: false,
-                message: 'La imagen debe ser una URL válida.',
-            });
-        }
-
-        if (imageUrl) {
-            try {
-                new URL(imageUrl);
-            } catch {
-                return res.status(400).json({
-                    success: false,
-                    message: 'La URL de la imagen es inválida.',
-                });
-            }
-        }
-
         if (name.length > 60) {
             return res.status(400).json({
                 success: false,
@@ -159,6 +144,22 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
+        if (imageFile) {
+            if (!allowedImageTypes.includes(imageFile.mimetype)) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'La imagen debe ser JPG, PNG o WEBP.',
+                });
+            }
+
+            if (imageFile.size > MAX_IMAGE_SIZE) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'La imagen no puede exceder 2 MB.',
+                });
+            }
+        }
+
         const existingProduct = await Inventory.findByName(name);
 
         if (existingProduct) {
@@ -173,7 +174,7 @@ const postRegisterProduct = async (req, res) => {
             price: numericPrice,
             description,
             quantity: numericQuantity,
-            imageUrl: imageUrl || null,
+            imageUrl: imageFile ? imageFile.path : null,
             color: cleanColor,
         });
 
@@ -187,6 +188,8 @@ const postRegisterProduct = async (req, res) => {
                 quantity: newProduct.cantidad,
                 color: newProduct.color,
                 status: newProduct.estatus,
+                deleted: newProduct.deleted,
+                imageUrl: newProduct.imagen_url,
             },
         });
 
