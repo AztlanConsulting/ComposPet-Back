@@ -16,6 +16,46 @@ const bucketCostMap = require('../utils/bucketCostMap');
 
 module.exports = class CollectionRequest {
 
+
+    /**
+     * Valida si una solicitud de recolección puede ser editada.
+     *
+     * Una solicitud no puede modificarse cuando ya fue enviada
+     *
+     * @async
+     * @static
+     * @param {Object} tx - Cliente transaccional de Prisma.
+     * @param {string} requestId - Id de la solicitud de recolección a validar.
+     * @returns {Promise<Object>} Solicitud encontrada cuando puede ser editada.
+     * @throws {Error} Cuando la solicitud no existe.
+     * @throws {Error} Cuando la solicitud ya fue enviada y no puede modificarse.
+     */
+    static async validateRequestCanBeEdited(tx, requestId) {
+        const collectionRequest = await tx.solicitudes_recoleccion.findUnique({
+            where: {
+                id_solicitud: requestId,
+            },
+            select: {
+                id_solicitud: true,
+                id_cliente: true,
+                total_pagado: true,
+                total_a_pagar: true,
+                estatus: true,
+                id_pago: true,
+            },
+        });
+
+        if (!collectionRequest) {
+            throw new Error("Solicitud no encontrada");
+        }
+
+        if (collectionRequest.estatus === true || collectionRequest.id_pago !== null) {
+            throw new Error("La solicitud de recolección ya fue enviada y no puede modificarse.");
+        }
+
+        return collectionRequest;
+    }
+
     /**
      * Obtiene la solicitud de recolección actual del cliente dentro del rango
      * de fechas correspondiente a la semana consultada.
@@ -99,17 +139,20 @@ module.exports = class CollectionRequest {
         collectedBuckets,
         deliveredBuckets,
     }) {
-        // Actualiza los campos capturados en la primera sección del formulario.
-        return await prisma.solicitudes_recoleccion.update({
-            where: {
-                id_solicitud: requestId,
-            },
-            data: {
-                quiere_recoleccion: wantsCollection,
-                quiere_productos_extra: wantsExtraProducts,
-                cubetas_recolectadas: collectedBuckets,
-                cubetas_entregadas: deliveredBuckets,
-            },
+        return await prisma.$transaction(async (tx) => {
+            await this.validateRequestCanBeEdited(tx, requestId);
+            // Actualiza los campos capturados en la primera sección del formulario.
+            return await tx.solicitudes_recoleccion.update({
+                where: {
+                    id_solicitud: requestId,
+                },
+                data: {
+                    quiere_recoleccion: wantsCollection,
+                    quiere_productos_extra: wantsExtraProducts,
+                    cubetas_recolectadas: collectedBuckets,
+                    cubetas_entregadas: deliveredBuckets,
+                },
+            });
         });
     }
 
@@ -183,33 +226,32 @@ module.exports = class CollectionRequest {
      * @returns {Object} Mensaje de confirmación del guardado
      */
     static async saveSecondSection(requestID, products) {
-        const requestSecondSection = await prisma.solicitudes_recoleccion.findUnique({
-            where: { id_solicitud: requestID }
-        });
+        return await prisma.$transaction(async (tx) => {
+            await this.validateRequestCanBeEdited(tx, requestID);
 
-        if (!requestSecondSection) {
-            throw new Error('Solicitud no encontrada');
-        }
-
-        const deleteProductsRequest = await prisma.productos_solicitud.deleteMany({
-            where: { id_solicitud: requestID }
-        });
-
-        for (const product of products) {
-            await prisma.productos_solicitud.create({
-                data: {
+            await tx.productos_solicitud.deleteMany({
+                where: {
                     id_solicitud: requestID,
-                    id_producto: product.id_producto,
-                    fecha: new Date(),
-                    cantidad: product.cantidad,
-                }
+                },
             });
-        }
 
-        return { message: 'Productos guardados correctamente' };
+            for (const product of products) {
+                await tx.productos_solicitud.create({
+                    data: {
+                        id_solicitud: requestID,
+                        id_producto: product.id_producto,
+                        fecha: new Date(),
+                        cantidad: product.cantidad,
+                    },
+                });
+            }
+
+            return {
+                message: 'Productos guardados correctamente',
+            };
+        });
     }
-
-     /**
+    /**
      * Obtiene el id de la última solicitud creada por el usuario
      *
      * @param {number} idClient - ID del cliente
@@ -270,7 +312,6 @@ module.exports = class CollectionRequest {
 
     static async updateCollectionTotal(idRequest, collectionTotal, idPayment, notes) {
         return await prisma.$transaction(async (tx) => {
-
             const payForm = await tx.formas_pago.findUnique({
                 where: {
                     id_pago: idPayment,
@@ -280,21 +321,14 @@ module.exports = class CollectionRequest {
                 },
             });
 
-            const currentRequest = await tx.solicitudes_recoleccion.findUnique({
-                where: {
-                    id_solicitud: idRequest,
-                },
-                select: {
-                    id_cliente: true,
-                    total_pagado: true,
-                    total_a_pagar: true,
-                },
-            });
+            const currentRequest = await this.validateRequestCanBeEdited(
+                tx,
+                idRequest,
+            );
 
             let amountToDiscount = 0;
 
             if (payForm?.tipo === "Saldo") {
-
                 amountToDiscount =
                     collectionTotal - (currentRequest.total_pagado || 0);
 
@@ -344,15 +378,19 @@ module.exports = class CollectionRequest {
      * @param {string} requestID - ID de la solicitud
      * @param {boolean} value - Valor a asignar al atributo quiere_productos_extra
      */
-    static async updateWantsRequestAttribute(requestID, value){
-        return await prisma.solicitudes_recoleccion.update({
-            where:{
-                id_solicitud: requestID
-            },
-            data: {
-                quiere_productos_extra: value
-            }
-        })
+    static async updateWantsRequestAttribute(requestID, value) {
+        return await prisma.$transaction(async (tx) => {
+            await this.validateRequestCanBeEdited(tx, requestID);
+
+            return await tx.solicitudes_recoleccion.update({
+                where: {
+                    id_solicitud: requestID,
+                },
+                data: {
+                    quiere_productos_extra: value,
+                },
+            });
+        });
     }
 
     /**
@@ -506,8 +544,8 @@ module.exports = class CollectionRequest {
                 ? new Date(`1970-01-01T${requestData.horario}:00Z`)
                 : null;
 
-            if(Number.isNaN(scheduleDate.valueOf())){
-                scheduleDate = null;    
+            if (scheduleDate && Number.isNaN(scheduleDate.valueOf())) {
+                scheduleDate = null;
             }
 
             const currentRequest = await tx.solicitudes_recoleccion.findUnique({
@@ -522,6 +560,11 @@ module.exports = class CollectionRequest {
             if (!currentRequest) {
                 throw new Error("Solicitud no encontrada");
             }
+
+            if (currentRequest.estatus === true || currentRequest.id_pago !== null) {
+                throw new Error("La solicitud de recolección ya fue enviada y no puede modificarse.");
+            }
+
             const updatedRequest = await tx.solicitudes_recoleccion.update({
                 where: {
                     id_solicitud: requestId,
