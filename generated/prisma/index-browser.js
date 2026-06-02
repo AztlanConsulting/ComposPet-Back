@@ -182,6 +182,7 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   imagen_url: 'imagen_url',
   orden: 'orden',
   estatus: 'estatus',
+  deleted: 'deleted',
   color: 'color'
 };
 
