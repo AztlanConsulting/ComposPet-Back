@@ -23,4 +23,4 @@ router.post(
 // Ruta para obtener el inventario completo
 router.get('/obtener-inventario', requireRole("Administrador"), inventoryController.getInventory);
 
-module.exports = router;s
+module.exports = router;

@@ -33,8 +33,7 @@ router.use('/saldo', authMiddleware, creditRoutes);
 router.use('/rutas', authMiddleware, tableRoutes);
 
 // Agrega las rutas de inventario
-router.use('/inventario', inventoryRoutes);
-// router.use('/inventario', authMiddleware, inventoryRoutes);
+router.use('/inventario', authMiddleware, inventoryRoutes);
 
 // ruta para performance
 router.use('/desempeno', performanceRoutes);

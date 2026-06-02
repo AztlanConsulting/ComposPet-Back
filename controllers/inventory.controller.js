@@ -223,13 +223,25 @@ const postRegisterProduct = async (req, res) => {
  */
 const getInventory = async (req, res) => {
     try {
-        const inventory = await Inventory.getInventory()
+        console.log("Entro a getInventory");
+        const inventory = await Inventory.getInventory();
 
-        return res .status(200).json({
+        console.log("Inventario obtenido:", inventory);
+
+        return res.status(200).json({
             success: true,
             message: 'Inventario obtenido exitosamente.',
-            data: inventory,
-        })
+            data: inventory.map(item => ({
+                productId: item.id_producto,
+                name: item.nombre,
+                price: item.precio,
+                description: item.descripcion,
+                quantity: item.cantidad,
+                color: item.color,
+                status: item.estatus,
+                imageUrl: item.imagen_url,
+            })),
+        });
     }catch (error) {
         console.error('Error en getInventory:', error);
 
@@ -242,5 +254,5 @@ const getInventory = async (req, res) => {
 
 module.exports = {
     postRegisterProduct,
-    getInventory
+    getInventory,
 };
