@@ -107,6 +107,8 @@ const createBaseData = async () => {
             notas:                  'Tocar timbre',
             quiere_recoleccion:     true,
             quiere_productos_extra: false,
+            id_pago:                null,
+            estatus:                false,
         },
     });
 };
@@ -138,6 +140,12 @@ const cleanDb = async () => {
 
     await prisma.compospet.deleteMany({
         where: { id_cp: TEST_CP_ID },
+    });
+
+    await prisma.productos_extra.deleteMany({
+        where: {
+            id_producto: TEST_PRODUCTO_EXTRA,
+        },
     });
 };
 

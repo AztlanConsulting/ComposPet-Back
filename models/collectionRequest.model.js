@@ -544,8 +544,8 @@ module.exports = class CollectionRequest {
                 ? new Date(`1970-01-01T${requestData.horario}:00Z`)
                 : null;
 
-            if(Number.isNaN(scheduleDate.valueOf())){
-                scheduleDate = null;    
+            if (scheduleDate && Number.isNaN(scheduleDate.valueOf())) {
+                scheduleDate = null;
             }
 
             const currentRequest = await tx.solicitudes_recoleccion.findUnique({

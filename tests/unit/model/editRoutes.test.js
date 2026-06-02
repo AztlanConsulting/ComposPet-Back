@@ -43,6 +43,8 @@ const BASE_REQUEST = {
     id_cliente:            42,
     total_a_pagar:         200,
     total_pagado:          100,
+    estatus:               false,
+    id_pago:               null,
     productos_solicitud:   [],
 };
 
@@ -52,7 +54,9 @@ const PRODUCT_B = { id_producto: 2, precio: 80 };
 
 describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
 
-    beforeEach(() => jest.clearAllMocks());
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
 
     describe('con forma de pago distinta a Saldo', () => {
 
@@ -206,6 +210,10 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
     beforeEach(() => {
         jest.clearAllMocks();
 
+        prisma.formas_pago.findUnique.mockResolvedValue({
+            id_pago: 1,
+        });
+
         prisma.solicitudes_recoleccion.findUnique.mockResolvedValue({
             ...CURRENT_REQUEST_NO_PRODUCTS,
         });
@@ -252,9 +260,11 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
         it('debe establecer horario null cuando no se proporciona', async () => {
             const dataWithoutSchedule = { ...REQUEST_DATA, horario: null };
 
-            await expect(
-                CollectionRequest.updateRequest(dataWithoutSchedule, [])
-            ).rejects.toThrow('Error al actualizar la solicitud de recolección');
+            await CollectionRequest.updateRequest(dataWithoutSchedule, []);
+
+            const callData = prisma.solicitudes_recoleccion.update.mock.calls[0][0].data;
+
+            expect(callData.horario).toBeNull();
         });
 
         it('debe eliminar los productos previos y crear los nuevos en cada actualización', async () => {
