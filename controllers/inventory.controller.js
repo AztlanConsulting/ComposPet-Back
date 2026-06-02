@@ -36,7 +36,7 @@ const postRegisterProduct = async (req, res) => {
         const containsEmoji = (str) =>
             /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu.test(str);
 
-        const invalidCharacters = /[<>"'%;()&+]/;
+        const invalidCharacters = /[<>"'%;()&+=&/¿?!¡]/;
         const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
         const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
         const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
@@ -149,6 +149,13 @@ const postRegisterProduct = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: 'La cantidad es inválida.',
+            });
+        }
+        
+        if (numericQuantity > 999) {
+            return res.status(400).json({
+                success: false,
+                message: 'La cantidad no puede ser mayor a 999.',
             });
         }
 
