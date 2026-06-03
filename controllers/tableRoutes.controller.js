@@ -195,7 +195,7 @@ const generateConfirmationMessages = async (req, res) => {
         if (!routeInfo || routeInfo.length === 0) {
             return res.status(200).json({
                 success: false,
-                message: "No hay solicitudes para generar mensajes",
+                message: "Revisa que las solicitudes estén completas y agrega un horario a cada una",
             });
         }
 

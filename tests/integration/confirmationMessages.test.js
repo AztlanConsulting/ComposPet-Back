@@ -221,7 +221,7 @@ describe("RUT-09 Mensajes de confirmación Integration", () => {
         expect(GoogleSheetsMessagesService.sendRouteMessages).toHaveBeenCalled();
     });
 
-    it("retorna 200 success false cuando no hay solicitudes para generar mensajes", async () => {
+    it("retorna 200 success false cuando Revisa que las solicitudes estén completas y agrega un horario a cada una", async () => {
 
         // Arrange
         const token = createAuthToken();
@@ -240,7 +240,7 @@ describe("RUT-09 Mensajes de confirmación Integration", () => {
         // Afirmar
         expect(res.status).toBe(200);
         expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe("No hay solicitudes para generar mensajes");
+        expect(res.body.message).toBe("Revisa que las solicitudes estén completas y agrega un horario a cada una");
 
         expect(GoogleSheetsMessagesService.sendRouteMessages).not.toHaveBeenCalled();
     });

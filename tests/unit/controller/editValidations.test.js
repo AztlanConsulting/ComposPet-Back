@@ -110,7 +110,7 @@ describe('Unit - Utils - validateEditClient', () => {
         it('debe rechazar dirección con emojis', () => {
             const result = validateEditClient({ address: 'Calle 😀 123' });
             expect(result.isValid).toBe(false);
-            expect(result.errors.address).toBe('La dirección no puede contener emojis.');
+            expect(result.errors.address).toBe('El campo dirección no puede contener emojis.');
         });
 
         it('debe rechazar dirección menor a 5 caracteres', () => {
@@ -142,13 +142,13 @@ describe('Unit - Utils - validateEditClient', () => {
         it('debe rechazar mascotas con emojis', () => {
             const result = validateEditClient({ pets: '🐶 perro' });
             expect(result.isValid).toBe(false);
-            expect(result.errors.pets).toBe('Mascotas no puede contener emojis.');
+            expect(result.errors.pets).toBe('El campo mascotas no puede contener emojis.');
         });
 
         it('debe rechazar mascotas mayor a 100 caracteres', () => {
             const result = validateEditClient({ pets: 'a'.repeat(101) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.pets).toBe('La información de mascotas es demasiado larga.');
+            expect(result.errors.pets).toBe('El campo mascotas es demasiado largo.');
         });
 
         it('debe aceptar mascotas de exactamente 100 caracteres', () => {
@@ -161,6 +161,16 @@ describe('Unit - Utils - validateEditClient', () => {
             expect(result.errors.pets).toBeUndefined();
         });
 
+        it('debe rechazar mascotas con solo espacios', () => {
+            const result = validateEditClient({ pets: '     ' });
+            expect(result.isValid).toBe(false);
+            expect(result.errors.pets).toBe('El campo mascotas no puede contener solo espacios.');
+        });
+
+        it('debe permitir mascotas vacías', () => {
+            const result = validateEditClient({ pets: '' });
+            expect(result.isValid).toBe(true);
+        });
     });
 
     describe('family', () => {
@@ -173,13 +183,13 @@ describe('Unit - Utils - validateEditClient', () => {
         it('debe rechazar familia con emojis', () => {
             const result = validateEditClient({ family: '👨‍👩‍👧' });
             expect(result.isValid).toBe(false);
-            expect(result.errors.family).toBe('Familia no puede contener emojis.');
+            expect(result.errors.family).toBe('El campo familia no puede contener emojis.');
         });
 
         it('debe rechazar familia mayor a 100 caracteres', () => {
             const result = validateEditClient({ family: 'b'.repeat(101) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.family).toBe('La información de familia es demasiado larga.');
+            expect(result.errors.family).toBe('El campo familia es demasiado largo.');
         });
 
         it('no debe validar family si no fue enviado', () => {
@@ -187,6 +197,16 @@ describe('Unit - Utils - validateEditClient', () => {
             expect(result.errors.family).toBeUndefined();
         });
 
+        it('debe rechazar familia con solo espacios', () => {
+            const result = validateEditClient({ family: '     ' });
+            expect(result.isValid).toBe(false);
+            expect(result.errors.family).toBe('El campo familia no puede contener solo espacios.');
+        });
+
+        it('debe permitir familia vacía', () => {
+            const result = validateEditClient({ family: '' });
+            expect(result.isValid).toBe(true);
+        });
     });
 
     describe('notes', () => {
@@ -202,14 +222,14 @@ describe('Unit - Utils - validateEditClient', () => {
             expect(result.errors.notes).toBe('Las notas no pueden contener emojis.');
         });
 
-        it('debe rechazar notas mayor a 255 caracteres', () => {
-            const result = validateEditClient({ notes: 'n'.repeat(256) });
+        it('debe rechazar notas mayor a 500 caracteres', () => {
+            const result = validateEditClient({ notes: 'n'.repeat(501) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.notes).toBe('Ingresa máximo 255 caracteres.');
+            expect(result.errors.notes).toBe('Ingresa máximo 500 caracteres.');
         });
 
-        it('debe aceptar notas de exactamente 255 caracteres', () => {
-            const result = validateEditClient({ notes: 'n'.repeat(255) });
+        it('debe aceptar notas de exactamente 500 caracteres', () => {
+            const result = validateEditClient({ notes: 'n'.repeat(500) });
             expect(result.isValid).toBe(true);
         });
 
@@ -428,10 +448,10 @@ describe('Unit - Utils - validateRequestUpdate', () => {
             expect(result.errors.notes).toBe('Las notas no pueden contener emojis.');
         });
 
-        it('debe rechazar notas mayor a 255 caracteres', () => {
-            const result = validateRequestUpdate({ ...baseData, notes: 'x'.repeat(256) });
+        it('debe rechazar notas mayor a 500 caracteres', () => {
+            const result = validateRequestUpdate({ ...baseData, notes: 'x'.repeat(501) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.notes).toBe('Ingresa máximo 255 caracteres.');
+            expect(result.errors.notes).toBe('Ingresa máximo 500 caracteres.');
         });
 
         it('no debe validar notes si está vacío', () => {

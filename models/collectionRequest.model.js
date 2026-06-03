@@ -49,7 +49,7 @@ module.exports = class CollectionRequest {
             throw new Error("Solicitud no encontrada");
         }
 
-        if (collectionRequest.estatus === true || collectionRequest.id_pago !== null) {
+        if (collectionRequest.estatus === true) {
             throw new Error("La solicitud de recolección ya fue enviada y no puede modificarse.");
         }
 
@@ -559,10 +559,6 @@ module.exports = class CollectionRequest {
 
             if (!currentRequest) {
                 throw new Error("Solicitud no encontrada");
-            }
-
-            if (currentRequest.estatus === true || currentRequest.id_pago !== null) {
-                throw new Error("La solicitud de recolección ya fue enviada y no puede modificarse.");
             }
 
             const updatedRequest = await tx.solicitudes_recoleccion.update({

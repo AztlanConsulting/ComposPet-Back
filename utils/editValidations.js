@@ -50,43 +50,57 @@ const validateEditClient = (body) => {
     const notes     = optionalText(body, 'notes');
     const routeId   = body.routeId !== undefined ? Number(body.routeId) : null;
 
-    if (cellphone !== null && !isValidPhone(cellphone)) {
-        errors.cellphone = 'Ingresa un teléfono válido.';
+    if (cellphone !== null) {
+        if (!cellphone) {
+            errors.cellphone = 'El campo teléfono es requerido.';
+        } else if (!isValidPhone(cellphone)) {
+            errors.cellphone = 'El campo teléfono debe ser válido.';
+        }
     }
 
-    if (email !== null && !isValidEmail(email.toLowerCase())) {
-        errors.email = 'Ingresa un correo electrónico válido.';
+    if (email !== null) {
+        if (!email) {
+            errors.email = 'El campo correo electrónico es requerido.';
+        } else if (!isValidEmail(email.toLowerCase())) {
+            errors.email = 'El campo correo electrónico debe ser válido.';
+        }
     }
-
+    
     if (address !== null) {
-        if (containsEmoji(address)) {
-            errors.address = 'La dirección no puede contener emojis.';
+        if (!address) {
+            errors.address = 'El campo dirección es requerido.';
+        } else if (containsEmoji(address)) {
+            errors.address = 'El campo dirección no puede contener emojis.';
         } else if (!isValidAddress(address)) {
-            errors.address = 'Ingresa una dirección válida.';
+            errors.address = 'El campo dirección debe ser válido.';
         }
     }
-
-    if (pets !== null) {
-        if (containsEmoji(pets)) {
-            errors.pets = 'Mascotas no puede contener emojis.';
+    
+    if (body.pets !== undefined && body.pets !== null) {
+        if (body.pets !== '' && String(body.pets).trim() === '') {
+            errors.pets = 'El campo mascotas no puede contener solo espacios.';
+        } else if (containsEmoji(pets)) {
+            errors.pets = 'El campo mascotas no puede contener emojis.';
         } else if (pets.length > 100) {
-            errors.pets = 'La información de mascotas es demasiado larga.';
+            errors.pets = 'El campo mascotas es demasiado largo.';
         }
     }
-
-    if (family !== null) {
-        if (containsEmoji(family)) {
-            errors.family = 'Familia no puede contener emojis.';
+    
+    if (body.family !== undefined && body.family !== null) {
+        if (body.family !== '' && String(body.family).trim() === '') {
+            errors.family = 'El campo familia no puede contener solo espacios.';
+        } else if (containsEmoji(family)) {
+            errors.family = 'El campo familia no puede contener emojis.';
         } else if (family.length > 100) {
-            errors.family = 'La información de familia es demasiado larga.';
+            errors.family = 'El campo familia es demasiado largo.';
         }
     }
 
     if (notes !== null) {
         if (containsEmoji(notes)) {
             errors.notes = 'Las notas no pueden contener emojis.';
-        } else if (notes.length > 255) {
-            errors.notes = 'Ingresa máximo 255 caracteres.';
+        } else if (notes.length > 500) {
+            errors.notes = 'Ingresa máximo 500 caracteres.';
         }
     }
 
@@ -161,8 +175,8 @@ const validateRequestUpdate = (data) => {
     if (notes) {
         if (containsEmoji(notes)) {
             errors.notes = 'Las notas no pueden contener emojis.';
-        } else if (notes.length > 255) {
-            errors.notes = 'Ingresa máximo 255 caracteres.';
+        } else if (notes.length > 500) {
+            errors.notes = 'Ingresa máximo 500 caracteres.';
         }
     }
 
