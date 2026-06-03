@@ -174,17 +174,18 @@ const updatePassword = async (req, res) => {
 
     try {
         const decodedFlow = jwt.verify(flowToken, process.env.JWT_SECRET);
-        console.log("DECODED: ", decodedFlow);
         const email = decodedFlow.email;
         const userId = decodedFlow.id;
         if (decodedFlow.step !== 'VERIFIED_STEP' || decodedFlow.email !== email) {
             return res.status(403).json({ message: 'Sesión de solicitud inválida.' });
         }
 
-        console.log("PASSWORD: ", password);
+        if (/\s/.test(password)) {
+            return res.status(400).json({ message: 'La contraseña no puede contener espacios.' });
+        }
 
         const isValidPassword = (pwd) =>
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&()_+\-=\[\]{};':"\\|,.<>\/?])(?!.*\s).{12,}$/.test(pwd);
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&()_+\-=\[\]{};':"\\|,.<>\/?]).{12,}$/.test(pwd);
 
         if (!isValidPassword(password)) {
             return res.status(400).json({ message: 'La contraseña no cumple los requisitos.' });
