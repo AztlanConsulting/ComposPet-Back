@@ -176,7 +176,7 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
             PasswordModel.completeFirstLogin.mockResolvedValue(true);
 
             const req = { body: { 
-                password: 'NewPassword2026', 
+                password: 'NewPassword2026!',
                 flowToken: 'valid-flow' 
             } };
             const res = mockResponse();
@@ -216,7 +216,7 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
             // Simulamos error en el modelo
             PasswordModel.completeFirstLogin.mockRejectedValue(new Error('DB Error'));
 
-            const req = { body: { password: 'new', flowToken: 'valid' } };
+            const req = { body: { password: 'newPassword!23', flowToken: 'valid' } };
             const res = mockResponse();
 
             await updatePassword(req, res);

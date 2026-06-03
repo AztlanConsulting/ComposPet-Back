@@ -253,7 +253,7 @@ describe('Pruebas de Flujo OTP (Primer Inicio)', () => {
 
             expect(res.status).toHaveBeenCalledWith(403);
             expect(res.json).toHaveBeenCalledWith({
-                message: 'Este enlace de recuperación ya fue usado.',
+                message: 'Este flujo de verificación ya no es válido.',
             });
         });
 
