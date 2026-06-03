@@ -175,7 +175,6 @@ const updatePassword = async (req, res) => {
     try {
         const decodedFlow = jwt.verify(flowToken, process.env.JWT_SECRET);
         const email = decodedFlow.email;
-        const userId = decodedFlow.id;
         if (decodedFlow.step !== 'VERIFIED_STEP' || decodedFlow.email !== email) {
             return res.status(403).json({ message: 'Sesión de solicitud inválida.' });
         }
