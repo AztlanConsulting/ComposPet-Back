@@ -98,10 +98,12 @@ const requestOTP = async (req, res) => {
  * @param {import('express').Response} res - Retorna flowToken para la Fase 3.
  */
 const verifyOTP = async (req, res) => {
-    const { email, code, seedToken } = req.body;
+    const { code, seedToken } = req.body;
+
 
     try {
         const decodedSeed = jwt.verify(seedToken, process.env.JWT_SECRET);
+        const email = decodedSeed.email;
         const allowedSteps = ['CAN_VERIFY_FIRST_LOGIN', 'CAN_VERIFY_RECOVERY'];
         if (!allowedSteps.includes(decodedSeed.step) || decodedSeed.email !== email) {
             return res.status(401).json({ message: 'Sesión de solicitud inválida.' });
@@ -135,6 +137,11 @@ const verifyOTP = async (req, res) => {
                     email: user.correo, 
                     step: 'VERIFIED_STEP', 
                     isFirstLogin,
+                    pwdFingerprint: crypto
+                        .createHash('sha256')
+                        .update(user.contrasena)
+                        .digest('hex')
+                        .slice(0, 16),
                 },
                 process.env.JWT_SECRET,
                 { expiresIn: '10m' }
@@ -163,12 +170,24 @@ const verifyOTP = async (req, res) => {
  * @param {import('express').Response} res - Retorna confirmación de éxito.
  */
 const updatePassword = async (req, res) => {
-    const { email, password, flowToken } = req.body;
+    const { password, flowToken } = req.body;
 
     try {
         const decodedFlow = jwt.verify(flowToken, process.env.JWT_SECRET);
+        console.log("DECODED: ", decodedFlow);
+        const email = decodedFlow.email;
+        const userId = decodedFlow.id;
         if (decodedFlow.step !== 'VERIFIED_STEP' || decodedFlow.email !== email) {
             return res.status(403).json({ message: 'Sesión de solicitud inválida.' });
+        }
+
+        console.log("PASSWORD: ", password);
+
+        const isValidPassword = (pwd) =>
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&()_+\-=\[\]{};':"\\|,.<>\/?])(?!.*\s).{12,}$/.test(pwd);
+
+        if (!isValidPassword(password)) {
+            return res.status(400).json({ message: 'La contraseña no cumple los requisitos.' });
         }
 
         const isFirstLogin = decodedFlow.isFirstLogin;
@@ -176,6 +195,17 @@ const updatePassword = async (req, res) => {
         
         if (!user) {
             return res.status(401).json({ message: 'Sesión de verificación inválida.' });
+        }
+
+        const currentFingerprint = crypto
+            .createHash('sha256')
+            .update(user.contrasena)
+            .digest('hex')
+            .slice(0, 16);
+
+
+        if (decodedFlow.pwdFingerprint !== currentFingerprint) {
+            return res.status(403).json({ message: 'Este enlace de recuperación ya fue usado.' });
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -191,6 +221,7 @@ const updatePassword = async (req, res) => {
 
         return res.status(200).json({ success: true, message: 'Contraseña actualizada con éxito.' });
     } catch (error) {
+        console.error('ENTRO AL ERROR: ', error);
         return res.status(500).json({ message: 'Error al guardar la contraseña.' });
     }
 };
