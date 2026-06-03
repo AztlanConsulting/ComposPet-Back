@@ -143,7 +143,7 @@ const login = async(req, res) => {
         try {
             await handleSessionLimit(req, user.id_usuario, newRefreshToken, user.roles.nombre);
         } catch (dbError) {
-            console.error('Error al gestionar sesión en login:', dbError);
+            console.error('Error gestionar sesión en login:', dbError);
         }
 
         res.cookie('refreshToken', newRefreshToken, cookieOptions);
