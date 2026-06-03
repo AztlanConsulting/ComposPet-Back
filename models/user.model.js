@@ -63,7 +63,8 @@ module.exports = class User {
     static async getEmails(){
         const emails = await prisma.usuarios_cp.findMany({
             select: {
-                correo: true
+                correo: true,
+                id_usuario: true,
             }
         });
 
