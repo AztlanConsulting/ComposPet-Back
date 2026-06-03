@@ -55,4 +55,19 @@ module.exports = class User {
         return newUser;
     }
 
+    /**
+     * Recupera la lista de todos los correos electrónicos registrados.
+     *
+     * @returns {Promise<Array>} Array con los correos electrónicos registrados.
+     */ 
+    static async getEmails(){
+        const emails = await prisma.usuarios_cp.findMany({
+            select: {
+                correo: true
+            }
+        });
+
+        return emails;
+    }
+
 };

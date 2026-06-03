@@ -172,11 +172,27 @@ const sendSheets = async (request, response) => {
     
 };
 
+/**
+ * Recupera la lista de correos electrónicos registrados.
+ *
+ * @returns {Promise<Array>} Array con los correos electrónicos registrados.
+ */
+const getEmails = async (req, res) => {
+    try {
+        const emails = await User.getEmails();
+        res.status(200).json({data: emails});
+    } catch (error) {
+        console.error("Error al obtener correos electrónicos:", error);
+        res.status(500).json({ msg: "Error del servidor, inténtalo más tarde." });
+    }
+};
+
 module.exports = {
     getAllUsers,
     googleLogin, 
     sendEmail, 
     sendSheets,
-    getAllUsers2
+    getAllUsers2,
+    getEmails,
 };
 
