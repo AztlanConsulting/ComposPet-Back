@@ -250,7 +250,8 @@ describe("POST /registrar-cliente", () => {
 
         expect(res.status).toBe(400);
         expect(res.body.success).toBe(false);
-        expect(res.body.message).toBe("Faltan datos requeridos para registrar al cliente.");
+        expect(res.body.message).toBe("Los datos enviados no son válidos.");
+        expect(res.body.errors).toBeDefined();
     });
 
     it("registra cliente sin campos opcionales", async () => {

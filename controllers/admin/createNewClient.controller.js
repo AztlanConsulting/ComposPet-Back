@@ -9,6 +9,128 @@ const Role =  require('../../models/role.model');
 const Credit = require('../../models/credit.model');
 
 /**
+ * Convierte cualquier valor recibido a string
+ * y elimina los espacios del inicio y final.
+ */
+const normalizeText = (value = '') =>
+    String(value).trim();
+
+/**
+ * Valida que el texto contenga únicamente:
+ * - Letras mayúsculas/minúsculas
+ * - Letras acentuadas
+ * - Ñ/ñ
+ * - 1 Espacio entre palabras (no permite espacios al inicio o final)
+ *
+ * No acepta guiones, números, ni caracteres especiales.
+ */
+const isOnlyLetters = (value) =>
+    /^[A-Za-zÁÉÍÓÚáéíóúÑñ]+(?: [A-Za-zÁÉÍÓÚáéíóúÑñ]+)*$/.test(value);
+
+/**
+ * Valida números telefónicos con:
+ * - Opcional signo +
+ * - Entre 10 y 15 dígitos
+ */
+const isValidPhone = (value) =>
+    /^\+?\d{10,15}$/.test(value);
+
+/**
+ *  Valida formato básico de correo electrónico.
+ *
+ * Ejemplos válidos:
+ * correo@test.com
+ * nombre.apellido@mail.mx
+ *
+ * Nota:
+ * No garantiza que el correo exista,
+ * únicamente valida formato.
+ */
+const isValidEmail = (value) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+/**
+ * Verifica que el valor recibido sea:
+ * - Número entero
+ * - Mayor que cero
+ *
+ * Ejemplos válidos:
+ * 1, 25, "10"
+ *
+ * Inválidos:
+ * 0, -5, 2.5, "abc"
+ */
+const isPositiveInteger = (value) =>
+    Number.isInteger(Number(value)) && Number(value) > 0;
+
+const validateRegisterClient = (body) => {
+    const errors = {};
+
+    const name = normalizeText(body.name);
+    const lastName = normalizeText(body.lastName);
+    const phone = normalizeText(body.phone);
+    const email = normalizeText(body.email).toLowerCase();
+    const address = normalizeText(body.address);
+    const id_ruta = Number(body.id_ruta);
+
+    const pets = normalizeText(body.pets);
+    const family = normalizeText(body.family);
+    const notes = normalizeText(body.notes);
+
+    if (!name || name.length < 1 || name.length > 100 || !isOnlyLetters(name)) {
+        errors.name = 'Nombre inválido.';
+    }
+
+    if (!lastName || lastName.length < 1 || lastName.length > 200 || !isOnlyLetters(lastName)) {
+        errors.lastName = 'Apellido inválido.';
+    }
+
+    if (!isValidPhone(phone)) {
+        errors.phone = 'El teléfono debe tener 10 dígitos.';
+    }
+
+    if (!email || email.length > 150 || !isValidEmail(email)) {
+        errors.email = 'Correo inválido.';
+    }
+
+    if (!address || address.length < 5 || address.length > 255) {
+        errors.address = 'Dirección inválida.';
+    }
+
+    if (!isPositiveInteger(id_ruta)) {
+        errors.id_ruta = 'Ruta inválida.';
+    }
+
+    if (pets.length > 50) {
+        errors.pets = 'Mascotas es demasiado largo.';
+    }
+
+    if (family.length > 50) {
+        errors.family = 'Familia es demasiado largo.';
+    }
+
+    if (notes.length > 500) {
+        errors.notes = 'Notas es demasiado largo.';
+    }
+
+    return {
+        isValid: Object.keys(errors).length === 0,
+        errors,
+        data: {
+            name,
+            lastName,
+            phone,
+            email,
+            address,
+            id_ruta,
+            pets,
+            family,
+            notes
+        },
+    };
+};
+
+/**
  * Obtiene los datos necesarios para renderizar el formulario de registro de un nuevo cliente.
  * Consulta en paralelo el catálogo de días de ruta.
  * Si alguno de los catálogos está vacío, se interrumpe la respuesta con un error 404
@@ -71,34 +193,28 @@ const getRegisterClient = async (req, res) => {
  */
 const postRegisterClient = async (req, res) => {
     try{
+        const validation = validateRegisterClient(req.body);
 
-        const {
-            name: rawName,
-            lastName: rawLastName,
-            phone,
-            email,
-            pets: rawPets,
-            family: rawFamily,
-            address: rawAddress,
-            notes: rawNotes,
-            id_ruta,
-        } = req.body;
-
-        const sanitize = (str) => str?.replace(/[<>"'%;()&+]/g, '').trim() ?? '';
-
-        const name = sanitize(rawName);
-        const lastName = sanitize(rawLastName);
-        const pets = sanitize(rawPets);
-        const family = sanitize(rawFamily);
-        const address = sanitize(rawAddress);
-        const notes = sanitize(rawNotes);
-
-        if (!name || !lastName || !phone || !email || !address || !id_ruta) {
+        if (!validation.isValid) {
             return res.status(400).json({
                 success: false,
-                message: 'Faltan datos requeridos para registrar al cliente.',
+                message: 'Los datos enviados no son válidos.',
+                errors: validation.errors,
             });
         }
+
+        const {
+            name,
+            lastName,
+            phone,
+            email,
+            address,
+            id_ruta,
+            pets,
+            family,
+            notes,
+        } = validation.data;
+
 
         const existingUser = await User.findByEmail(email);
         if (existingUser) {

@@ -106,6 +106,31 @@ describe('Unit - Model - CollectionRequest', () => {
 
     it('debe actualizar total, método de pago y notas', async () => {
       // Arrange
+
+      const requestId = "request-test-id";
+      const clientId = "client-test-id";
+
+      prisma.formas_pago.findUnique.mockResolvedValue({
+          tipo: "Transferencia",
+      });
+
+      prisma.solicitudes_recoleccion.findUnique.mockResolvedValue({
+          id_solicitud: requestId,
+          id_cliente: clientId,
+          total_pagado: 0,
+          total_a_pagar: 0,
+          estatus: false,
+          id_pago: null,
+      });
+
+      prisma.solicitudes_recoleccion.update.mockResolvedValue({
+          id_solicitud: requestId,
+          total_a_pagar: 390,
+          notas: "Pago por transferencia",
+          id_pago: 1,
+          estatus: true,
+      });
+
       prisma.solicitudes_recoleccion.update.mockResolvedValue({
         id_solicitud: 15,
         total_a_pagar: 500,
@@ -145,11 +170,30 @@ describe('Unit - Model - CollectionRequest', () => {
     });
 
     it('debe actualizar con notas null', async () => {
-      prisma.solicitudes_recoleccion.update.mockResolvedValue({
-        id_solicitud: 15,
-        notas: null,
+         const requestId = "request-test-id";
+      const clientId = "client-test-id";
+
+      prisma.formas_pago.findUnique.mockResolvedValue({
+          tipo: "Transferencia",
       });
 
+      prisma.solicitudes_recoleccion.findUnique.mockResolvedValue({
+          id_solicitud: requestId,
+          id_cliente: clientId,
+          total_pagado: 0,
+          total_a_pagar: 0,
+          estatus: false,
+          id_pago: null,
+      });
+
+      prisma.solicitudes_recoleccion.update.mockResolvedValue({
+          id_solicitud: requestId,
+          total_a_pagar: 390,
+          notas: null,
+          id_pago: 1,
+          estatus: true,
+      });
+      
       const result = await CollectionRequest.updateCollectionTotal(
         15,
         300,

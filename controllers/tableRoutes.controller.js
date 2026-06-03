@@ -4,6 +4,7 @@ const GoogleSheetsRoutesService = require('../config/googleSheetsRoutes.service'
 const Payment = require('../models/payment.model');
 const CollectionRequest = require('../models/collectionRequest.model');
 const { request } = require('express');
+const { validateRequestUpdate } = require('../utils/editValidations');
 
 /**
  * Obtiene la información general de todas las rutas para mostrarla en la tabla principal.
@@ -194,7 +195,7 @@ const generateConfirmationMessages = async (req, res) => {
         if (!routeInfo || routeInfo.length === 0) {
             return res.status(200).json({
                 success: false,
-                message: "No hay solicitudes para generar mensajes",
+                message: "Revisa que las solicitudes estén completas y agrega un horario a cada una",
             });
         }
 
@@ -321,6 +322,17 @@ const exportDailyRoutesInfo = async (req, res) => {
 const updateRequest = async(req, res) => {
     try {
         const { data } = req.body;
+
+        const validation = validateRequestUpdate(data);
+
+        if(!validation.isValid){
+            return res.status(400).json({
+                success: false,
+                message: "Datos inválidos para actualizar la solicitud",
+                errors: validation.errors,
+            });
+        }
+
         const {
             requestData,
             productsData

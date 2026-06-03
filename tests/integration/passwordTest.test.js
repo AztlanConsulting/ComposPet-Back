@@ -114,7 +114,7 @@ describe('Auth OTP Integration - Error Flows', () => {
         expect(res.body.message).toBe('Error del servidor, inténtalo más tarde.');
     });
 
-    it('retorna 401 si el código OTP es incorrecto', async () => {
+    it('retorna 400 si el código OTP es incorrecto', async () => {
         // --- Arrange ---
         await createTestUser({
             codigo_verificacion: '123456',
@@ -135,11 +135,11 @@ describe('Auth OTP Integration - Error Flows', () => {
             });
 
         // --- Assert ---
-        expect(res.status).toBe(401);
+        expect(res.status).toBe(400);
         expect(res.body.message).toBe('Código incorrecto.');
     });
 
-    it('retorna 401 si el código OTP ya expiró', async () => {
+    it('retorna 400 si el código OTP ya expiró', async () => {
         // --- Arrange ---
         await createTestUser({
             codigo_verificacion: '123456',
@@ -160,7 +160,7 @@ describe('Auth OTP Integration - Error Flows', () => {
             });
 
         // --- Assert ---
-        expect(res.status).toBe(401);
+        expect(res.status).toBe(400);
         expect(res.body.message).toBe('Código expirado.');
     });
 

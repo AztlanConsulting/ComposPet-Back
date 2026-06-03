@@ -149,7 +149,8 @@ module.exports = class Client {
                     nombre: true,
                     apellido: true,
                     telefono: true,
-                    estatus: true
+                    estatus: true,
+                    correo: true,
                 }
                 },
 
@@ -191,7 +192,7 @@ module.exports = class Client {
             name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
             cellphone: client.usuarios_cp.telefono,
             status: client.usuarios_cp.estatus,
-
+            email: client.usuarios_cp.correo,
             routeId: client.ruta.id_ruta,
             route: client.ruta ? client.ruta.dia_ruta : null,
 
@@ -224,7 +225,7 @@ module.exports = class Client {
         balanceData,
     ){
         try {
-            await prisma.$transaction(async (tx) => {
+            return await prisma.$transaction(async (tx) => {
 
                 const actualClient = await tx.cliente.findUnique({
                     where: {
@@ -241,6 +242,27 @@ module.exports = class Client {
                     }
                 })
 
+                if(userData.correo !== undefined){
+                    const existingEmails = await tx.usuarios_cp.findFirst({
+                        where: {
+                            correo: userData.correo,
+                            id_usuario: {
+                                not: userId,
+                            }
+                        },
+                        select: {
+                            id_usuario: true,
+                            correo: true,
+                        }
+                    });
+
+                    if(existingEmails){
+                        throw new Error("El correo " + userData.correo + " ya está registrado.");
+                    }
+                }
+
+
+
                 const oldStatus = actualClient.usuarios_cp.estatus;
                 const newStatus = userData.estatus;
                 const wasDeactivated = oldStatus === true && newStatus === false;
@@ -250,8 +272,8 @@ module.exports = class Client {
                 const newRouteId = clientData.id_ruta;
                 const oldRouteId = actualClient.id_ruta;
 
-                const orderChanged =  newOrder !== oldOrder;
-                const routeChanged =  newRouteId !== oldRouteId;
+                const orderChanged = clientData.orden_horario !== undefined && newOrder !== oldOrder;
+                const routeChanged = clientData.id_ruta !== undefined && newRouteId !== oldRouteId;
 
                 if(wasDeactivated){
                     await this.moveClientToLastOrder(
@@ -315,11 +337,12 @@ module.exports = class Client {
                     })
                 }
 
+                return true;
+
             })
         } catch(error){
-            console.log(error)
-        } finally {
-            return true;
+            console.error(error);
+            throw error;
         }
     }
 
