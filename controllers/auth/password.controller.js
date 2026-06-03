@@ -205,7 +205,7 @@ const updatePassword = async (req, res) => {
 
 
         if (decodedFlow.pwdFingerprint !== currentFingerprint) {
-            return res.status(403).json({ message: 'Este enlace de recuperación ya fue usado.' });
+            return res.status(403).json({ message: 'Este flujo de verificación ya no es válido.' });
         }
 
         const salt = await bcrypt.genSalt(10);
