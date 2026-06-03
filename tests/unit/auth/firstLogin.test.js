@@ -4,6 +4,7 @@ const AuthModel = require('../../../models/auth/auth.model');
 const GmailService = require('../../../config/gmail.service');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 
 // Mocks
 jest.mock('../../../models/auth/password.model');
@@ -19,6 +20,14 @@ const mockResponse = () => {
     res.json = jest.fn();
     return res;
 };
+
+const createFingerprint = (password) =>
+    crypto
+        .createHash('sha256')
+        .update(password)
+        .digest('hex')
+        .slice(0, 16);
+
 
 describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
 
@@ -85,13 +94,15 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
             
             PasswordModel.findUserByStatus.mockResolvedValue({
                 id_usuario: 1,
-                codigo_verificacion: '999999', // Correcto
-                intentos_fallidos: 2
+                correo: 'kamila@compospet.com',
+                codigo_verificacion: '999999',
+                codigo_expiracion: new Date(Date.now() + 50000),
+                intentos_fallidos: 2,
+                contrasena: 'old-password-hash',
             });
 
             const req = { body: { 
-                email: 'kamila@compospet.com', 
-                code: '123456', // Enviado (incorrecto)
+                code: '123456',
                 seedToken: 'valid' 
             } };
             const res = mockResponse();
@@ -114,13 +125,16 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
             
             PasswordModel.findUserByStatus.mockResolvedValue({
                 id_usuario: 1,
+                correo: 'kamila@compospet.com',
                 codigo_verificacion: '123456',
-                codigo_expiracion: new Date(Date.now() + 50000)
+                codigo_expiracion: new Date(Date.now() + 50000),
+                intentos_fallidos: 0,
+                contrasena: 'old-password-hash',
             });
+
             jwt.sign.mockReturnValue('fake-flow-token');
 
             const req = { body: { 
-                email: 'kamila@compospet.com', 
                 code: '123456', 
                 seedToken: 'valid' 
             } };
@@ -141,20 +155,27 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
     // ─────────────────────────────────────────────────────────────────
     describe('updatePassword - Primer Inicio', () => {
         test('debe completar el registro exitosamente', async () => {
-            // El token debe decir que viene de un primer inicio exitoso
-            jwt.verify.mockReturnValue({ 
-                email: 'kamila@compospet.com', 
-                step: 'VERIFIED_STEP', 
-                isFirstLogin: true 
+            const oldPassword = 'old-password-hash';
+            const fingerprint = createFingerprint(oldPassword);
+
+            jwt.verify.mockReturnValue({
+                id: 1,
+                email: 'kamila@compospet.com',
+                step: 'VERIFIED_STEP',
+                isFirstLogin: true,
+                pwdFingerprint: fingerprint,
             });
             
-            PasswordModel.findUserByStatus.mockResolvedValue({ id_usuario: 1 });
+             PasswordModel.findUserByStatus.mockResolvedValue({
+                id_usuario: 1,
+                correo: 'kamila@compospet.com',
+                contrasena: oldPassword,
+            });
             bcrypt.genSalt.mockResolvedValue('salt');
             bcrypt.hash.mockResolvedValue('hashed-pass');
             PasswordModel.completeFirstLogin.mockResolvedValue(true);
 
             const req = { body: { 
-                email: 'kamila@compospet.com', 
                 password: 'NewPassword2026', 
                 flowToken: 'valid-flow' 
             } };
@@ -172,19 +193,30 @@ describe('Pruebas Unitarias: Primer Inicio de Sesión', () => {
         });
 
         test('debe retornar 500 si falla la base de datos al guardar', async () => {
-            jwt.verify.mockReturnValue({ 
-                email: 'kamila@compospet.com', 
+            const oldPassword = 'old-password-hash';
+            const fingerprint = createFingerprint(oldPassword);
+
+            jwt.verify.mockReturnValue({
+                id: 1,
+                email: 'kamila@compospet.com',
                 step: 'VERIFIED_STEP',
-                isFirstLogin: true   // 👈 sin esto entra al else y llama otro método
+                isFirstLogin: true,
+                pwdFingerprint: fingerprint,
             });
-            PasswordModel.findUserByStatus.mockResolvedValue({ id_usuario: 1 });
+
+            PasswordModel.findUserByStatus.mockResolvedValue({
+                id_usuario: 1,
+                correo: 'kamila@compospet.com',
+                contrasena: oldPassword,
+            });
+
             bcrypt.genSalt.mockResolvedValue('salt');  // 👈 el controlador siempre llama genSalt primero
             bcrypt.hash.mockResolvedValue('hashed');
                         
             // Simulamos error en el modelo
             PasswordModel.completeFirstLogin.mockRejectedValue(new Error('DB Error'));
 
-            const req = { body: { email: 'kamila@compospet.com', password: 'new', flowToken: 'valid' } };
+            const req = { body: { password: 'new', flowToken: 'valid' } };
             const res = mockResponse();
 
             await updatePassword(req, res);
