@@ -85,8 +85,8 @@ const validateEditClient = (body) => {
     if (notes !== null) {
         if (containsEmoji(notes)) {
             errors.notes = 'Las notas no pueden contener emojis.';
-        } else if (notes.length > 255) {
-            errors.notes = 'Ingresa máximo 255 caracteres.';
+        } else if (notes.length > 500) {
+            errors.notes = 'Ingresa máximo 500 caracteres.';
         }
     }
 
@@ -161,8 +161,8 @@ const validateRequestUpdate = (data) => {
     if (notes) {
         if (containsEmoji(notes)) {
             errors.notes = 'Las notas no pueden contener emojis.';
-        } else if (notes.length > 255) {
-            errors.notes = 'Ingresa máximo 255 caracteres.';
+        } else if (notes.length > 500) {
+            errors.notes = 'Ingresa máximo 500 caracteres.';
         }
     }
 

@@ -202,14 +202,14 @@ describe('Unit - Utils - validateEditClient', () => {
             expect(result.errors.notes).toBe('Las notas no pueden contener emojis.');
         });
 
-        it('debe rechazar notas mayor a 255 caracteres', () => {
-            const result = validateEditClient({ notes: 'n'.repeat(256) });
+        it('debe rechazar notas mayor a 500 caracteres', () => {
+            const result = validateEditClient({ notes: 'n'.repeat(501) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.notes).toBe('Ingresa máximo 255 caracteres.');
+            expect(result.errors.notes).toBe('Ingresa máximo 500 caracteres.');
         });
 
-        it('debe aceptar notas de exactamente 255 caracteres', () => {
-            const result = validateEditClient({ notes: 'n'.repeat(255) });
+        it('debe aceptar notas de exactamente 500 caracteres', () => {
+            const result = validateEditClient({ notes: 'n'.repeat(500) });
             expect(result.isValid).toBe(true);
         });
 
@@ -428,10 +428,10 @@ describe('Unit - Utils - validateRequestUpdate', () => {
             expect(result.errors.notes).toBe('Las notas no pueden contener emojis.');
         });
 
-        it('debe rechazar notas mayor a 255 caracteres', () => {
-            const result = validateRequestUpdate({ ...baseData, notes: 'x'.repeat(256) });
+        it('debe rechazar notas mayor a 500 caracteres', () => {
+            const result = validateRequestUpdate({ ...baseData, notes: 'x'.repeat(501) });
             expect(result.isValid).toBe(false);
-            expect(result.errors.notes).toBe('Ingresa máximo 255 caracteres.');
+            expect(result.errors.notes).toBe('Ingresa máximo 500 caracteres.');
         });
 
         it('no debe validar notes si está vacío', () => {
