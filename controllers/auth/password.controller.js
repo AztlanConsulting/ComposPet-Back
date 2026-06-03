@@ -221,7 +221,6 @@ const updatePassword = async (req, res) => {
 
         return res.status(200).json({ success: true, message: 'Contraseña actualizada con éxito.' });
     } catch (error) {
-        console.error('ENTRO AL ERROR: ', error);
         return res.status(500).json({ message: 'Error al guardar la contraseña.' });
     }
 };
