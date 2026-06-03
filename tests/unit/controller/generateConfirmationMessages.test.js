@@ -57,7 +57,7 @@ describe("Controller - generateConfirmationMessages", () => {
         expect(GoogleSheetsMessagesService.sendRouteMessages).not.toHaveBeenCalled();
     });
 
-    it("Debe devolver 200 success false si no hay solicitudes para generar mensajes", async () => {
+    it("Debe devolver 200 success false si Revisa que las solicitudes estén completas y agrega un horario a cada una", async () => {
         req.body = {
             weekIndex: 10,
             dayName: "Jueves",
@@ -79,7 +79,7 @@ describe("Controller - generateConfirmationMessages", () => {
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
-            message: "No hay solicitudes para generar mensajes",
+            message: "Revisa que las solicitudes estén completas y agrega un horario a cada una",
         });
     });
 
