@@ -1,0 +1,179 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model bitacora {
+  id_bitacora      Int          @id @default(autoincrement())
+  origen           String       @db.VarChar
+  accion           String       @db.VarChar
+  tabla_afectada   String?      @db.VarChar
+  objeto_afectado  String?      @db.VarChar
+  id_registro      String?      @db.VarChar
+  app_user_id      String?      @db.Uuid
+  db_user          String       @db.VarChar
+  fecha_evento     DateTime     @default(now()) @db.Timestamp(6)
+  datos_anteriores Json?
+  datos_nuevos     Json?
+  detalle          String?
+  usuarios_cp      usuarios_cp? @relation(fields: [app_user_id], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_bitacora_usuario")
+}
+
+model cliente {
+  id_cliente              String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_usuario              String                    @unique @db.Uuid
+  id_ruta                 Int
+  mascotas                String?                   @db.VarChar
+  familia                 String?                   @db.VarChar
+  direccion               String?                   @db.VarChar
+  orden_horario           Int?
+  notas                   String?
+  fecha_entrada           DateTime?                 @db.Date
+  fecha_salida            DateTime?                 @db.Date
+  ruta                    ruta                      @relation(fields: [id_ruta], references: [id_ruta], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_ruta")
+  usuarios_cp             usuarios_cp               @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_usuario")
+  saldo                   saldo?
+  solicitudes_recoleccion solicitudes_recoleccion[]
+}
+
+model compospet {
+  id_cp       String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  metricas    metricas[]
+  usuarios_cp usuarios_cp[]
+}
+
+model formas_pago {
+  tipo                    String                    @db.VarChar
+  texto                   String?
+  notas                   String?
+  id_pago                 Int                       @id
+  solicitudes_recoleccion solicitudes_recoleccion[]
+}
+
+model metricas {
+  id_metrica Int       @id
+  id_cp      String    @db.Uuid
+  valor      Float
+  nombre     String    @db.VarChar
+  fecha      DateTime  @db.Date
+  compospet  compospet @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "fk_metricas_compospet")
+}
+
+model permisos {
+  id_permiso     String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nombre         String           @db.VarChar
+  descripcion    String?
+  roles_permisos roles_permisos[]
+}
+
+model productos_extra {
+  id_producto         Int                   @id
+  nombre              String                @db.VarChar
+  precio              Float
+  descripcion         String?               @db.VarChar
+  cantidad            Int
+  imagen_url          String?               @db.VarChar
+  orden               Int?
+  estatus             Boolean?
+  color               String?               @db.VarChar
+  productos_solicitud productos_solicitud[]
+}
+
+model productos_solicitud {
+  id_solicitud            String                  @db.Uuid
+  id_producto             Int
+  fecha                   DateTime?               @db.Date
+  cantidad                Int
+  productos_extra         productos_extra         @relation(fields: [id_producto], references: [id_producto], onDelete: NoAction, onUpdate: NoAction, map: "fk_productos_solicitud_producto")
+  solicitudes_recoleccion solicitudes_recoleccion @relation(fields: [id_solicitud], references: [id_solicitud], onDelete: NoAction, onUpdate: NoAction, map: "fk_productos_solicitud_solicitud")
+
+  @@id([id_solicitud, id_producto])
+}
+
+model roles {
+  id_rol         String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nombre         String           @db.VarChar
+  roles_permisos roles_permisos[]
+  usuarios_cp    usuarios_cp[]
+}
+
+model roles_permisos {
+  id_rol     String   @db.Uuid
+  id_permiso String   @db.Uuid
+  permisos   permisos @relation(fields: [id_permiso], references: [id_permiso], onDelete: NoAction, onUpdate: NoAction, map: "fk_roles_permisos_permiso")
+  roles      roles    @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_roles_permisos_rol")
+
+  @@id([id_rol, id_permiso])
+}
+
+model ruta {
+  id_ruta    Int       @id
+  dia_ruta   String    @db.VarChar
+  turno_ruta String    @db.VarChar
+  cliente    cliente[]
+}
+
+model solicitudes_recoleccion {
+  id_solicitud           String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente             String                @db.Uuid
+  cubetas_entregadas     Int?
+  cubetas_recolectadas   Int?
+  total_a_pagar          Float?
+  total_pagado           Float?
+  fecha                  DateTime              @db.Date
+  horario                DateTime?             @db.Time(6)
+  notas                  String?
+  quiere_productos_extra Boolean?              @default(false)
+  quiere_recoleccion     Boolean?              @default(false)
+  id_pago                Int?
+  estatus                Boolean               @default(true)
+  productos_solicitud    productos_solicitud[]
+  cliente                cliente               @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_cliente")
+  formas_pago            formas_pago?          @relation(fields: [id_pago], references: [id_pago], onDelete: NoAction, onUpdate: NoAction, map: "fk_solicitudes_recoleccion_pago")
+}
+
+model saldo {
+  id_saldo   String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cliente String  @unique @db.Uuid
+  saldo      Float   @default(0)
+  cliente    cliente @relation(fields: [id_cliente], references: [id_cliente], onDelete: NoAction, onUpdate: NoAction, map: "fk_saldo_cliente")
+}
+
+model usuarios_cp {
+  id_usuario           String     @id(map: "usuarios_cp_pk") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_cp                String     @db.Uuid
+  id_rol               String     @db.Uuid
+  nombre               String     @db.VarChar
+  apellido             String?    @db.VarChar
+  contrasena           String     @db.VarChar
+  estatus              Boolean    @default(false)
+  telefono             String?    @db.VarChar
+  correo               String     @unique(map: "usuarios_cp_unique_correo") @db.VarChar
+  primer_inicio_sesion Boolean    @default(true)
+  intentos_fallidos    Int        @default(0)
+  bloqueado_hasta      DateTime?  @db.Timestamp(6)
+  codigo_expiracion    DateTime?  @db.Timestamp(6)
+  codigo_verificacion  String?    @db.VarChar
+  bitacora             bitacora[]
+  cliente              cliente?
+  sesiones             sesiones[]
+  compospet            compospet  @relation(fields: [id_cp], references: [id_cp], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_compospet_fk")
+  roles                roles      @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "usuarios_cp_roles_fk")
+}
+
+model sesiones {
+  id               String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id_usuario       String      @db.Uuid
+  refresh_token    String      @unique
+  dispositivo      String?     @db.VarChar
+  ip               String?     @db.VarChar
+  iniciada_en      DateTime?   @default(now()) @db.Timestamp(6)
+  expira_en        DateTime    @db.Timestamp(6)
+  ultima_actividad DateTime?   @default(now()) @db.Timestamp(6)
+  activa           Boolean     @default(true)
+  usuarios_cp      usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_sesiones_usuario")
+}

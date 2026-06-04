@@ -3,6 +3,19 @@ const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
+const prisma = require('../config/prisma');
+
+// Ejemplo de controlador para obtener todos los niveles desde la base de datos. 
+const getAllUsers2 = async (req, res) => {
+    try {
+        const users = await User.getAllUsers2();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Error al obtener niveles:", error);
+        res.status(500).json({ msg: "Error del servidor, inténtalo más tarde." });
+    }
+};
+
 
 const { callExternalApi } = require('../middlewares/externalApiClient');
 
@@ -147,7 +160,6 @@ const sendSheets = async (request, response) => {
         );
 
         dataClean = data.data.values;
-        console.log(dataClean)
         response.status(200).json({ data: dataClean });
 
     } catch (error) {
@@ -160,9 +172,27 @@ const sendSheets = async (request, response) => {
     
 };
 
+/**
+ * Recupera la lista de correos electrónicos registrados.
+ *
+ * @returns {Promise<Array>} Array con los correos electrónicos registrados.
+ */
+const getEmails = async (req, res) => {
+    try {
+        const emails = await User.getEmails();
+        res.status(200).json({data: emails});
+    } catch (error) {
+        console.error("Error al obtener correos electrónicos:", error);
+        res.status(500).json({ msg: "Error del servidor, inténtalo más tarde." });
+    }
+};
+
 module.exports = {
     getAllUsers,
     googleLogin, 
     sendEmail, 
     sendSheets,
+    getAllUsers2,
+    getEmails,
 };
+
