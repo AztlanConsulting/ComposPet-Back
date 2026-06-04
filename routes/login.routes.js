@@ -7,8 +7,6 @@ const passwordController = require('../controllers/auth/password.controller');
 const { requireRole } = require('../middlewares/roleAccess');
 const { authMiddleware } = require('../middlewares/auth');
 
-console.log('NODE_ENV al cargar rutas:', process.env.NODE_ENV);
-
 const requestOtpLimiter = process.env.NODE_ENV === 'test'
     ? (req, res, next) => next()
     : rateLimit({
