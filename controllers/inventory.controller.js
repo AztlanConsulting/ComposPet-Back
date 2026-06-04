@@ -36,7 +36,8 @@ const postRegisterProduct = async (req, res) => {
         const containsEmoji = (str) =>
             /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu.test(str);
 
-        const invalidCharacters = /[<>"'%;()&+=&/¿?!¡]/;
+        const validNameRegex = /^[\p{L}\p{N}\s]+$/u;
+        const validDescriptionRegex = /^[\p{L}\p{N}\s.,;:()\-]+$/u;
         const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
         const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
         const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
@@ -75,7 +76,7 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
-        if (invalidCharacters.test(rawName)) {
+        if (!validNameRegex.test(name)) {
             return res.status(400).json({
                 success: false,
                 message: 'El nombre contiene caracteres inválidos.',
@@ -89,7 +90,10 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
-        if (rawDescription && invalidCharacters.test(rawDescription)) {
+        if (
+            description &&
+            !validDescriptionRegex.test(description)
+        ) {
             return res.status(400).json({
                 success: false,
                 message: 'La descripción contiene caracteres inválidos.',
