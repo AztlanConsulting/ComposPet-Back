@@ -45,10 +45,9 @@ const requestOTP = async (req, res) => {
             });
         }
 
-
         const code = crypto.randomInt(100000, 999999).toString();
 
-        const expires = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
+        const expires = new Date(Date.now() + 15 * 60 * 1000);
 
         await PasswordModel.setVerificationCode(user.id_usuario, code, expires);
 
