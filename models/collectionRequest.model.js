@@ -328,7 +328,6 @@ module.exports = class CollectionRequest {
 
             let amountToDiscount = 0;
 
-            if (payForm?.tipo === "Saldo") {
                 amountToDiscount =
                     collectionTotal - (currentRequest.total_pagado || 0);
 
@@ -342,7 +341,6 @@ module.exports = class CollectionRequest {
                         },
                     },
                 });
-            }
 
             const updateData = {
                 total_a_pagar: collectionTotal,
