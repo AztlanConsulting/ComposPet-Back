@@ -23,7 +23,7 @@ describe('Controller - getCurrentCollectionRequest', ()=> {
     it ('Debe devolver 400 si no mandas el id del la solicitud', async() =>{
 
         //Arrange (Preparar)
-        req.body = {
+        req.beody = {
             wantsCollection: true,
             wantsExtraProducts: true,
             collectedBuckets: 2,
