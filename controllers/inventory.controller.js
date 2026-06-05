@@ -194,8 +194,6 @@ const postRegisterProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error en postRegisterProduct:', error);
-
         return res.status(500).json({
             success: false,
             message: 'Error del servidor al registrar un producto',
@@ -240,8 +238,6 @@ const getInventory = async (req, res) => {
             })),
         });
     }catch (error) {
-        console.error('Error en getInventory:', error);
-
         return res.status(500).json({
             success: false,
             message: 'Error del servidor al obtener el inventario',
