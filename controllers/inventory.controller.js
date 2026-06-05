@@ -14,11 +14,14 @@
  * Si todas las validaciones pasan, crea el nuevo producto en la base de datos
  * y responde con un mensaje de éxito.
  */
-
+const Inventory = require('../models/inventory.model');
 const fs = require('fs/promises');
 const path = require('path');
-const { fileTypeFromFile } = require('file-type');
-const Inventory = require('../models/inventory.model');
+
+const getFileTypeFromFile = async (filePath) => {
+    const { fileTypeFromFile } = await import('file-type');
+    return fileTypeFromFile(filePath);
+};
 
 const postRegisterProduct = async (req, res) => {
     try {
@@ -216,8 +219,7 @@ const postRegisterProduct = async (req, res) => {
             }
 
             if (extension !== '.svg') {
-                const detectedFileType = await fileTypeFromFile(imageFile.path);
-
+                const detectedFileType = await getFileTypeFromFile(imageFile.path);
                 if (
                     !detectedFileType ||
                     !allowedImageTypes.includes(detectedFileType.mime)
@@ -272,9 +274,12 @@ const postRegisterProduct = async (req, res) => {
         });
 
     } catch (error) {
+        console.error('Error en postRegisterProduct:', error);
+    
         return res.status(500).json({
             success: false,
             message: 'Error del servidor al registrar un producto',
+            error: error.message,
         });
     }
 };
