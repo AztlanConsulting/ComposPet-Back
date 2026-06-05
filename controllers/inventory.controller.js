@@ -36,10 +36,11 @@ const postRegisterProduct = async (req, res) => {
         const containsEmoji = (str) =>
             /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu.test(str);
 
-        const validNameRegex = /^[\p{L}\p{N}\s]+$/u;
+        const validNameRegex = /^[\p{L}\p{N}\s.()\-]+$/u;
         const validDescriptionRegex = /^[\p{L}\p{N}\s.,;:()\-]+$/u;
         const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
-        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 
+        'image/svg', 'image/avif', 'image/jpg', 'image/heic'];
         const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
         const name = sanitize(rawName);
