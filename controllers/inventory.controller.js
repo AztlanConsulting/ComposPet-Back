@@ -221,8 +221,6 @@ const postRegisterProduct = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error en postRegisterProduct:', error);
-
         return res.status(500).json({
             success: false,
             message: 'Error del servidor al registrar un producto',
@@ -230,6 +228,51 @@ const postRegisterProduct = async (req, res) => {
     }
 };
 
+/**
+ * Controlador para obtener los productos extra del inventario.
+ * 
+ * @async
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @return {JSON} Respuesta JSON con el listado de productos extra del inventario.
+ * @throws {Error} Cuando ocurre un error inesperado al consultar el inventario.
+ * 
+ * El controlador realiza las siguientes acciones:
+ * - Solicita al modelo la consulta de productos extra registrados.
+ * - Obtiene únicamente productos activos/no eliminados.
+ * - Retorna la información obtenida en formato JSON.
+ * - Registra errores internos en consola para fines de depuración.
+ * 
+ * Si la consulta se ejecuta correctamente, responde con el listado
+ * de productos extra y un mensaje de éxito.
+ */
+const getInventory = async (req, res) => {
+    try {
+        const inventory = await Inventory.getInventory();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Inventario obtenido exitosamente.',
+            data: inventory.map(item => ({
+                productId: item.id_producto,
+                name: item.nombre,
+                price: item.precio,
+                description: item.descripcion,
+                quantity: item.cantidad,
+                color: item.color,
+                status: item.estatus,
+                imageUrl: item.imagen_url,
+            })),
+        });
+    }catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error del servidor al obtener el inventario',
+        });
+    }
+}
+
 module.exports = {
     postRegisterProduct,
+    getInventory,
 };

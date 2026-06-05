@@ -95,4 +95,50 @@ module.exports = class Inventory {
 
         return newProduct;
     }
+
+    /**
+     * Obtiene los productos extra disponibles en el inventario.
+     * 
+     * @async
+     * @static
+     * @returns {Promise<Array<Object>>} Lista de productos extra registrados.
+     * @throws {Error} Cuando ocurre un error inesperado durante la consulta a la base de datos.
+     * 
+     * La consulta realiza las siguientes acciones:
+     * - Obtiene únicamente productos no eliminados lógicamente.
+     * - Recupera únicamente los campos necesarios para visualización.
+     * - Ordena los productos por el campo `orden` de forma ascendente.
+     * 
+     * Campos retornados:
+     * - id_producto
+     * - nombre
+     * - precio
+     * - descripcion
+     * - cantidad
+     * - imagen_url
+     * - color
+     * - estatus
+     */
+    static async getInventory() {
+        const result = await prisma.productos_extra.findMany({
+            where: {
+                deleted: false,
+            },
+            select: {
+                id_producto: true,
+                nombre: true,
+                precio: true,
+                descripcion: true,
+                cantidad: true,
+                imagen_url: true,
+                color: true,
+                estatus: true,
+            },
+            orderBy: [
+                { orden: 'asc' },
+            ]
+        });
+
+        return result;
+    }
 };
