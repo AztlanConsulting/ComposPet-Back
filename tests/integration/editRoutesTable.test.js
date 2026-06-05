@@ -34,10 +34,15 @@ const createBaseData = async () => {
         update: {},
         create: {
             id_producto: TEST_PRODUCTO_EXTRA,
-            nombre: 'Composta',
+            nombre: 'Producto Test Extra',
             precio: 50,
+            descripcion: 'Producto extra de prueba',
             cantidad: 100,
+            imagen_url: 'uploads/products/default-product.png',
+            orden: 1,
             estatus: true,
+            deleted: false,
+            color: '#169B49',
         },
     });
 
