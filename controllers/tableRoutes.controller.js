@@ -129,7 +129,9 @@ const getFilteredRoutesInfo = async(req, res) => {
         const { weekIndex, dayName } = req.query;
 
         const filteredInfo = await Routes.getFilteredRoutesInfo({
-            weekIndex: Number(weekIndex),
+            weekIndex: weekIndex !== undefined && weekIndex !== "undefined" && weekIndex !== ""
+                ? Number(weekIndex)
+                : null,
             dayName: dayName && dayName !== "undefined" && dayName !== "null"
                 ? dayName
                 : undefined,

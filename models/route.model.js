@@ -263,7 +263,7 @@ module.exports = class Route {
                     ruta: {
                         dia_ruta: {
                             startsWith: todayName
-                        }, // Filtra por el día actual
+                        },
                     },
                 },
 
@@ -289,8 +289,8 @@ module.exports = class Route {
                     solicitudes_recoleccion: {
                         where: {
                             fecha: {
-                                gte: startOfWeek, // desde el inicio de la semana
-                                lt: endOfWeek, // hasta el fin de la semana
+                                gte: startOfWeek,
+                                lt: endOfWeek,
                             },
                         },
                         select: {
@@ -367,16 +367,24 @@ module.exports = class Route {
         try {
 
             const now = new Date();
-            const weeks = getLastTwoMonthsWeeks(now);
 
-            if (weekIndex < 0 || weekIndex >= weeks.length) {
-                throw new Error(`Index fuera de rango. Valido: 0 - ${weeks.length - 1}`);
+            let dateFilter = {};
+
+            if (weekIndex !== null && weekIndex !== undefined) {
+                const weeks = getLastTwoMonthsWeeks(now);
+                if (weekIndex < 0 || weekIndex >= weeks.length)
+                    throw new Error(`Index fuera de rango`);
+
+                const { weekStart, weekEnd } = weeks[weekIndex];
+                dateFilter = { gte: weekStart, lt: weekEnd };
+            } else {
+                const weeks = getLastTwoMonthsWeeks(now);
+                const twoMonthsAgo = weeks[0].weekStart;
+                const weekEnd = weeks[weeks.length - 1].weekEnd;
+                dateFilter = { gte: twoMonthsAgo, lt: weekEnd };
             }
 
-            const { weekStart, weekEnd } = weeks[weekIndex];
-            const rutaFilter = dayName ? { 
-                dia_ruta: { startsWith: dayName } 
-            } : {};   
+            const rutaFilter = dayName ? { dia_ruta: { startsWith: dayName } } : {};   
 
             const routeInfo = await prisma.cliente.findMany({
                 where: {
@@ -409,10 +417,7 @@ module.exports = class Route {
 
                     solicitudes_recoleccion: {
                         where: {
-                            fecha: {
-                                gte: weekStart,
-                                lt: weekEnd,
-                            },
+                            fecha: dateFilter 
                         },
                         select: {
                             id_solicitud: true,
