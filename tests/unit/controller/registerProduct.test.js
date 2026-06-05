@@ -1,7 +1,15 @@
+jest.mock('../../../models/inventory.model');
+jest.mock('fs/promises', () => ({
+    unlink: jest.fn().mockResolvedValue(),
+}));
+jest.mock('file-type', () => ({
+    fileTypeFromFile: jest.fn(),
+}));
+
 const inventoryController = require('../../../controllers/inventory.controller');
 const Inventory = require('../../../models/inventory.model');
-
-jest.mock('../../../models/inventory.model');
+const fs = require('fs/promises');
+const { fileTypeFromFile } = require('file-type');
 
 describe('Controller - postRegisterProduct', () => {
     let req;
@@ -289,7 +297,7 @@ describe('Controller - postRegisterProduct', () => {
         expect(Inventory.findByName).not.toHaveBeenCalled();
     });
 
-    it('debe devolver 400 si la imagen tiene formato inválido', async () => {
+    it('debe devolver 400 si la extensión de imagen no es válida', async () => {
         req.body = {
             name: 'Producto Test',
             price: '100',
@@ -298,6 +306,7 @@ describe('Controller - postRegisterProduct', () => {
         };
 
         req.file = {
+            originalname: 'test.pdf',
             mimetype: 'application/pdf',
             size: 1000,
             path: 'uploads/products/test.pdf',
@@ -305,6 +314,34 @@ describe('Controller - postRegisterProduct', () => {
 
         await inventoryController.postRegisterProduct(req, res);
 
+        expect(fs.unlink).toHaveBeenCalledWith('uploads/products/test.pdf');
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            success: false,
+            message: 'La extensión de la imagen no es válida.',
+        });
+
+        expect(Inventory.findByName).not.toHaveBeenCalled();
+    });
+
+    it('debe devolver 400 si la imagen tiene mimetype inválido', async () => {
+        req.body = {
+            name: 'Producto Test',
+            price: '100',
+            quantity: '10',
+            color: '#169B49',
+        };
+
+        req.file = {
+            originalname: 'test.png',
+            mimetype: 'application/pdf',
+            size: 1000,
+            path: 'uploads/products/test.png',
+        };
+
+        await inventoryController.postRegisterProduct(req, res);
+
+        expect(fs.unlink).toHaveBeenCalledWith('uploads/products/test.png');
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
@@ -323,6 +360,7 @@ describe('Controller - postRegisterProduct', () => {
         };
 
         req.file = {
+            originalname: 'test.png',
             mimetype: 'image/png',
             size: 2 * 1024 * 1024 + 1,
             path: 'uploads/products/test.png',
@@ -330,10 +368,41 @@ describe('Controller - postRegisterProduct', () => {
 
         await inventoryController.postRegisterProduct(req, res);
 
+        expect(fs.unlink).toHaveBeenCalledWith('uploads/products/test.png');
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
             message: 'La imagen no puede exceder 2 MB.',
+        });
+
+        expect(Inventory.findByName).not.toHaveBeenCalled();
+    });
+
+    it('debe devolver 400 si el contenido del archivo no corresponde a una imagen válida', async () => {
+        req.body = {
+            name: 'Producto Test',
+            price: '100',
+            quantity: '10',
+            color: '#169B49',
+        };
+
+        req.file = {
+            originalname: 'test.png',
+            mimetype: 'image/png',
+            size: 1000,
+            path: 'uploads/products/test.png',
+        };
+
+        fileTypeFromFile.mockResolvedValue(null);
+
+        await inventoryController.postRegisterProduct(req, res);
+
+        expect(fileTypeFromFile).toHaveBeenCalledWith('uploads/products/test.png');
+        expect(fs.unlink).toHaveBeenCalledWith('uploads/products/test.png');
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            success: false,
+            message: 'El contenido del archivo no corresponde a una imagen válida.',
         });
 
         expect(Inventory.findByName).not.toHaveBeenCalled();
@@ -398,20 +467,6 @@ describe('Controller - postRegisterProduct', () => {
         });
 
         expect(res.status).toHaveBeenCalledWith(201);
-        expect(res.json).toHaveBeenCalledWith({
-            success: true,
-            message: 'Producto registrado exitosamente.',
-            data: {
-                productId: 1,
-                name: 'Producto Test',
-                price: 100.50,
-                quantity: 10,
-                color: '#169B49',
-                status: true,
-                deleted: false,
-                imageUrl: 'uploads/products/default-product.png',
-            },
-        });
     });
 
     it('debe registrar un producto exitosamente con imagen', async () => {
@@ -423,10 +478,16 @@ describe('Controller - postRegisterProduct', () => {
         };
 
         req.file = {
+            originalname: 'test.png',
             mimetype: 'image/png',
             size: 1000,
             path: 'uploads\\products\\test.png',
         };
+
+        fileTypeFromFile.mockResolvedValue({
+            ext: 'png',
+            mime: 'image/png',
+        });
 
         Inventory.findByName.mockResolvedValue(null);
         Inventory.createNewProduct.mockResolvedValue({

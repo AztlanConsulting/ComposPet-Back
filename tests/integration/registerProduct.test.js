@@ -17,6 +17,11 @@ const ENDPOINT_GET = "/api/inventario/obtener-inventario";
 
 const TEST_PRODUCT_NAME = "Producto Test Inventario";
 
+const TEST_UPLOAD_DIR = path.join(__dirname, "../fixtures");
+const VALID_PNG_PATH = path.join(TEST_UPLOAD_DIR, "test-image.png");
+const INVALID_CONTENT_PATH = path.join(TEST_UPLOAD_DIR, "fake-image.png");
+const INVALID_EXTENSION_PATH = path.join(TEST_UPLOAD_DIR, "archivo.txt");
+
 const createAuthToken = () => {
     return generateAccessToken({
         id_usuario: TEST_ADMIN_USER_ID,
@@ -81,6 +86,37 @@ const cleanDb = async () => {
     });
 };
 
+const createFixtureFiles = () => {
+    if (!fs.existsSync(TEST_UPLOAD_DIR)) {
+        fs.mkdirSync(TEST_UPLOAD_DIR, { recursive: true });
+    }
+
+    const pngBase64 =
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=";
+
+    fs.writeFileSync(VALID_PNG_PATH, Buffer.from(pngBase64, "base64"));
+    fs.writeFileSync(INVALID_CONTENT_PATH, "esto no es una imagen real");
+    fs.writeFileSync(INVALID_EXTENSION_PATH, "archivo con extension no permitida");
+};
+
+const removeFixtureFiles = () => {
+    if (fs.existsSync(VALID_PNG_PATH)) {
+        fs.unlinkSync(VALID_PNG_PATH);
+    }
+
+    if (fs.existsSync(INVALID_CONTENT_PATH)) {
+        fs.unlinkSync(INVALID_CONTENT_PATH);
+    }
+
+    if (fs.existsSync(INVALID_EXTENSION_PATH)) {
+        fs.unlinkSync(INVALID_EXTENSION_PATH);
+    }
+};
+
+beforeAll(async () => {
+    createFixtureFiles();
+});
+
 beforeEach(async () => {
     await cleanDb();
     await createBaseData();
@@ -91,6 +127,8 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
+    await cleanDb();
+    removeFixtureFiles();
     await prisma.$disconnect();
 });
 
@@ -115,6 +153,62 @@ describe("POST /inventario/agregar-producto", () => {
         expect(res.body.data.price).toBe(150.50);
         expect(res.body.data.quantity).toBe(10);
         expect(res.body.data.imageUrl).toBe("uploads/products/default-product.png");
+    });
+
+    it("registra un producto exitosamente con imagen válida", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .post(ENDPOINT_POST)
+            .set("Authorization", `Bearer ${token}`)
+            .field("name", `${TEST_PRODUCT_NAME} Imagen`)
+            .field("price", "150.50")
+            .field("quantity", "10")
+            .field("color", "#169B49")
+            .field("description", "Producto Test con imagen")
+            .attach("image", VALID_PNG_PATH);
+
+        expect(res.status).toBe(201);
+        expect(res.body.success).toBe(true);
+        expect(res.body.message).toBe("Producto registrado exitosamente.");
+        expect(res.body.data.productId).toBeDefined();
+        expect(res.body.data.name).toBe(`${TEST_PRODUCT_NAME} Imagen`);
+        expect(res.body.data.imageUrl).toContain("uploads/products/");
+        expect(res.body.data.imageUrl).not.toBe("uploads/products/default-product.png");
+    });
+
+    it("retorna 400 si la extensión de imagen no es válida", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .post(ENDPOINT_POST)
+            .set("Authorization", `Bearer ${token}`)
+            .field("name", `${TEST_PRODUCT_NAME} Extension`)
+            .field("price", "150.50")
+            .field("quantity", "10")
+            .field("color", "#169B49")
+            .attach("image", INVALID_EXTENSION_PATH);
+
+        expect(res.status).toBe(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe("La extensión de la imagen no es válida.");
+    });
+
+    it("retorna 400 si el contenido del archivo no corresponde a una imagen válida", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .post(ENDPOINT_POST)
+            .set("Authorization", `Bearer ${token}`)
+            .field("name", `${TEST_PRODUCT_NAME} Contenido`)
+            .field("price", "150.50")
+            .field("quantity", "10")
+            .field("color", "#169B49")
+            .attach("image", INVALID_CONTENT_PATH);
+
+        expect(res.status).toBe(400);
+        expect(res.body.success).toBe(false);
+        expect(res.body.message).toBe("El contenido del archivo no corresponde a una imagen válida.");
     });
 
     it("retorna 409 si el producto ya existe", async () => {

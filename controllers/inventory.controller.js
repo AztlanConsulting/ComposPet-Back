@@ -1,5 +1,3 @@
-const Inventory = require('../models/inventory.model');
-
 /**
  * Controlador para registrar un nuevo producto en el inventario.
  * 
@@ -16,6 +14,12 @@ const Inventory = require('../models/inventory.model');
  * Si todas las validaciones pasan, crea el nuevo producto en la base de datos
  * y responde con un mensaje de éxito.
  */
+
+const fs = require('fs/promises');
+const path = require('path');
+const { fileTypeFromFile } = require('file-type');
+const Inventory = require('../models/inventory.model');
+
 const postRegisterProduct = async (req, res) => {
     try {
         const {
@@ -39,8 +43,16 @@ const postRegisterProduct = async (req, res) => {
         const validNameRegex = /^[\p{L}\p{N}\s.()\-]+$/u;
         const validDescriptionRegex = /^[\p{L}\p{N}\s.,;:()\-]+$/u;
         const hexColorRegex = /^#([A-Fa-f0-9]{6})$/;
-        const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp', 
-        'image/svg', 'image/avif', 'image/jpg', 'image/heic'];
+        const allowedImageTypes = [
+            'image/jpeg',
+            'image/png',
+            'image/webp',
+            'image/avif',
+            'image/heic',
+            'image/svg+xml',
+        ];
+        
+        const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.avif', '.heic', '.svg'];
         const MAX_IMAGE_SIZE = 2 * 1024 * 1024;
 
         const name = sanitize(rawName);
@@ -173,12 +185,21 @@ const postRegisterProduct = async (req, res) => {
 
         let imageUrl = 'uploads/products/default-product.png';
 
-        if (req.file) {
-            imageUrl = req.file.path.replace(/\\/g, '/');
-        }
-
         if (imageFile) {
+            const extension = path.extname(imageFile.originalname).toLowerCase();
+
+            if (!allowedExtensions.includes(extension)) {
+                await fs.unlink(imageFile.path).catch(() => {});
+
+                return res.status(400).json({
+                    success: false,
+                    message: 'La extensión de la imagen no es válida.',
+                });
+            }
+
             if (!allowedImageTypes.includes(imageFile.mimetype)) {
+                await fs.unlink(imageFile.path).catch(() => {});
+
                 return res.status(400).json({
                     success: false,
                     message: 'La imagen debe ser JPG, JPEG, SVG, AVIF, HEIC, PNG o WEBP.',
@@ -186,16 +207,40 @@ const postRegisterProduct = async (req, res) => {
             }
 
             if (imageFile.size > MAX_IMAGE_SIZE) {
+                await fs.unlink(imageFile.path).catch(() => {});
+
                 return res.status(400).json({
                     success: false,
                     message: 'La imagen no puede exceder 2 MB.',
                 });
             }
+
+            if (extension !== '.svg') {
+                const detectedFileType = await fileTypeFromFile(imageFile.path);
+
+                if (
+                    !detectedFileType ||
+                    !allowedImageTypes.includes(detectedFileType.mime)
+                ) {
+                    await fs.unlink(imageFile.path).catch(() => {});
+
+                    return res.status(400).json({
+                        success: false,
+                        message: 'El contenido del archivo no corresponde a una imagen válida.',
+                    });
+                }
+            }
+
+            imageUrl = imageFile.path.replace(/\\/g, '/');
         }
 
         const existingProduct = await Inventory.findByName(name);
 
         if (existingProduct) {
+            if (imageFile) {
+                await fs.unlink(imageFile.path).catch(() => {});
+            }
+
             return res.status(409).json({
                 success: false,
                 message: 'Ya existe un producto registrado con este nombre.',
