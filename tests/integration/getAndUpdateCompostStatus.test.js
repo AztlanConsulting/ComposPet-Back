@@ -101,6 +101,7 @@ const createCompostProducts = async (status = true) => {
                 imagen_url: "/img/products/composta_cubeta.jpg",
                 estatus: status,
                 orden: 2,
+                color: "#169B49",
             },
             {
                 id_producto: COMPOST_BAG_ID,
@@ -111,6 +112,7 @@ const createCompostProducts = async (status = true) => {
                 imagen_url: "/img/products/composta_costal.jpg",
                 estatus: status,
                 orden: 3,
+                color: "#169B49",
             },
         ],
         skipDuplicates: true,
