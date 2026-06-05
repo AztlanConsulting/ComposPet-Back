@@ -11,6 +11,18 @@ const { exportDailyRoutes } = require('./controllers/tableRoutes.controller');
 const routes = require('./routes/general_routes.routes');
 
 /**
+ * Permite acceder a los archivos subidos a través de la ruta '/uploads'.
+ * 
+ * * @see express.static
+ */
+const path = require('path');
+
+app.use(
+    '/uploads',
+    express.static(path.join(__dirname, 'uploads'))
+);
+
+/**
  * Configuración de opciones para el middleware CORS.
  * Define el origen permitido, métodos HTTP habilitados y manejo de credenciales.
  * * @type {Object}
