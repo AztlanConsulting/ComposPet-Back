@@ -374,7 +374,9 @@ module.exports = class Route {
             }
 
             const { weekStart, weekEnd } = weeks[weekIndex];
-            const dayObtained = dayName ?? WEEK_DAYS[now.getDay()];
+            const rutaFilter = dayName ? { 
+                dia_ruta: { startsWith: dayName } 
+            } : {};   
 
             const routeInfo = await prisma.cliente.findMany({
                 where: {
@@ -383,9 +385,7 @@ module.exports = class Route {
                             estatus: true,
                         },
                     },
-                    ruta: {
-                        dia_ruta: { startsWith: dayObtained },
-                    },
+                    ruta: rutaFilter,
                 },
 
                 select: {
