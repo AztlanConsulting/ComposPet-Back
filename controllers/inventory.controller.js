@@ -223,10 +223,7 @@ const postRegisterProduct = async (req, res) => {
  */
 const getInventory = async (req, res) => {
     try {
-        console.log("Entro a getInventory");
         const inventory = await Inventory.getInventory();
-
-        console.log("Inventario obtenido:", inventory);
 
         return res.status(200).json({
             success: true,
