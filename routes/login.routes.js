@@ -1,13 +1,37 @@
 const express = require('express');
 const router = express.Router();
+const rateLimit = require('express-rate-limit');
 
 const authController = require('../controllers/auth/auth.controller');
 const passwordController = require('../controllers/auth/password.controller');
 const { requireRole } = require('../middlewares/roleAccess');
-const { authMiddleware } = require('../middlewares/auth')
+const { authMiddleware } = require('../middlewares/auth');
 
+const requestOtpLimiter = process.env.NODE_ENV === 'test'
+    ? (req, res, next) => next()
+    : rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 5,
+        message: { message: 'Demasiados intentos, espera un momento.' }
+    });
+
+const verifyOtpLimiter = process.env.NODE_ENV === 'test'
+    ? (req, res, next) => next()
+    : rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 5,
+        message: { message: 'Demasiados intentos, espera un momento.' }
+    });
+
+const updatePasswordLimiter = process.env.NODE_ENV === 'test'
+    ? (req, res, next) => next()
+    : rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 5,
+        message: { message: 'Demasiados intentos, espera un momento.' }
+    });
 /**
- * Rutas del módulo de autenticación.
+ * Rutas del módulo de autenticación.xº
  * Todas las rutas definidas aquí son montadas bajo el prefijo `/auth`
  * o el equivalente configurado en el archivo principal de rutas.
  *
@@ -36,21 +60,21 @@ router.post('/auth/google', authController.googleAuth);
  * @description Valida el correo y dispara el envío del código vía GmailService.
  * @returns {Object} 200 - seedToken (JWT temporal) para el siguiente paso.
  */
-router.post('/request-otp', passwordController.requestOTP);
+router.post('/request-otp', requestOtpLimiter, passwordController.requestOTP);
 
 /**
  * @route POST /api/auth/verify-otp
  * @description Compara el OTP ingresado con el de la BD y valida expiración.
  * @returns {Object} 200 - flowToken para permitir el cambio de contraseña.
  */
-router.post('/verify-otp', passwordController.verifyOTP);
+router.post('/verify-otp', verifyOtpLimiter, passwordController.verifyOTP);
 
 /**
  * @route POST /api/auth/update-password
  * @description Paso final: Hashea la nueva contraseña y activa formalmente la cuenta.
  * @returns {Object} 200 - Confirmación de actualización exitosa.
  */
-router.post('/update-password', passwordController.updatePassword);
+router.post('/update-password',updatePasswordLimiter, passwordController.updatePassword);
 
 /**
  * @route POST /refresh
