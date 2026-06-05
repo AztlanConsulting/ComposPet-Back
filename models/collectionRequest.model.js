@@ -328,19 +328,19 @@ module.exports = class CollectionRequest {
 
             let amountToDiscount = 0;
 
-                amountToDiscount =
-                    collectionTotal - (currentRequest.total_pagado || 0);
+            amountToDiscount =
+                collectionTotal - (currentRequest.total_pagado || 0);
 
-                await tx.saldo.update({
-                    where: {
-                        id_cliente: currentRequest.id_cliente,
+            await tx.saldo.update({
+                where: {
+                    id_cliente: currentRequest.id_cliente,
+                },
+                data: {
+                    saldo: {
+                        decrement: amountToDiscount,
                     },
-                    data: {
-                        saldo: {
-                            decrement: amountToDiscount,
-                        },
-                    },
-                });
+                },
+            });
 
             const updateData = {
                 total_a_pagar: collectionTotal,
@@ -593,6 +593,16 @@ module.exports = class CollectionRequest {
                 },
             });
 
+            const paymentDifference = currentRequest.total_pagado - totalPaid;
+            const totalDifference = totalToPay - currentRequest.total_a_pagar;
+
+            console.log("Pago (Se regresa a saldo): ", paymentDifference);
+            console.log("Cobro (Se resta del saldo): ", totalDifference);
+
+            await this.adjustBalance(tx, updatedRequest.id_cliente, paymentDifference);
+            await this.adjustBalance(tx, updatedRequest.id_cliente, totalDifference);
+
+
             const oldProductsMap = new Map(
                 currentRequest.productos_solicitud.map(product => [
                     product.id_producto,
@@ -669,5 +679,34 @@ module.exports = class CollectionRequest {
         console.error(error);
         throw new Error('Error al actualizar la solicitud de recolección');
     }
-    } 
+    }
+
+    static async adjustBalance(tx, clientId, difference){
+        if (difference === 0) return;
+
+        const diff = Number(difference);
+
+        if(diff > 0){
+            await tx.saldo.update({
+                where: { id_cliente: clientId },
+                data: {
+                    saldo: {
+                        decrement: diff,
+                    }
+                }
+            });
+        }
+
+        if(diff < 0){
+            await tx.saldo.update({
+                where: { id_cliente: clientId },
+                data: {
+                    saldo: {
+                        increment: -diff,
+                    }
+                }
+            })
+        }
+        
+    }
 };
