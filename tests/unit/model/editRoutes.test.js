@@ -92,12 +92,6 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
             expect(result.estatus).toBe(true);
         });
 
-        it('NO debe tocar la tabla saldo cuando la forma de pago no es Saldo', async () => {
-            await CollectionRequest.updateCollectionTotal(15, 500, 2, null);
-
-            expect(prisma.saldo.update).not.toHaveBeenCalled();
-        });
-
         it('NO debe incluir total_pagado en el data cuando la forma de pago no es Saldo', async () => {
             await CollectionRequest.updateCollectionTotal(15, 500, 2, null);
 

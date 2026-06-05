@@ -596,9 +596,6 @@ module.exports = class CollectionRequest {
             const paymentDifference = currentRequest.total_pagado - totalPaid;
             const totalDifference = totalToPay - currentRequest.total_a_pagar;
 
-            console.log("Pago (Se regresa a saldo): ", paymentDifference);
-            console.log("Cobro (Se resta del saldo): ", totalDifference);
-
             await this.adjustBalance(tx, updatedRequest.id_cliente, paymentDifference);
             await this.adjustBalance(tx, updatedRequest.id_cliente, totalDifference);
 

@@ -274,6 +274,13 @@ describe("Collection Summary Integration", () => {
 
         await createCollectionRequest();
 
+        await prisma.saldo.create({
+            data: {
+                id_cliente: TEST_CLIENT_ID,
+                saldo: 500,
+            }
+        })
+
         const res = await request(app)
             .put(ENDPOINT_PAYMENT)
             .set("Authorization", `Bearer ${token}`)
