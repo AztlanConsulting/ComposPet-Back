@@ -171,6 +171,12 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
+        let imageUrl = 'uploads/products/default-product.png';
+
+        if (req.file) {
+            imageUrl = req.file.path.replace(/\\/g, '/');
+        }
+
         if (imageFile) {
             if (!allowedImageTypes.includes(imageFile.mimetype)) {
                 return res.status(400).json({
@@ -201,7 +207,7 @@ const postRegisterProduct = async (req, res) => {
             price: numericPrice,
             description,
             quantity: numericQuantity,
-            imageUrl: imageFile ? imageFile.path : null,
+            imageUrl,
             color: cleanColor,
         });
 
