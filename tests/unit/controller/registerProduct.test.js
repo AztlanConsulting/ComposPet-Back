@@ -308,7 +308,7 @@ describe('Controller - postRegisterProduct', () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
-            message: 'La imagen debe ser JPG, PNG o WEBP.',
+            message: 'La imagen debe ser JPG, JPEG, SVG, AVIF, HEIC, PNG o WEBP.',
         });
 
         expect(Inventory.findByName).not.toHaveBeenCalled();

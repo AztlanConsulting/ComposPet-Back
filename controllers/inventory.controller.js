@@ -181,7 +181,7 @@ const postRegisterProduct = async (req, res) => {
             if (!allowedImageTypes.includes(imageFile.mimetype)) {
                 return res.status(400).json({
                     success: false,
-                    message: 'La imagen debe ser JPG, PNG o WEBP.',
+                    message: 'La imagen debe ser JPG, JPEG, SVG, AVIF, HEIC, PNG o WEBP.',
                 });
             }
 
