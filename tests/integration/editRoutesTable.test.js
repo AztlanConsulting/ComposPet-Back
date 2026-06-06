@@ -116,6 +116,13 @@ const createBaseData = async () => {
             estatus:                false,
         },
     });
+
+    await prisma.saldo.create({
+        data: {
+            id_cliente: TEST_CLIENT_ID,
+            saldo: 500,
+        }
+    })
 };
 
 const cleanDb = async () => {
@@ -124,6 +131,10 @@ const cleanDb = async () => {
     });
 
     await prisma.solicitudes_recoleccion.deleteMany({
+        where: { id_cliente: TEST_CLIENT_ID },
+    });
+
+    await prisma.saldo.deleteMany({
         where: { id_cliente: TEST_CLIENT_ID },
     });
 
