@@ -2,15 +2,15 @@ jest.mock('../../../models/inventory.model');
 jest.mock('fs/promises', () => ({
     unlink: jest.fn().mockResolvedValue(),
 }));
-jest.mock('file-type', () => ({
-    fileTypeFromFile: jest.fn(),
-}));
 
 const inventoryController = require('../../../controllers/inventory.controller');
 const Inventory = require('../../../models/inventory.model');
 const fs = require('fs/promises');
-const { fileTypeFromFile } = require('file-type');
+jest.mock('../../../utils/fileType.utils', () => ({
+    getFileTypeFromFile: jest.fn(),
+}));
 
+const { getFileTypeFromFile } = require('../../../utils/fileType.utils');
 describe('Controller - postRegisterProduct', () => {
     let req;
     let res;
@@ -393,11 +393,11 @@ describe('Controller - postRegisterProduct', () => {
             path: 'uploads/products/test.png',
         };
 
-        fileTypeFromFile.mockResolvedValue(null);
+        getFileTypeFromFile.mockResolvedValue(null);
 
         await inventoryController.postRegisterProduct(req, res);
 
-        expect(fileTypeFromFile).toHaveBeenCalledWith('uploads/products/test.png');
+        expect(getFileTypeFromFile).toHaveBeenCalledWith('uploads/products/test.png');
         expect(fs.unlink).toHaveBeenCalledWith('uploads/products/test.png');
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
@@ -484,7 +484,7 @@ describe('Controller - postRegisterProduct', () => {
             path: 'uploads\\products\\test.png',
         };
 
-        fileTypeFromFile.mockResolvedValue({
+        getFileTypeFromFile.mockResolvedValue({
             ext: 'png',
             mime: 'image/png',
         });
@@ -531,6 +531,7 @@ describe('Controller - postRegisterProduct', () => {
         expect(res.json).toHaveBeenCalledWith({
             success: false,
             message: 'Error del servidor al registrar un producto',
+            error: 'Error interno',
         });
     });
 });

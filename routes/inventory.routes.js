@@ -21,12 +21,8 @@ const storage = multer.diskStorage({
     destination: 'uploads/products/',
     filename: (req, file, cb) => {
         const extension = path.extname(file.originalname).toLowerCase();
-
-        if (!allowedExtensions.includes(extension)) {
-            return cb(new Error('EXTENSION_INVALIDA'));
-        }
-
         const safeName = `${crypto.randomUUID()}${extension}`;
+
         cb(null, safeName);
     },
 });

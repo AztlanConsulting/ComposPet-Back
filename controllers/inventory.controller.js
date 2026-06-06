@@ -18,10 +18,7 @@ const Inventory = require('../models/inventory.model');
 const fs = require('fs/promises');
 const path = require('path');
 
-const getFileTypeFromFile = async (filePath) => {
-    const { fileTypeFromFile } = await import('file-type');
-    return fileTypeFromFile(filePath);
-};
+const { getFileTypeFromFile } = require('../utils/fileType.utils');
 
 const postRegisterProduct = async (req, res) => {
     try {

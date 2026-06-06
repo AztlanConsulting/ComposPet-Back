@@ -2,7 +2,11 @@ const request = require("supertest");
 const fs = require("fs");
 const path = require("path");
 const { randomUUID } = require("crypto");
+jest.mock("../../utils/fileType.utils", () => ({
+    getFileTypeFromFile: jest.fn(),
+}));
 
+const { getFileTypeFromFile } = require("../../utils/fileType.utils");
 const app = require("../../app");
 const prisma = require("../../config/prisma");
 const { generateAccessToken } = require("../../utils/jwt.utils");
@@ -120,6 +124,13 @@ beforeAll(async () => {
 beforeEach(async () => {
     await cleanDb();
     await createBaseData();
+
+    getFileTypeFromFile.mockReset();
+
+    getFileTypeFromFile.mockResolvedValue({
+        ext: "png",
+        mime: "image/png",
+    });
 });
 
 afterEach(async () => {
@@ -196,7 +207,7 @@ describe("POST /inventario/agregar-producto", () => {
 
     it("retorna 400 si el contenido del archivo no corresponde a una imagen válida", async () => {
         const token = createAuthToken();
-
+        getFileTypeFromFile.mockResolvedValueOnce(null);
         const res = await request(app)
             .post(ENDPOINT_POST)
             .set("Authorization", `Bearer ${token}`)
