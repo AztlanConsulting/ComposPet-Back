@@ -139,6 +139,7 @@ const createExtraProducts = async () => {
                 descripcion: "Bolsa de composta orgánica",
                 cantidad: 50,
                 imagen_url: "url",
+                color: "verde",
                 estatus: true,
                 orden: 1,
             },
@@ -149,6 +150,7 @@ const createExtraProducts = async () => {
                 descripcion: "Tierra lista para plantas",
                 cantidad: 30,
                 imagen_url: "url",
+                color: "naranja",
                 estatus: true,
                 orden: 2,
             }
