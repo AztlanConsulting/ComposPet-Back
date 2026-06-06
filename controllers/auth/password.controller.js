@@ -183,7 +183,7 @@ const updatePassword = async (req, res) => {
         }
 
         const isValidPassword = (pwd) =>
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&()_+\-=\[\]{};':"\\|,.<>\/?]).{12,}$/.test(pwd);
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{12,}$/.test(pwd);
 
         if (!isValidPassword(password)) {
             return res.status(400).json({ message: 'La contraseña no cumple los requisitos.' });
