@@ -205,7 +205,7 @@ describe('Controller - postRegisterProduct', () => {
     it('debe devolver 400 si el precio es inválido', async () => {
         req.body = {
             name: 'Producto Test',
-            price: '0',
+            price: '-1',
             quantity: '10',
             color: '#169B49',
         };

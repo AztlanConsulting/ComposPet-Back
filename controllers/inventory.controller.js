@@ -148,7 +148,7 @@ const postRegisterProduct = async (req, res) => {
             });
         }
         
-        if (!Number.isFinite(numericPrice) || numericPrice <= 0) {
+        if (!Number.isFinite(numericPrice) || numericPrice < 0) {
             return res.status(400).json({
                 success: false,
                 message: 'El precio es inválido.',
