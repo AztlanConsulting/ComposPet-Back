@@ -141,17 +141,17 @@ const postRegisterProduct = async (req, res) => {
             });
         }
 
-        if (!priceRegex.test(String(price))) {
-            return res.status(400).json({
-                success: false,
-                message: 'El precio solo puede tener hasta 2 decimales.',
-            });
-        }
-        
         if (!Number.isFinite(numericPrice) || numericPrice < 0) {
             return res.status(400).json({
                 success: false,
                 message: 'El precio es inválido.',
+            });
+        }
+        
+        if (!priceRegex.test(String(price))) {
+            return res.status(400).json({
+                success: false,
+                message: 'El precio solo puede tener hasta 2 decimales.',
             });
         }
         
