@@ -8,6 +8,7 @@ const clientRoutes = require('./client.routes');
 const adminRoutes = require('./admin.routes');
 const creditRoutes = require('./credit.routes');
 const tableRoutes = require('../routes/tableRoutes.routes');
+const inventoryRoutes = require('./inventory.routes');
 const performanceRoutes = require('../routes/performance.routes');
 
 const { authMiddleware, requireRole } = require('../middlewares/auth');
@@ -30,6 +31,9 @@ router.use('/saldo', authMiddleware, creditRoutes);
 
 // Agrega las rutas de la vista de rutas del administrador
 router.use('/rutas', authMiddleware, tableRoutes);
+
+// Agrega las rutas de inventario
+router.use('/inventario', authMiddleware, inventoryRoutes);
 
 // ruta para performance
 router.use('/desempeno', performanceRoutes);

@@ -34,10 +34,15 @@ const createBaseData = async () => {
         update: {},
         create: {
             id_producto: TEST_PRODUCTO_EXTRA,
-            nombre: 'Composta',
+            nombre: 'Producto Test Extra',
             precio: 50,
+            descripcion: 'Producto extra de prueba',
             cantidad: 100,
+            imagen_url: 'uploads/products/default-product.png',
+            orden: 1,
             estatus: true,
+            deleted: false,
+            color: '#169B49',
         },
     });
 
@@ -111,6 +116,13 @@ const createBaseData = async () => {
             estatus:                false,
         },
     });
+
+    await prisma.saldo.create({
+        data: {
+            id_cliente: TEST_CLIENT_ID,
+            saldo: 500,
+        }
+    })
 };
 
 const cleanDb = async () => {
@@ -119,6 +131,10 @@ const cleanDb = async () => {
     });
 
     await prisma.solicitudes_recoleccion.deleteMany({
+        where: { id_cliente: TEST_CLIENT_ID },
+    });
+
+    await prisma.saldo.deleteMany({
         where: { id_cliente: TEST_CLIENT_ID },
     });
 

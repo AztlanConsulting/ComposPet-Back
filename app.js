@@ -9,6 +9,16 @@ const helmet = require('helmet');
 const cron = require('node-cron');
 const { exportDailyRoutes } = require('./controllers/tableRoutes.controller');
 const routes = require('./routes/general_routes.routes');
+const path = require('path');
+
+app.use(
+    '/uploads/products',
+    express.static(path.join(__dirname, 'uploads/products'), {
+        fallthrough: false,
+        index: false,
+        dotfiles: 'deny',
+    })
+);
 
 /**
  * Configuración de opciones para el middleware CORS.

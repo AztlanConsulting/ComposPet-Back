@@ -139,6 +139,7 @@ const createExtraProducts = async () => {
                 descripcion: "Bolsa de composta orgánica",
                 cantidad: 50,
                 imagen_url: "url",
+                color: "verde",
                 estatus: true,
                 orden: 1,
             },
@@ -149,6 +150,7 @@ const createExtraProducts = async () => {
                 descripcion: "Tierra lista para plantas",
                 cantidad: 30,
                 imagen_url: "url",
+                color: "naranja",
                 estatus: true,
                 orden: 2,
             }
@@ -273,6 +275,13 @@ describe("Collection Summary Integration", () => {
         const token = createAuthToken();
 
         await createCollectionRequest();
+
+        await prisma.saldo.create({
+            data: {
+                id_cliente: TEST_CLIENT_ID,
+                saldo: 500,
+            }
+        })
 
         const res = await request(app)
             .put(ENDPOINT_PAYMENT)
