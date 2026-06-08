@@ -538,10 +538,14 @@ module.exports = class CollectionRequest {
 
             const totalToPay = collectionCost + productsCost;
 
-            const trimmedSchedule = "0"+requestData.horario.trimStart();
-            const [hours, minutes] = trimmedSchedule.split(':');
+            const trimmedSchedule = requestData.horario?.trimStart();
 
-            const normalizedSchedule = `${hours.padStart(2, '0')}:${minutes}`;
+            let normalizedSchedule = null;
+
+            if (trimmedSchedule) {
+                const [hours, minutes] = trimmedSchedule.split(':');
+                normalizedSchedule = `${hours.padStart(2, '0')}:${minutes}`;
+            }
             
             let scheduleDate = normalizedSchedule
                 ? new Date(`1970-01-01T${normalizedSchedule}:00Z`)

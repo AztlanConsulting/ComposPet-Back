@@ -254,6 +254,8 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
         it('debe establecer horario null cuando no se proporciona', async () => {
             const dataWithoutSchedule = { ...REQUEST_DATA, horario: null };
 
+            console.log(dataWithoutSchedule);
+
             await CollectionRequest.updateRequest(dataWithoutSchedule, []);
 
             const callData = prisma.solicitudes_recoleccion.update.mock.calls[0][0].data;
