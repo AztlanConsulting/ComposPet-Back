@@ -143,6 +143,7 @@ module.exports = class Client {
                 direccion: true,
                 notas: true,
                 orden_horario: true,
+                tipo_precio: true,
 
                 usuarios_cp: {
                 select: {
@@ -196,6 +197,7 @@ module.exports = class Client {
             email: client.usuarios_cp.correo,
             routeId: client.ruta.id_ruta,
             route: client.ruta ? client.ruta.dia_ruta : null,
+            priceType: client.tipo_precio,
 
             balance: client.saldo ? client.saldo.saldo: null,
 
