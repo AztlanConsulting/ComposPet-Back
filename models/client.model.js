@@ -74,7 +74,7 @@ module.exports = class Client {
      * @see User.createNewUser
      * @see Credit.createInitialCredit
      */
-    static async createNewClient(id_usuario, id_ruta, pets, family, address, notes) {
+    static async createNewClient(id_usuario, id_ruta, pets, family, address, notes,  priceType,) {
         const lastClient = await prisma.cliente.findFirst({
             where: {
                 id_ruta: id_ruta,
@@ -99,6 +99,7 @@ module.exports = class Client {
                 notas: notes || null,
                 fecha_entrada: new Date(),
                 orden_horario: nextOrder,
+                tipo_precio: priceType,
             },
         });
 
