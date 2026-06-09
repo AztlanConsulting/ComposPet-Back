@@ -620,4 +620,25 @@ module.exports = class Client {
         return updateResult;
     };
 
+    static async getBucketCost(clientId, quantity) {
+        const { tipo_precio } = await prisma.cliente.findUnique({
+            where: {
+                id_cliente: clientId,
+            },
+            select: {
+                tipo_precio: true,
+            }
+        });
+
+        const price = await prisma.precios_cubetas.findFirst({
+            where: {
+                cantidad: quantity,
+            },
+            select: {
+                [tipo_precio]: true,
+            }
+        });
+        return price?.[tipo_precio] ?? 0;
+    }
+
 };

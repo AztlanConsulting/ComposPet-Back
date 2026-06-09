@@ -30,11 +30,13 @@ const getSummary = async (req, res) => {
     );
 
     const productsList = await CollectionRequest.getProductsByCollection(collectionObject.id_solicitud);
-    const collectionTotal = calculateCollectionTotal(collectionObject, productsList);
+    const collectionTotal = await calculateCollectionTotal(collectionObject, productsList);
 
     const balanceObject = await Client.getClientBalance(idClient);
 
     const payMethods = await Payment.getPaymentInfo();
+
+    const bucketCost = await Client.getBucketCost(collectionObject.id_cliente, collectionObject.cubetas_entregadas);
 
     res.status(200).json({
         success: true,
@@ -44,6 +46,7 @@ const getSummary = async (req, res) => {
             collectionTotal,
             balance: balanceObject.saldo,
             payMethods,
+            bucketCost,
         }
     });
 
@@ -117,15 +120,25 @@ const updateCollectionTotal = async(req, res) => {
     }
 }
 
-const calculateCollectionTotal = (collectionObject, productsList) => {
-    const collectionCost = bucketCostMap[collectionObject.cubetas_entregadas]
+const calculateCollectionTotal = async (
+    collectionObject,
+    productsList
+) => {
+
+    const collectionCost = await Client.getBucketCost(
+        collectionObject.id_cliente,
+        collectionObject.cubetas_entregadas
+    );
+
     let productsCost = 0;
-    for (let product of productsList){
-        productsCost += product.productos_extra.precio * product.cantidad;
+
+    for (const product of productsList) {
+        productsCost +=
+            product.productos_extra.precio * product.cantidad;
     }
 
     return productsCost + collectionCost;
-}
+};
 
 module.exports = {
     getSummary,
