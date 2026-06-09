@@ -145,6 +145,9 @@ const formatRouteInfo = (routeInfo) => {
         const fullName = `${name} ${lastName}`.trim() || " ";
 
         // Retorna el objeto final con los campos requeridos por la tabla de rutas.
+
+        console.log(request?.fecha ? request.fecha.toISOString().split("T")[0] : null);
+
         return {
             nombre: fullName,
             dia_ruta: client.ruta?.dia_ruta || " ",
@@ -157,6 +160,9 @@ const formatRouteInfo = (routeInfo) => {
             total_a_pagar: request?.total_a_pagar || null,
             total_pagado: request?.total_pagado || null,
             notas: request?.notas || " ",
+            fecha: request?.fecha
+                ? request.fecha.toISOString().split("T")[0]
+                : null,
 
             hasRequest: !!request,
 
