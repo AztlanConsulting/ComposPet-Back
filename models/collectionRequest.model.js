@@ -590,6 +590,9 @@ module.exports = class CollectionRequest {
 
                     horario:
                         scheduleDate,
+
+                    estatus:
+                        requestData.estatus,
                 },
             });
 
