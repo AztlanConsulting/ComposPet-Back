@@ -538,7 +538,7 @@ module.exports = class CollectionRequest {
 
             const totalToPay = collectionCost + productsCost;
 
-            const trimmedSchedule = requestData.horario?.trimStart();
+            const trimmedSchedule = requestData.horario?.trim();
 
             let normalizedSchedule = null;
 

@@ -181,7 +181,6 @@ const validateRequestUpdate = (data) => {
     }
 
     if (schedule) {
-        console.log("HORARAIO:", schedule);
         if (containsEmoji(schedule)) {
             errors.schedule = 'El horario no puede contener emojis.';
         } else if (!isValidSchedule(schedule)) {
