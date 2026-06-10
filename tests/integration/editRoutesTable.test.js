@@ -91,6 +91,7 @@ const createBaseData = async () => {
             direccion:     'Dirección test',
             notas:         'Código: 123',
             fecha_entrada: new Date(),
+            tipo_precio: 'normal',
         },
     });
 

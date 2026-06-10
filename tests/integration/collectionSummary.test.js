@@ -88,6 +88,7 @@ const createBaseData = async () => {
             orden_horario: 1,
             notas: "cliente test",
             fecha_entrada: new Date(),
+            tipo_precio: "normal",
         },
     });
 
