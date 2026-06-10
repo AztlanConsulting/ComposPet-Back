@@ -443,7 +443,8 @@ module.exports = class Route {
                 dateFilter = { gte: twoMonthsAgo, lt: weekEnd };
             }
 
-            const rutaFilter = dayName ? { dia_ruta: { startsWith: dayName } } : {};
+            const effectiveDay = dayName ?? WEEK_DAYS[now.getDay()];
+            const rutaFilter = { dia_ruta: { startsWith: effectiveDay } };
 
             const routeInfo = await prisma.cliente.findMany({
                 where: {
