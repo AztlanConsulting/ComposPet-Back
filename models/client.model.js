@@ -620,8 +620,8 @@ module.exports = class Client {
         return updateResult;
     };
 
-    static async getBucketCost(clientId, quantity) {
-        const { tipo_precio } = await prisma.cliente.findUnique({
+    static async getBucketCost(clientId, quantity, tx = prisma) {
+        const { tipo_precio } = await tx.cliente.findUnique({
             where: {
                 id_cliente: clientId,
             },
@@ -630,7 +630,13 @@ module.exports = class Client {
             }
         });
 
-        const price = await prisma.precios_cubetas.findFirst({
+        if (!tipo_precio) {
+            throw new Error(
+                "El cliente no tiene un tipo de precio establecido"
+            );
+        }
+
+        const price = await tx.precios_cubetas.findFirst({
             where: {
                 cantidad: quantity,
             },
@@ -638,7 +644,22 @@ module.exports = class Client {
                 [tipo_precio]: true,
             }
         });
-        return price?.[tipo_precio] ?? 0;
+
+        if (!price) {
+            throw new Error(
+                "No existe configuración de precio para esta cantidad de cubetas"
+            );
+        }
+
+        const cost = price[tipo_precio];
+
+        if(cost === null || cost === undefined) {
+            throw new Error(
+                "El tipo de precio no está definido para la cantidad de cubetas"
+            );
+        }
+
+        return cost;
     }
 
 };

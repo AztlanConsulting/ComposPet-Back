@@ -540,7 +540,7 @@ module.exports = class CollectionRequest {
                 throw new Error("Solicitud no encontrada");
             }
 
-            const collectionCost = await Client.getBucketCost(currentRequest.id_cliente, requestData.cubetas_entregadas);
+            const collectionCost = await Client.getBucketCost(currentRequest.id_cliente, requestData.cubetas_entregadas, tx);
 
             const productsCost = productsData.reduce(
                 (total, product) => {
