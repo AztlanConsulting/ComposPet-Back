@@ -35,6 +35,10 @@ jest.mock('../../../config/prisma', () => {
     return prismaMock;
 });
 
+jest.mock('../../../models/client.model', () => ({
+    getBucketCost: jest.fn().mockResolvedValue(100),
+}));
+
 const prisma = require('../../../config/prisma');
 
 

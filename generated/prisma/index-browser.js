@@ -145,7 +145,8 @@ exports.Prisma.ClienteScalarFieldEnum = {
   orden_horario: 'orden_horario',
   notas: 'notas',
   fecha_entrada: 'fecha_entrada',
-  fecha_salida: 'fecha_salida'
+  fecha_salida: 'fecha_salida',
+  tipo_precio: 'tipo_precio'
 };
 
 exports.Prisma.CompospetScalarFieldEnum = {
@@ -260,6 +261,15 @@ exports.Prisma.SesionesScalarFieldEnum = {
   activa: 'activa'
 };
 
+exports.Prisma.Precios_cubetasScalarFieldEnum = {
+  id_precio: 'id_precio',
+  cantidad: 'cantidad',
+  normal: 'normal',
+  normal_iva: 'normal_iva',
+  pension: 'pension',
+  pension_iva: 'pension_iva'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -302,7 +312,8 @@ exports.Prisma.ModelName = {
   solicitudes_recoleccion: 'solicitudes_recoleccion',
   saldo: 'saldo',
   usuarios_cp: 'usuarios_cp',
-  sesiones: 'sesiones'
+  sesiones: 'sesiones',
+  precios_cubetas: 'precios_cubetas'
 };
 
 /**

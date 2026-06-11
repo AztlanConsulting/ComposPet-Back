@@ -17,7 +17,7 @@ const TEST_CLIENT_ID = randomUUID();
 const TEST_EMAIL = "cliente_info@test.com";
 const TEST_RUTA_ID = 10;
 
-const ENDPOINT = "/api/cliente/informacion";
+const ENDPOINT = "/api/cliente/informacion";    
 
 const UPDATE_ENDPOINT = "/api/admin/actualizar-cliente";
 
@@ -89,6 +89,7 @@ const createBaseData = async () => {
             notas: "Notas test",
             fecha_entrada: new Date(),
             orden_horario: 1,
+            tipo_precio: 'normal',
         },
     });
 
@@ -258,6 +259,7 @@ describe("Integración - Admin - updateClient", () => {
                     routeId: TEST_RUTA_ID,
                     balance: 300,
                     order: 1,
+                    priceType: 'normal',
                 },
             });
 
@@ -276,6 +278,7 @@ describe("Integración - Admin - updateClient", () => {
         expect(cliente.direccion).toBe("Dirección actualizada 456");
         expect(cliente.mascotas).toBe("2 gatos");
         expect(cliente.familia).toBe("2 adultos");
+        expect(cliente.tipo_precio).toBe("normal");
 
         const saldo = await prisma.saldo.findUnique({
             where: { id_cliente: TEST_CLIENT_ID },
@@ -294,6 +297,7 @@ describe("Integración - Admin - updateClient", () => {
                     clientId: TEST_CLIENT_ID,
                     userId: TEST_USER_ID,
                     balance: 999,
+                    priceType: 'normal',
                 },
             });
 
@@ -322,6 +326,7 @@ describe("Integración - Admin - updateClient", () => {
                     clientId: TEST_CLIENT_ID,
                     userId: TEST_USER_ID,
                     cellphone: "4429999999",
+                    priceType: 'normal',
                 },
             });
 
@@ -341,6 +346,7 @@ describe("Integración - Admin - updateClient", () => {
                     clientId: TEST_CLIENT_ID,
                     userId: TEST_USER_ID,
                     balance: 100,
+                    priceType: 'normal',
                 },
             });
 
@@ -356,6 +362,7 @@ describe("Integración - Admin - updateClient", () => {
                     clientId: TEST_CLIENT_ID,
                     userId: TEST_USER_ID,
                     balance: 100,
+                    priceType: 'normal',
                 },
             });
 
