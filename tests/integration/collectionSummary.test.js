@@ -77,6 +77,15 @@ const createBaseData = async () => {
         },
     });
 
+    await prisma.precios_cubetas.createMany({
+        data: [
+            { cantidad: 0, normal: 0, normal_iva: 0, pension: 0, pension_iva: 0 },
+            { cantidad: 1, normal: 50, normal_iva: 60, pension: 40, pension_iva: 45 },
+            { cantidad: 2, normal: 100, normal_iva: 120, pension: 80, pension_iva: 90 },
+        ],
+        skipDuplicates: true,
+    });
+
     await prisma.cliente.create({
         data: {
             id_cliente: TEST_CLIENT_ID,
@@ -88,6 +97,7 @@ const createBaseData = async () => {
             orden_horario: 1,
             notas: "cliente test",
             fecha_entrada: new Date(),
+            tipo_precio: "normal",
         },
     });
 
@@ -173,6 +183,10 @@ const cleanDb = async () => {
 
     await prisma.cliente.deleteMany({
         where: { id_cliente: TEST_CLIENT_ID },
+    });
+
+    await prisma.precios_cubetas.deleteMany({
+        where: { cantidad: { in: [0, 1, 2] } },
     });
 
     await prisma.cliente.deleteMany({

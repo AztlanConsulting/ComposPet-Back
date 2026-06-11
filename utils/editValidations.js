@@ -1,3 +1,5 @@
+const priceOptions = require("./bucketPriceOptions");
+
 /**
  * Validaciones de datos para la modificación de clientes y solicitudes de recolección
  * @returns {Boolean} -  valor válido / no válido
@@ -18,7 +20,7 @@ const isValidAddress = (value) =>
     /^(?=.*[A-Za-zÀ-ÿ])[A-Za-zÀ-ÿ0-9.,#\-\s]{5,150}$/.test(value);
 
 const isValidSchedule = (value) =>
-    /^(0[1-9]|1[0-2]):[0-5]\d$/.test(value);
+    /^(0?[1-9]|1[0-2]):[0-5]\d$/.test(value);
 
 const normalizeText = (value = '') =>
     String(value).trim();
@@ -49,12 +51,21 @@ const validateEditClient = (body) => {
     const family    = optionalText(body, 'family');
     const notes     = optionalText(body, 'notes');
     const routeId   = body.routeId !== undefined ? Number(body.routeId) : null;
+    const priceType = body.priceType;
 
     if (cellphone !== null) {
         if (!cellphone) {
             errors.cellphone = 'El campo teléfono es requerido.';
         } else if (!isValidPhone(cellphone)) {
             errors.cellphone = 'El campo teléfono debe ser válido.';
+        }
+    }
+
+    if (priceType !== null){
+        if (!priceType) {
+            errors.priceType = 'El tipo de precio es requerido';
+        } else if (!Object.values(priceOptions).includes(priceType)) {
+            errors.priceType = 'El tipo de precio es inválido';
         }
     }
 

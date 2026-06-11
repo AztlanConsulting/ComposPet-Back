@@ -99,6 +99,7 @@ describe('Controller - updateClient', () => {
                     family: '2 adultos',
                     routeId: 1,
                     balance: 500,
+                    priceType: 'normal',
                 },
             },
         };
@@ -124,7 +125,7 @@ describe('Controller - updateClient', () => {
             'a1ffef51-fd77-435b-86b2-285c3f91eda3',
             '4283819a-e0dc-48b1-9b1f-d4da88a9f7d3',
             { telefono: '1234567890', estatus: true },
-            { notas: 'Nota de prueba', direccion: 'Calle prueba 123', mascotas: '2', familia: '2 adultos', id_ruta: 1 },
+            { notas: 'Nota de prueba', direccion: 'Calle prueba 123', mascotas: '2', familia: '2 adultos', id_ruta: 1, tipo_precio: 'normal' },
             { saldo: 500 },
         );
 
@@ -139,6 +140,7 @@ describe('Controller - updateClient', () => {
             clientId: '4283819a-e0dc-48b1-9b1f-d4da88a9f7d3',
             userId: 'a1ffef51-fd77-435b-86b2-285c3f91eda3',
             cellphone: '9876543210',
+            priceType: 'normal',
         };
 
         Client.updateClient.mockResolvedValue(true);
@@ -151,7 +153,7 @@ describe('Controller - updateClient', () => {
             'a1ffef51-fd77-435b-86b2-285c3f91eda3',
             '4283819a-e0dc-48b1-9b1f-d4da88a9f7d3',
             { telefono: '9876543210' },
-            {},
+            { tipo_precio: 'normal' },
             {},
         );
 

@@ -75,7 +75,7 @@ module.exports = class Client {
      * @see User.createNewUser
      * @see Credit.createInitialCredit
      */
-    static async createNewClient(id_usuario, id_ruta, pets, family, address, notes) {
+    static async createNewClient(id_usuario, id_ruta, pets, family, address, notes,  priceType,) {
         const lastClient = await prisma.cliente.findFirst({
             where: {
                 id_ruta: id_ruta,
@@ -100,6 +100,7 @@ module.exports = class Client {
                 notas: notes || null,
                 fecha_entrada: new Date(),
                 orden_horario: nextOrder,
+                tipo_precio: priceType,
             },
         });
 
@@ -143,6 +144,7 @@ module.exports = class Client {
                 direccion: true,
                 notas: true,
                 orden_horario: true,
+                tipo_precio: true,
 
                 usuarios_cp: {
                 select: {
@@ -210,7 +212,8 @@ module.exports = class Client {
                     route: client.ruta
                         ? client.ruta.dia_ruta
                         : null,
-        
+                    priceType: client.tipo_precio,
+
                     balance: client.saldo
                         ? client.saldo.saldo
                         : null,
@@ -632,5 +635,47 @@ module.exports = class Client {
         })
         return updateResult;
     };
+
+    static async getBucketCost(clientId, quantity, tx = prisma) {
+        const { tipo_precio } = await tx.cliente.findUnique({
+            where: {
+                id_cliente: clientId,
+            },
+            select: {
+                tipo_precio: true,
+            }
+        });
+
+        if (!tipo_precio) {
+            throw new Error(
+                "El cliente no tiene un tipo de precio establecido"
+            );
+        }
+
+        const price = await tx.precios_cubetas.findFirst({
+            where: {
+                cantidad: quantity,
+            },
+            select: {
+                [tipo_precio]: true,
+            }
+        });
+
+        if (!price) {
+            throw new Error(
+                "No existe configuración de precio para esta cantidad de cubetas"
+            );
+        }
+
+        const cost = price[tipo_precio];
+
+        if(cost === null || cost === undefined) {
+            throw new Error(
+                "El tipo de precio no está definido para la cantidad de cubetas"
+            );
+        }
+
+        return cost;
+    }
 
 };

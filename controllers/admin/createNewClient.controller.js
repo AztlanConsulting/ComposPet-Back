@@ -7,6 +7,7 @@ const Route = require('../../models/route.model');
 const User = require('../../models/user.model');
 const Role =  require('../../models/role.model');
 const Credit = require('../../models/credit.model');
+const priceOptions = require('../../utils/bucketPriceOptions');
 
 /**
  * Convierte cualquier valor recibido a string
@@ -72,6 +73,7 @@ const validateRegisterClient = (body) => {
     const email = normalizeText(body.email).toLowerCase();
     const address = normalizeText(body.address);
     const id_ruta = Number(body.id_ruta);
+    const priceType = normalizeText(body.priceType);
 
     const pets = normalizeText(body.pets);
     const family = normalizeText(body.family);
@@ -101,6 +103,10 @@ const validateRegisterClient = (body) => {
         errors.id_ruta = 'Ruta inválida.';
     }
 
+    if(!priceType || !Object.values(priceOptions).includes(priceType)) {
+        errors.priceType = 'Precio de cubetas inválido';
+    }
+
     if (pets.length > 50) {
         errors.pets = 'Mascotas es demasiado largo.';
     }
@@ -111,7 +117,7 @@ const validateRegisterClient = (body) => {
 
     if (notes.length > 500) {
         errors.notes = 'Notas es demasiado largo.';
-    }
+    }  
 
     return {
         isValid: Object.keys(errors).length === 0,
@@ -123,6 +129,7 @@ const validateRegisterClient = (body) => {
             email,
             address,
             id_ruta,
+            priceType,
             pets,
             family,
             notes
@@ -210,6 +217,7 @@ const postRegisterClient = async (req, res) => {
             email,
             address,
             id_ruta,
+            priceType,
             pets,
             family,
             notes,
@@ -259,6 +267,7 @@ const postRegisterClient = async (req, res) => {
             family,
             address,
             notes,
+            priceType,
         );
 
         const newCredit = await Credit.createInitialCredit(
