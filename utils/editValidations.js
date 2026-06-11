@@ -20,7 +20,7 @@ const isValidAddress = (value) =>
     /^(?=.*[A-Za-zÀ-ÿ])[A-Za-zÀ-ÿ0-9.,#\-\s]{5,150}$/.test(value);
 
 const isValidSchedule = (value) =>
-    /^(0[1-9]|1[0-2]):[0-5]\d$/.test(value);
+    /^(0?[1-9]|1[0-2]):[0-5]\d$/.test(value);
 
 const normalizeText = (value = '') =>
     String(value).trim();
