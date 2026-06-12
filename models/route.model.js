@@ -6,6 +6,11 @@ const WEEK_DAYS = [
     "Jueves", "Viernes", "Sábado",
 ];
 
+const DAY_INDEX = {
+    Domingo: 0, Lunes: 1, Martes: 2, Miércoles: 3,
+    Jueves: 4, Viernes: 5, Sábado: 6,
+};
+
 /**
  * Genera un arreglo de semanas comprendidas en los últimos dos meses hasta la fecha actual.
  * Cada semana incluye su fecha de inicio, fecha de fin y una etiqueta legible en formato
@@ -79,25 +84,19 @@ const formattedTime = (schedule) => {
 
 /**
  * Calcula la fecha de la ruta para un día dado dentro de una semana.
- * Si la fecha ya pasó o es futura dentro del rango, la retorna; si no
- * hay semana definida, usa la semana actual.
  */
 function getRouteDateForDay(diaRuta, weekStart) {
-    const DAY_INDEX = {
-        Domingo: 0, Lunes: 1, Martes: 2, Miércoles: 3,
-        Jueves: 4, Viernes: 5, Sábado: 6,
-    };
-
-    // dia_ruta puede ser "Lunes 1" o "Lunes", extrae solo el nombre
     const dayName = diaRuta?.split(" ")[0];
     const targetDay = DAY_INDEX[dayName];
 
     if (targetDay === undefined || !weekStart) return null;
 
-    const date = new Date(weekStart);
-    // weekStart es lunes (1); ajusta al día correcto
-    const diffFromMonday = targetDay === 0 ? 6 : targetDay - 1;
-    date.setUTCDate(date.getUTCDate() + diffFromMonday);
+    const ws = new Date(weekStart);
+    const weekStartDay = ws.getUTCDay();
+
+    const diff = (targetDay - weekStartDay + 7) % 7;
+    const date = new Date(ws);
+    date.setUTCDate(date.getUTCDate() + diff);
 
     return date.toISOString().split("T")[0];
 }
@@ -113,9 +112,8 @@ function getRouteDateForDay(diaRuta, weekStart) {
  * @returns {Object} Fila formateada para la tabla de rutas.
  */
 const buildRow = (client, request, weekStart) => {
-    const sortedProducts = request?.productos_solicitud
-        ?.sort((a, b) => (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0))
-        || [];
+    const sortedProducts = [...(request?.productos_solicitud ?? [])]
+        .sort((a, b) => (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0));
 
     const extraProducts = sortedProducts
         .map((product) => {
@@ -156,10 +154,15 @@ const buildRow = (client, request, weekStart) => {
     const routeDate = (() => {
         if (requestDate) return null;
         if (!weekStart) return null;
+
+        const calculatedDate = getRouteDateForDay(client.ruta?.dia_ruta, weekStart);
+        if (!calculatedDate) return null;
+
         const today = new Date();
-        const ws = new Date(weekStart);
-        if (ws > today) return null;
-        return getRouteDateForDay(client.ruta?.dia_ruta, ws);
+        const todayStr = today.toISOString().split("T")[0];
+        if (calculatedDate > todayStr) return null;
+
+        return calculatedDate;
     })();
 
     return {
@@ -424,7 +427,6 @@ module.exports = class Route {
             const now = new Date();
             const weeks = getLastTwoMonthsWeeks(now);
 
-            // Estas dos variables deben declararse ANTES de usarse
             const isAllWeeks = weekIndex === null || weekIndex === undefined;
 
             let dateFilter = {};
@@ -432,7 +434,7 @@ module.exports = class Route {
 
             if (!isAllWeeks) {
                 if (weekIndex < 0 || weekIndex >= weeks.length)
-                    throw new Error(`Index fuera de rango`);
+                    throw new Error(`Index fuera de rango. Válido: 0 - ${weeks.length - 1}`);
 
                 const { weekStart: ws, weekEnd } = weeks[weekIndex];
                 weekStart = ws;
