@@ -348,6 +348,7 @@ const updateRequest = async(req, res) => {
             console.error("Error sincronizando Sheets tras edición:", err)
         );
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             success: false,
             message: "Ocurrió un error actualizando la información",
@@ -369,6 +370,10 @@ function structureRequestData(data){
 
     if(data.requestId !== undefined){
         requestData.id_solicitud = data.requestId;
+    }
+
+    if(data.status !== undefined){
+        requestData.estatus = data.status;
     }
 
     if(data.collectedBuckets !== undefined){

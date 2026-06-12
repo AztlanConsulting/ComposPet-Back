@@ -540,6 +540,17 @@ module.exports = class CollectionRequest {
                 throw new Error("Solicitud no encontrada");
             }
 
+
+            const isDeactivating = requestData.estatus === false && currentRequest.estatus === true;
+
+            const hasChanges =
+                currentRequest.cubetas_recolectadas !== requestData.cubetas_recolectadas ||
+                currentRequest.cubetas_entregadas !== requestData.cubetas_entregadas ||
+                Number(currentRequest.total_pagado) !== Number(requestData.total_pagado) ||
+                productsData.length > 0;
+
+            const newStatus = isDeactivating ? false : (hasChanges ? true : requestData.estatus);
+
             const collectionCost = await Client.getBucketCost(currentRequest.id_cliente, requestData.cubetas_entregadas, tx);
 
             const productsCost = productsData.reduce(
@@ -601,6 +612,9 @@ module.exports = class CollectionRequest {
 
                     horario:
                         scheduleDate,
+
+                    estatus:
+                        newStatus,
                 },
             });
 
