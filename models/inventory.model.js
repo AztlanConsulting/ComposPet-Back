@@ -164,4 +164,22 @@ module.exports = class Inventory {
 
         return result;
     }
+
+    /**
+     * Elimina un producto extra.
+     * 
+     * @async
+     * @static
+     * @param {INT} productId - Id del producto a Eliminar.
+     * @returns {Promise<Object>} Producto extra eliminado.
+     * @throws {Error} Cuando ocurre un error inesperado durante la consulta a la base de datos.
+     * 
+     */
+    static async deleteProduct(productId) {
+        const result = await prisma.productos_extra.delete({
+            where: {id_producto: productId},
+        });
+
+        return result;
+    };
 };

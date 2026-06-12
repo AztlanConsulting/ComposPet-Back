@@ -351,8 +351,34 @@ const changeProductVisibility = async (req, res) => {
     }
 }
 
+/**
+ * Controlador para eliminar un producto del catálogo.
+ * 
+ * @async
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @return {JSON} Respuesta JSON con success.
+ * @throws {Error} Cuando ocurre un error inesperado al eliminar el producto.
+ */
+const deleteProduct = async (req, res) => {
+    try {
+        const data = req.body;
+        await Inventory.deleteProduct(data.productId);
+
+        return res.status(200).json({
+            success: true,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al eliminar el producto',
+        })
+    }
+}
+
 module.exports = {
     postRegisterProduct,
     getInventory,
     changeProductVisibility,
+    deleteProduct,
 };
