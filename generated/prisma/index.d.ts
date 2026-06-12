@@ -88,6 +88,11 @@ export type usuarios_cp = $Result.DefaultSelection<Prisma.$usuarios_cpPayload>
  * 
  */
 export type sesiones = $Result.DefaultSelection<Prisma.$sesionesPayload>
+/**
+ * Model precios_cubetas
+ * 
+ */
+export type precios_cubetas = $Result.DefaultSelection<Prisma.$precios_cubetasPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -359,6 +364,16 @@ export class PrismaClient<
     * ```
     */
   get sesiones(): Prisma.sesionesDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.precios_cubetas`: Exposes CRUD operations for the **precios_cubetas** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Precios_cubetas
+    * const precios_cubetas = await prisma.precios_cubetas.findMany()
+    * ```
+    */
+  get precios_cubetas(): Prisma.precios_cubetasDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -807,7 +822,8 @@ export namespace Prisma {
     solicitudes_recoleccion: 'solicitudes_recoleccion',
     saldo: 'saldo',
     usuarios_cp: 'usuarios_cp',
-    sesiones: 'sesiones'
+    sesiones: 'sesiones',
+    precios_cubetas: 'precios_cubetas'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -823,7 +839,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "bitacora" | "cliente" | "compospet" | "formas_pago" | "metricas" | "permisos" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitudes_recoleccion" | "saldo" | "usuarios_cp" | "sesiones"
+      modelProps: "bitacora" | "cliente" | "compospet" | "formas_pago" | "metricas" | "permisos" | "productos_extra" | "productos_solicitud" | "roles" | "roles_permisos" | "ruta" | "solicitudes_recoleccion" | "saldo" | "usuarios_cp" | "sesiones" | "precios_cubetas"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1937,6 +1953,80 @@ export namespace Prisma {
           }
         }
       }
+      precios_cubetas: {
+        payload: Prisma.$precios_cubetasPayload<ExtArgs>
+        fields: Prisma.precios_cubetasFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.precios_cubetasFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.precios_cubetasFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>
+          }
+          findFirst: {
+            args: Prisma.precios_cubetasFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.precios_cubetasFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>
+          }
+          findMany: {
+            args: Prisma.precios_cubetasFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>[]
+          }
+          create: {
+            args: Prisma.precios_cubetasCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>
+          }
+          createMany: {
+            args: Prisma.precios_cubetasCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.precios_cubetasCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>[]
+          }
+          delete: {
+            args: Prisma.precios_cubetasDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>
+          }
+          update: {
+            args: Prisma.precios_cubetasUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>
+          }
+          deleteMany: {
+            args: Prisma.precios_cubetasDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.precios_cubetasUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.precios_cubetasUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>[]
+          }
+          upsert: {
+            args: Prisma.precios_cubetasUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$precios_cubetasPayload>
+          }
+          aggregate: {
+            args: Prisma.Precios_cubetasAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePrecios_cubetas>
+          }
+          groupBy: {
+            args: Prisma.precios_cubetasGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Precios_cubetasGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.precios_cubetasCountArgs<ExtArgs>
+            result: $Utils.Optional<Precios_cubetasCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2060,6 +2150,7 @@ export namespace Prisma {
     saldo?: saldoOmit
     usuarios_cp?: usuarios_cpOmit
     sesiones?: sesionesOmit
+    precios_cubetas?: precios_cubetasOmit
   }
 
   /* Types for Logging */
@@ -3677,6 +3768,7 @@ export namespace Prisma {
     notas: string | null
     fecha_entrada: Date | null
     fecha_salida: Date | null
+    tipo_precio: string | null
   }
 
   export type ClienteMaxAggregateOutputType = {
@@ -3690,6 +3782,7 @@ export namespace Prisma {
     notas: string | null
     fecha_entrada: Date | null
     fecha_salida: Date | null
+    tipo_precio: string | null
   }
 
   export type ClienteCountAggregateOutputType = {
@@ -3703,6 +3796,7 @@ export namespace Prisma {
     notas: number
     fecha_entrada: number
     fecha_salida: number
+    tipo_precio: number
     _all: number
   }
 
@@ -3728,6 +3822,7 @@ export namespace Prisma {
     notas?: true
     fecha_entrada?: true
     fecha_salida?: true
+    tipo_precio?: true
   }
 
   export type ClienteMaxAggregateInputType = {
@@ -3741,6 +3836,7 @@ export namespace Prisma {
     notas?: true
     fecha_entrada?: true
     fecha_salida?: true
+    tipo_precio?: true
   }
 
   export type ClienteCountAggregateInputType = {
@@ -3754,6 +3850,7 @@ export namespace Prisma {
     notas?: true
     fecha_entrada?: true
     fecha_salida?: true
+    tipo_precio?: true
     _all?: true
   }
 
@@ -3854,6 +3951,7 @@ export namespace Prisma {
     notas: string | null
     fecha_entrada: Date | null
     fecha_salida: Date | null
+    tipo_precio: string | null
     _count: ClienteCountAggregateOutputType | null
     _avg: ClienteAvgAggregateOutputType | null
     _sum: ClienteSumAggregateOutputType | null
@@ -3886,6 +3984,7 @@ export namespace Prisma {
     notas?: boolean
     fecha_entrada?: boolean
     fecha_salida?: boolean
+    tipo_precio?: boolean
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
     saldo?: boolean | cliente$saldoArgs<ExtArgs>
@@ -3904,6 +4003,7 @@ export namespace Prisma {
     notas?: boolean
     fecha_entrada?: boolean
     fecha_salida?: boolean
+    tipo_precio?: boolean
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cliente"]>
@@ -3919,6 +4019,7 @@ export namespace Prisma {
     notas?: boolean
     fecha_entrada?: boolean
     fecha_salida?: boolean
+    tipo_precio?: boolean
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cliente"]>
@@ -3934,9 +4035,10 @@ export namespace Prisma {
     notas?: boolean
     fecha_entrada?: boolean
     fecha_salida?: boolean
+    tipo_precio?: boolean
   }
 
-  export type clienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_cliente" | "id_usuario" | "id_ruta" | "mascotas" | "familia" | "direccion" | "orden_horario" | "notas" | "fecha_entrada" | "fecha_salida", ExtArgs["result"]["cliente"]>
+  export type clienteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_cliente" | "id_usuario" | "id_ruta" | "mascotas" | "familia" | "direccion" | "orden_horario" | "notas" | "fecha_entrada" | "fecha_salida" | "tipo_precio", ExtArgs["result"]["cliente"]>
   export type clienteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     ruta?: boolean | rutaDefaultArgs<ExtArgs>
     usuarios_cp?: boolean | usuarios_cpDefaultArgs<ExtArgs>
@@ -3972,6 +4074,7 @@ export namespace Prisma {
       notas: string | null
       fecha_entrada: Date | null
       fecha_salida: Date | null
+      tipo_precio: string | null
     }, ExtArgs["result"]["cliente"]>
     composites: {}
   }
@@ -4409,6 +4512,7 @@ export namespace Prisma {
     readonly notas: FieldRef<"cliente", 'String'>
     readonly fecha_entrada: FieldRef<"cliente", 'DateTime'>
     readonly fecha_salida: FieldRef<"cliente", 'DateTime'>
+    readonly tipo_precio: FieldRef<"cliente", 'String'>
   }
     
 
@@ -19393,6 +19497,1073 @@ export namespace Prisma {
 
 
   /**
+   * Model precios_cubetas
+   */
+
+  export type AggregatePrecios_cubetas = {
+    _count: Precios_cubetasCountAggregateOutputType | null
+    _avg: Precios_cubetasAvgAggregateOutputType | null
+    _sum: Precios_cubetasSumAggregateOutputType | null
+    _min: Precios_cubetasMinAggregateOutputType | null
+    _max: Precios_cubetasMaxAggregateOutputType | null
+  }
+
+  export type Precios_cubetasAvgAggregateOutputType = {
+    id_precio: number | null
+    cantidad: number | null
+    normal: number | null
+    normal_iva: number | null
+    pension: number | null
+    pension_iva: number | null
+  }
+
+  export type Precios_cubetasSumAggregateOutputType = {
+    id_precio: number | null
+    cantidad: number | null
+    normal: number | null
+    normal_iva: number | null
+    pension: number | null
+    pension_iva: number | null
+  }
+
+  export type Precios_cubetasMinAggregateOutputType = {
+    id_precio: number | null
+    cantidad: number | null
+    normal: number | null
+    normal_iva: number | null
+    pension: number | null
+    pension_iva: number | null
+  }
+
+  export type Precios_cubetasMaxAggregateOutputType = {
+    id_precio: number | null
+    cantidad: number | null
+    normal: number | null
+    normal_iva: number | null
+    pension: number | null
+    pension_iva: number | null
+  }
+
+  export type Precios_cubetasCountAggregateOutputType = {
+    id_precio: number
+    cantidad: number
+    normal: number
+    normal_iva: number
+    pension: number
+    pension_iva: number
+    _all: number
+  }
+
+
+  export type Precios_cubetasAvgAggregateInputType = {
+    id_precio?: true
+    cantidad?: true
+    normal?: true
+    normal_iva?: true
+    pension?: true
+    pension_iva?: true
+  }
+
+  export type Precios_cubetasSumAggregateInputType = {
+    id_precio?: true
+    cantidad?: true
+    normal?: true
+    normal_iva?: true
+    pension?: true
+    pension_iva?: true
+  }
+
+  export type Precios_cubetasMinAggregateInputType = {
+    id_precio?: true
+    cantidad?: true
+    normal?: true
+    normal_iva?: true
+    pension?: true
+    pension_iva?: true
+  }
+
+  export type Precios_cubetasMaxAggregateInputType = {
+    id_precio?: true
+    cantidad?: true
+    normal?: true
+    normal_iva?: true
+    pension?: true
+    pension_iva?: true
+  }
+
+  export type Precios_cubetasCountAggregateInputType = {
+    id_precio?: true
+    cantidad?: true
+    normal?: true
+    normal_iva?: true
+    pension?: true
+    pension_iva?: true
+    _all?: true
+  }
+
+  export type Precios_cubetasAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which precios_cubetas to aggregate.
+     */
+    where?: precios_cubetasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of precios_cubetas to fetch.
+     */
+    orderBy?: precios_cubetasOrderByWithRelationInput | precios_cubetasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: precios_cubetasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` precios_cubetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` precios_cubetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned precios_cubetas
+    **/
+    _count?: true | Precios_cubetasCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Precios_cubetasAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Precios_cubetasSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Precios_cubetasMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Precios_cubetasMaxAggregateInputType
+  }
+
+  export type GetPrecios_cubetasAggregateType<T extends Precios_cubetasAggregateArgs> = {
+        [P in keyof T & keyof AggregatePrecios_cubetas]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePrecios_cubetas[P]>
+      : GetScalarType<T[P], AggregatePrecios_cubetas[P]>
+  }
+
+
+
+
+  export type precios_cubetasGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: precios_cubetasWhereInput
+    orderBy?: precios_cubetasOrderByWithAggregationInput | precios_cubetasOrderByWithAggregationInput[]
+    by: Precios_cubetasScalarFieldEnum[] | Precios_cubetasScalarFieldEnum
+    having?: precios_cubetasScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Precios_cubetasCountAggregateInputType | true
+    _avg?: Precios_cubetasAvgAggregateInputType
+    _sum?: Precios_cubetasSumAggregateInputType
+    _min?: Precios_cubetasMinAggregateInputType
+    _max?: Precios_cubetasMaxAggregateInputType
+  }
+
+  export type Precios_cubetasGroupByOutputType = {
+    id_precio: number
+    cantidad: number
+    normal: number
+    normal_iva: number
+    pension: number
+    pension_iva: number
+    _count: Precios_cubetasCountAggregateOutputType | null
+    _avg: Precios_cubetasAvgAggregateOutputType | null
+    _sum: Precios_cubetasSumAggregateOutputType | null
+    _min: Precios_cubetasMinAggregateOutputType | null
+    _max: Precios_cubetasMaxAggregateOutputType | null
+  }
+
+  type GetPrecios_cubetasGroupByPayload<T extends precios_cubetasGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Precios_cubetasGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Precios_cubetasGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Precios_cubetasGroupByOutputType[P]>
+            : GetScalarType<T[P], Precios_cubetasGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type precios_cubetasSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_precio?: boolean
+    cantidad?: boolean
+    normal?: boolean
+    normal_iva?: boolean
+    pension?: boolean
+    pension_iva?: boolean
+  }, ExtArgs["result"]["precios_cubetas"]>
+
+  export type precios_cubetasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_precio?: boolean
+    cantidad?: boolean
+    normal?: boolean
+    normal_iva?: boolean
+    pension?: boolean
+    pension_iva?: boolean
+  }, ExtArgs["result"]["precios_cubetas"]>
+
+  export type precios_cubetasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_precio?: boolean
+    cantidad?: boolean
+    normal?: boolean
+    normal_iva?: boolean
+    pension?: boolean
+    pension_iva?: boolean
+  }, ExtArgs["result"]["precios_cubetas"]>
+
+  export type precios_cubetasSelectScalar = {
+    id_precio?: boolean
+    cantidad?: boolean
+    normal?: boolean
+    normal_iva?: boolean
+    pension?: boolean
+    pension_iva?: boolean
+  }
+
+  export type precios_cubetasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_precio" | "cantidad" | "normal" | "normal_iva" | "pension" | "pension_iva", ExtArgs["result"]["precios_cubetas"]>
+
+  export type $precios_cubetasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "precios_cubetas"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id_precio: number
+      cantidad: number
+      normal: number
+      normal_iva: number
+      pension: number
+      pension_iva: number
+    }, ExtArgs["result"]["precios_cubetas"]>
+    composites: {}
+  }
+
+  type precios_cubetasGetPayload<S extends boolean | null | undefined | precios_cubetasDefaultArgs> = $Result.GetResult<Prisma.$precios_cubetasPayload, S>
+
+  type precios_cubetasCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<precios_cubetasFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Precios_cubetasCountAggregateInputType | true
+    }
+
+  export interface precios_cubetasDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['precios_cubetas'], meta: { name: 'precios_cubetas' } }
+    /**
+     * Find zero or one Precios_cubetas that matches the filter.
+     * @param {precios_cubetasFindUniqueArgs} args - Arguments to find a Precios_cubetas
+     * @example
+     * // Get one Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends precios_cubetasFindUniqueArgs>(args: SelectSubset<T, precios_cubetasFindUniqueArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Precios_cubetas that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {precios_cubetasFindUniqueOrThrowArgs} args - Arguments to find a Precios_cubetas
+     * @example
+     * // Get one Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends precios_cubetasFindUniqueOrThrowArgs>(args: SelectSubset<T, precios_cubetasFindUniqueOrThrowArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Precios_cubetas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {precios_cubetasFindFirstArgs} args - Arguments to find a Precios_cubetas
+     * @example
+     * // Get one Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends precios_cubetasFindFirstArgs>(args?: SelectSubset<T, precios_cubetasFindFirstArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Precios_cubetas that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {precios_cubetasFindFirstOrThrowArgs} args - Arguments to find a Precios_cubetas
+     * @example
+     * // Get one Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends precios_cubetasFindFirstOrThrowArgs>(args?: SelectSubset<T, precios_cubetasFindFirstOrThrowArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Precios_cubetas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {precios_cubetasFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.findMany()
+     * 
+     * // Get first 10 Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.findMany({ take: 10 })
+     * 
+     * // Only select the `id_precio`
+     * const precios_cubetasWithId_precioOnly = await prisma.precios_cubetas.findMany({ select: { id_precio: true } })
+     * 
+     */
+    findMany<T extends precios_cubetasFindManyArgs>(args?: SelectSubset<T, precios_cubetasFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Precios_cubetas.
+     * @param {precios_cubetasCreateArgs} args - Arguments to create a Precios_cubetas.
+     * @example
+     * // Create one Precios_cubetas
+     * const Precios_cubetas = await prisma.precios_cubetas.create({
+     *   data: {
+     *     // ... data to create a Precios_cubetas
+     *   }
+     * })
+     * 
+     */
+    create<T extends precios_cubetasCreateArgs>(args: SelectSubset<T, precios_cubetasCreateArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Precios_cubetas.
+     * @param {precios_cubetasCreateManyArgs} args - Arguments to create many Precios_cubetas.
+     * @example
+     * // Create many Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends precios_cubetasCreateManyArgs>(args?: SelectSubset<T, precios_cubetasCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Precios_cubetas and returns the data saved in the database.
+     * @param {precios_cubetasCreateManyAndReturnArgs} args - Arguments to create many Precios_cubetas.
+     * @example
+     * // Create many Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Precios_cubetas and only return the `id_precio`
+     * const precios_cubetasWithId_precioOnly = await prisma.precios_cubetas.createManyAndReturn({
+     *   select: { id_precio: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends precios_cubetasCreateManyAndReturnArgs>(args?: SelectSubset<T, precios_cubetasCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Precios_cubetas.
+     * @param {precios_cubetasDeleteArgs} args - Arguments to delete one Precios_cubetas.
+     * @example
+     * // Delete one Precios_cubetas
+     * const Precios_cubetas = await prisma.precios_cubetas.delete({
+     *   where: {
+     *     // ... filter to delete one Precios_cubetas
+     *   }
+     * })
+     * 
+     */
+    delete<T extends precios_cubetasDeleteArgs>(args: SelectSubset<T, precios_cubetasDeleteArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Precios_cubetas.
+     * @param {precios_cubetasUpdateArgs} args - Arguments to update one Precios_cubetas.
+     * @example
+     * // Update one Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends precios_cubetasUpdateArgs>(args: SelectSubset<T, precios_cubetasUpdateArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Precios_cubetas.
+     * @param {precios_cubetasDeleteManyArgs} args - Arguments to filter Precios_cubetas to delete.
+     * @example
+     * // Delete a few Precios_cubetas
+     * const { count } = await prisma.precios_cubetas.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends precios_cubetasDeleteManyArgs>(args?: SelectSubset<T, precios_cubetasDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Precios_cubetas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {precios_cubetasUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends precios_cubetasUpdateManyArgs>(args: SelectSubset<T, precios_cubetasUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Precios_cubetas and returns the data updated in the database.
+     * @param {precios_cubetasUpdateManyAndReturnArgs} args - Arguments to update many Precios_cubetas.
+     * @example
+     * // Update many Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Precios_cubetas and only return the `id_precio`
+     * const precios_cubetasWithId_precioOnly = await prisma.precios_cubetas.updateManyAndReturn({
+     *   select: { id_precio: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends precios_cubetasUpdateManyAndReturnArgs>(args: SelectSubset<T, precios_cubetasUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Precios_cubetas.
+     * @param {precios_cubetasUpsertArgs} args - Arguments to update or create a Precios_cubetas.
+     * @example
+     * // Update or create a Precios_cubetas
+     * const precios_cubetas = await prisma.precios_cubetas.upsert({
+     *   create: {
+     *     // ... data to create a Precios_cubetas
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Precios_cubetas we want to update
+     *   }
+     * })
+     */
+    upsert<T extends precios_cubetasUpsertArgs>(args: SelectSubset<T, precios_cubetasUpsertArgs<ExtArgs>>): Prisma__precios_cubetasClient<$Result.GetResult<Prisma.$precios_cubetasPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Precios_cubetas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {precios_cubetasCountArgs} args - Arguments to filter Precios_cubetas to count.
+     * @example
+     * // Count the number of Precios_cubetas
+     * const count = await prisma.precios_cubetas.count({
+     *   where: {
+     *     // ... the filter for the Precios_cubetas we want to count
+     *   }
+     * })
+    **/
+    count<T extends precios_cubetasCountArgs>(
+      args?: Subset<T, precios_cubetasCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Precios_cubetasCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Precios_cubetas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Precios_cubetasAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Precios_cubetasAggregateArgs>(args: Subset<T, Precios_cubetasAggregateArgs>): Prisma.PrismaPromise<GetPrecios_cubetasAggregateType<T>>
+
+    /**
+     * Group by Precios_cubetas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {precios_cubetasGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends precios_cubetasGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: precios_cubetasGroupByArgs['orderBy'] }
+        : { orderBy?: precios_cubetasGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, precios_cubetasGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPrecios_cubetasGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the precios_cubetas model
+   */
+  readonly fields: precios_cubetasFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for precios_cubetas.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__precios_cubetasClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the precios_cubetas model
+   */
+  interface precios_cubetasFieldRefs {
+    readonly id_precio: FieldRef<"precios_cubetas", 'Int'>
+    readonly cantidad: FieldRef<"precios_cubetas", 'Float'>
+    readonly normal: FieldRef<"precios_cubetas", 'Float'>
+    readonly normal_iva: FieldRef<"precios_cubetas", 'Float'>
+    readonly pension: FieldRef<"precios_cubetas", 'Float'>
+    readonly pension_iva: FieldRef<"precios_cubetas", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * precios_cubetas findUnique
+   */
+  export type precios_cubetasFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * Filter, which precios_cubetas to fetch.
+     */
+    where: precios_cubetasWhereUniqueInput
+  }
+
+  /**
+   * precios_cubetas findUniqueOrThrow
+   */
+  export type precios_cubetasFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * Filter, which precios_cubetas to fetch.
+     */
+    where: precios_cubetasWhereUniqueInput
+  }
+
+  /**
+   * precios_cubetas findFirst
+   */
+  export type precios_cubetasFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * Filter, which precios_cubetas to fetch.
+     */
+    where?: precios_cubetasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of precios_cubetas to fetch.
+     */
+    orderBy?: precios_cubetasOrderByWithRelationInput | precios_cubetasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for precios_cubetas.
+     */
+    cursor?: precios_cubetasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` precios_cubetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` precios_cubetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of precios_cubetas.
+     */
+    distinct?: Precios_cubetasScalarFieldEnum | Precios_cubetasScalarFieldEnum[]
+  }
+
+  /**
+   * precios_cubetas findFirstOrThrow
+   */
+  export type precios_cubetasFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * Filter, which precios_cubetas to fetch.
+     */
+    where?: precios_cubetasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of precios_cubetas to fetch.
+     */
+    orderBy?: precios_cubetasOrderByWithRelationInput | precios_cubetasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for precios_cubetas.
+     */
+    cursor?: precios_cubetasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` precios_cubetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` precios_cubetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of precios_cubetas.
+     */
+    distinct?: Precios_cubetasScalarFieldEnum | Precios_cubetasScalarFieldEnum[]
+  }
+
+  /**
+   * precios_cubetas findMany
+   */
+  export type precios_cubetasFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * Filter, which precios_cubetas to fetch.
+     */
+    where?: precios_cubetasWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of precios_cubetas to fetch.
+     */
+    orderBy?: precios_cubetasOrderByWithRelationInput | precios_cubetasOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing precios_cubetas.
+     */
+    cursor?: precios_cubetasWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` precios_cubetas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` precios_cubetas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of precios_cubetas.
+     */
+    distinct?: Precios_cubetasScalarFieldEnum | Precios_cubetasScalarFieldEnum[]
+  }
+
+  /**
+   * precios_cubetas create
+   */
+  export type precios_cubetasCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * The data needed to create a precios_cubetas.
+     */
+    data: XOR<precios_cubetasCreateInput, precios_cubetasUncheckedCreateInput>
+  }
+
+  /**
+   * precios_cubetas createMany
+   */
+  export type precios_cubetasCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many precios_cubetas.
+     */
+    data: precios_cubetasCreateManyInput | precios_cubetasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * precios_cubetas createManyAndReturn
+   */
+  export type precios_cubetasCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * The data used to create many precios_cubetas.
+     */
+    data: precios_cubetasCreateManyInput | precios_cubetasCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * precios_cubetas update
+   */
+  export type precios_cubetasUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * The data needed to update a precios_cubetas.
+     */
+    data: XOR<precios_cubetasUpdateInput, precios_cubetasUncheckedUpdateInput>
+    /**
+     * Choose, which precios_cubetas to update.
+     */
+    where: precios_cubetasWhereUniqueInput
+  }
+
+  /**
+   * precios_cubetas updateMany
+   */
+  export type precios_cubetasUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update precios_cubetas.
+     */
+    data: XOR<precios_cubetasUpdateManyMutationInput, precios_cubetasUncheckedUpdateManyInput>
+    /**
+     * Filter which precios_cubetas to update
+     */
+    where?: precios_cubetasWhereInput
+    /**
+     * Limit how many precios_cubetas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * precios_cubetas updateManyAndReturn
+   */
+  export type precios_cubetasUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * The data used to update precios_cubetas.
+     */
+    data: XOR<precios_cubetasUpdateManyMutationInput, precios_cubetasUncheckedUpdateManyInput>
+    /**
+     * Filter which precios_cubetas to update
+     */
+    where?: precios_cubetasWhereInput
+    /**
+     * Limit how many precios_cubetas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * precios_cubetas upsert
+   */
+  export type precios_cubetasUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * The filter to search for the precios_cubetas to update in case it exists.
+     */
+    where: precios_cubetasWhereUniqueInput
+    /**
+     * In case the precios_cubetas found by the `where` argument doesn't exist, create a new precios_cubetas with this data.
+     */
+    create: XOR<precios_cubetasCreateInput, precios_cubetasUncheckedCreateInput>
+    /**
+     * In case the precios_cubetas was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<precios_cubetasUpdateInput, precios_cubetasUncheckedUpdateInput>
+  }
+
+  /**
+   * precios_cubetas delete
+   */
+  export type precios_cubetasDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+    /**
+     * Filter which precios_cubetas to delete.
+     */
+    where: precios_cubetasWhereUniqueInput
+  }
+
+  /**
+   * precios_cubetas deleteMany
+   */
+  export type precios_cubetasDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which precios_cubetas to delete
+     */
+    where?: precios_cubetasWhereInput
+    /**
+     * Limit how many precios_cubetas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * precios_cubetas without action
+   */
+  export type precios_cubetasDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the precios_cubetas
+     */
+    select?: precios_cubetasSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the precios_cubetas
+     */
+    omit?: precios_cubetasOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19434,7 +20605,8 @@ export namespace Prisma {
     orden_horario: 'orden_horario',
     notas: 'notas',
     fecha_entrada: 'fecha_entrada',
-    fecha_salida: 'fecha_salida'
+    fecha_salida: 'fecha_salida',
+    tipo_precio: 'tipo_precio'
   };
 
   export type ClienteScalarFieldEnum = (typeof ClienteScalarFieldEnum)[keyof typeof ClienteScalarFieldEnum]
@@ -19589,6 +20761,18 @@ export namespace Prisma {
   };
 
   export type SesionesScalarFieldEnum = (typeof SesionesScalarFieldEnum)[keyof typeof SesionesScalarFieldEnum]
+
+
+  export const Precios_cubetasScalarFieldEnum: {
+    id_precio: 'id_precio',
+    cantidad: 'cantidad',
+    normal: 'normal',
+    normal_iva: 'normal_iva',
+    pension: 'pension',
+    pension_iva: 'pension_iva'
+  };
+
+  export type Precios_cubetasScalarFieldEnum = (typeof Precios_cubetasScalarFieldEnum)[keyof typeof Precios_cubetasScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -19823,6 +21007,7 @@ export namespace Prisma {
     notas?: StringNullableFilter<"cliente"> | string | null
     fecha_entrada?: DateTimeNullableFilter<"cliente"> | Date | string | null
     fecha_salida?: DateTimeNullableFilter<"cliente"> | Date | string | null
+    tipo_precio?: StringNullableFilter<"cliente"> | string | null
     ruta?: XOR<RutaScalarRelationFilter, rutaWhereInput>
     usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
     saldo?: XOR<SaldoNullableScalarRelationFilter, saldoWhereInput> | null
@@ -19840,6 +21025,7 @@ export namespace Prisma {
     notas?: SortOrderInput | SortOrder
     fecha_entrada?: SortOrderInput | SortOrder
     fecha_salida?: SortOrderInput | SortOrder
+    tipo_precio?: SortOrderInput | SortOrder
     ruta?: rutaOrderByWithRelationInput
     usuarios_cp?: usuarios_cpOrderByWithRelationInput
     saldo?: saldoOrderByWithRelationInput
@@ -19860,6 +21046,7 @@ export namespace Prisma {
     notas?: StringNullableFilter<"cliente"> | string | null
     fecha_entrada?: DateTimeNullableFilter<"cliente"> | Date | string | null
     fecha_salida?: DateTimeNullableFilter<"cliente"> | Date | string | null
+    tipo_precio?: StringNullableFilter<"cliente"> | string | null
     ruta?: XOR<RutaScalarRelationFilter, rutaWhereInput>
     usuarios_cp?: XOR<Usuarios_cpScalarRelationFilter, usuarios_cpWhereInput>
     saldo?: XOR<SaldoNullableScalarRelationFilter, saldoWhereInput> | null
@@ -19877,6 +21064,7 @@ export namespace Prisma {
     notas?: SortOrderInput | SortOrder
     fecha_entrada?: SortOrderInput | SortOrder
     fecha_salida?: SortOrderInput | SortOrder
+    tipo_precio?: SortOrderInput | SortOrder
     _count?: clienteCountOrderByAggregateInput
     _avg?: clienteAvgOrderByAggregateInput
     _max?: clienteMaxOrderByAggregateInput
@@ -19898,6 +21086,7 @@ export namespace Prisma {
     notas?: StringNullableWithAggregatesFilter<"cliente"> | string | null
     fecha_entrada?: DateTimeNullableWithAggregatesFilter<"cliente"> | Date | string | null
     fecha_salida?: DateTimeNullableWithAggregatesFilter<"cliente"> | Date | string | null
+    tipo_precio?: StringNullableWithAggregatesFilter<"cliente"> | string | null
   }
 
   export type compospetWhereInput = {
@@ -20703,6 +21892,65 @@ export namespace Prisma {
     activa?: BoolWithAggregatesFilter<"sesiones"> | boolean
   }
 
+  export type precios_cubetasWhereInput = {
+    AND?: precios_cubetasWhereInput | precios_cubetasWhereInput[]
+    OR?: precios_cubetasWhereInput[]
+    NOT?: precios_cubetasWhereInput | precios_cubetasWhereInput[]
+    id_precio?: IntFilter<"precios_cubetas"> | number
+    cantidad?: FloatFilter<"precios_cubetas"> | number
+    normal?: FloatFilter<"precios_cubetas"> | number
+    normal_iva?: FloatFilter<"precios_cubetas"> | number
+    pension?: FloatFilter<"precios_cubetas"> | number
+    pension_iva?: FloatFilter<"precios_cubetas"> | number
+  }
+
+  export type precios_cubetasOrderByWithRelationInput = {
+    id_precio?: SortOrder
+    cantidad?: SortOrder
+    normal?: SortOrder
+    normal_iva?: SortOrder
+    pension?: SortOrder
+    pension_iva?: SortOrder
+  }
+
+  export type precios_cubetasWhereUniqueInput = Prisma.AtLeast<{
+    id_precio?: number
+    AND?: precios_cubetasWhereInput | precios_cubetasWhereInput[]
+    OR?: precios_cubetasWhereInput[]
+    NOT?: precios_cubetasWhereInput | precios_cubetasWhereInput[]
+    cantidad?: FloatFilter<"precios_cubetas"> | number
+    normal?: FloatFilter<"precios_cubetas"> | number
+    normal_iva?: FloatFilter<"precios_cubetas"> | number
+    pension?: FloatFilter<"precios_cubetas"> | number
+    pension_iva?: FloatFilter<"precios_cubetas"> | number
+  }, "id_precio">
+
+  export type precios_cubetasOrderByWithAggregationInput = {
+    id_precio?: SortOrder
+    cantidad?: SortOrder
+    normal?: SortOrder
+    normal_iva?: SortOrder
+    pension?: SortOrder
+    pension_iva?: SortOrder
+    _count?: precios_cubetasCountOrderByAggregateInput
+    _avg?: precios_cubetasAvgOrderByAggregateInput
+    _max?: precios_cubetasMaxOrderByAggregateInput
+    _min?: precios_cubetasMinOrderByAggregateInput
+    _sum?: precios_cubetasSumOrderByAggregateInput
+  }
+
+  export type precios_cubetasScalarWhereWithAggregatesInput = {
+    AND?: precios_cubetasScalarWhereWithAggregatesInput | precios_cubetasScalarWhereWithAggregatesInput[]
+    OR?: precios_cubetasScalarWhereWithAggregatesInput[]
+    NOT?: precios_cubetasScalarWhereWithAggregatesInput | precios_cubetasScalarWhereWithAggregatesInput[]
+    id_precio?: IntWithAggregatesFilter<"precios_cubetas"> | number
+    cantidad?: FloatWithAggregatesFilter<"precios_cubetas"> | number
+    normal?: FloatWithAggregatesFilter<"precios_cubetas"> | number
+    normal_iva?: FloatWithAggregatesFilter<"precios_cubetas"> | number
+    pension?: FloatWithAggregatesFilter<"precios_cubetas"> | number
+    pension_iva?: FloatWithAggregatesFilter<"precios_cubetas"> | number
+  }
+
   export type bitacoraCreateInput = {
     origen: string
     accion: string
@@ -20813,6 +22061,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     ruta: rutaCreateNestedOneWithoutClienteInput
     usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
     saldo?: saldoCreateNestedOneWithoutClienteInput
@@ -20830,6 +22079,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     saldo?: saldoUncheckedCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
   }
@@ -20843,6 +22093,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
     usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
     saldo?: saldoUpdateOneWithoutClienteNestedInput
@@ -20860,6 +22111,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: saldoUncheckedUpdateOneWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
   }
@@ -20875,6 +22127,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
   }
 
   export type clienteUpdateManyMutationInput = {
@@ -20886,6 +22139,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type clienteUncheckedUpdateManyInput = {
@@ -20899,6 +22153,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type compospetCreateInput = {
@@ -21720,6 +22975,66 @@ export namespace Prisma {
     activa?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type precios_cubetasCreateInput = {
+    cantidad: number
+    normal: number
+    normal_iva: number
+    pension: number
+    pension_iva: number
+  }
+
+  export type precios_cubetasUncheckedCreateInput = {
+    id_precio?: number
+    cantidad: number
+    normal: number
+    normal_iva: number
+    pension: number
+    pension_iva: number
+  }
+
+  export type precios_cubetasUpdateInput = {
+    cantidad?: FloatFieldUpdateOperationsInput | number
+    normal?: FloatFieldUpdateOperationsInput | number
+    normal_iva?: FloatFieldUpdateOperationsInput | number
+    pension?: FloatFieldUpdateOperationsInput | number
+    pension_iva?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type precios_cubetasUncheckedUpdateInput = {
+    id_precio?: IntFieldUpdateOperationsInput | number
+    cantidad?: FloatFieldUpdateOperationsInput | number
+    normal?: FloatFieldUpdateOperationsInput | number
+    normal_iva?: FloatFieldUpdateOperationsInput | number
+    pension?: FloatFieldUpdateOperationsInput | number
+    pension_iva?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type precios_cubetasCreateManyInput = {
+    id_precio?: number
+    cantidad: number
+    normal: number
+    normal_iva: number
+    pension: number
+    pension_iva: number
+  }
+
+  export type precios_cubetasUpdateManyMutationInput = {
+    cantidad?: FloatFieldUpdateOperationsInput | number
+    normal?: FloatFieldUpdateOperationsInput | number
+    normal_iva?: FloatFieldUpdateOperationsInput | number
+    pension?: FloatFieldUpdateOperationsInput | number
+    pension_iva?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type precios_cubetasUncheckedUpdateManyInput = {
+    id_precio?: IntFieldUpdateOperationsInput | number
+    cantidad?: FloatFieldUpdateOperationsInput | number
+    normal?: FloatFieldUpdateOperationsInput | number
+    normal_iva?: FloatFieldUpdateOperationsInput | number
+    pension?: FloatFieldUpdateOperationsInput | number
+    pension_iva?: FloatFieldUpdateOperationsInput | number
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -22043,6 +23358,7 @@ export namespace Prisma {
     notas?: SortOrder
     fecha_entrada?: SortOrder
     fecha_salida?: SortOrder
+    tipo_precio?: SortOrder
   }
 
   export type clienteAvgOrderByAggregateInput = {
@@ -22061,6 +23377,7 @@ export namespace Prisma {
     notas?: SortOrder
     fecha_entrada?: SortOrder
     fecha_salida?: SortOrder
+    tipo_precio?: SortOrder
   }
 
   export type clienteMinOrderByAggregateInput = {
@@ -22074,6 +23391,7 @@ export namespace Prisma {
     notas?: SortOrder
     fecha_entrada?: SortOrder
     fecha_salida?: SortOrder
+    tipo_precio?: SortOrder
   }
 
   export type clienteSumOrderByAggregateInput = {
@@ -22742,6 +24060,51 @@ export namespace Prisma {
     expira_en?: SortOrder
     ultima_actividad?: SortOrder
     activa?: SortOrder
+  }
+
+  export type precios_cubetasCountOrderByAggregateInput = {
+    id_precio?: SortOrder
+    cantidad?: SortOrder
+    normal?: SortOrder
+    normal_iva?: SortOrder
+    pension?: SortOrder
+    pension_iva?: SortOrder
+  }
+
+  export type precios_cubetasAvgOrderByAggregateInput = {
+    id_precio?: SortOrder
+    cantidad?: SortOrder
+    normal?: SortOrder
+    normal_iva?: SortOrder
+    pension?: SortOrder
+    pension_iva?: SortOrder
+  }
+
+  export type precios_cubetasMaxOrderByAggregateInput = {
+    id_precio?: SortOrder
+    cantidad?: SortOrder
+    normal?: SortOrder
+    normal_iva?: SortOrder
+    pension?: SortOrder
+    pension_iva?: SortOrder
+  }
+
+  export type precios_cubetasMinOrderByAggregateInput = {
+    id_precio?: SortOrder
+    cantidad?: SortOrder
+    normal?: SortOrder
+    normal_iva?: SortOrder
+    pension?: SortOrder
+    pension_iva?: SortOrder
+  }
+
+  export type precios_cubetasSumOrderByAggregateInput = {
+    id_precio?: SortOrder
+    cantidad?: SortOrder
+    normal?: SortOrder
+    normal_iva?: SortOrder
+    pension?: SortOrder
+    pension_iva?: SortOrder
   }
 
   export type usuarios_cpCreateNestedOneWithoutBitacoraInput = {
@@ -24876,6 +26239,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
     saldo?: saldoCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
@@ -24891,6 +26255,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     saldo?: saldoUncheckedCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
   }
@@ -24935,6 +26300,7 @@ export namespace Prisma {
     notas?: StringNullableFilter<"cliente"> | string | null
     fecha_entrada?: DateTimeNullableFilter<"cliente"> | Date | string | null
     fecha_salida?: DateTimeNullableFilter<"cliente"> | Date | string | null
+    tipo_precio?: StringNullableFilter<"cliente"> | string | null
   }
 
   export type productos_solicitudCreateWithoutSolicitudes_recoleccionInput = {
@@ -24968,6 +26334,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     ruta: rutaCreateNestedOneWithoutClienteInput
     usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
     saldo?: saldoCreateNestedOneWithoutClienteInput
@@ -24984,6 +26351,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     saldo?: saldoUncheckedCreateNestedOneWithoutClienteInput
   }
 
@@ -25047,6 +26415,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
     usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
     saldo?: saldoUpdateOneWithoutClienteNestedInput
@@ -25063,6 +26432,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: saldoUncheckedUpdateOneWithoutClienteNestedInput
   }
 
@@ -25100,6 +26470,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     ruta: rutaCreateNestedOneWithoutClienteInput
     usuarios_cp: usuarios_cpCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
@@ -25116,6 +26487,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
   }
 
@@ -25144,6 +26516,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
     usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
@@ -25160,6 +26533,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
   }
 
@@ -25209,6 +26583,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     ruta: rutaCreateNestedOneWithoutClienteInput
     saldo?: saldoCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionCreateNestedManyWithoutClienteInput
@@ -25224,6 +26599,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
     saldo?: saldoUncheckedCreateNestedOneWithoutClienteInput
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedCreateNestedManyWithoutClienteInput
   }
@@ -25351,6 +26727,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     ruta?: rutaUpdateOneRequiredWithoutClienteNestedInput
     saldo?: saldoUpdateOneWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
@@ -25366,6 +26743,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: saldoUncheckedUpdateOneWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
   }
@@ -25895,6 +27273,7 @@ export namespace Prisma {
     notas?: string | null
     fecha_entrada?: Date | string | null
     fecha_salida?: Date | string | null
+    tipo_precio?: string | null
   }
 
   export type clienteUpdateWithoutRutaInput = {
@@ -25906,6 +27285,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     usuarios_cp?: usuarios_cpUpdateOneRequiredWithoutClienteNestedInput
     saldo?: saldoUpdateOneWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUpdateManyWithoutClienteNestedInput
@@ -25921,6 +27301,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
     saldo?: saldoUncheckedUpdateOneWithoutClienteNestedInput
     solicitudes_recoleccion?: solicitudes_recoleccionUncheckedUpdateManyWithoutClienteNestedInput
   }
@@ -25935,6 +27316,7 @@ export namespace Prisma {
     notas?: NullableStringFieldUpdateOperationsInput | string | null
     fecha_entrada?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fecha_salida?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tipo_precio?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type productos_solicitudCreateManySolicitudes_recoleccionInput = {

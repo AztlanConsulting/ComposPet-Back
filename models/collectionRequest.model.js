@@ -13,6 +13,7 @@
 const prisma = require("../config/prisma");
 
 const bucketCostMap = require('../utils/bucketCostMap');
+const Client = require('./client.model');
 
 module.exports = class CollectionRequest {
 
@@ -526,26 +527,6 @@ module.exports = class CollectionRequest {
                 ])
             );
 
-            const collectionCost = bucketCostMap[requestData.cubetas_entregadas] || 0;
-            const productsCost = productsData.reduce(
-                (total, product) => {
-                    const price = priceMap.get(product.id_producto) || 0;
-
-                    return total + (price * product.cantidad);
-                },
-                0
-            );
-
-            const totalToPay = collectionCost + productsCost;
-
-            let scheduleDate = requestData.horario
-                ? new Date(`1970-01-01T${requestData.horario}:00Z`)
-                : null;
-
-            if (scheduleDate && Number.isNaN(scheduleDate.valueOf())) {
-                scheduleDate = null;
-            }
-
             const currentRequest = await tx.solicitudes_recoleccion.findUnique({
                 where: {
                     id_solicitud: requestId,
@@ -557,6 +538,36 @@ module.exports = class CollectionRequest {
 
             if (!currentRequest) {
                 throw new Error("Solicitud no encontrada");
+            }
+
+            const collectionCost = await Client.getBucketCost(currentRequest.id_cliente, requestData.cubetas_entregadas, tx);
+
+            const productsCost = productsData.reduce(
+                (total, product) => {
+                    const price = priceMap.get(product.id_producto) || 0;
+
+                    return total + (price * product.cantidad);
+                },
+                0
+            );
+
+            const totalToPay = collectionCost + productsCost;
+
+            const trimmedSchedule = requestData.horario?.trim();
+
+            let normalizedSchedule = null;
+
+            if (trimmedSchedule) {
+                const [hours, minutes] = trimmedSchedule.split(':');
+                normalizedSchedule = `${hours.padStart(2, '0')}:${minutes}`;
+            }
+            
+            let scheduleDate = normalizedSchedule
+                ? new Date(`1970-01-01T${normalizedSchedule}:00Z`)
+                : null;
+
+            if (scheduleDate && Number.isNaN(scheduleDate.valueOf())) {
+                scheduleDate = null;
             }
 
             const updatedRequest = await tx.solicitudes_recoleccion.update({
