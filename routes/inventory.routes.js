@@ -63,4 +63,12 @@ router.post(
     inventoryController.deleteProduct,
 )
 
+// Ruta para modificar un producto extra
+router.post(
+    '/modificar-producto',
+    requireRole('Administrador'),
+    upload.single('image'),
+    inventoryController.updateProduct,
+)
+
 module.exports = router;

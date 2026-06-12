@@ -182,4 +182,34 @@ module.exports = class Inventory {
 
         return result;
     };
+
+    /**
+     * Actualiza la información de un producto
+     * 
+     * @async
+     * @static
+     * @param {Object} data - Información actualizada del producto.
+     * @returns {Promise<Object>} Producto actualizado.
+     * @throws {Error} Cuando ocurre un error inesperado durante la consulta a la base de datos.
+     * 
+     */
+    static async updateProduct(data) {
+        const { productId, ...fields } = data;
+
+        const updatedProduct = await prisma.productos_extra.update({
+            where: {
+                id_producto: Number(productId),
+            },
+            data: {
+                ...(fields.name        !== undefined && { nombre:     fields.name }),
+                ...(fields.description !== undefined && { descripcion: fields.description }),
+                ...(fields.price       !== undefined && { precio:     fields.price }),
+                ...(fields.quantity    !== undefined && { cantidad:   fields.quantity }),
+                ...(fields.color       !== undefined && { color:      fields.color }),
+                ...(fields.imageUrl    !== undefined && { imagen_url: fields.imageUrl }),
+            },
+        });
+
+        return updatedProduct;
+    }
 };
