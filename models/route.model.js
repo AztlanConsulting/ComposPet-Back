@@ -1,4 +1,5 @@
 const prisma = require("../config/prisma");
+const { formatDate } = require("../utils/formatDate");
 
 /** Array con los nombres de los días de la semana en español */
 const WEEK_DAYS = [
@@ -147,23 +148,37 @@ const buildRow = (client, request, weekStart) => {
     const lastName = client.usuarios_cp?.apellido || "";
     const fullName = `${name} ${lastName}`.trim() || " ";
 
-    const requestDate = request?.fecha
-        ? request.fecha.toISOString().split("T")[0]
-        : null;
-
+    const toDateString = (date) => {
+        if (!date) return null;
+    
+        const parsedDate = new Date(date);
+    
+        if (isNaN(parsedDate.getTime())) return null;
+    
+        return parsedDate.toISOString().split("T")[0];
+    };
+    
+    const requestDate = toDateString(request?.fecha);
+    
     const routeDate = (() => {
         if (requestDate) return null;
         if (!weekStart) return null;
-
-        const calculatedDate = getRouteDateForDay(client.ruta?.dia_ruta, weekStart);
+    
+        const calculatedDate = getRouteDateForDay(
+            client.ruta?.dia_ruta,
+            weekStart
+        );
+    
         if (!calculatedDate) return null;
-
-        const today = new Date();
-        const todayStr = today.toISOString().split("T")[0];
+    
+        const todayStr = toDateString(new Date());
+    
         if (calculatedDate > todayStr) return null;
-
+    
         return calculatedDate;
     })();
+    
+    const formattedDate = formatDate(requestDate || routeDate);
 
     return {
         nombre: fullName,
@@ -177,7 +192,7 @@ const buildRow = (client, request, weekStart) => {
         total_a_pagar: request?.total_a_pagar || null,
         total_pagado: request?.total_pagado || null,
         notas: request?.notas || " ",
-        fecha: requestDate ?? routeDate,
+        fecha: formattedDate,
         hasRequest: !!request,
         status: request?.estatus ?? null,
         wantsCollection: request?.quiere_recoleccion ?? null,
