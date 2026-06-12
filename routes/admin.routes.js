@@ -25,4 +25,6 @@ router.get('/correos', requireRole("Administrador"), userController.getEmails);
 // Ruta para consultar perfil del admin
 router.get('/perfil', requireRole("Administrador"), profileController.getProfileInformation);
 
+// Ruta para actualizar perfil del admin
+router.patch('/perfil', requireRole("Administrador"), profileController.updateProfileInformation);
 module.exports = router;
