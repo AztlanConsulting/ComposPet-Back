@@ -4,6 +4,7 @@ const router = express.Router();
 const createNewClientController = require('../controllers/admin/createNewClient.controller')
 const clientController = require('../controllers/client.controller');
 const userController = require('../controllers/user.controller');
+const profileController = require('../controllers/admin/profileAdmin.controller');
 const { requireRole } = require('../middlewares/roleAccess');
 
 // Ruta para obtener información para registrar nuevo cliente
@@ -22,6 +23,6 @@ router.post('/actualizar-cliente', requireRole("Administrador"), clientControlle
 router.get('/correos', requireRole("Administrador"), userController.getEmails);
 
 // Ruta para consultar perfil del admin
-router.get('/perfil', requireRole("Administrador"), userController.getProfileInformation);
+router.get('/perfil', requireRole("Administrador"), profileController.getProfileInformation);
 
 module.exports = router;

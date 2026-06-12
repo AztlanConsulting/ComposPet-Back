@@ -3,7 +3,7 @@ const prisma = require("../config/prisma");
 const parseTransferData = (notes) => {
     if (!notes) return { accountHolder: null, accountNumber: null };
 
-    const parts = notes.split("¶"); // ← era `notas`
+    const parts = notes.split("\r\n"); // ← era "¶"
     const accountHolder = parts[0]?.trim() || null;
     const cuentaPart = parts[2]?.trim() || null;
     const accountNumber = cuentaPart?.replace(/^Cuenta:\s*/i, "").trim() || null;
