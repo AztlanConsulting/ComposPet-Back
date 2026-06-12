@@ -6,6 +6,11 @@ const WEEK_DAYS = [
     "Jueves", "Viernes", "Sábado",
 ];
 
+const DAY_INDEX = {
+    Domingo: 0, Lunes: 1, Martes: 2, Miércoles: 3,
+    Jueves: 4, Viernes: 5, Sábado: 6,
+};
+
 /**
  * Genera un arreglo de semanas comprendidas en los últimos dos meses hasta la fecha actual.
  * Cada semana incluye su fecha de inicio, fecha de fin y una etiqueta legible en formato
@@ -78,98 +83,151 @@ const formattedTime = (schedule) => {
 };
 
 /**
+ * Calcula la fecha de la ruta para un día dado dentro de una semana.
+ */
+function getRouteDateForDay(diaRuta, weekStart) {
+    const dayName = diaRuta?.split(" ")[0];
+    const targetDay = DAY_INDEX[dayName];
+
+    if (targetDay === undefined || !weekStart) return null;
+
+    const ws = new Date(weekStart);
+    const weekStartDay = ws.getUTCDay();
+
+    const diff = (targetDay - weekStartDay + 7) % 7;
+    const date = new Date(ws);
+    date.setUTCDate(date.getUTCDate() + diff);
+
+    return date.toISOString().split("T")[0];
+}
+
+/**
+ * Construye el objeto de datos de una fila de la tabla de rutas
+ * a partir de un cliente y una solicitud de recolección (puede ser null).
+ *
+ * @param {Object} client - Cliente con información de ruta y usuario.
+ * @param {Object|null} request - Solicitud de recolección asociada, o null si no existe.
+ * @param {Date|null} weekStart - Inicio de la semana seleccionada, usado para calcular
+ * la fecha de ruta cuando no hay solicitud.
+ * @returns {Object} Fila formateada para la tabla de rutas.
+ */
+const buildRow = (client, request, weekStart) => {
+    const sortedProducts = [...(request?.productos_solicitud ?? [])]
+        .sort((a, b) => (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0));
+
+    const extraProducts = sortedProducts
+        .map((product) => {
+            if (!product.productos_extra) return null;
+            return product.cantidad == null
+                ? product.productos_extra.nombre
+                : `${product.productos_extra.nombre} (${product.cantidad})`;
+        })
+        .filter(Boolean)
+        .join("\n");
+
+    const extraProductsDetail = sortedProducts
+        .map((product) => {
+            if (!product.productos_extra) return null;
+            return {
+                text: product.cantidad == null
+                    ? product.productos_extra.nombre
+                    : `${product.productos_extra.nombre} (${product.cantidad})`,
+                color: product.productos_extra.color,
+            };
+        })
+        .filter(Boolean);
+
+    const extraProductsArray = Object.fromEntries(
+        sortedProducts
+            .filter(p => p.productos_extra)
+            .map(p => [p.id_producto, p.cantidad ?? 1])
+    );
+
+    const name = client.usuarios_cp?.nombre || "";
+    const lastName = client.usuarios_cp?.apellido || "";
+    const fullName = `${name} ${lastName}`.trim() || " ";
+
+    const requestDate = request?.fecha
+        ? request.fecha.toISOString().split("T")[0]
+        : null;
+
+    const routeDate = (() => {
+        if (requestDate) return null;
+        if (!weekStart) return null;
+
+        const calculatedDate = getRouteDateForDay(client.ruta?.dia_ruta, weekStart);
+        if (!calculatedDate) return null;
+
+        const today = new Date();
+        const todayStr = today.toISOString().split("T")[0];
+        if (calculatedDate > todayStr) return null;
+
+        return calculatedDate;
+    })();
+
+    return {
+        nombre: fullName,
+        dia_ruta: client.ruta?.dia_ruta || " ",
+        recoleccion: request?.cubetas_recolectadas ?? null,
+        entrega: request?.cubetas_entregadas ?? null,
+        productos_extra: extraProducts || " ",
+        horario: formattedTime(request?.horario),
+        id_pago: request?.formas_pago?.id_pago || null,
+        forma_pago: request?.formas_pago?.tipo || " ",
+        total_a_pagar: request?.total_a_pagar || null,
+        total_pagado: request?.total_pagado || null,
+        notas: request?.notas || " ",
+        fecha: requestDate ?? routeDate,
+        hasRequest: !!request,
+        status: request?.estatus ?? null,
+        wantsCollection: request?.quiere_recoleccion ?? null,
+        wantsExtraProducts: request?.quiere_productos_extra ?? null,
+        extraProductsDetails: extraProductsDetail,
+        extraProductsArray: extraProductsArray,
+        clientId: client?.id_cliente || null,
+        requestId: request?.id_solicitud || null,
+    };
+}
+
+/**
  * Formatea la información de rutas obtenida desde la base de datos
  * al formato requerido por la vista.
  *
- * @param {Array<Object>} routeInfo - Arreglo de clientes con información de ruta, solicitud,
- * productos extra y forma de pago.
- * @returns {Array<Object>} Arreglo de rutas formateadas para su visualización en la tabla.
+ * En modo normal (una semana específica) genera una fila por cliente,
+ * tomando su única solicitud de esa semana o null si no tiene.
+ *
+ * En modo expandido (todas las semanas) genera una fila por cada solicitud
+ * del cliente, permitiendo ver el historial completo.
+ *
+ * @param {Array<Object>} routeInfo - Clientes con sus solicitudes de recolección.
+ * @param {boolean} [expandMultiple=false] - Si true, expande múltiples solicitudes por cliente.
+ * @param {Date|null} [weekStart=null] - Inicio de la semana seleccionada para calcular fechas.
+ * @returns {Array<Object>} Filas formateadas para la tabla de rutas.
  */
-const formatRouteInfo = (routeInfo) => {
-    return routeInfo.map((client) => {
-        const request = client.solicitudes_recoleccion?.[0];
+const formatRouteInfo = (routeInfo, expandMultiple = false, weekStart = null) => {
+    const rows = [];
 
-        /**
-         * Productos extra ordenados según el campo `orden`
-         * registrado en la tabla de productos extra.
-         */
-        const sortedProducts = request?.productos_solicitud
-            ?.sort((a, b) => {
-                return (a.productos_extra?.orden || 0) - (b.productos_extra?.orden || 0);
-            }) || [];
+    for (const client of routeInfo) {
+        const requests = client.solicitudes_recoleccion ?? [];
 
-        /**
-         * Lista de productos extra en formato de texto.
-         * Ejemplo: "Aserrín (1)\nFibra de Coco 50L (1)".
-         */
-        const extraProducts = sortedProducts
-            .map((product) => {
-                if (!product.productos_extra) return null;
+        if (expandMultiple && requests.length > 0) {
+            for (const request of requests) {
+                rows.push(buildRow(client, request, weekStart));
+            }
+        } else {
+            rows.push(buildRow(client, requests[0] ?? null, weekStart));
+        }
+    }
 
-                if (product.cantidad == null) {
-                    return product.productos_extra.nombre;
-                }
+    if (expandMultiple) {
+        rows.sort((a, b) => {
+            const dateA = a.fecha ? new Date(a.fecha) : new Date(0);
+            const dateB = b.fecha ? new Date(b.fecha) : new Date(0);
+            return dateB - dateA;
+        });
+    }
 
-                return `${product.productos_extra.nombre} (${product.cantidad})`;
-            })
-            .filter(Boolean)
-            .join("\n");
-
-        /**
-         * Lista de productos extra con detalle de texto y color.
-         * Se utiliza para pintar cada producto individualmente en la vista.
-         */
-        const extraProductsDetail = sortedProducts
-            .map((product) => {
-                if (!product.productos_extra) return null;
-
-                return {
-                    text:
-                        product.cantidad == null
-                            ? product.productos_extra.nombre
-                            : `${product.productos_extra.nombre} (${product.cantidad})`,
-                    color: product.productos_extra.color,
-                };
-            })
-            .filter(Boolean);
-
-        const extraProductsArray = Object.fromEntries(
-            sortedProducts
-                .filter(p => p.productos_extra)
-                .map(p => [p.id_producto, p.cantidad ?? 1])
-        );
-
-        // Construye el nombre completo del cliente.
-        const name = client.usuarios_cp?.nombre || "";
-        const lastName = client.usuarios_cp?.apellido || "";
-        const fullName = `${name} ${lastName}`.trim() || " ";
-
-        // Retorna el objeto final con los campos requeridos por la tabla de rutas.
-        return {
-            nombre: fullName,
-            dia_ruta: client.ruta?.dia_ruta || " ",
-            recoleccion: request?.cubetas_recolectadas ?? null,
-            entrega: request?.cubetas_entregadas ?? null,
-            productos_extra: extraProducts || " ",
-            horario: formattedTime(request?.horario),
-            id_pago: request?.formas_pago?.id_pago || null,
-            forma_pago: request?.formas_pago?.tipo || " ",
-            total_a_pagar: request?.total_a_pagar || null,
-            total_pagado: request?.total_pagado || null,
-            notas: request?.notas || " ",
-
-            hasRequest: !!request,
-
-            status: request?.estatus ?? null,
-            wantsCollection: request?.quiere_recoleccion ?? null,
-            wantsExtraProducts: request?.quiere_productos_extra ?? null,
-            extraProductsDetails: extraProductsDetail || [],
-            extraProductsArray: extraProductsArray || [],
-            clientId: client?.id_cliente || null,
-            requestId: request?.id_solicitud || null,
-
-        };
-    });
+    return rows;
 };
 
 /**
@@ -263,7 +321,7 @@ module.exports = class Route {
                     ruta: {
                         dia_ruta: {
                             startsWith: todayName
-                        }, // Filtra por el día actual
+                        },
                     },
                 },
 
@@ -289,8 +347,8 @@ module.exports = class Route {
                     solicitudes_recoleccion: {
                         where: {
                             fecha: {
-                                gte: startOfWeek, // desde el inicio de la semana
-                                lt: endOfWeek, // hasta el fin de la semana
+                                gte: startOfWeek,
+                                lt: endOfWeek,
                             },
                         },
                         select: {
@@ -363,57 +421,50 @@ module.exports = class Route {
      * @see getLastTwoMonthsWeeks
      * @see Route.getRoutesInfo
      */
+
     static async getFilteredRoutesInfo({ weekIndex, dayName } = {}) {
         try {
-
             const now = new Date();
             const weeks = getLastTwoMonthsWeeks(now);
 
-            if (weekIndex < 0 || weekIndex >= weeks.length) {
-                throw new Error(`Index fuera de rango. Valido: 0 - ${weeks.length - 1}`);
+            const isAllWeeks = weekIndex === null || weekIndex === undefined;
+
+            let dateFilter = {};
+            let weekStart = null;
+
+            if (!isAllWeeks) {
+                if (weekIndex < 0 || weekIndex >= weeks.length)
+                    throw new Error(`Index fuera de rango. Válido: 0 - ${weeks.length - 1}`);
+
+                const { weekStart: ws, weekEnd } = weeks[weekIndex];
+                weekStart = ws;
+                dateFilter = { gte: ws, lt: weekEnd };
+            } else {
+                const twoMonthsAgo = weeks[0].weekStart;
+                const weekEnd = weeks[weeks.length - 1].weekEnd;
+                dateFilter = { gte: twoMonthsAgo, lt: weekEnd };
             }
 
-            const { weekStart, weekEnd } = weeks[weekIndex];
-            const dayObtained = dayName ?? WEEK_DAYS[now.getDay()];
+            const effectiveDay = dayName ?? WEEK_DAYS[now.getDay()];
+            const rutaFilter = { dia_ruta: { startsWith: effectiveDay } };
 
             const routeInfo = await prisma.cliente.findMany({
                 where: {
-                    usuarios_cp: {
-                        is: {
-                            estatus: true,
-                        },
-                    },
-                    ruta: {
-                        dia_ruta: { startsWith: dayObtained },
-                    },
+                    usuarios_cp: { is: { estatus: true } },
+                    ruta: rutaFilter,
                 },
-
                 select: {
                     id_cliente: true,
                     id_ruta: true,
                     orden_horario: true,
-
                     usuarios_cp: {
-                        select: {
-                            nombre: true,
-                            apellido: true,
-                        },
+                        select: { nombre: true, apellido: true },
                     },
-
                     ruta: {
-                        select: {
-                            id_ruta: true,
-                            dia_ruta: true,
-                        },
+                        select: { id_ruta: true, dia_ruta: true },
                     },
-
                     solicitudes_recoleccion: {
-                        where: {
-                            fecha: {
-                                gte: weekStart,
-                                lt: weekEnd,
-                            },
-                        },
+                        where: { fecha: dateFilter },
                         select: {
                             id_solicitud: true,
                             estatus: true,
@@ -426,44 +477,29 @@ module.exports = class Route {
                             fecha: true,
                             horario: true,
                             notas: true,
-
                             formas_pago: {
-                                select: {
-                                    id_pago: true,
-                                    tipo: true,
-                                },
+                                select: { id_pago: true, tipo: true },
                             },
-
                             productos_solicitud: {
                                 select: {
                                     id_producto: true,
                                     cantidad: true,
                                     productos_extra: {
-                                        select: {
-                                            nombre: true,
-                                            orden: true,
-                                            color: true,
-                                        },
+                                        select: { nombre: true, orden: true, color: true },
                                     },
                                 },
                             },
                         },
                     },
                 },
-
                 orderBy: [
-                    {
-                        ruta: {
-                            id_ruta: "asc",
-                        },
-                    },
-                    {
-                        orden_horario: "asc",
-                    },
+                    { ruta: { id_ruta: "asc" } },
+                    { orden_horario: "asc" },
                 ],
-
             });
-            return formatRouteInfo(routeInfo);
+
+            return formatRouteInfo(routeInfo, isAllWeeks, weekStart);
+
         } catch (error) {
             throw new Error(`Error obteniendo rutas filtradas: ${error.message}`);
         }

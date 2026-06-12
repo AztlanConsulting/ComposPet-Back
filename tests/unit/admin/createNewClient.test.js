@@ -104,7 +104,8 @@ describe('Controlador Register Client', () => {
             family: 'Perez',
             address: 'Calle Falsa 123',
             notes: 'Sin notas',
-            id_ruta: '1'
+            id_ruta: '1',
+            priceType: 'normal',
         };
 
         test('Debe retornar 400 si faltan campos obligatorios', async () => {
@@ -120,6 +121,7 @@ describe('Controlador Register Client', () => {
                     name: 'Nombre inválido.',
                     lastName: 'Apellido inválido.',
                     phone: 'El teléfono debe tener 10 dígitos.',
+                    priceType: 'Precio de cubetas inválido',
                     email: 'Correo inválido.',
                     address: 'Dirección inválida.',
                     id_ruta: 'Ruta inválida.',
@@ -224,7 +226,7 @@ describe('Controlador Register Client', () => {
                 validBody.email, 
                 mockHashedPass, 
                 mockRole.id_rol, 
-                mockCpId
+                mockCpId,
             );
 
             expect(Client.createNewClient).toHaveBeenCalledWith(
@@ -233,7 +235,8 @@ describe('Controlador Register Client', () => {
                 validBody.pets, 
                 validBody.family, 
                 validBody.address, 
-                validBody.notes
+                validBody.notes,
+                validBody.priceType,
             );
 
             expect(Credit.createInitialCredit).toHaveBeenCalledWith(mockClient.id_cliente);
