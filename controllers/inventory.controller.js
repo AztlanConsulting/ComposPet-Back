@@ -96,8 +96,15 @@ const validateProductFields = (fields, isUpdate = false) => {
     // Cantidad
     if (hasQuantity) {
         const numericQuantity = Number(quantity);
-        if (!Number.isInteger(numericQuantity) || numericQuantity < 0) return { error: 'La cantidad es inválida.' };
-        if (numericQuantity > 999) return { error: 'La cantidad no puede ser mayor a 999.' };
+        if (!Number.isInteger(numericQuantity)) {
+            return { error: 'La cantidad es inválida.' };
+        }
+        if (!isUpdate && numericQuantity < 0) {
+            return { error: 'La cantidad no puede ser negativa.' };
+        }
+        if (numericQuantity > 999) {
+            return { error: 'La cantidad no puede ser mayor a 999.' };
+        }
     }
 
     // Color
