@@ -49,4 +49,11 @@ router.get(
     inventoryController.getInventory
 );
 
+// Ruta para ocultar un producto
+router.post(
+    '/cambiar-visibilidad-producto',
+    requireRole('Administrador'),
+        inventoryController.changeProductVisibility,
+)
+
 module.exports = router;

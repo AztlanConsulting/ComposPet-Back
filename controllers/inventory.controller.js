@@ -325,7 +325,34 @@ const getInventory = async (req, res) => {
     }
 }
 
+
+/**
+ * Controlador para modificar el estatus de un producto extra del inventario.
+ * 
+ * @async
+ * @param {Object} req - Objeto de solicitud HTTP.
+ * @param {Object} res - Objeto de respuesta HTTP.
+ * @return {JSON} Respuesta JSON con success.
+ * @throws {Error} Cuando ocurre un error inesperado al modificar el producto extra.
+ */
+const changeProductVisibility = async (req, res) => {
+    try {
+        const data = req.body;
+        await Inventory.changeProductVisibility(data.productId, data.newStatus);
+        
+        return res.status(200).json({
+            success: true,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al modificar la visibilidad del producto',
+        });
+    }
+}
+
 module.exports = {
     postRegisterProduct,
     getInventory,
+    changeProductVisibility,
 };

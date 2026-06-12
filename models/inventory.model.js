@@ -141,4 +141,27 @@ module.exports = class Inventory {
 
         return result;
     }
+
+
+    /**
+     * Modifica el estatus del producto extra.
+     * 
+     * @async
+     * @static
+     * @param {INT} productId - Id del producto a modificar.
+     * @param {BOOL} newStatus - Nuevo estatus del produco extra.
+     * @returns {Promise<Object>} Producto extra actualizado.
+     * @throws {Error} Cuando ocurre un error inesperado durante la consulta a la base de datos.
+     * 
+     */
+    static async changeProductVisibility(productId, newStatus) {
+        const result = await prisma.productos_extra.update({
+            where: {id_producto: productId},
+            data: {
+                estatus: newStatus,
+            },
+        });
+
+        return result;
+    }
 };
