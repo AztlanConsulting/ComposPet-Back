@@ -10,6 +10,7 @@ const creditRoutes = require('./credit.routes');
 const tableRoutes = require('../routes/tableRoutes.routes');
 const inventoryRoutes = require('./inventory.routes');
 const performanceRoutes = require('../routes/performance.routes');
+const paymentInfo = require('../routes/paymentInfo.routes');
 
 const { authMiddleware, requireRole } = require('../middlewares/auth');
 
@@ -31,6 +32,9 @@ router.use('/saldo', authMiddleware, creditRoutes);
 
 // Agrega las rutas de la vista de rutas del administrador
 router.use('/rutas', authMiddleware, tableRoutes);
+
+// Ruta para obtener la información del la transferencia
+router.use('/formas-pago', authMiddleware, paymentInfo );
 
 // Agrega las rutas de inventario
 router.use('/inventario', authMiddleware, inventoryRoutes);

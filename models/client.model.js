@@ -31,12 +31,17 @@ module.exports = class Client {
             select: {
                 id_cliente: true,
                 id_ruta: true,
+                usuarios_cp: {
+                    select: {
+                        nombre: true,
+                    },
+                },
                 ruta: {
                     select: {
                         dia_ruta: true,
                     },
                 },
-            }
+            },
         });
 
         return client;
