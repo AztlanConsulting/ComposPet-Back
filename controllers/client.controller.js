@@ -173,6 +173,10 @@ function buildDataObjects(clientObject) {
         userData.telefono = clientObject.cellphone;
     }
 
+    if (clientObject.priceType !== undefined) {
+        clientData.tipo_precio = clientObject.priceType;
+    }
+
     if (clientObject.status !== undefined) {
         userData.estatus = clientObject.status;
     }

@@ -7,6 +7,19 @@ const { request } = require('express');
 const { validateRequestUpdate } = require('../utils/editValidations');
 
 /**
+ * Parsea y valida el parámetro weekIndex recibido desde la query o el body.
+ * Retorna null si el valor indica "todas las semanas", o el número parseado si es válido.
+ *
+ * @param {string|undefined} weekIndex - Valor crudo del parámetro weekIndex.
+ * @returns {number|null|"NaN"} Número válido, null para todas las semanas, o "NaN" si es inválido.
+ */
+const parseWeekIndex = (weekIndex) => {
+    if (weekIndex === undefined || weekIndex === "undefined" || weekIndex === "") return null;
+    const parsed = Number(weekIndex);
+    return Number.isNaN(parsed) ? "NaN" : parsed;
+};
+
+/**
  * Obtiene la información general de todas las rutas para mostrarla en la tabla principal.
  *
  * @param {import('express').Request} req - Objeto de solicitud de Express.
@@ -44,9 +57,7 @@ const getTableInfo = async(req,res) => {
  */
 const getEditTableInfo = async(req, res) => {
     try {
-
         const payMethods = await Payment.getPaymentInfo();
-
         const extraProducts = await CollectionRequest.getExtraProducts();
 
         return res.status(200).json({
@@ -121,15 +132,25 @@ const getDaysOfRoutes = async (req, res) => {
  * @param {string} [req.query.dayName] - Nombre del día a filtrar. Opcional.
  * @param {import('express').Response} res - Objeto de respuesta de Express.
  * @returns {Promise<void>} Responde con un JSON que contiene la información de rutas filtrada.
+ * @throws {Error} Responde con status 400 si weekIndex no es un número válido.
  * @throws {Error} Responde con status 500 si ocurre un fallo inesperado al consultar la base de datos.
  * @see Routes.getFilteredRoutesInfo
  */
 const getFilteredRoutesInfo = async(req, res) => {
-    try{
+    try {
         const { weekIndex, dayName } = req.query;
 
+        const parsedWeekIndex = parseWeekIndex(weekIndex);
+
+        if (parsedWeekIndex === "NaN") {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid week index.",
+            });
+        }
+
         const filteredInfo = await Routes.getFilteredRoutesInfo({
-            weekIndex: Number(weekIndex),
+            weekIndex: parsedWeekIndex,
             dayName: dayName && dayName !== "undefined" && dayName !== "null"
                 ? dayName
                 : undefined,
@@ -138,16 +159,16 @@ const getFilteredRoutesInfo = async(req, res) => {
         return res.status(200).json({
             success: true,
             data: filteredInfo,
-        })
+        });
 
     } catch (error) {
         console.error("Error en getFilteredRoutesInfo:", error);
         return res.status(500).json({
             success: false,
             message: "Ocurrió un error obteniendo la información.",
-        })
+        });
     }
-}
+};
 
 /**
  * Genera mensajes de confirmación para las solicitudes de recolección filtradas
@@ -178,6 +199,15 @@ const generateConfirmationMessages = async (req, res) => {
             });
         }
 
+        const parsedWeekIndex = parseWeekIndex(weekIndex);
+
+        if (parsedWeekIndex === "NaN") {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid week index.",
+            });
+        }
+
         if (!googleToken) {
             return res.status(401).json({
                 success: false,
@@ -186,7 +216,7 @@ const generateConfirmationMessages = async (req, res) => {
         }
 
         const routeInfo = await Routes.generateConfirmationMessages({
-            weekIndex: Number(weekIndex),
+            weekIndex: parsedWeekIndex,
             dayName: dayName && dayName !== "undefined" && dayName !== "null"
                 ? dayName
                 : undefined,
@@ -348,6 +378,7 @@ const updateRequest = async(req, res) => {
             console.error("Error sincronizando Sheets tras edición:", err)
         );
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
             success: false,
             message: "Ocurrió un error actualizando la información",
@@ -369,6 +400,10 @@ function structureRequestData(data){
 
     if(data.requestId !== undefined){
         requestData.id_solicitud = data.requestId;
+    }
+
+    if(data.status !== undefined){
+        requestData.estatus = data.status;
     }
 
     if(data.collectedBuckets !== undefined){

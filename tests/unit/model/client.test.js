@@ -71,7 +71,7 @@ describe('Unit - Model - Client', () => {
 
         balance: 250,
 
-        lastRequest: '2026-05-01',
+        lastRequest: '01-05-2026',
       });
 
       expect(prisma.cliente.findMany).toHaveBeenCalled();

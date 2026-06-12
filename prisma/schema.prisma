@@ -35,6 +35,7 @@ model cliente {
   notas                   String?
   fecha_entrada           DateTime?                 @db.Date
   fecha_salida            DateTime?                 @db.Date
+  tipo_precio             String?                   @db.VarChar
   ruta                    ruta                      @relation(fields: [id_ruta], references: [id_ruta], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_ruta")
   usuarios_cp             usuarios_cp               @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_cliente_usuario")
   saldo                   saldo?
@@ -178,4 +179,13 @@ model sesiones {
   ultima_actividad DateTime?   @default(now()) @db.Timestamp(6)
   activa           Boolean     @default(true)
   usuarios_cp      usuarios_cp @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade, onUpdate: NoAction, map: "fk_sesiones_usuario")
+}
+
+model precios_cubetas {
+  id_precio       Int     @id @default(autoincrement())
+  cantidad        Float   
+  normal          Float
+  normal_iva      Float
+  pension         Float
+  pension_iva     Float
 }

@@ -48,10 +48,9 @@ describe('Model - getRoutesInfo', () => {
                         cubetas_entregadas: 2,
                         total_a_pagar: 1500,
                         total_pagado: 300,
-                        fecha: new Date('2026-05-06T00:00:00.000Z'),
                         horario: new Date('1970-01-01T08:00:00.000Z'),
                         notas: 'Solicito más aserrín',
-
+                        fecha: new Date('2026-05-06T00:00:00.000Z'),
                         formas_pago: {
                             id_pago: '1',
                             tipo: 'Efectivo',
@@ -116,6 +115,7 @@ describe('Model - getRoutesInfo', () => {
                 productos_extra: 'Composta (12)',
                 horario: '08:00',
                 id_pago: '1',
+                fecha: "2026-05-06",
                 forma_pago: 'Efectivo',
                 total_a_pagar: 1500,
                 total_pagado: 300,
@@ -170,6 +170,7 @@ describe('Model - getRoutesInfo', () => {
                 productos_extra: ' ',
                 horario: ' ',
                 id_pago: null,
+                fecha: null,
                 forma_pago: ' ',
                 total_a_pagar: null,
                 total_pagado: null,

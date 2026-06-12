@@ -11,6 +11,7 @@
  */
 
 const prisma = require("../config/prisma");
+const { formatDate } = require("../utils/formatDate");
 
 module.exports = class Client {
     /**
@@ -74,7 +75,7 @@ module.exports = class Client {
      * @see User.createNewUser
      * @see Credit.createInitialCredit
      */
-    static async createNewClient(id_usuario, id_ruta, pets, family, address, notes) {
+    static async createNewClient(id_usuario, id_ruta, pets, family, address, notes,  priceType,) {
         const lastClient = await prisma.cliente.findFirst({
             where: {
                 id_ruta: id_ruta,
@@ -99,6 +100,7 @@ module.exports = class Client {
                 notas: notes || null,
                 fecha_entrada: new Date(),
                 orden_horario: nextOrder,
+                tipo_precio: priceType,
             },
         });
 
@@ -142,6 +144,7 @@ module.exports = class Client {
                 direccion: true,
                 notas: true,
                 orden_horario: true,
+                tipo_precio: true,
 
                 usuarios_cp: {
                 select: {
@@ -180,31 +183,47 @@ module.exports = class Client {
             }
             })
 
-        const clientList = clientListRaw.map(client => ({
-            clientId: client.id_cliente,
-            userId: client.usuarios_cp.id_usuario,
-            pets: client.mascotas,
-            family: client.familia,
-            address: client.direccion,
-            notes: client.notas,
-            order: client.orden_horario,
+            const clientList = clientListRaw.map(client => {
+                const originalDate =
+                    client.solicitudes_recoleccion[0]?.fecha;
+        
+                const formattedDate =
+                    formatDate(originalDate);
+        
+                return {
+                    clientId: client.id_cliente,
+                    userId: client.usuarios_cp.id_usuario,
+                    pets: client.mascotas,
+                    family: client.familia,
+                    address: client.direccion,
+                    notes: client.notas,
+                    order: client.orden_horario,
+        
+                    name:
+                        client.usuarios_cp.nombre +
+                        ' ' +
+                        client.usuarios_cp.apellido,
+        
+                    cellphone: client.usuarios_cp.telefono,
+                    status: client.usuarios_cp.estatus,
+                    email: client.usuarios_cp.correo,
+        
+                    routeId: client.ruta.id_ruta,
+                    route: client.ruta
+                        ? client.ruta.dia_ruta
+                        : null,
+                    priceType: client.tipo_precio,
 
-            name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
-            cellphone: client.usuarios_cp.telefono,
-            status: client.usuarios_cp.estatus,
-            email: client.usuarios_cp.correo,
-            routeId: client.ruta.id_ruta,
-            route: client.ruta ? client.ruta.dia_ruta : null,
-
-            balance: client.saldo ? client.saldo.saldo: null,
-
-            lastRequest: 
-                client.solicitudes_recoleccion[0]?.fecha.toISOString().slice(0,10) 
-                ?? null,
-        }))
-
-        return clientList
-    }
+                    balance: client.saldo
+                        ? client.saldo.saldo
+                        : null,
+        
+                    lastRequest: formattedDate,
+                };
+            });
+        
+            return clientList;
+        }
 
     /** Actualiza la información del usuario
      *
@@ -616,5 +635,47 @@ module.exports = class Client {
         })
         return updateResult;
     };
+
+    static async getBucketCost(clientId, quantity, tx = prisma) {
+        const { tipo_precio } = await tx.cliente.findUnique({
+            where: {
+                id_cliente: clientId,
+            },
+            select: {
+                tipo_precio: true,
+            }
+        });
+
+        if (!tipo_precio) {
+            throw new Error(
+                "El cliente no tiene un tipo de precio establecido"
+            );
+        }
+
+        const price = await tx.precios_cubetas.findFirst({
+            where: {
+                cantidad: quantity,
+            },
+            select: {
+                [tipo_precio]: true,
+            }
+        });
+
+        if (!price) {
+            throw new Error(
+                "No existe configuración de precio para esta cantidad de cubetas"
+            );
+        }
+
+        const cost = price[tipo_precio];
+
+        if(cost === null || cost === undefined) {
+            throw new Error(
+                "El tipo de precio no está definido para la cantidad de cubetas"
+            );
+        }
+
+        return cost;
+    }
 
 };
