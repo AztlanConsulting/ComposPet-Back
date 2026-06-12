@@ -206,7 +206,7 @@ describe("Integración - Client - getClientsInfo", () => {
             order: 1,
         });
 
-        expect(client.lastRequest).toBe("04-28-2026");
+        expect(client.lastRequest).toBe("28-04-2026");
     });
 
     it("retorna lista vacía si no hay clientes", async () => {
