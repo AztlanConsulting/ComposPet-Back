@@ -11,6 +11,7 @@
  */
 
 const prisma = require("../config/prisma");
+const { formatDate } = require("../utils/formatDate");
 
 module.exports = class Client {
     /**
@@ -182,32 +183,47 @@ module.exports = class Client {
             }
             })
 
-        const clientList = clientListRaw.map(client => ({
-            clientId: client.id_cliente,
-            userId: client.usuarios_cp.id_usuario,
-            pets: client.mascotas,
-            family: client.familia,
-            address: client.direccion,
-            notes: client.notas,
-            order: client.orden_horario,
+            const clientList = clientListRaw.map(client => {
+                const originalDate =
+                    client.solicitudes_recoleccion[0]?.fecha;
+        
+                const formattedDate =
+                    formatDate(originalDate);
+        
+                return {
+                    clientId: client.id_cliente,
+                    userId: client.usuarios_cp.id_usuario,
+                    pets: client.mascotas,
+                    family: client.familia,
+                    address: client.direccion,
+                    notes: client.notas,
+                    order: client.orden_horario,
+        
+                    name:
+                        client.usuarios_cp.nombre +
+                        ' ' +
+                        client.usuarios_cp.apellido,
+        
+                    cellphone: client.usuarios_cp.telefono,
+                    status: client.usuarios_cp.estatus,
+                    email: client.usuarios_cp.correo,
+        
+                    routeId: client.ruta.id_ruta,
+                    route: client.ruta
+                        ? client.ruta.dia_ruta
+                        : null,
+                    priceType: client.tipo_precio,
 
-            name: client.usuarios_cp.nombre + ' ' + client.usuarios_cp.apellido,
-            cellphone: client.usuarios_cp.telefono,
-            status: client.usuarios_cp.estatus,
-            email: client.usuarios_cp.correo,
-            routeId: client.ruta.id_ruta,
-            route: client.ruta ? client.ruta.dia_ruta : null,
-            priceType: client.tipo_precio,
-
-            balance: client.saldo ? client.saldo.saldo: null,
-
-            lastRequest: 
-                client.solicitudes_recoleccion[0]?.fecha.toISOString().slice(0,10) 
-                ?? null,
-        }))
-
-        return clientList
-    }
+                    balance: client.saldo
+                        ? client.saldo.saldo
+                        : null,
+        
+                    lastRequest: formattedDate,
+                };
+            });
+        
+            return clientList;
+        }
 
     /** Actualiza la información del usuario
      *
