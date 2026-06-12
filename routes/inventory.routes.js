@@ -49,4 +49,26 @@ router.get(
     inventoryController.getInventory
 );
 
+// Ruta para activar / desactivar un producto
+router.post(
+    '/cambiar-visibilidad-producto',
+    requireRole('Administrador'),
+    inventoryController.changeProductVisibility,
+);
+
+// Ruta para eliminar un producto
+router.post(
+    '/eliminar-producto',
+    requireRole('Administrador'),
+    inventoryController.deleteProduct,
+)
+
+// Ruta para modificar un producto extra
+router.post(
+    '/modificar-producto',
+    requireRole('Administrador'),
+    upload.single('image'),
+    inventoryController.updateProduct,
+)
+
 module.exports = router;

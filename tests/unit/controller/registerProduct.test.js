@@ -253,7 +253,7 @@ describe('Controller - postRegisterProduct', () => {
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
-            message: 'La cantidad es inválida.',
+            message: 'La cantidad no puede ser negativa.',
         });
 
         expect(Inventory.findByName).not.toHaveBeenCalled();

@@ -141,4 +141,76 @@ module.exports = class Inventory {
 
         return result;
     }
+
+
+    /**
+     * Modifica el estatus del producto extra.
+     * 
+     * @async
+     * @static
+     * @param {INT} productId - Id del producto a modificar.
+     * @param {BOOL} newStatus - Nuevo estatus del produco extra.
+     * @returns {Promise<Object>} Producto extra actualizado.
+     * @throws {Error} Cuando ocurre un error inesperado durante la consulta a la base de datos.
+     * 
+     */
+    static async changeProductVisibility(productId, newStatus) {
+        const result = await prisma.productos_extra.update({
+            where: {id_producto: productId},
+            data: {
+                estatus: newStatus,
+            },
+        });
+
+        return result;
+    }
+
+    /**
+     * Elimina un producto extra.
+     * 
+     * @async
+     * @static
+     * @param {INT} productId - Id del producto a Eliminar.
+     * @returns {Promise<Object>} Producto extra eliminado.
+     * @throws {Error} Cuando ocurre un error inesperado durante la consulta a la base de datos.
+     * 
+     */
+    static async deleteProduct(productId) {
+        const result = await prisma.productos_extra.update({
+            where: {id_producto: productId},
+            data: {deleted: true},
+        });
+
+        return result;
+    };
+
+    /**
+     * Actualiza la información de un producto
+     * 
+     * @async
+     * @static
+     * @param {Object} data - Información actualizada del producto.
+     * @returns {Promise<Object>} Producto actualizado.
+     * @throws {Error} Cuando ocurre un error inesperado durante la consulta a la base de datos.
+     * 
+     */
+    static async updateProduct(data) {
+        const { productId, ...fields } = data;
+
+        const updatedProduct = await prisma.productos_extra.update({
+            where: {
+                id_producto: Number(productId),
+            },
+            data: {
+                ...(fields.name        !== undefined && { nombre:     fields.name }),
+                ...(fields.description !== undefined && { descripcion: fields.description }),
+                ...(fields.price       !== undefined && { precio:     fields.price }),
+                ...(fields.quantity    !== undefined && { cantidad:   fields.quantity }),
+                ...(fields.color       !== undefined && { color:      fields.color }),
+                ...(fields.imageUrl    !== undefined && { imagen_url: fields.imageUrl }),
+            },
+        });
+
+        return updatedProduct;
+    }
 };
