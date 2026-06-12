@@ -176,8 +176,9 @@ module.exports = class Inventory {
      * 
      */
     static async deleteProduct(productId) {
-        const result = await prisma.productos_extra.delete({
+        const result = await prisma.productos_extra.update({
             where: {id_producto: productId},
+            data: {deleted: true},
         });
 
         return result;
