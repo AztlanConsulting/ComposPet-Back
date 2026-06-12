@@ -46,4 +46,44 @@ module.exports = class AdminProfile {
         };
 
     }
+
+    static async updateProfileInformation(
+        userId,
+        {
+            nombre,
+            apellido,
+            phone,
+            email,
+            accountHolder,
+            accountNumber,
+        }
+    ) {
+        const transferNotes =
+            `${accountHolder}\r\n\r\nCuenta: ${accountNumber}`;
+
+        await prisma.$transaction([
+            prisma.usuarios_cp.update({
+                where: {
+                    id_usuario: userId,
+                },
+                data: {
+                    nombre,
+                    apellido,
+                    telefono: phone,
+                    correo: email,
+                },
+            }),
+
+            prisma.formas_pago.updateMany({
+                where: {
+                    tipo: "Transferencia",
+                },
+                data: {
+                    notas: transferNotes,
+                },
+            }),
+        ]);
+
+        return this.getProfileInformation(userId);
+    }
 }
