@@ -21,4 +21,7 @@ router.post('/actualizar-cliente', requireRole("Administrador"), clientControlle
 // Ruta para recuperar los correos registrados.
 router.get('/correos', requireRole("Administrador"), userController.getEmails);
 
+// Ruta para consultar perfil del admin
+router.get('/perfil', requireRole("Administrador"), userController.getProfileInformation);
+
 module.exports = router;
