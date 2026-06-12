@@ -192,6 +192,7 @@ describe("POST /registrar-cliente", () => {
                 pets: "Firulais",
                 family: "Familia Pérez",
                 notes: "Cliente de prueba",
+                priceType: "normal",
             });
 
         expect(res.status).toBe(200);
@@ -215,6 +216,7 @@ describe("POST /registrar-cliente", () => {
                 email: TEST_CLIENT_EMAIL,
                 address: "Calle Test 123",
                 id_ruta: TEST_ROUTE_ID,
+                priceType: "normal",
             });
 
         const res = await request(app)
@@ -227,6 +229,7 @@ describe("POST /registrar-cliente", () => {
                 email: TEST_CLIENT_EMAIL,
                 address: "Calle Otra 456",
                 id_ruta: TEST_ROUTE_ID,
+                priceType: "normal",
             });
 
         expect(res.status).toBe(409);
@@ -246,6 +249,7 @@ describe("POST /registrar-cliente", () => {
                 email: TEST_CLIENT_EMAIL,
                 address: "Calle Test 123",
                 id_ruta: TEST_ROUTE_ID,
+                priceType: "normal",
             });
 
         expect(res.status).toBe(400);
@@ -267,6 +271,7 @@ describe("POST /registrar-cliente", () => {
                 email: TEST_CLIENT_EMAIL,
                 address: "Calle Sin Opcionales 1",
                 id_ruta: TEST_ROUTE_ID,
+                priceType: "normal",
             });
 
         expect(res.status).toBe(200);

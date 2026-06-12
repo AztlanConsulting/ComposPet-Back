@@ -5,15 +5,15 @@ describe('Unit - Utils - validateEditClient', () => {
 
     describe('campos opcionales', () => {
 
-        it('debe retornar isValid true con objeto vacío (todos opcionales)', () => {
-            const result = validateEditClient({});
+        it('debe retornar isValid true con objeto vacío (solo con tipo de cliente)', () => {
+            const result = validateEditClient({priceType: 'normal'});
 
             expect(result.isValid).toBe(true);
             expect(result.errors).toEqual({});
         });
 
         it('debe retornar isValid true con solo cellphone válido', () => {
-            const result = validateEditClient({ cellphone: '4421234567' });
+            const result = validateEditClient({ cellphone: '4421234567', priceType: 'normal' });
 
             expect(result.isValid).toBe(true);
             expect(result.data.cellphone).toBe('4421234567');
@@ -21,7 +21,7 @@ describe('Unit - Utils - validateEditClient', () => {
         });
 
         it('debe retornar isValid true con solo email válido', () => {
-            const result = validateEditClient({ email: 'test@correo.com' });
+            const result = validateEditClient({ email: 'test@correo.com', priceType: 'normal' });
 
             expect(result.isValid).toBe(true);
             expect(result.data.email).toBe('test@correo.com');
@@ -45,12 +45,12 @@ describe('Unit - Utils - validateEditClient', () => {
     describe('cellphone', () => {
 
         it('debe aceptar teléfono de 10 dígitos', () => {
-            const result = validateEditClient({ cellphone: '4421234567' });
+            const result = validateEditClient({ cellphone: '4421234567', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
         it('debe aceptar teléfono con prefijo +52', () => {
-            const result = validateEditClient({ cellphone: '+524421234567' });
+            const result = validateEditClient({ cellphone: '+524421234567', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
@@ -71,7 +71,7 @@ describe('Unit - Utils - validateEditClient', () => {
     describe('email', () => {
 
         it('debe aceptar email válido', () => {
-            const result = validateEditClient({ email: 'usuario@dominio.com' });
+            const result = validateEditClient({ email: 'usuario@dominio.com', priceType: 'normal' });
             expect(result.isValid).toBe(true);
             expect(result.data.email).toBe('usuario@dominio.com');
         });
@@ -103,7 +103,7 @@ describe('Unit - Utils - validateEditClient', () => {
     describe('address', () => {
 
         it('debe aceptar dirección válida', () => {
-            const result = validateEditClient({ address: 'Calle Falsa 123' });
+            const result = validateEditClient({ address: 'Calle Falsa 123', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
@@ -135,7 +135,7 @@ describe('Unit - Utils - validateEditClient', () => {
     describe('pets', () => {
 
         it('debe aceptar valor válido de mascotas', () => {
-            const result = validateEditClient({ pets: '2 perros' });
+            const result = validateEditClient({ pets: '2 perros', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
@@ -152,7 +152,7 @@ describe('Unit - Utils - validateEditClient', () => {
         });
 
         it('debe aceptar mascotas de exactamente 100 caracteres', () => {
-            const result = validateEditClient({ pets: 'a'.repeat(100) });
+            const result = validateEditClient({ pets: 'a'.repeat(100), priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
@@ -168,7 +168,7 @@ describe('Unit - Utils - validateEditClient', () => {
         });
 
         it('debe permitir mascotas vacías', () => {
-            const result = validateEditClient({ pets: '' });
+            const result = validateEditClient({ pets: '', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
     });
@@ -176,7 +176,7 @@ describe('Unit - Utils - validateEditClient', () => {
     describe('family', () => {
 
         it('debe aceptar valor válido de familia', () => {
-            const result = validateEditClient({ family: '2 adultos, 1 niño' });
+            const result = validateEditClient({ family: '2 adultos, 1 niño', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
@@ -204,7 +204,7 @@ describe('Unit - Utils - validateEditClient', () => {
         });
 
         it('debe permitir familia vacía', () => {
-            const result = validateEditClient({ family: '' });
+            const result = validateEditClient({ family: '', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
     });
@@ -212,7 +212,7 @@ describe('Unit - Utils - validateEditClient', () => {
     describe('notes', () => {
 
         it('debe aceptar notas válidas', () => {
-            const result = validateEditClient({ notes: 'Dejar en la puerta' });
+            const result = validateEditClient({ notes: 'Dejar en la puerta', priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
@@ -229,7 +229,7 @@ describe('Unit - Utils - validateEditClient', () => {
         });
 
         it('debe aceptar notas de exactamente 500 caracteres', () => {
-            const result = validateEditClient({ notes: 'n'.repeat(500) });
+            const result = validateEditClient({ notes: 'n'.repeat(500), priceType: 'normal' });
             expect(result.isValid).toBe(true);
         });
 
@@ -243,7 +243,7 @@ describe('Unit - Utils - validateEditClient', () => {
     describe('routeId', () => {
 
         it('debe aceptar routeId entero positivo', () => {
-            const result = validateEditClient({ routeId: 3 });
+            const result = validateEditClient({ routeId: 3, priceType: 'normal' });
             expect(result.isValid).toBe(true);
             expect(result.data.routeId).toBe(3);
         });
@@ -312,6 +312,7 @@ describe('Unit - Utils - validateEditClient', () => {
                 family: '2 adultos',
                 notes: 'Sin notas especiales',
                 routeId: 2,
+                priceType: 'normal',
             });
 
             expect(result.isValid).toBe(true);
