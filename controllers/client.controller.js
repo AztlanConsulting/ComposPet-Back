@@ -40,11 +40,24 @@ const getClientByUserId = async (req, res) => {
             });
         }
 
+        const fullName = client.usuarios_cp?.nombre?.trim() || '';
+        const firstName = fullName.split(/\s+/)[0] || '';
+
+
+        const clientData = {
+            clientId: client.id_cliente,
+            routeId: client.id_ruta,
+            name: firstName,
+            routeDay: client.ruta?.dia_ruta ?? null,
+        };
+
+
         return res.status(200).json({
             success: true,
             message: 'Información del cliente obtenida exitosamente.',
-            data: client,
+            data: clientData,
         });
+
     } catch (error) {
         console.error('Error al obtener la información del cliente por id de usuario:', error);
         res.status(500).json({
