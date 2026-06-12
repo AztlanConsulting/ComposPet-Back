@@ -246,7 +246,7 @@ const generateConfirmationMessages = async (req, res) => {
             return[`¡Linda Tarde! ${firstName}, ⛅
 
             Mañana nos vemos para tu ${serviceText} aprox.
-            ${route.horario} 🪣🤩 con "Nombre Operador"
+            ${route.horario} 🪣🤩 estará "Jorge" pasando por tu domicilio. 
 
             Disfruta el resto de tu tarde.😄`, `${route.nombre}`]
     });
