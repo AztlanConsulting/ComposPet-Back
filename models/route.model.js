@@ -1,5 +1,4 @@
 const prisma = require("../config/prisma");
-const { formatDate } = require("../utils/formatDate");
 
 /** Array con los nombres de los días de la semana en español */
 const WEEK_DAYS = [
@@ -11,6 +10,56 @@ const DAY_INDEX = {
     Domingo: 0, Lunes: 1, Martes: 2, Miércoles: 3,
     Jueves: 4, Viernes: 5, Sábado: 6,
 };
+
+/**
+ * Calcula el lunes de la semana de recolección (Lunes-Viernes) a la que
+ * pertenece una fecha dada. Sábado y Domingo se consideran parte de la
+ * semana de recolección SIGUIENTE, ya que un cliente puede llenar el
+ * formulario en fin de semana aunque esos no sean días de ruta.
+ *
+ * @param {Date} date - Fecha a evaluar.
+ * @returns {Date} Lunes (UTC, medianoche) de la semana de recolección correspondiente.
+ */
+function getCollectionWeekMonday(date) {
+    const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+    const dow = d.getUTCDay();
+
+    if (dow === 6) { // Sábado -> semana siguiente
+        d.setUTCDate(d.getUTCDate() + 2);
+        return d;
+    }
+    if (dow === 0) { // Domingo -> semana siguiente
+        d.setUTCDate(d.getUTCDate() + 1);
+        return d;
+    }
+    // Lunes a Viernes: retrocede al lunes de esa misma semana
+    d.setUTCDate(d.getUTCDate() - (dow - 1));
+    return d;
+}
+
+/**
+ * De un conjunto de solicitudes de un cliente, selecciona la que pertenece
+ * a la semana de recolección solicitada, usando getCollectionWeekMonday
+ * en vez de comparar la fecha cruda contra el rango Lunes-Domingo.
+ *
+ * @param {Array<Object>} requests - Solicitudes del cliente devueltas por Prisma.
+ * @param {Date|null} weekStart - Lunes de la semana de recolección filtrada.
+ * @returns {Object|null} La solicitud que pertenece a esa semana, o null.
+ */
+function pickRequestForWeek(requests, weekStart) {
+    if (!weekStart || !requests || requests.length === 0) {
+        return requests?.[0] ?? null;
+    }
+
+    const target = weekStart.getTime();
+
+    const matched = requests.find((r) => {
+        if (!r.fecha) return false;
+        return getCollectionWeekMonday(new Date(r.fecha)).getTime() === target;
+    });
+
+    return matched ?? requests[0] ?? null;
+}
 
 /**
  * Genera un arreglo de semanas comprendidas en los últimos dos meses hasta la fecha actual.
@@ -31,13 +80,16 @@ function getLastTwoMonthsWeeks(now = new Date()) {
     const currentDay = new Date(today);
     currentDay.setUTCDate(currentDay.getUTCDate() + diffToMonday);
 
+    const lastMonday = new Date(currentDay);
+    lastMonday.setUTCDate(lastMonday.getUTCDate() + 7);
+
     const startMonday = new Date(currentDay);
     startMonday.setUTCDate(startMonday.getUTCDate() - 9 * 7);
 
     const weeks = [];
     let weekStart = new Date(startMonday);
 
-    while (weekStart <= currentDay) {
+    while (weekStart <= lastMonday) { // antes: weekStart <= currentDay
         const weekEnd = new Date(weekStart);
         weekEnd.setUTCDate(weekEnd.getUTCDate() + 6); // domingo
 
@@ -47,7 +99,7 @@ function getLastTwoMonthsWeeks(now = new Date()) {
             label: `${weekStart.toLocaleDateString("es-MX", { timeZone: "UTC" })} - ${weekEnd.toLocaleDateString("es-MX", { timeZone: "UTC" })}`,
         });
 
-        weekStart.setUTCDate(weekStart.getUTCDate() + 7); // siguiente lunes
+        weekStart.setUTCDate(weekStart.getUTCDate() + 7);
     }
 
     return weeks;
@@ -148,37 +200,26 @@ const buildRow = (client, request, weekStart) => {
     const lastName = client.usuarios_cp?.apellido || "";
     const fullName = `${name} ${lastName}`.trim() || " ";
 
-    const toDateString = (date) => {
-        if (!date) return null;
-    
-        const parsedDate = new Date(date);
-    
-        if (isNaN(parsedDate.getTime())) return null;
-    
-        return parsedDate.toISOString().split("T")[0];
-    };
-    
-    const requestDate = toDateString(request?.fecha);
-    
+    const requestDate = (() => {
+        if (!request?.fecha) return null;
+        const collectionWeekMonday = getCollectionWeekMonday(new Date(request.fecha));
+        const routeDayDate = getRouteDateForDay(client.ruta?.dia_ruta, collectionWeekMonday);
+        return routeDayDate ?? request.fecha.toISOString().split("T")[0];
+    })();
+
     const routeDate = (() => {
         if (requestDate) return null;
         if (!weekStart) return null;
-    
-        const calculatedDate = getRouteDateForDay(
-            client.ruta?.dia_ruta,
-            weekStart
-        );
-    
+
+        const calculatedDate = getRouteDateForDay(client.ruta?.dia_ruta, weekStart);
         if (!calculatedDate) return null;
-    
-        const todayStr = toDateString(new Date());
-    
+
+        const today = new Date();
+        const todayStr = today.toISOString().split("T")[0];
         if (calculatedDate > todayStr) return null;
-    
+
         return calculatedDate;
     })();
-    
-    const formattedDate = formatDate(requestDate || routeDate);
 
     return {
         nombre: fullName,
@@ -192,7 +233,7 @@ const buildRow = (client, request, weekStart) => {
         total_a_pagar: request?.total_a_pagar || null,
         total_pagado: request?.total_pagado || null,
         notas: request?.notas || " ",
-        fecha: formattedDate,
+        fecha: requestDate ?? routeDate,
         hasRequest: !!request,
         status: request?.estatus ?? null,
         wantsCollection: request?.quiere_recoleccion ?? null,
@@ -230,7 +271,7 @@ const formatRouteInfo = (routeInfo, expandMultiple = false, weekStart = null) =>
                 rows.push(buildRow(client, request, weekStart));
             }
         } else {
-            rows.push(buildRow(client, requests[0] ?? null, weekStart));
+            rows.push(buildRow(client, pickRequestForWeek(requests, weekStart), weekStart));
         }
     }
 
@@ -451,9 +492,19 @@ module.exports = class Route {
                 if (weekIndex < 0 || weekIndex >= weeks.length)
                     throw new Error(`Index fuera de rango. Válido: 0 - ${weeks.length - 1}`);
 
-                const { weekStart: ws, weekEnd } = weeks[weekIndex];
+                const { weekStart: ws } = weeks[weekIndex];
                 weekStart = ws;
-                dateFilter = { gte: ws, lt: weekEnd };
+
+                // Rango ampliado: incluye el sábado y domingo ANTERIORES a este lunes
+                // (donde pudo llenarse el formulario para esta semana), y excluye el
+                // sábado/domingo de ESTA semana (que pertenecen a la semana siguiente).
+                const expandedStart = new Date(ws);
+                expandedStart.setUTCDate(expandedStart.getUTCDate() - 2); // sábado previo
+
+                const expandedEnd = new Date(ws);
+                expandedEnd.setUTCDate(expandedEnd.getUTCDate() + 5); // sábado de esta semana
+
+                dateFilter = { gte: expandedStart, lt: expandedEnd };
             } else {
                 const twoMonthsAgo = weeks[0].weekStart;
                 const weekEnd = weeks[weeks.length - 1].weekEnd;
