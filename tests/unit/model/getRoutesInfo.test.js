@@ -115,7 +115,7 @@ describe('Model - getRoutesInfo', () => {
                 productos_extra: 'Composta (12)',
                 horario: '08:00',
                 id_pago: '1',
-                fecha: "2026-05-06",
+                fecha: "06-05-2026",
                 forma_pago: 'Efectivo',
                 total_a_pagar: 1500,
                 total_pagado: 300,

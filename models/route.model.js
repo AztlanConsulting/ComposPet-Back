@@ -1,4 +1,5 @@
 const prisma = require("../config/prisma");
+const { formatDate } = require("../utils/formatDate");
 
 /** Array con los nombres de los días de la semana en español */
 const WEEK_DAYS = [
@@ -283,7 +284,10 @@ const formatRouteInfo = (routeInfo, expandMultiple = false, weekStart = null) =>
         });
     }
 
-    return rows;
+    return rows.map((row) => ({
+        ...row,
+        fecha: formatDate(row.fecha),
+    }));
 };
 
 /**
