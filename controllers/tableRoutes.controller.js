@@ -286,9 +286,8 @@ const generateConfirmationMessages = async (req, res) => {
  * @see GoogleSheetsRoutesService.exportDailyRoutes
  */
 const exportDailyRoutes = async () => {
-    const routeInfo = await Routes.getRoutesInfo();
+    const routeInfo = await Routes.getRoutesInfo(1); // 1 = mañana
     const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
-
     return sheetUrl;
 }
 

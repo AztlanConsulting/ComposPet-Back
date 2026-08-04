@@ -339,26 +339,21 @@ module.exports = class Route {
      * @throws {Error} Lanza un error si ocurre algún problema al consultar la base de datos.
      */ 
 
-    static async getRoutesInfo() {
+    static async getRoutesInfo(dayOffset = 0) {
         try{
             // ==================== CÁLCULO DE FECHAS ====================
             const now = new Date();
 
-            /** Nombre del día actual (ej: "Lunes", "Martes", etc.) */
-            const todayName = WEEK_DAYS[now.getDay()];
+            const targetDate = new Date(now);
+            targetDate.setDate(targetDate.getDate() + dayOffset);
 
-            /**
-             * Inicio de la semana actual (domingo a las 00:00:00).
-             * Se usa para filtrar solicitudes de la semana en curso.
-             */
-            const startOfWeek = new Date(now);
-            startOfWeek.setDate(now.getDate() - now.getDay());
+            /** Nombre del día objetivo */
+            const todayName = WEEK_DAYS[targetDate.getDay()];
+
+            const startOfWeek = new Date(targetDate);
+            startOfWeek.setDate(targetDate.getDate() - targetDate.getDay());
             startOfWeek.setHours(0, 0, 0, 0);
 
-            /**
-             * Fin de la semana actual (próximo domingo a las 00:00:00).
-             * Se usa como límite superior del filtro de fechas.
-             */
             const endOfWeek = new Date(startOfWeek);
             endOfWeek.setDate(startOfWeek.getDate() + 7);
             endOfWeek.setHours(0, 0, 0, 0);
@@ -461,6 +456,7 @@ module.exports = class Route {
             });
             return formatRouteInfo(routeInfo);
         } catch(error){
+            console.error('ERROR REAL en getRoutesInfo:', error);
             throw new Error('Error obteniendo rutas');
         }
     }
