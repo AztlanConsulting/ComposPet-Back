@@ -36,7 +36,8 @@ const getSummary = async (req, res) => {
 
     const payMethods = await Payment.getPaymentInfo();
 
-    const bucketCost = await Client.getBucketCost(collectionObject.id_cliente, collectionObject.cubetas_entregadas);
+    // Obtener el costo de las cubetas recolectadas
+    const bucketCost = await Client.getBucketCost(collectionObject.id_cliente, collectionObject.cubetas_recolectadas);
 
     res.status(200).json({
         success: true,
@@ -125,9 +126,10 @@ const calculateCollectionTotal = async (
     productsList
 ) => {
 
+    // Obtener el costo de las cubetas recolectadas
     const collectionCost = await Client.getBucketCost(
         collectionObject.id_cliente,
-        collectionObject.cubetas_entregadas
+        collectionObject.cubetas_recolectadas
     );
 
     let productsCost = 0;
