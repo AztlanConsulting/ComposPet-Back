@@ -12,6 +12,9 @@ const GoogleSheetsRoutesService = require("../../config/googleSheetsRoutes.servi
 
 const ENDPOINT = "/api/rutas/exportar-tabla-rutas";
 
+const FIXED_TODAY = new Date("2025-06-02T12:00:00.000Z");
+const TOMORROW_DAY_NAME = "Martes";
+
 const TEST_CP_ID = randomUUID();
 const TEST_ROLE_ID = randomUUID();
 const TEST_USER_ID = randomUUID();
@@ -65,14 +68,10 @@ const createTestData = async () => {
         },
     });
 
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const tomorrowDayName = WEEK_DAYS[tomorrow.getDay()];
-
     await prisma.ruta.create({
         data: {
             id_ruta: TEST_RUTA_ID,
-            dia_ruta: tomorrowDayName,
+            dia_ruta: TOMORROW_DAY_NAME,
             turno_ruta: "Matutino",
         },
     });
@@ -93,8 +92,8 @@ const createTestData = async () => {
 };
 
 const createSolicitud = async () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrow = new Date(FIXED_TODAY);
+    tomorrow.setUTCDate(tomorrow.getUTCDate() + 1);
 
     await prisma.solicitudes_recoleccion.create({
         data: {
@@ -141,6 +140,8 @@ const cleanDb = async () => {
 
 beforeEach(async () => {
     jest.clearAllMocks();
+    jest.useFakeTimers({ doNotFake: ["nextTick", "setImmediate"] });
+    jest.setSystemTime(FIXED_TODAY);
     await cleanDb();
     await createTestData();
 
@@ -150,6 +151,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
+    jest.useRealTimers();
     await cleanDb();
 });
 
@@ -206,6 +208,7 @@ describe("RUT-10 Exportación de Rutas Diarias Integration", () => {
         const callArgs = GoogleSheetsRoutesService.exportDailyRoutes.mock.calls[0][0];
         expect(Array.isArray(callArgs)).toBe(true);
         expect(callArgs[0]).toHaveProperty("nombre", "Alejandra Prueba Exportación");
+        expect(callArgs[0]).toHaveProperty("dia_ruta", TOMORROW_DAY_NAME);
     });
 
     it("retorna 500 si falla el servicio de Google Sheets", async () => {

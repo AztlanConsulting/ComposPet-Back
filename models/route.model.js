@@ -319,13 +319,16 @@ module.exports = class Route {
     }
 
     /**
-     * Obtiene la información de todas las rutas del día actual.
-     * Realiza una consulta compleja a la base de datos filtrando por el día de la semana actual,
+     * Obtiene la información de todas las rutas para un día específico,
+     * relativo a la fecha actual mediante un desplazamiento en días.
+     * Realiza una consulta compleja a la base de datos filtrando por el día de la semana objetivo,
      * incluyendo solicitudes de recolección de la semana en curso, productos extra y formas de pago.
      * Los datos son formateados para su presentación en la interfaz.
      *
      * @async
      * @static
+     * @param {number} [dayOffset=0] - Desplazamiento en días respecto a hoy.
+     * 0 = hoy (usado por la vista de tabla), 1 = mañana (usado por la exportación diaria a Sheets).
      * @returns {Promise<Array<Object>>} Promesa que resuelve con un array de objetos con la información formateada:
      * @returns {string} return[].nombre - Nombre completo del cliente (nombre + apellido).
      * @returns {string} return[].recoleccion - Número de cubetas recolectadas como string (o " " si no hay dato).
@@ -341,6 +344,11 @@ module.exports = class Route {
 
     static async getRoutesInfo(dayOffset = 0) {
         try{
+
+            if (!Number.isInteger(dayOffset)) {
+                throw new Error(`dayOffset inválido: se esperaba un número entero, se recibió "${dayOffset}"`);
+            }
+
             // ==================== CÁLCULO DE FECHAS ====================
             const now = new Date();
 
@@ -456,7 +464,7 @@ module.exports = class Route {
             });
             return formatRouteInfo(routeInfo);
         } catch(error){
-            console.error('ERROR REAL en getRoutesInfo:', error);
+            console.error('Error in getRoutesInfo:', error);
             throw new Error('Error obteniendo rutas');
         }
     }
