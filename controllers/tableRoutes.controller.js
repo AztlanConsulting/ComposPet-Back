@@ -280,15 +280,18 @@ const generateConfirmationMessages = async (req, res) => {
  * Obtiene las rutas del día actual y las exporta a Google Sheets.
  * Función utilitaria compartida entre el controlador HTTP y la tarea programada de cron.
  *
+ * Regla de negocio: la exportación diaria a Google Sheets debe reflejar
+ * la ruta del DÍA SIGUIENTE, no la del día actual.
  * @returns {Promise<string>} URL de la hoja de cálculo generada en Google Sheets.
  * @throws {Error} Si falla la consulta de rutas o la exportación a Google Sheets.
  * @see Routes.getRoutesInfo
  * @see GoogleSheetsRoutesService.exportDailyRoutes
  */
-const exportDailyRoutes = async () => {
-    const routeInfo = await Routes.getRoutesInfo();
-    const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
+const TOMORROW_OFFSET = 1;
 
+const exportDailyRoutes = async () => {
+    const routeInfo = await Routes.getRoutesInfo(TOMORROW_OFFSET);
+    const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
     return sheetUrl;
 }
 

@@ -65,12 +65,14 @@ const createTestData = async () => {
         },
     });
 
-    const currentDayName = WEEK_DAYS[new Date().getDay()];
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowDayName = WEEK_DAYS[tomorrow.getDay()];
 
     await prisma.ruta.create({
         data: {
             id_ruta: TEST_RUTA_ID,
-            dia_ruta: currentDayName,
+            dia_ruta: tomorrowDayName,
             turno_ruta: "Matutino",
         },
     });
@@ -91,12 +93,13 @@ const createTestData = async () => {
 };
 
 const createSolicitud = async () => {
-    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
 
     await prisma.solicitudes_recoleccion.create({
         data: {
             id_cliente: TEST_CLIENT_ID,
-            fecha: today,
+            fecha: tomorrow,
             horario: new Date(),
             estatus: true,
             quiere_recoleccion: true,
@@ -105,7 +108,7 @@ const createSolicitud = async () => {
             cubetas_entregadas: 2,
             total_a_pagar: 150,
             total_pagado: 150,
-            notas: "Solicitud de exportación hoy",
+            notas: "Solicitud de exportación (día siguiente)",
         },
     });
 };
