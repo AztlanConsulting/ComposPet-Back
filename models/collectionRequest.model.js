@@ -551,7 +551,8 @@ module.exports = class CollectionRequest {
 
             const newStatus = isDeactivating ? false : (hasChanges ? true : requestData.estatus);
 
-            const collectionCost = await Client.getBucketCost(currentRequest.id_cliente, requestData.cubetas_entregadas, tx);
+            // Calcula el total a pagar considerando cubetas y productos extra
+            const collectionCost = await Client.getBucketCost(currentRequest.id_cliente, requestData.cubetas_recolectadas, tx);
 
             const productsCost = productsData.reduce(
                 (total, product) => {
