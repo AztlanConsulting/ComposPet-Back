@@ -115,8 +115,8 @@ const createBaseData = async () => {
         data: {
             id_solicitud:           TEST_REQUEST_ID,
             id_cliente:             TEST_CLIENT_ID,
-            cubetas_recolectadas:   2,
-            cubetas_entregadas:     3,
+            cubetas_recolectadas:   3,
+            cubetas_entregadas:     2,
             total_a_pagar:          150,
             total_pagado:           100,
             fecha:                  new Date(),
@@ -232,8 +232,8 @@ describe('Integración - Ruta - updateRequest', () => {
     const basePayload = () => ({
         data: {
             requestId:            TEST_REQUEST_ID,
-            collectedBuckets:     3,
-            deliveredBuckets:     2,
+            collectedBuckets:     2,
+            deliveredBuckets:     3,
             notes:                'Nueva nota',
             paymentId:            1,
             totalPaid:            '160',
@@ -260,8 +260,8 @@ describe('Integración - Ruta - updateRequest', () => {
             where: { id_solicitud: TEST_REQUEST_ID },
         });
 
-        expect(updated.cubetas_recolectadas).toBe(3);
-        expect(updated.cubetas_entregadas).toBe(2);
+        expect(updated.cubetas_recolectadas).toBe(2);
+        expect(updated.cubetas_entregadas).toBe(3);
         expect(updated.notas).toBe('Nueva nota');
         expect(updated.id_pago).toBe(1);
     });
