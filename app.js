@@ -11,6 +11,8 @@ const { exportDailyRoutes } = require('./controllers/tableRoutes.controller');
 const routes = require('./routes/general_routes.routes');
 const path = require('path');
 
+app.set('trust proxy', 1);
+
 app.use(
     '/uploads/products',
     express.static(path.join(__dirname, 'uploads/products'), {
