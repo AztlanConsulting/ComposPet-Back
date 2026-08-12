@@ -432,6 +432,99 @@ module.exports = class CollectionRequest {
         })
     }
 
+    /**
+     * Valida el payload y calcula el costo total (cubetas + productos extra).
+     *
+     * @param {Object} tx - Cliente transaccional de Prisma.
+     * @param {Object} requestData - Datos de la solicitud a validar.
+     * @param {Array} productsData - Productos extra seleccionados.
+     * @param {string} clientId - Id del cliente (para calcular costo de cubetas).
+     * @returns {Promise<{ totalToPay: number, scheduleDate: Date|null }>}
+     */
+
+    static async validateAndCalculate(tx, requestData, productsData, clientId) {
+        const collectedBuckets = Number(requestData.cubetas_recolectadas ?? 0);
+
+        if(!Number.isInteger(collectedBuckets) || collectedBuckets < 0){
+            throw new Error("Cantidad de cubetas recolectadas no válida.");
+        }
+
+        const deliveredBuckets = Number(requestData.cubetas_entregadas ?? 0);
+
+        if(!Number.isInteger(deliveredBuckets) || deliveredBuckets < 0){
+            throw new Error("Cantidad de cubetas entregadas no válida.");
+        }
+
+        if (deliveredBuckets > 20) {
+            throw new Error("No se pueden solicitar más de 20 cubetas.");
+        }
+
+        const totalPaid = Number(requestData.total_pagado ?? 0);
+
+        if (Number.isNaN(totalPaid) || totalPaid < 0) {
+            throw new Error("Total pagado no válido.");
+        }
+
+        if (!Array.isArray(productsData)) {
+            throw new Error("Datos de productos no válidos.");
+        }
+
+        for (const product of productsData) {
+            if (!Number.isInteger(product.id_producto)) {
+                throw new Error("ID de producto no válido.");
+            }
+            if (!Number.isInteger(product.cantidad) || product.cantidad < 0) {
+                throw new Error("Cantidad de producto no válida.");
+            }
+        }
+
+        if (requestData.id_pago !== null && requestData.id_pago !== undefined) {
+            const paymentMethod = await tx.formas_pago.findUnique({
+                where: { id_pago: Number(requestData.id_pago) },
+                select: { id_pago: true },
+            });
+            if (!paymentMethod) {
+                throw new Error("La forma de pago no existe");
+            }
+        }
+
+        const productsIds = productsData.map(p => p.id_producto);
+
+        const productsInfo = await tx.productos_extra.findMany({
+            where: { id_producto: { in: productsIds } },
+            select: { id_producto: true, precio: true },
+        });
+
+        const priceMap = new Map(productsInfo.map(p => [p.id_producto, p.precio]));
+
+        const collectionCost = await Client.getBucketCost(clientId, collectedBuckets, tx);
+
+        const productsCost = productsData.reduce((total, product) => {
+            const price = priceMap.get(product.id_producto) || 0;
+            return total + (price * product.cantidad);
+        }, 0);
+
+        const totalToPay = collectionCost + productsCost;
+
+        const trimmedSchedule = requestData.horario?.trim();
+        let normalizedSchedule = null;
+
+        if (trimmedSchedule) {
+            const [hours, minutes] = trimmedSchedule.split(':');
+            normalizedSchedule = `${hours.padStart(2, '0')}:${minutes}`;
+        }
+
+        let scheduleDate = normalizedSchedule
+            ? new Date(`1970-01-01T${normalizedSchedule}:00Z`)
+            : null;
+
+        if (scheduleDate && Number.isNaN(scheduleDate.valueOf())) {
+            scheduleDate = null;
+        }
+
+        return { totalToPay, scheduleDate };
+    }
+
     static async updateRequest(requestData, productsData) {
 
         try {
@@ -444,88 +537,6 @@ module.exports = class CollectionRequest {
             if (!requestId) {
                 throw new Error("ID de solicitud es requerido.");
             }
-
-            const collectedBuckets = Number(requestData.cubetas_recolectadas ?? 0);
-
-            if(!Number.isInteger(collectedBuckets) || collectedBuckets < 0){
-                throw new Error("Cantidad de cubetas recolectadas no válida.");
-            }
-
-            const deliveredBuckets = Number(requestData.cubetas_entregadas ?? 0);
-
-            if(!Number.isInteger(deliveredBuckets) || deliveredBuckets < 0){
-                throw new Error("Cantidad de cubetas entregadas no válida.");
-            }
-
-            if(deliveredBuckets > 20){
-                throw new Error("No se pueden solicitar más de 20 cubetas.");
-            }
-
-            const totalPaid = Number(requestData.total_pagado ?? 0);
-
-            if(Number.isNaN(totalPaid) || totalPaid < 0){
-                throw new Error("Total pagado no válido.");
-            }
-
-            if(!Array.isArray(productsData)){
-                throw new Error("Datos de productos no válidos.");
-            }
-
-            for (const product of productsData) {
-                if(!Number.isInteger(product.id_producto)){
-                    throw new Error("ID de producto no válido.");
-                }
-
-                if(!Number.isInteger(product.cantidad) || product.cantidad < 0){
-                    throw new Error("Cantidad de producto no válida.");
-                }
-            }
-
-            // Validación de existencia de datos
-            if (requestData.id_pago !== null &&
-                requestData.id_pago !== undefined
-            ) {
-
-                const paymentMethod =
-                    await tx.formas_pago.findUnique({
-                        where: {
-                            id_pago:
-                                Number(requestData.id_pago),
-                        },
-                        select: {
-                            id_pago: true,
-                        },
-                    });
-
-                if (!paymentMethod) {
-                    throw new Error(
-                        "La forma de pago no existe"
-                    );
-                }
-            }
-
-            const productsIds = productsData.map(
-                product => product.id_producto
-            );
-
-            const productsInfo = await tx.productos_extra.findMany({
-                where: {
-                    id_producto: {
-                        in: productsIds,
-                    },
-                },
-                select: {
-                    id_producto: true,
-                    precio: true,
-                },
-            });
-
-            const priceMap = new Map(
-                productsInfo.map(product => [
-                    product.id_producto,
-                    product.precio,
-                ])
-            );
 
             const currentRequest = await tx.solicitudes_recoleccion.findUnique({
                 where: {
@@ -540,6 +551,10 @@ module.exports = class CollectionRequest {
                 throw new Error("Solicitud no encontrada");
             }
 
+            const totalPaid = Number(requestData.total_pagado ?? 0);
+            if (Number.isNaN(totalPaid) || totalPaid < 0) {
+                throw new Error("Total pagado no válido.");
+            }
 
             const isDeactivating = requestData.estatus === false && currentRequest.estatus === true;
 
@@ -551,36 +566,12 @@ module.exports = class CollectionRequest {
 
             const newStatus = isDeactivating ? false : (hasChanges ? true : requestData.estatus);
 
-            // Calcula el total a pagar considerando cubetas y productos extra
-            const collectionCost = await Client.getBucketCost(currentRequest.id_cliente, requestData.cubetas_recolectadas, tx);
-
-            const productsCost = productsData.reduce(
-                (total, product) => {
-                    const price = priceMap.get(product.id_producto) || 0;
-
-                    return total + (price * product.cantidad);
-                },
-                0
+            const { totalToPay, scheduleDate } = await this.validateAndCalculate(
+                tx,
+                requestData,
+                productsData,
+                currentRequest.id_cliente
             );
-
-            const totalToPay = collectionCost + productsCost;
-
-            const trimmedSchedule = requestData.horario?.trim();
-
-            let normalizedSchedule = null;
-
-            if (trimmedSchedule) {
-                const [hours, minutes] = trimmedSchedule.split(':');
-                normalizedSchedule = `${hours.padStart(2, '0')}:${minutes}`;
-            }
-            
-            let scheduleDate = normalizedSchedule
-                ? new Date(`1970-01-01T${normalizedSchedule}:00Z`)
-                : null;
-
-            if (scheduleDate && Number.isNaN(scheduleDate.valueOf())) {
-                scheduleDate = null;
-            }
 
             const updatedRequest = await tx.solicitudes_recoleccion.update({
                 where: {
@@ -704,6 +695,8 @@ module.exports = class CollectionRequest {
     }
     }
 
+    
+
     static async adjustBalance(tx, clientId, difference){
         if (difference === 0) return;
 
@@ -733,3 +726,4 @@ module.exports = class CollectionRequest {
         
     }
 };
+

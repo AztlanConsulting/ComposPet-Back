@@ -580,6 +580,47 @@ module.exports = class Route {
     }
 
     /**
+     * Calcula la fecha de ruta correspondiente a una semana específica
+     * para un cliente dado, usada al crear manualmente una solicitud
+     * de recolección desde la tabla de rutas.
+     *
+     * @param {number} weekIndex - Índice de la semana seleccionada.
+     * @param {string} clientId - Id del cliente.
+     * @returns {Promise<Date>} Fecha de ruta calculada.
+     * @throws {Error} Si weekIndex es inválido o el cliente no tiene ruta asignada.
+     */
+    static async getRouteDateForWeekAndClient(weekIndex, clientId) {
+        if (weekIndex === null || weekIndex === undefined) {
+            throw new Error("Debes seleccionar una semana específica para crear una solicitud manual.");
+        }
+
+        const weeks = getLastTwoMonthsWeeks();
+
+        if (weekIndex < 0 || weekIndex >= weeks.length) {
+            throw new Error(`Index fuera de rango. Válido: 0 - ${weeks.length - 1}`);
+        }
+
+        const { weekStart } = weeks[weekIndex];
+
+        const client = await prisma.cliente.findUnique({
+            where: { id_cliente: clientId },
+            select: { ruta: { select: { dia_ruta: true } } },
+        });
+
+        if (!client?.ruta?.dia_ruta) {
+            throw new Error("El cliente no tiene una ruta asignada.");
+        }
+
+        const dateStr = getRouteDateForDay(client.ruta.dia_ruta, weekStart);
+
+        if (!dateStr) {
+            throw new Error("No se pudo calcular la fecha de ruta.");
+        }
+
+        return new Date(dateStr);
+    }
+
+    /**
      * Retorna el índice de la semana actual dentro del arreglo generado por `getLastTwoMonthsWeeks`.
      * Delega el cálculo a la función utilitaria `getCurrentWeekIndex` del módulo.
      *
@@ -642,3 +683,6 @@ module.exports = class Route {
         }
     }
 };
+
+module.exports.getCollectionWeekMonday = getCollectionWeekMonday;
+module.exports.getRouteDateForDay = getRouteDateForDay;
