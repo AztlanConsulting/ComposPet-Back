@@ -695,7 +695,86 @@ module.exports = class CollectionRequest {
     }
     }
 
-    
+    /**
+     * Crea una nueva solicitud de recolección de forma manual, usada cuando
+     * el administrador ingresa datos de un cliente que no llenó su propio
+     * formulario.
+     *
+     * @async
+     * @static
+     * @param {Object} requestData - Datos de la solicitud a crear (incluye id_cliente y fecha).
+     * @param {Array} productsData - Productos extra seleccionados.
+     * @returns {Promise<Object>} La solicitud creada.
+     * @throws {Error} Si los datos no son válidos o falla la creación.
+     */
+    static async createRequest(requestData, productsData) {
+        try {
+            return await prisma.$transaction(async (tx) => {
+
+                if (!requestData.id_cliente) {
+                    throw new Error("ID de cliente es requerido.");
+                }
+
+                if (!requestData.fecha) {
+                    throw new Error("Fecha de la solicitud es requerida.");
+                }
+
+                const { totalToPay, scheduleDate } = await this.validateAndCalculate(
+                    tx,
+                    requestData,
+                    productsData,
+                    requestData.id_cliente
+                );
+
+                const createdRequest = await tx.solicitudes_recoleccion.create({
+                    data: {
+                        cliente: {
+                            connect: { id_cliente: requestData.id_cliente },
+                        },
+                        cubetas_recolectadas: requestData.cubetas_recolectadas,
+                        cubetas_entregadas: requestData.cubetas_entregadas,
+                        notas: requestData.notas,
+                        total_pagado: Number(requestData.total_pagado ?? 0),
+                        total_a_pagar: totalToPay,
+                        quiere_productos_extra: requestData.quiere_productos_extra ?? false,
+                        quiere_recoleccion: requestData.quiere_recoleccion ?? false,
+                        id_pago: requestData.id_pago ?? null,
+                        horario: scheduleDate,
+                        fecha: requestData.fecha,
+                        estatus: requestData.estatus ?? true,
+                    },
+                });
+
+                // Ajusta el saldo del cliente
+                await this.adjustBalance(tx, createdRequest.id_cliente, -Number(requestData.total_pagado ?? 0));
+                await this.adjustBalance(tx, createdRequest.id_cliente, totalToPay);
+
+                // Descuenta inventario de los productos extra seleccionados
+                for (const product of productsData) {
+                    await tx.productos_extra.update({
+                        where: { id_producto: product.id_producto },
+                        data: { cantidad: { decrement: product.cantidad } },
+                    });
+                }
+
+                if (productsData.length > 0) {
+                    await tx.productos_solicitud.createMany({
+                        data: productsData.map(product => ({
+                            id_solicitud: createdRequest.id_solicitud,
+                            id_producto: product.id_producto,
+                            cantidad: product.cantidad,
+                            fecha: new Date(),
+                        })),
+                    });
+                }
+
+                return createdRequest;
+            });
+        } catch (error) {
+            console.error(error);
+            throw new Error('Error al crear la solicitud de recolección manual');
+        }
+    }
 
     static async adjustBalance(tx, clientId, difference){
         if (difference === 0) return;
