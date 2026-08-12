@@ -726,24 +726,26 @@ module.exports = class CollectionRequest {
                     requestData.id_cliente
                 );
 
-                const createdRequest = await tx.solicitudes_recoleccion.create({
-                    data: {
-                        cliente: {
-                            connect: { id_cliente: requestData.id_cliente },
-                        },
-                        cubetas_recolectadas: requestData.cubetas_recolectadas,
-                        cubetas_entregadas: requestData.cubetas_entregadas,
-                        notas: requestData.notas,
-                        total_pagado: Number(requestData.total_pagado ?? 0),
-                        total_a_pagar: totalToPay,
-                        quiere_productos_extra: requestData.quiere_productos_extra ?? false,
-                        quiere_recoleccion: requestData.quiere_recoleccion ?? false,
-                        id_pago: requestData.id_pago ?? null,
-                        horario: scheduleDate,
-                        fecha: requestData.fecha,
-                        estatus: requestData.estatus ?? true,
+            const createdRequest = await tx.solicitudes_recoleccion.create({
+                data: {
+                    cliente: {
+                        connect: { id_cliente: requestData.id_cliente },
                     },
-                });
+                    cubetas_recolectadas: requestData.cubetas_recolectadas,
+                    cubetas_entregadas: requestData.cubetas_entregadas,
+                    notas: requestData.notas,
+                    total_pagado: Number(requestData.total_pagado ?? 0),
+                    total_a_pagar: totalToPay,
+                    quiere_productos_extra: requestData.quiere_productos_extra ?? false,
+                    quiere_recoleccion: requestData.quiere_recoleccion ?? false,
+                    ...(requestData.id_pago
+                        ? { formas_pago: { connect: { id_pago: Number(requestData.id_pago) } } }
+                        : {}),
+                    horario: scheduleDate,
+                    fecha: requestData.fecha,
+                    estatus: requestData.estatus ?? true,
+                },
+            });
 
                 // Ajusta el saldo del cliente
                 await this.adjustBalance(tx, createdRequest.id_cliente, -Number(requestData.total_pagado ?? 0));
