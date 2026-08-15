@@ -490,18 +490,27 @@ module.exports = class CollectionRequest {
 
         const productsIds = productsData.map(p => p.id_producto);
 
+        const uniqueProductIds = [...new Set(productsIds)];
+
         const productsInfo = await tx.productos_extra.findMany({
-            where: { id_producto: { in: productsIds } },
+            where: { id_producto: { in: uniqueProductIds } },
             select: { id_producto: true, precio: true },
         });
+
+        if (productsInfo.length !== uniqueProductIds.length) {
+            throw new Error("Uno o más productos extra no existen o fueron eliminados.");
+        }
 
         const priceMap = new Map(productsInfo.map(p => [p.id_producto, p.precio]));
 
         const collectionCost = await Client.getBucketCost(clientId, collectedBuckets, tx);
 
         const productsCost = productsData.reduce((total, product) => {
-            const price = priceMap.get(product.id_producto) || 0;
-            return total + (price * product.cantidad);
+            const price = priceMap.get(product.id_producto);
+            if (price === undefined || price === null || Number.isNaN(Number(price))) {
+                throw new Error(`No se encontró un precio válido para el producto ${product.id_producto}.`);
+            }
+            return total + (Number(price) * product.cantidad);
         }, 0);
 
         const totalToPay = collectionCost + productsCost;
@@ -726,6 +735,26 @@ module.exports = class CollectionRequest {
                     requestData.id_cliente
                 );
 
+            const dayStart = new Date(Date.UTC(
+                requestData.fecha.getUTCFullYear(),
+                requestData.fecha.getUTCMonth(),
+                requestData.fecha.getUTCDate()
+            ));
+            const dayEnd = new Date(dayStart);
+            dayEnd.setUTCDate(dayEnd.getUTCDate() + 1);
+
+            const existing = await tx.solicitudes_recoleccion.findFirst({
+                where: {
+                    id_cliente: requestData.id_cliente,
+                    fecha: { gte: dayStart, lt: dayEnd },
+                },
+                select: { id_solicitud: true },
+            });
+
+            if (existing) {
+                throw new Error("Ya existe una solicitud para este cliente en la fecha seleccionada. Recarga la tabla e intenta editarla.");
+            }
+
             const createdRequest = await tx.solicitudes_recoleccion.create({
                 data: {
                     cliente: {
@@ -774,7 +803,7 @@ module.exports = class CollectionRequest {
             });
         } catch (error) {
             console.error(error);
-            throw new Error('Error al crear la solicitud de recolección manual');
+            throw error;
         }
     }
 

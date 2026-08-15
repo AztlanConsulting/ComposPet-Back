@@ -381,6 +381,14 @@ const updateRequest = async(req, res) => {
                 });
             }
 
+            const parsedWeekIndex = Number(data.weekIndex);
+            if (!Number.isInteger(parsedWeekIndex) || parsedWeekIndex < 0) {
+                return res.status(400).json({ 
+                    success: false, 
+                    message: "Selecciona una semana válida para crear la solicitud." 
+                });
+            }
+
             requestData.fecha = await Routes.getRouteDateForWeekAndClient(
                 data.weekIndex,
                 data.clientId
