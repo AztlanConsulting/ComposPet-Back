@@ -130,6 +130,19 @@ describe('Controller - updateRequest', () => {
         expect(res.status).toHaveBeenCalledWith(500);
         expect(res.json).toHaveBeenCalledWith({
             success: false,
+            message: 'DB Error',
+        });
+    });
+
+    it('debe usar mensaje genérico si el error no tiene message', async () => {
+        CollectionRequest.updateRequest.mockRejectedValue({});
+        req = { body: { data: baseData } };
+
+        await updateRequest(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({
+            success: false,
             message: 'Ocurrió un error actualizando la información',
         });
     });
