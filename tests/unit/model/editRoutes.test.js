@@ -220,7 +220,11 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
             id_solicitud: 15,
         });
 
-        prisma.productos_extra.findMany.mockResolvedValue([PRODUCT_A, PRODUCT_B]);
+        prisma.productos_extra.findMany.mockImplementation(({ where }) => {
+            const requestedIds = where?.id_producto?.in ?? [];
+            const catalog = [PRODUCT_A, PRODUCT_B];
+            return Promise.resolve(catalog.filter(p => requestedIds.includes(p.id_producto)));
+        });
         prisma.productos_solicitud.deleteMany.mockResolvedValue({ count: 0 });
         prisma.productos_solicitud.createMany.mockResolvedValue({ count: 0 });
         prisma.productos_extra.update.mockResolvedValue({});
