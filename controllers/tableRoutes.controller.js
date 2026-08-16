@@ -371,7 +371,31 @@ const updateRequest = async(req, res) => {
             productsData
         } = structureRequestData(data);
 
-        await CollectionRequest.updateRequest(requestData, productsData);
+        if (data.requestId) {
+            await CollectionRequest.updateRequest(requestData, productsData);
+        } else {
+            if (!data.clientId) {
+                return res.status(400).json({
+                    success: false,
+                    message: "clientId es requerido para crear una solicitud manual",
+                });
+            }
+
+            const parsedWeekIndex = Number(data.weekIndex);
+            if (!Number.isInteger(parsedWeekIndex) || parsedWeekIndex < 0) {
+                return res.status(400).json({ 
+                    success: false, 
+                    message: "Selecciona una semana válida para crear la solicitud." 
+                });
+            }
+
+            requestData.fecha = await Routes.getRouteDateForWeekAndClient(
+                data.weekIndex,
+                data.clientId
+            );
+
+            await CollectionRequest.createRequest(requestData, productsData);
+        }
 
         res.status(200).json({
             success: true,
@@ -384,7 +408,7 @@ const updateRequest = async(req, res) => {
         console.error(error);
         return res.status(500).json({
             success: false,
-            message: "Ocurrió un error actualizando la información",
+            message: error.message || "Ocurrió un error actualizando la información",
         })
     }
 }
@@ -401,8 +425,10 @@ function structureRequestData(data){
     const requestData = {};
     let productsData = [];
 
-    if(data.requestId !== undefined){
+    if(data.requestId){
         requestData.id_solicitud = data.requestId;
+    } else {
+        requestData.id_cliente = data.clientId;
     }
 
     if(data.status !== undefined){
@@ -437,11 +463,9 @@ function structureRequestData(data){
         requestData.total_pagado = data.totalPaid;
     }
 
-    if(data.extraProductsDetails.length > 0 && !data.wantsExtraProducts){
+    if(data.extraProductsDetails?.length > 0){
         requestData.quiere_productos_extra = true;
-    }
-
-    if(data.extraProductsDetails.length < 1){
+    } else if (data.extraProductsDetails?.length === 0) {
         requestData.quiere_productos_extra = false;
     }
 
