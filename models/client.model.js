@@ -177,6 +177,10 @@ module.exports = class Client {
                 },
 
                 solicitudes_recoleccion: {
+                where: {
+                    quiere_recoleccion: true,
+                    estatus: true,
+                },
                 orderBy: {
                     fecha: "desc"
                 },
