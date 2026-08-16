@@ -63,7 +63,8 @@ describe('Unit - Model - Client', () => {
         address: 'Calle 1',
         notes: 'Código de acceso: 123',
 
-        name: 'Juan M',
+        firstName: 'Juan',
+        lastName: 'M',
         cellphone: '4429384765',
         status: true,
 
