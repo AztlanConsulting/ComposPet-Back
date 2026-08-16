@@ -186,6 +186,14 @@ function buildDataObjects(clientObject) {
         userData.telefono = clientObject.cellphone;
     }
 
+    if (clientObject.firstName !== undefined) {
+        userData.nombre = clientObject.firstName;
+    }
+
+    if (clientObject.lastName !== undefined) {
+        userData.apellido = clientObject.lastName;
+    }
+
     if (clientObject.priceType !== undefined) {
         clientData.tipo_precio = clientObject.priceType;
     }

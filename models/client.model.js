@@ -204,10 +204,10 @@ module.exports = class Client {
                     notes: client.notas,
                     order: client.orden_horario,
         
-                    name:
-                        client.usuarios_cp.nombre +
-                        ' ' +
-                        client.usuarios_cp.apellido,
+                    firstName: client.usuarios_cp.nombre,
+                    lastName: client.usuarios_cp.apellido,
+
+                    cellphone: client.usuarios_cp.telefono,
         
                     cellphone: client.usuarios_cp.telefono,
                     status: client.usuarios_cp.estatus,
