@@ -19,6 +19,9 @@ const isValidEmail = (value) =>
 const isValidAddress = (value) =>
     /^(?=.*[A-Za-zÀ-ÿ])[A-Za-zÀ-ÿ0-9.,#\-\s]{5,150}$/.test(value);
 
+const isValidName = (value) =>
+    /^[A-Za-zÀ-ÿ\s.'-]+$/.test(value);
+
 const isValidSchedule = (value) =>
     /^(0?[1-9]|1[0-2]):[0-5]\d$/.test(value);
 
@@ -50,6 +53,8 @@ const validateEditClient = (body) => {
     const pets      = optionalText(body, 'pets');
     const family    = optionalText(body, 'family');
     const notes     = optionalText(body, 'notes');
+    const firstName = optionalText(body, 'firstName');
+    const lastName  = optionalText(body, 'lastName');
     const routeId   = body.routeId !== undefined ? Number(body.routeId) : null;
     const priceType = body.priceType;
 
@@ -84,6 +89,30 @@ const validateEditClient = (body) => {
             errors.address = 'El campo dirección no puede contener emojis.';
         } else if (!isValidAddress(address)) {
             errors.address = 'El campo dirección debe ser válido.';
+        }
+    }
+
+    if (firstName !== null) {
+        if (!firstName) {
+            errors.firstName = 'El campo nombre es requerido.';
+        } else if (containsEmoji(firstName)) {
+            errors.firstName = 'El campo nombre no puede contener emojis.';
+        } else if (firstName.length > 100) {
+            errors.firstName = 'El campo nombre es demasiado largo.';
+        } else if (!isValidName(firstName)) {
+            errors.firstName = 'El campo nombre debe ser válido.';
+        }
+    }
+
+    if (lastName !== null) {
+        if (!lastName) {
+            errors.lastName = 'El campo apellido es requerido.';
+        } else if (containsEmoji(lastName)) {
+            errors.lastName = 'El campo apellido no puede contener emojis.';
+        } else if (lastName.length > 100) {
+            errors.lastName = 'El campo apellido es demasiado largo.';
+        } else if (!isValidName(lastName)) {
+            errors.lastName = 'El campo apellido debe ser válido.';
         }
     }
     
@@ -129,6 +158,8 @@ const validateEditClient = (body) => {
             pets:      pets      !== null ? escapeHtml(pets)      : undefined,
             family:    family    !== null ? escapeHtml(family)    : undefined,
             notes:     notes     !== null ? escapeHtml(notes)     : undefined,
+            firstName: firstName !== null ? escapeHtml(firstName) : undefined,
+            lastName:  lastName  !== null ? escapeHtml(lastName)  : undefined,
             routeId:   routeId   !== null ? routeId               : undefined,
         },
     };
