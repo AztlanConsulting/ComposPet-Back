@@ -17,15 +17,17 @@ url="$2"
 while read local_ref local_oid remote_ref remote_oid; do
   # si es un branch nuevo (remote_oid es todo ceros), comparar contra main/master
   if [ "$remote_oid" = "0000000000000000000000000000000000000000" ]; then
-    # branch nuevo: comparar contra origin/main o origin/master
-    if git rev-parse --verify origin/main >/dev/null 2>&1; then
+    # Branch nuevo: preferimos develop como referencia
+    if git rev-parse --verify origin/develop >/dev/null 2>&1; then
+      base="origin/develop"
+    elif git rev-parse --verify origin/main >/dev/null 2>&1; then
       base="origin/main"
     elif git rev-parse --verify origin/master >/dev/null 2>&1; then
       base="origin/master"
     else
-      # no hay referencia remota, skip check
       continue
     fi
+
     range="$base..$local_oid"
   else
     range="$remote_oid..$local_oid"
@@ -45,27 +47,60 @@ while read local_ref local_oid remote_ref remote_oid; do
   # verificar si se crearon/modificaron archivos en prisma/migrations/
   MIGRATIONS_CHANGED=$(echo "$CHANGED_FILES" | grep -c "^prisma/migrations/")
 
+  # ──────────────────────────────────────────────────────
+  # Schema cambió pero no hay migration
+  # ──────────────────────────────────────────────────────
+
   if [ "$SCHEMA_CHANGED" -gt 0 ] && [ "$MIGRATIONS_CHANGED" -eq 0 ]; then
     echo ""
     echo "╔══════════════════════════════════════════════════════════════╗"
-    echo "║  ❌ PUSH BLOQUEADO                                           ║"
+    echo "║  ❌ PUSH BLOQUEADO                                          ║"
     echo "╠══════════════════════════════════════════════════════════════╣"
     echo "║                                                              ║"
-    echo "║  Modificaste prisma/schema.prisma pero NO creaste una        ║"
-    echo "║  migración. Si lo haces, nadie podrá sincronizar su BD!!     ║"
-    echo "║  No seas flojo y crea la migración                           ║"
+    echo "║  Modificaste prisma/schema.prisma pero no incluiste una      ║"
+    echo "║  migración.                                                  ║"
     echo "║                                                              ║"
-    echo "║  Corre esto:                                                 ║"
+    echo "║  Primero verifica que tu .env apunte a:                      ║"
+    echo "║                                                              ║"
+    echo "║      APP_ENV=development                                     ║"
+    echo "║      compospetbd_local                                       ║"
+    echo "║                                                              ║"
+    echo "║  Después crea la migración:                                  ║"
     echo "║                                                              ║"
     echo "║    npx prisma migrate dev --name descripcion_del_cambio      ║"
     echo "║                                                              ║"
-    echo "║  Luego haz commit del archivo generado en                    ║"
-    echo "║  prisma/migrations/ y vuelve a intentar el push              ║"
+    echo "║  Haz commit de prisma/migrations/ y vuelve a intentar.        ║"
     echo "║                                                              ║"
     echo "╚══════════════════════════════════════════════════════════════╝"
     echo ""
+
     exit 1
   fi
+
+  # ──────────────────────────────────────────────────────
+  # Validar Prisma si hubo cambios
+  # ──────────────────────────────────────────────────────
+
+  if [ "$SCHEMA_CHANGED" -gt 0 ] || [ "$MIGRATIONS_CHANGED" -gt 0 ]; then
+
+    echo ""
+    echo "🔍 Validando schema de Prisma..."
+    echo ""
+
+    npx prisma validate
+
+    if [ $? -ne 0 ]; then
+      echo ""
+      echo "❌ El schema de Prisma no es válido."
+      echo "   PUSH CANCELADO."
+      echo ""
+
+      exit 1
+    fi
+
+    echo "✅ Schema de Prisma válido."
+  fi
+
 done
 
 exit 0
