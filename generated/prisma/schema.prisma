@@ -80,8 +80,8 @@ model productos_extra {
   imagen_url          String?               @db.VarChar
   orden               Int?
   estatus             Boolean               @default(true)
-  deleted             Boolean               @default(false)
   color               String                @db.VarChar
+  deleted             Boolean               @default(false)
   productos_solicitud productos_solicitud[]
 }
 
@@ -187,4 +187,5 @@ model precios_cubetas {
   normal_iva  Float
   pension     Float
   pension_iva Float
+  gratis      Float
 }

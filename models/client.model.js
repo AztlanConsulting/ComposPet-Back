@@ -12,6 +12,9 @@
 
 const prisma = require("../config/prisma");
 const { formatDate } = require("../utils/formatDate");
+const priceOptions = require("../utils/bucketPriceOptions");
+
+const validPriceTypes = new Set(Object.values(priceOptions));
 
 module.exports = class Client {
     /**
@@ -646,7 +649,12 @@ module.exports = class Client {
     };
 
     static async getBucketCost(clientId, quantity, tx = prisma) {
-        const { tipo_precio } = await tx.cliente.findUnique({
+        const { cost } = await this.getBucketPrice(clientId, quantity, tx);
+        return cost;
+    }
+
+    static async getBucketPrice(clientId, quantity, tx = prisma) {
+        const client = await tx.cliente.findUnique({
             where: {
                 id_cliente: clientId,
             },
@@ -655,9 +663,32 @@ module.exports = class Client {
             }
         });
 
-        if (!tipo_precio) {
+        // Validar que el cliente exista
+        if (!client) {
+            throw new Error("El cliente no existe");
+        }
+
+        // Validar que tenga un tipo de precio asignado
+        if (!client.tipo_precio) {
             throw new Error(
                 "El cliente no tiene un tipo de precio establecido"
+            );
+        }
+
+        const tipo_precio = client.tipo_precio;
+
+        // Validar que el tipo de precio corresponda
+        // a una columna permitida de precios_cubetas
+        if (!validPriceTypes.has(tipo_precio)) {
+            throw new Error(
+                `Tipo de precio no válido: ${tipo_precio}`
+            );
+        }
+
+        // 0 es una cantidad válida, por eso NO usamos if (!quantity)
+        if (quantity === null || quantity === undefined) {
+            throw new Error(
+                "La cantidad de cubetas no está definida"
             );
         }
 
@@ -678,13 +709,17 @@ module.exports = class Client {
 
         const cost = price[tipo_precio];
 
-        if(cost === null || cost === undefined) {
+        // 0 es un precio válido, por eso NO usamos if (!cost)
+        if (cost === null || cost === undefined) {
             throw new Error(
                 "El tipo de precio no está definido para la cantidad de cubetas"
             );
         }
 
-        return cost;
+        return {
+            cost,
+            priceType: tipo_precio,
+        };
     }
 
 };

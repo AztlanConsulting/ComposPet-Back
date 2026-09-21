@@ -104,6 +104,25 @@ describe('Unit - Model - CollectionRequest', () => {
 
   describe('updateCollectionTotal', () => {
 
+    it('guarda total cero sin consultar ni conectar una forma de pago', async () => {
+      prisma.solicitudes_recoleccion.findUnique.mockResolvedValue({
+        id_solicitud: 'request-free', id_cliente: 'client-free',
+        estatus: false, total_pagado: 0,
+      });
+      await CollectionRequest.updateCollectionTotal('request-free', 0, null, 'Conservar notas');
+      expect(prisma.formas_pago.findUnique).not.toHaveBeenCalled();
+      expect(prisma.solicitudes_recoleccion.update).toHaveBeenCalledWith({
+        where: { id_solicitud: 'request-free' },
+        data: {
+          total_a_pagar: 0, notas: 'Conservar notas', estatus: true,
+          formas_pago: { disconnect: true },
+        },
+      });
+      expect(prisma.saldo.update).toHaveBeenCalledWith({
+        where: { id_cliente: 'client-free' }, data: { saldo: { decrement: 0 } },
+      });
+    });
+
     it('debe actualizar total, método de pago y notas', async () => {
       // Arrange
 

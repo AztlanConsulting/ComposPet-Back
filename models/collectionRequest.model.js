@@ -11,8 +11,6 @@
  */
 
 const prisma = require("../config/prisma");
-
-const bucketCostMap = require('../utils/bucketCostMap');
 const Client = require('./client.model');
 
 module.exports = class CollectionRequest {
@@ -311,59 +309,104 @@ module.exports = class CollectionRequest {
         })
     }
 
-    static async updateCollectionTotal(idRequest, collectionTotal, idPayment, notes) {
+    static async updateCollectionTotal(
+        idRequest,
+        collectionTotal,
+        idPayment,
+        notes
+    ) {
         return await prisma.$transaction(async (tx) => {
-            const payForm = await tx.formas_pago.findUnique({
-                where: {
-                    id_pago: idPayment,
-                },
-                select: {
-                    tipo: true,
-                },
-            });
 
+            // Primero validar que la solicitud exista y pueda editarse
             const currentRequest = await this.validateRequestCanBeEdited(
                 tx,
                 idRequest,
             );
 
-            let amountToDiscount = 0;
+            // Normalizar y validar el total
+            const total = Number(collectionTotal);
 
-            amountToDiscount =
-                collectionTotal - (currentRequest.total_pagado || 0);
-
-            await tx.saldo.update({
-                where: {
-                    id_cliente: currentRequest.id_cliente,
-                },
-                data: {
-                    saldo: {
-                        decrement: amountToDiscount,
-                    },
-                },
-            });
-
-            const updateData = {
-                total_a_pagar: collectionTotal,
-                notas: notes,
-                estatus: true,
-                formas_pago: {
-                    connect: {
-                        id_pago: idPayment,
-                    },
-                },
-            };
-
-            if (payForm?.tipo === "Saldo") {
-                updateData.total_pagado = collectionTotal;
+            if (!Number.isFinite(total) || total < 0) {
+                throw new Error("El total de la solicitud no es válido");
             }
 
-            const updatedRequest = await tx.solicitudes_recoleccion.update({
-                where: {
-                    id_solicitud: idRequest,
-                },
-                data: updateData,
-            });
+            const requiresPayment = total > 0;
+
+            let payForm = null;
+
+            // Solo necesitamos una forma de pago cuando hay algo que cobrar
+            if (requiresPayment) {
+
+                if (idPayment === null || idPayment === undefined) {
+                    throw new Error(
+                        "Se requiere una forma de pago para completar la solicitud"
+                    );
+                }
+
+                payForm = await tx.formas_pago.findUnique({
+                    where: {
+                        id_pago: idPayment,
+                    },
+                    select: {
+                        tipo: true,
+                    },
+                });
+
+                if (!payForm) {
+                    throw new Error(
+                        "La forma de pago seleccionada no existe"
+                    );
+                }
+            }
+
+            const currentTotalPaid = Number(
+                currentRequest.total_pagado ?? 0
+            );
+
+            const amountToDiscount =
+                total - currentTotalPaid;
+
+            // Ajustar el saldo utilizando el método existente
+            await this.adjustBalance(
+                tx,
+                currentRequest.id_cliente,
+                amountToDiscount
+            );
+
+            const updateData = {
+                total_a_pagar: total,
+                notas: notes,
+                estatus: true,
+
+                formas_pago: requiresPayment
+                    ? {
+                        connect: {
+                            id_pago: idPayment,
+                        },
+                    }
+                    : {
+                        disconnect: true,
+                    },
+            };
+
+            // Si no hay nada que pagar, tampoco debe quedar
+            // registrado un monto pagado anterior
+            if (!requiresPayment) {
+                updateData.total_pagado = 0;
+            }
+
+            // Cuando se paga con saldo, el total queda cubierto
+            if (payForm?.tipo === "Saldo") {
+                updateData.total_pagado = total;
+            }
+
+            const updatedRequest =
+                await tx.solicitudes_recoleccion.update({
+                    where: {
+                        id_solicitud: idRequest,
+                    },
+                    data: updateData,
+                });
 
             return updatedRequest;
         });
