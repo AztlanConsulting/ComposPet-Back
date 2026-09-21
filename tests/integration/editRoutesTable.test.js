@@ -98,9 +98,9 @@ const createBaseData = async () => {
 
     await prisma.precios_cubetas.createMany({
         data: [
-            { cantidad: 0, normal: 0, normal_iva: 0, pension: 0, pension_iva: 0 },
-            { cantidad: 1, normal: 50, normal_iva: 60, pension: 40, pension_iva: 45 },
-            { cantidad: 2, normal: 100, normal_iva: 120, pension: 80, pension_iva: 90 },
+            { cantidad: 0, normal: 0, normal_iva: 0, pension: 0, pension_iva: 0, gratis: 0 },
+            { cantidad: 1, normal: 50, normal_iva: 60, pension: 40, pension_iva: 45, gratis: 0 },
+            { cantidad: 2, normal: 100, normal_iva: 120, pension: 80, pension_iva: 90, gratis: 0 },
         ],
         skipDuplicates: true,
     });

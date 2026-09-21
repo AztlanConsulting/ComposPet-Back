@@ -115,12 +115,11 @@ describe('Unit - Model - CollectionRequest', () => {
         where: { id_solicitud: 'request-free' },
         data: {
           total_a_pagar: 0, notas: 'Conservar notas', estatus: true,
+          total_pagado: 0,
           formas_pago: { disconnect: true },
         },
       });
-      expect(prisma.saldo.update).toHaveBeenCalledWith({
-        where: { id_cliente: 'client-free' }, data: { saldo: { decrement: 0 } },
-      });
+      expect(prisma.saldo.update).not.toHaveBeenCalled();
     });
 
     it('debe actualizar total, método de pago y notas', async () => {
