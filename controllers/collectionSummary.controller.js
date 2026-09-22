@@ -24,28 +24,20 @@ const getSummary = async (req, res) => {
         weekEndDate,
     } = req.body;
 
-    const collectionObject = 
-        await CollectionRequest.getCurrentCollectionRequest(
+    const collectionObject = await CollectionRequest.getCurrentCollectionRequest(
             idClient, 
             weekStartDate, 
             weekEndDate
         );
 
-    const productsList = 
-        await CollectionRequest.getProductsByCollection(
+    const productsList = await CollectionRequest.getProductsByCollection(
             collectionObject.id_solicitud
         );
 
-    const { cost: bucketCost, priceType } = 
-        await Client.getBucketPrice(
+    const { cost: bucketCost, priceType } = await Client.getBucketPrice(
             collectionObject.id_cliente, 
             collectionObject.cubetas_recolectadas
         );
-    
-    /*const collectionTotal = productsList.reduce(
-        (subtotal, product) => subtotal + product.productos_extra.precio * product.cantidad,
-        bucketCost
-    );*/
 
     const productsSubtotal = productsList.reduce(
         (subtotal, product) =>

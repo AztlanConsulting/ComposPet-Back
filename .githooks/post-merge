@@ -68,7 +68,7 @@ if echo "$CHANGED_FILES" | grep -Eq "^prisma/(schema\.prisma|migrations/)"; then
   # PRODUCCIÓN
   # ════════════════════════════════════════════════════════════
 
-  if [ "$APP_ENV" = "production" ] || [ "$DB_NAME" = "compospetbd" ]; then
+  if [ "$APP_ENV" = "production" ]; then
 
     echo "╔══════════════════════════════════════════════════════════════╗"
     echo "║  🛡️ ENTORNO DE PRODUCCIÓN DETECTADO                         ║"
@@ -76,7 +76,7 @@ if echo "$CHANGED_FILES" | grep -Eq "^prisma/(schema\.prisma|migrations/)"; then
     echo "║                                                              ║"
     echo "║  Las migraciones NO se aplicarán automáticamente.            ║"
     echo "║                                                              ║"
-    echo "║  Para aplicarlas de forma controlada utiliza:                 ║"
+    echo "║  Para aplicarlas de forma controlada utiliza:                ║"
     echo "║                                                              ║"
     echo "║      npx prisma migrate status                               ║"
     echo "║      npx prisma migrate deploy                               ║"
@@ -102,23 +102,44 @@ if echo "$CHANGED_FILES" | grep -Eq "^prisma/(schema\.prisma|migrations/)"; then
   fi
 
   # ════════════════════════════════════════════════════════════
-  # DESARROLLO LOCAL
+  # ENTORNO DESCONOCIDO
   # ════════════════════════════════════════════════════════════
 
-  if [ "$APP_ENV" != "development" ] ||
-     [ "$DB_NAME" != "compospetbd_local" ] ||
-     { [ "$DB_HOST" != "localhost" ] && [ "$DB_HOST" != "127.0.0.1" ]; }; then
+  if [ "$APP_ENV" != "development" ]; then
 
     echo "╔══════════════════════════════════════════════════════════════╗"
-    echo "║  🛑 CONFIGURACIÓN DE BD NO RECONOCIDA                       ║"
+    echo "║  🛑 ENTORNO NO RECONOCIDO                                   ║"
     echo "╠══════════════════════════════════════════════════════════════╣"
     echo "║                                                              ║"
     echo "║  Por seguridad no se aplicarán migraciones.                  ║"
     echo "║                                                              ║"
-    echo "║  Desarrollo debe utilizar:                                   ║"
-    echo "║    APP_ENV=development                                       ║"
-    echo "║    BD=compospetbd_local                                      ║"
-    echo "║    Host=localhost                                            ║"
+    echo "║  APP_ENV debe ser:                                           ║"
+    echo "║    development                                               ║"
+    echo "║    production                                                ║"
+    echo "║                                                              ║"
+    echo "╚══════════════════════════════════════════════════════════════╝"
+    echo ""
+
+    exit 1
+  fi
+
+  # ════════════════════════════════════════════════════════════
+  # DESARROLLO LOCAL
+  # ════════════════════════════════════════════════════════════
+
+  if [ "$DB_NAME" != "compospetbd_local" ] ||
+      { [ "$DB_HOST" != "localhost" ] && [ "$DB_HOST" != "127.0.0.1" ]; }; then
+
+    echo "╔══════════════════════════════════════════════════════════════╗"
+    echo "║  🛑 CONFIGURACIÓN DE DESARROLLO NO VÁLIDA                   ║"
+    echo "╠══════════════════════════════════════════════════════════════╣"
+    echo "║                                                              ║"
+    echo "║  Por seguridad no se aplicarán migraciones.                  ║"
+    echo "║                                                              ║"
+    echo "║  Desarrollo debe utilizar:                                  ║"
+    echo "║    APP_ENV=development                                      ║"
+    echo "║    BD=compospetbd_local                                     ║"
+    echo "║    Host=localhost o 127.0.0.1                               ║"
     echo "║                                                              ║"
     echo "╚══════════════════════════════════════════════════════════════╝"
     echo ""
@@ -131,9 +152,8 @@ if echo "$CHANGED_FILES" | grep -Eq "^prisma/(schema\.prisma|migrations/)"; then
   echo "🔄 Aplicando migraciones pendientes..."
   echo ""
 
-  # IMPORTANTE:
-  # Aquí usamos deploy, NO dev.
-  # Solo queremos aplicar migraciones que ya existen en Git.
+  # Solo aplica migraciones existentes en Git.
+  # NO crea migraciones nuevas.
   npx prisma migrate deploy
 
   if [ $? -ne 0 ]; then

@@ -686,9 +686,14 @@ module.exports = class Client {
         }
 
         // 0 es una cantidad válida, por eso NO usamos if (!quantity)
-        if (quantity === null || quantity === undefined) {
+        if (
+            typeof quantity !== "number" ||
+            !Number.isInteger(quantity) ||
+            quantity < 0 ||
+            quantity > 20
+        ) {
             throw new Error(
-                "La cantidad de cubetas no está definida"
+                "La cantidad de cubetas debe ser un número entero entre 0 y 20"
             );
         }
 
