@@ -154,7 +154,7 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
             expect(callData.total_pagado).toBe(500);
         });
 
-        it('debe descontar 0 del saldo cuando el total_pagado anterior ya cubre el nuevo total', async () => {
+        it('no debe modificar el saldo cuando el total_pagado anterior ya cubre el nuevo total', async () => {
 
             prisma.solicitudes_recoleccion.findUnique.mockResolvedValue({
                 ...BASE_REQUEST,
@@ -163,9 +163,7 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
 
             await CollectionRequest.updateCollectionTotal(15, 500, 3, null);
 
-            const decrementArg =
-                prisma.saldo.update.mock.calls[0][0].data.saldo.decrement;
-            expect(decrementArg).toBe(0);
+            expect(prisma.saldo.update).not.toHaveBeenCalled();
         });
 
     });

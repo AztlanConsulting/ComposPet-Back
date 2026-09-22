@@ -9307,8 +9307,8 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
-    deleted: boolean | null
     color: string | null
+    deleted: boolean | null
   }
 
   export type Productos_extraMaxAggregateOutputType = {
@@ -9320,8 +9320,8 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean | null
-    deleted: boolean | null
     color: string | null
+    deleted: boolean | null
   }
 
   export type Productos_extraCountAggregateOutputType = {
@@ -9333,8 +9333,8 @@ export namespace Prisma {
     imagen_url: number
     orden: number
     estatus: number
-    deleted: number
     color: number
+    deleted: number
     _all: number
   }
 
@@ -9362,8 +9362,8 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
-    deleted?: true
     color?: true
+    deleted?: true
   }
 
   export type Productos_extraMaxAggregateInputType = {
@@ -9375,8 +9375,8 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
-    deleted?: true
     color?: true
+    deleted?: true
   }
 
   export type Productos_extraCountAggregateInputType = {
@@ -9388,8 +9388,8 @@ export namespace Prisma {
     imagen_url?: true
     orden?: true
     estatus?: true
-    deleted?: true
     color?: true
+    deleted?: true
     _all?: true
   }
 
@@ -9488,8 +9488,8 @@ export namespace Prisma {
     imagen_url: string | null
     orden: number | null
     estatus: boolean
-    deleted: boolean
     color: string
+    deleted: boolean
     _count: Productos_extraCountAggregateOutputType | null
     _avg: Productos_extraAvgAggregateOutputType | null
     _sum: Productos_extraSumAggregateOutputType | null
@@ -9520,8 +9520,8 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
-    deleted?: boolean
     color?: boolean
+    deleted?: boolean
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productos_extra"]>
@@ -9535,8 +9535,8 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
-    deleted?: boolean
     color?: boolean
+    deleted?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9548,8 +9548,8 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
-    deleted?: boolean
     color?: boolean
+    deleted?: boolean
   }, ExtArgs["result"]["productos_extra"]>
 
   export type productos_extraSelectScalar = {
@@ -9561,11 +9561,11 @@ export namespace Prisma {
     imagen_url?: boolean
     orden?: boolean
     estatus?: boolean
-    deleted?: boolean
     color?: boolean
+    deleted?: boolean
   }
 
-  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus" | "deleted" | "color", ExtArgs["result"]["productos_extra"]>
+  export type productos_extraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_producto" | "nombre" | "precio" | "descripcion" | "cantidad" | "imagen_url" | "orden" | "estatus" | "color" | "deleted", ExtArgs["result"]["productos_extra"]>
   export type productos_extraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     productos_solicitud?: boolean | productos_extra$productos_solicitudArgs<ExtArgs>
     _count?: boolean | Productos_extraCountOutputTypeDefaultArgs<ExtArgs>
@@ -9587,8 +9587,8 @@ export namespace Prisma {
       imagen_url: string | null
       orden: number | null
       estatus: boolean
-      deleted: boolean
       color: string
+      deleted: boolean
     }, ExtArgs["result"]["productos_extra"]>
     composites: {}
   }
@@ -10021,8 +10021,8 @@ export namespace Prisma {
     readonly imagen_url: FieldRef<"productos_extra", 'String'>
     readonly orden: FieldRef<"productos_extra", 'Int'>
     readonly estatus: FieldRef<"productos_extra", 'Boolean'>
-    readonly deleted: FieldRef<"productos_extra", 'Boolean'>
     readonly color: FieldRef<"productos_extra", 'String'>
+    readonly deleted: FieldRef<"productos_extra", 'Boolean'>
   }
     
 
@@ -19515,6 +19515,7 @@ export namespace Prisma {
     normal_iva: number | null
     pension: number | null
     pension_iva: number | null
+    gratis: number | null
   }
 
   export type Precios_cubetasSumAggregateOutputType = {
@@ -19524,6 +19525,7 @@ export namespace Prisma {
     normal_iva: number | null
     pension: number | null
     pension_iva: number | null
+    gratis: number | null
   }
 
   export type Precios_cubetasMinAggregateOutputType = {
@@ -19533,6 +19535,7 @@ export namespace Prisma {
     normal_iva: number | null
     pension: number | null
     pension_iva: number | null
+    gratis: number | null
   }
 
   export type Precios_cubetasMaxAggregateOutputType = {
@@ -19542,6 +19545,7 @@ export namespace Prisma {
     normal_iva: number | null
     pension: number | null
     pension_iva: number | null
+    gratis: number | null
   }
 
   export type Precios_cubetasCountAggregateOutputType = {
@@ -19551,6 +19555,7 @@ export namespace Prisma {
     normal_iva: number
     pension: number
     pension_iva: number
+    gratis: number
     _all: number
   }
 
@@ -19562,6 +19567,7 @@ export namespace Prisma {
     normal_iva?: true
     pension?: true
     pension_iva?: true
+    gratis?: true
   }
 
   export type Precios_cubetasSumAggregateInputType = {
@@ -19571,6 +19577,7 @@ export namespace Prisma {
     normal_iva?: true
     pension?: true
     pension_iva?: true
+    gratis?: true
   }
 
   export type Precios_cubetasMinAggregateInputType = {
@@ -19580,6 +19587,7 @@ export namespace Prisma {
     normal_iva?: true
     pension?: true
     pension_iva?: true
+    gratis?: true
   }
 
   export type Precios_cubetasMaxAggregateInputType = {
@@ -19589,6 +19597,7 @@ export namespace Prisma {
     normal_iva?: true
     pension?: true
     pension_iva?: true
+    gratis?: true
   }
 
   export type Precios_cubetasCountAggregateInputType = {
@@ -19598,6 +19607,7 @@ export namespace Prisma {
     normal_iva?: true
     pension?: true
     pension_iva?: true
+    gratis?: true
     _all?: true
   }
 
@@ -19694,6 +19704,7 @@ export namespace Prisma {
     normal_iva: number
     pension: number
     pension_iva: number
+    gratis: number
     _count: Precios_cubetasCountAggregateOutputType | null
     _avg: Precios_cubetasAvgAggregateOutputType | null
     _sum: Precios_cubetasSumAggregateOutputType | null
@@ -19722,6 +19733,7 @@ export namespace Prisma {
     normal_iva?: boolean
     pension?: boolean
     pension_iva?: boolean
+    gratis?: boolean
   }, ExtArgs["result"]["precios_cubetas"]>
 
   export type precios_cubetasSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19731,6 +19743,7 @@ export namespace Prisma {
     normal_iva?: boolean
     pension?: boolean
     pension_iva?: boolean
+    gratis?: boolean
   }, ExtArgs["result"]["precios_cubetas"]>
 
   export type precios_cubetasSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -19740,6 +19753,7 @@ export namespace Prisma {
     normal_iva?: boolean
     pension?: boolean
     pension_iva?: boolean
+    gratis?: boolean
   }, ExtArgs["result"]["precios_cubetas"]>
 
   export type precios_cubetasSelectScalar = {
@@ -19749,9 +19763,10 @@ export namespace Prisma {
     normal_iva?: boolean
     pension?: boolean
     pension_iva?: boolean
+    gratis?: boolean
   }
 
-  export type precios_cubetasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_precio" | "cantidad" | "normal" | "normal_iva" | "pension" | "pension_iva", ExtArgs["result"]["precios_cubetas"]>
+  export type precios_cubetasOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_precio" | "cantidad" | "normal" | "normal_iva" | "pension" | "pension_iva" | "gratis", ExtArgs["result"]["precios_cubetas"]>
 
   export type $precios_cubetasPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "precios_cubetas"
@@ -19763,6 +19778,7 @@ export namespace Prisma {
       normal_iva: number
       pension: number
       pension_iva: number
+      gratis: number
     }, ExtArgs["result"]["precios_cubetas"]>
     composites: {}
   }
@@ -20192,6 +20208,7 @@ export namespace Prisma {
     readonly normal_iva: FieldRef<"precios_cubetas", 'Float'>
     readonly pension: FieldRef<"precios_cubetas", 'Float'>
     readonly pension_iva: FieldRef<"precios_cubetas", 'Float'>
+    readonly gratis: FieldRef<"precios_cubetas", 'Float'>
   }
     
 
@@ -20658,8 +20675,8 @@ export namespace Prisma {
     imagen_url: 'imagen_url',
     orden: 'orden',
     estatus: 'estatus',
-    deleted: 'deleted',
-    color: 'color'
+    color: 'color',
+    deleted: 'deleted'
   };
 
   export type Productos_extraScalarFieldEnum = (typeof Productos_extraScalarFieldEnum)[keyof typeof Productos_extraScalarFieldEnum]
@@ -20769,7 +20786,8 @@ export namespace Prisma {
     normal: 'normal',
     normal_iva: 'normal_iva',
     pension: 'pension',
-    pension_iva: 'pension_iva'
+    pension_iva: 'pension_iva',
+    gratis: 'gratis'
   };
 
   export type Precios_cubetasScalarFieldEnum = (typeof Precios_cubetasScalarFieldEnum)[keyof typeof Precios_cubetasScalarFieldEnum]
@@ -21293,8 +21311,8 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolFilter<"productos_extra"> | boolean
-    deleted?: BoolFilter<"productos_extra"> | boolean
     color?: StringFilter<"productos_extra"> | string
+    deleted?: BoolFilter<"productos_extra"> | boolean
     productos_solicitud?: Productos_solicitudListRelationFilter
   }
 
@@ -21307,8 +21325,8 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrder
-    deleted?: SortOrder
     color?: SortOrder
+    deleted?: SortOrder
     productos_solicitud?: productos_solicitudOrderByRelationAggregateInput
   }
 
@@ -21324,8 +21342,8 @@ export namespace Prisma {
     imagen_url?: StringNullableFilter<"productos_extra"> | string | null
     orden?: IntNullableFilter<"productos_extra"> | number | null
     estatus?: BoolFilter<"productos_extra"> | boolean
-    deleted?: BoolFilter<"productos_extra"> | boolean
     color?: StringFilter<"productos_extra"> | string
+    deleted?: BoolFilter<"productos_extra"> | boolean
     productos_solicitud?: Productos_solicitudListRelationFilter
   }, "id_producto">
 
@@ -21338,8 +21356,8 @@ export namespace Prisma {
     imagen_url?: SortOrderInput | SortOrder
     orden?: SortOrderInput | SortOrder
     estatus?: SortOrder
-    deleted?: SortOrder
     color?: SortOrder
+    deleted?: SortOrder
     _count?: productos_extraCountOrderByAggregateInput
     _avg?: productos_extraAvgOrderByAggregateInput
     _max?: productos_extraMaxOrderByAggregateInput
@@ -21359,8 +21377,8 @@ export namespace Prisma {
     imagen_url?: StringNullableWithAggregatesFilter<"productos_extra"> | string | null
     orden?: IntNullableWithAggregatesFilter<"productos_extra"> | number | null
     estatus?: BoolWithAggregatesFilter<"productos_extra"> | boolean
-    deleted?: BoolWithAggregatesFilter<"productos_extra"> | boolean
     color?: StringWithAggregatesFilter<"productos_extra"> | string
+    deleted?: BoolWithAggregatesFilter<"productos_extra"> | boolean
   }
 
   export type productos_solicitudWhereInput = {
@@ -21902,6 +21920,7 @@ export namespace Prisma {
     normal_iva?: FloatFilter<"precios_cubetas"> | number
     pension?: FloatFilter<"precios_cubetas"> | number
     pension_iva?: FloatFilter<"precios_cubetas"> | number
+    gratis?: FloatFilter<"precios_cubetas"> | number
   }
 
   export type precios_cubetasOrderByWithRelationInput = {
@@ -21911,6 +21930,7 @@ export namespace Prisma {
     normal_iva?: SortOrder
     pension?: SortOrder
     pension_iva?: SortOrder
+    gratis?: SortOrder
   }
 
   export type precios_cubetasWhereUniqueInput = Prisma.AtLeast<{
@@ -21923,6 +21943,7 @@ export namespace Prisma {
     normal_iva?: FloatFilter<"precios_cubetas"> | number
     pension?: FloatFilter<"precios_cubetas"> | number
     pension_iva?: FloatFilter<"precios_cubetas"> | number
+    gratis?: FloatFilter<"precios_cubetas"> | number
   }, "id_precio">
 
   export type precios_cubetasOrderByWithAggregationInput = {
@@ -21932,6 +21953,7 @@ export namespace Prisma {
     normal_iva?: SortOrder
     pension?: SortOrder
     pension_iva?: SortOrder
+    gratis?: SortOrder
     _count?: precios_cubetasCountOrderByAggregateInput
     _avg?: precios_cubetasAvgOrderByAggregateInput
     _max?: precios_cubetasMaxOrderByAggregateInput
@@ -21949,6 +21971,7 @@ export namespace Prisma {
     normal_iva?: FloatWithAggregatesFilter<"precios_cubetas"> | number
     pension?: FloatWithAggregatesFilter<"precios_cubetas"> | number
     pension_iva?: FloatWithAggregatesFilter<"precios_cubetas"> | number
+    gratis?: FloatWithAggregatesFilter<"precios_cubetas"> | number
   }
 
   export type bitacoraCreateInput = {
@@ -22354,8 +22377,8 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
-    deleted?: boolean
     color: string
+    deleted?: boolean
     productos_solicitud?: productos_solicitudCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -22368,8 +22391,8 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
-    deleted?: boolean
     color: string
+    deleted?: boolean
     productos_solicitud?: productos_solicitudUncheckedCreateNestedManyWithoutProductos_extraInput
   }
 
@@ -22381,8 +22404,8 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
-    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -22395,8 +22418,8 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
-    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
     productos_solicitud?: productos_solicitudUncheckedUpdateManyWithoutProductos_extraNestedInput
   }
 
@@ -22409,8 +22432,8 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
-    deleted?: boolean
     color: string
+    deleted?: boolean
   }
 
   export type productos_extraUpdateManyMutationInput = {
@@ -22421,8 +22444,8 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
-    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type productos_extraUncheckedUpdateManyInput = {
@@ -22434,8 +22457,8 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
-    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type productos_solicitudCreateInput = {
@@ -22981,6 +23004,7 @@ export namespace Prisma {
     normal_iva: number
     pension: number
     pension_iva: number
+    gratis: number
   }
 
   export type precios_cubetasUncheckedCreateInput = {
@@ -22990,6 +23014,7 @@ export namespace Prisma {
     normal_iva: number
     pension: number
     pension_iva: number
+    gratis: number
   }
 
   export type precios_cubetasUpdateInput = {
@@ -22998,6 +23023,7 @@ export namespace Prisma {
     normal_iva?: FloatFieldUpdateOperationsInput | number
     pension?: FloatFieldUpdateOperationsInput | number
     pension_iva?: FloatFieldUpdateOperationsInput | number
+    gratis?: FloatFieldUpdateOperationsInput | number
   }
 
   export type precios_cubetasUncheckedUpdateInput = {
@@ -23007,6 +23033,7 @@ export namespace Prisma {
     normal_iva?: FloatFieldUpdateOperationsInput | number
     pension?: FloatFieldUpdateOperationsInput | number
     pension_iva?: FloatFieldUpdateOperationsInput | number
+    gratis?: FloatFieldUpdateOperationsInput | number
   }
 
   export type precios_cubetasCreateManyInput = {
@@ -23016,6 +23043,7 @@ export namespace Prisma {
     normal_iva: number
     pension: number
     pension_iva: number
+    gratis: number
   }
 
   export type precios_cubetasUpdateManyMutationInput = {
@@ -23024,6 +23052,7 @@ export namespace Prisma {
     normal_iva?: FloatFieldUpdateOperationsInput | number
     pension?: FloatFieldUpdateOperationsInput | number
     pension_iva?: FloatFieldUpdateOperationsInput | number
+    gratis?: FloatFieldUpdateOperationsInput | number
   }
 
   export type precios_cubetasUncheckedUpdateManyInput = {
@@ -23033,6 +23062,7 @@ export namespace Prisma {
     normal_iva?: FloatFieldUpdateOperationsInput | number
     pension?: FloatFieldUpdateOperationsInput | number
     pension_iva?: FloatFieldUpdateOperationsInput | number
+    gratis?: FloatFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -23623,8 +23653,8 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
-    deleted?: SortOrder
     color?: SortOrder
+    deleted?: SortOrder
   }
 
   export type productos_extraAvgOrderByAggregateInput = {
@@ -23643,8 +23673,8 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
-    deleted?: SortOrder
     color?: SortOrder
+    deleted?: SortOrder
   }
 
   export type productos_extraMinOrderByAggregateInput = {
@@ -23656,8 +23686,8 @@ export namespace Prisma {
     imagen_url?: SortOrder
     orden?: SortOrder
     estatus?: SortOrder
-    deleted?: SortOrder
     color?: SortOrder
+    deleted?: SortOrder
   }
 
   export type productos_extraSumOrderByAggregateInput = {
@@ -24069,6 +24099,7 @@ export namespace Prisma {
     normal_iva?: SortOrder
     pension?: SortOrder
     pension_iva?: SortOrder
+    gratis?: SortOrder
   }
 
   export type precios_cubetasAvgOrderByAggregateInput = {
@@ -24078,6 +24109,7 @@ export namespace Prisma {
     normal_iva?: SortOrder
     pension?: SortOrder
     pension_iva?: SortOrder
+    gratis?: SortOrder
   }
 
   export type precios_cubetasMaxOrderByAggregateInput = {
@@ -24087,6 +24119,7 @@ export namespace Prisma {
     normal_iva?: SortOrder
     pension?: SortOrder
     pension_iva?: SortOrder
+    gratis?: SortOrder
   }
 
   export type precios_cubetasMinOrderByAggregateInput = {
@@ -24096,6 +24129,7 @@ export namespace Prisma {
     normal_iva?: SortOrder
     pension?: SortOrder
     pension_iva?: SortOrder
+    gratis?: SortOrder
   }
 
   export type precios_cubetasSumOrderByAggregateInput = {
@@ -24105,6 +24139,7 @@ export namespace Prisma {
     normal_iva?: SortOrder
     pension?: SortOrder
     pension_iva?: SortOrder
+    gratis?: SortOrder
   }
 
   export type usuarios_cpCreateNestedOneWithoutBitacoraInput = {
@@ -25914,8 +25949,8 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
-    deleted?: boolean
     color: string
+    deleted?: boolean
   }
 
   export type productos_extraUncheckedCreateWithoutProductos_solicitudInput = {
@@ -25927,8 +25962,8 @@ export namespace Prisma {
     imagen_url?: string | null
     orden?: number | null
     estatus?: boolean
-    deleted?: boolean
     color: string
+    deleted?: boolean
   }
 
   export type productos_extraCreateOrConnectWithoutProductos_solicitudInput = {
@@ -25992,8 +26027,8 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
-    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type productos_extraUncheckedUpdateWithoutProductos_solicitudInput = {
@@ -26005,8 +26040,8 @@ export namespace Prisma {
     imagen_url?: NullableStringFieldUpdateOperationsInput | string | null
     orden?: NullableIntFieldUpdateOperationsInput | number | null
     estatus?: BoolFieldUpdateOperationsInput | boolean
-    deleted?: BoolFieldUpdateOperationsInput | boolean
     color?: StringFieldUpdateOperationsInput | string
+    deleted?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type solicitudes_recoleccionUpsertWithoutProductos_solicitudInput = {

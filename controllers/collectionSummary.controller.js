@@ -1,5 +1,4 @@
 const CollectionRequest = require('../models/collectionRequest.model');
-const bucketCostMap = require('../utils/bucketCostMap');
 const Client = require('../models/client.model');
 const Payment = require('../models/payment.model');
 
@@ -26,18 +25,34 @@ const getSummary = async (req, res) => {
     } = req.body;
 
     const collectionObject = await CollectionRequest.getCurrentCollectionRequest(
-        idClient, weekStartDate, weekEndDate
+            idClient, 
+            weekStartDate, 
+            weekEndDate
+        );
+
+    const productsList = await CollectionRequest.getProductsByCollection(
+            collectionObject.id_solicitud
+        );
+
+    const { cost: bucketCost, priceType } = await Client.getBucketPrice(
+            collectionObject.id_cliente, 
+            collectionObject.cubetas_recolectadas
+        );
+
+    const productsSubtotal = productsList.reduce(
+        (subtotal, product) =>
+            subtotal +
+            product.productos_extra.precio * product.cantidad,
+        0
     );
 
-    const productsList = await CollectionRequest.getProductsByCollection(collectionObject.id_solicitud);
-    const collectionTotal = await calculateCollectionTotal(collectionObject, productsList);
+    const collectionTotal = bucketCost + productsSubtotal;
 
-    const balanceObject = await Client.getClientBalance(idClient);
+    const balanceObject = 
+        await Client.getClientBalance(idClient);
 
-    const payMethods = await Payment.getPaymentInfo();
-
-    // Obtener el costo de las cubetas recolectadas
-    const bucketCost = await Client.getBucketCost(collectionObject.id_cliente, collectionObject.cubetas_recolectadas);
+    const payMethods = 
+        await Payment.getPaymentInfo();
 
     res.status(200).json({
         success: true,
@@ -48,9 +63,9 @@ const getSummary = async (req, res) => {
             balance: balanceObject.saldo,
             payMethods,
             bucketCost,
+            priceType,
         }
     });
-
 }
 
 const deleteProduct = async (req, res) => {
@@ -120,27 +135,6 @@ const updateCollectionTotal = async(req, res) => {
         })
     }
 }
-
-const calculateCollectionTotal = async (
-    collectionObject,
-    productsList
-) => {
-
-    // Obtener el costo de las cubetas recolectadas
-    const collectionCost = await Client.getBucketCost(
-        collectionObject.id_cliente,
-        collectionObject.cubetas_recolectadas
-    );
-
-    let productsCost = 0;
-
-    for (const product of productsList) {
-        productsCost +=
-            product.productos_extra.precio * product.cantidad;
-    }
-
-    return productsCost + collectionCost;
-};
 
 module.exports = {
     getSummary,

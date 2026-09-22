@@ -183,8 +183,8 @@ exports.Prisma.Productos_extraScalarFieldEnum = {
   imagen_url: 'imagen_url',
   orden: 'orden',
   estatus: 'estatus',
-  deleted: 'deleted',
-  color: 'color'
+  color: 'color',
+  deleted: 'deleted'
 };
 
 exports.Prisma.Productos_solicitudScalarFieldEnum = {
@@ -267,7 +267,8 @@ exports.Prisma.Precios_cubetasScalarFieldEnum = {
   normal: 'normal',
   normal_iva: 'normal_iva',
   pension: 'pension',
-  pension_iva: 'pension_iva'
+  pension_iva: 'pension_iva',
+  gratis: 'gratis'
 };
 
 exports.Prisma.SortOrder = {

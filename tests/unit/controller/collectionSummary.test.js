@@ -63,6 +63,7 @@ describe('Controller - CollectionRequest', () => {
       CollectionRequest.getCurrentCollectionRequest.mockResolvedValue(mockCollection);
       CollectionRequest.getProductsByCollection.mockResolvedValue(mockProducts);
       Client.getClientBalance.mockResolvedValue(mockBalance);
+      Client.getBucketPrice.mockResolvedValue({ cost: 90, priceType: 'normal' });
       Payment.getPaymentInfo.mockResolvedValue(mockPayments);
 
       // Act
@@ -75,9 +76,11 @@ describe('Controller - CollectionRequest', () => {
         data: {
           collection: mockCollection,
           products: mockProducts,
-          collectionTotal: expect.any(Number),
+          collectionTotal: 190,
           balance: 300,
           payMethods: mockPayments,
+          bucketCost: 90,
+          priceType: 'normal',
         },
       });
     });
