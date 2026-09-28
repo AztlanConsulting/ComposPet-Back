@@ -5,12 +5,12 @@ const GoogleSheetsRoutesService = require('../../../config/googleSheetsRoutes.se
 jest.mock("../../../models/route.model");
 jest.mock("../../../config/googleSheetsRoutes.service");
 
-describe("Controller - exportDailyRoutes ", () => {
+describe("Controller - exportFilteredRoutes", () => {
     let req;
     let res;
 
     beforeEach(() => {
-        req = {};
+        req = { body: {} };
 
         res = {
             status: jest.fn().mockReturnThis(),
@@ -20,85 +20,86 @@ describe("Controller - exportDailyRoutes ", () => {
         jest.clearAllMocks();
     });
 
-    describe("exportDailyRoutes()", () => {
-        it("Debe obtener la información de la ruta y mandarlo al google sheets", async () => {
-            const mockRouteInfo = [
-                { 
-                    nombre: "Alejandra Prueba", 
-                    dia_ruta: "Jueves" 
-                },
-            ];
+    it("retorna 400 si faltan weekIndex o dayName", async () => {
+        req.body = { weekIndex: 2 };
 
-            const mockSheetUrl = "https://docs.google.com/spreadsheets/d/test-sheet-id";
+        await routesController.exportFilteredRoutes(req, res);
 
-            Routes.getRoutesInfo.mockResolvedValue(mockRouteInfo);
-            GoogleSheetsRoutesService.exportDailyRoutes.mockResolvedValue(mockSheetUrl);
-
-            const result = await routesController.exportDailyRoutes();
-
-            expect(Routes.getRoutesInfo).toHaveBeenCalledTimes(1);
-            expect(GoogleSheetsRoutesService.exportDailyRoutes).toHaveBeenCalledWith(mockRouteInfo);
-            
-            expect(result).toBe(mockSheetUrl);
+        expect(res.status).toHaveBeenCalledWith(400);
+        expect(res.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Selecciona una semana y un día de ruta para exportar.",
         });
-
-        it("Debe lanzar el error si falla la consulta al modelo", async () => {
-            const mockError = new Error("Error en BD");
-            Routes.getRoutesInfo.mockRejectedValue(mockError);
-
-            await expect(routesController.exportDailyRoutes()).rejects.toThrow("Error en BD");
-
-            expect(Routes.getRoutesInfo).toHaveBeenCalledTimes(1);
-            expect(GoogleSheetsRoutesService.exportDailyRoutes).not.toHaveBeenCalled(); 
-        });
-
-        it("Debe lanzar el error si falla Google Sheets", async () => {
-            const mockRouteInfo = [{ nombre: "Alejandra Prueba", dia_ruta: "Jueves" }];
-            const mockError = new Error("Error en Google Sheets");
-
-            Routes.getRoutesInfo.mockResolvedValue(mockRouteInfo);
-            GoogleSheetsRoutesService.exportDailyRoutes.mockRejectedValue(mockError);
-
-            await expect(routesController.exportDailyRoutes()).rejects.toThrow("Error en Google Sheets");
-        });
-
+        expect(Routes.getFilteredRoutesInfo).not.toHaveBeenCalled();
     });
 
-    describe("exportDailyRoutesInfo()", () => {
-        it("Debe devolver 200 y mensaje de éxito con la URL generada", async () => {
-            const mockRouteInfo = [{ nombre: "Alejandra Prueba", dia_ruta: "Jueves" }];
-            const mockSheetUrl = "https://docs.google.com/spreadsheets/d/test-sheet-id";
+    it("retorna 200 y la URL de la hoja cuando la exportación es exitosa", async () => {
+        req.body = { weekIndex: 2, dayName: "Miércoles tarde" };
 
-            Routes.getRoutesInfo.mockResolvedValue(mockRouteInfo);
-            GoogleSheetsRoutesService.exportDailyRoutes.mockResolvedValue(mockSheetUrl);
+        const mockRouteInfo = [
+            { nombre: "Alejandra Prueba", dia_ruta: "Miércoles tarde" },
+        ];
+        const mockSheetUrl = "https://docs.google.com/spreadsheets/d/test-sheet-id";
 
-            await routesController.exportDailyRoutesInfo(req, res);
+        Routes.getFilteredRoutesInfo.mockResolvedValue(mockRouteInfo);
+        GoogleSheetsRoutesService.exportDailyRoutes.mockResolvedValue(mockSheetUrl);
 
-            expect(res.status).toHaveBeenCalledWith(200);
-            expect(res.json).toHaveBeenCalledWith({
-                success: true,
-                message: "Exportación exitosa",
-                data: { routeInfo: mockSheetUrl }, 
-            });
+        await routesController.exportFilteredRoutes(req, res);
+
+        expect(Routes.getFilteredRoutesInfo).toHaveBeenCalledWith({
+            weekIndex: 2,
+            dayName: "Miércoles tarde",
         });
+        expect(GoogleSheetsRoutesService.exportDailyRoutes).toHaveBeenCalledWith(mockRouteInfo);
 
-        it("Debe devolver 500 y el mensaje de error si ocurre un fallo al exportar", async () => {
-            const mockError = new Error("Error obteniendo rutas");
-            Routes.getRoutesInfo.mockRejectedValue(mockError);
-
-            const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-
-            await routesController.exportDailyRoutesInfo(req, res);
-
-            expect(res.status).toHaveBeenCalledWith(500);
-            expect(res.json).toHaveBeenCalledWith({
-                success: false,
-                message: "Ocurrió un error obteniendo la información.",
-                error: mockError.message,
-            });
-
-            consoleSpy.mockRestore();
+        expect(res.status).toHaveBeenCalledWith(200);
+        expect(res.json).toHaveBeenCalledWith({
+            success: true,
+            message: "Exportación exitosa",
+            data: { sheetUrl: mockSheetUrl },
         });
     });
 
-})
+    it("retorna 500 si falla la consulta al modelo", async () => {
+        req.body = { weekIndex: 2, dayName: "Miércoles tarde" };
+
+        const mockError = new Error("Error en BD");
+        Routes.getFilteredRoutesInfo.mockRejectedValue(mockError);
+
+        const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+        await routesController.exportFilteredRoutes(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Ocurrió un error exportando la información.",
+            error: "Error en BD",
+        });
+
+        consoleSpy.mockRestore();
+    });
+
+    it("retorna 500 si falla Google Sheets", async () => {
+        req.body = { weekIndex: 2, dayName: "Miércoles tarde" };
+
+        const mockRouteInfo = [{ nombre: "Alejandra Prueba", dia_ruta: "Miércoles tarde" }];
+        const mockError = new Error("Error en Google Sheets");
+
+        Routes.getFilteredRoutesInfo.mockResolvedValue(mockRouteInfo);
+        GoogleSheetsRoutesService.exportDailyRoutes.mockRejectedValue(mockError);
+
+        const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+        await routesController.exportFilteredRoutes(req, res);
+
+        expect(res.status).toHaveBeenCalledWith(500);
+        expect(res.json).toHaveBeenCalledWith({
+            success: false,
+            message: "Ocurrió un error exportando la información.",
+            error: "Error en Google Sheets",
+        });
+
+        consoleSpy.mockRestore();
+    });
+});

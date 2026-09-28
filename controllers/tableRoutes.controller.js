@@ -277,51 +277,57 @@ const generateConfirmationMessages = async (req, res) => {
 }
 
 /**
- * Obtiene las rutas del día actual y las exporta a Google Sheets.
- * Función utilitaria compartida entre el controlador HTTP y la tarea programada de cron.
+ * Exporta a Google Sheets la información de rutas correspondiente
+ * a los filtros actualmente seleccionados en la tabla (semana + día).
+ * Reemplaza la exportación automática: ahora es 100% manual, disparada
+ * por el botón "Resumen de ruta" / "Exportar ruta" en el frontend.
  *
- * Regla de negocio: la exportación diaria a Google Sheets debe reflejar
- * la ruta del DÍA SIGUIENTE, no la del día actual.
- * @returns {Promise<string>} URL de la hoja de cálculo generada en Google Sheets.
- * @throws {Error} Si falla la consulta de rutas o la exportación a Google Sheets.
- * @see Routes.getRoutesInfo
+ * @param {import('express').Request} req
+ * @param {number|string} req.body.weekIndex - Índice de la semana seleccionada (obligatorio).
+ * @param {string} req.body.dayName - Día de ruta seleccionado, ej. "Miércoles tarde" (obligatorio).
+ * @param {import('express').Response} res
+ * @returns {Promise<void>} 200 con la URL de la hoja, 400 si faltan filtros, 500 si falla.
+ * @see Routes.getFilteredRoutesInfo
  * @see GoogleSheetsRoutesService.exportDailyRoutes
  */
-const TOMORROW_OFFSET = 1;
-
-const exportDailyRoutes = async () => {
-    const routeInfo = await Routes.getRoutesInfo(TOMORROW_OFFSET);
-    const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
-    return sheetUrl;
-}
-
-/**
- * Controlador HTTP que dispara manualmente la exportación de rutas del día a Google Sheets.
- * Internamente delega en `exportDailyRoutes`, la misma función utilizada por la tarea cron.
- * Responde con la URL de la hoja generada si la exportación es exitosa.
- *
- * @param {import('express').Request} req - Objeto de solicitud de Express.
- * @param {import('express').Response} res - Objeto de respuesta de Express.
- * @returns {Promise<void>} Responde con status 200 y la URL de la hoja, o 500 si ocurre un error.
- * @throws {Error} Responde con status 500 si falla la consulta de rutas o la exportación.
- * @see exportDailyRoutes
- */
-const exportDailyRoutesInfo = async (req, res) => {
+const exportFilteredRoutes = async (req, res) => {
     try {
-        
-        const routeInfo = await exportDailyRoutes();
+        const { weekIndex, dayName } = req.body;
+
+        if (weekIndex === undefined || weekIndex === null || !dayName) {
+            return res.status(400).json({
+                success: false,
+                message: "Selecciona una semana y un día de ruta para exportar.",
+            });
+        }
+
+        const parsedWeekIndex = parseWeekIndex(weekIndex);
+
+        if (parsedWeekIndex === "NaN" || parsedWeekIndex === null) {
+            return res.status(400).json({
+                success: false,
+                message: "Selecciona una semana específica (no 'Todas las semanas').",
+            });
+        }
+
+        const routeInfo = await Routes.getFilteredRoutesInfo({
+            weekIndex: parsedWeekIndex,
+            dayName,
+        });
+
+        const sheetUrl = await GoogleSheetsRoutesService.exportDailyRoutes(routeInfo);
 
         return res.status(200).json({
             success: true,
             message: "Exportación exitosa",
-            data: { routeInfo },
+            data: { sheetUrl },
         });
 
-    } catch(error){
-        console.error("Error exportando rutas a Sheets:", error);
+    } catch (error) {
+        console.error("Error exportando rutas filtradas a Sheets:", error);
         return res.status(500).json({
             success: false,
-            message: "Ocurrió un error obteniendo la información.",
+            message: "Ocurrió un error exportando la información.",
             error: error.message,
         });
     }
@@ -401,9 +407,6 @@ const updateRequest = async(req, res) => {
             success: true,
         })
 
-        exportDailyRoutes().catch((err) =>
-            console.error("Error sincronizando Sheets tras edición:", err)
-        );
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -495,7 +498,6 @@ module.exports = {
     getDaysOfRoutes,
     getFilteredRoutesInfo,
     generateConfirmationMessages,
-    exportDailyRoutes,
-    exportDailyRoutesInfo,
+    exportFilteredRoutes,
     updateRequest,
 }

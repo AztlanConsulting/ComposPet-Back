@@ -7,10 +7,11 @@ jest.mock("../../config/googleSheetsRoutes.service", () => ({
 
 const app = require("../../app");
 const prisma = require("../../config/prisma");
+const Route = require("../../models/route.model");
 const { generateAccessToken } = require("../../utils/jwt.utils");
 const GoogleSheetsRoutesService = require("../../config/googleSheetsRoutes.service");
 
-const ENDPOINT = "/api/rutas/exportar-tabla-rutas";
+const ENDPOINT = "/api/rutas/exportar-ruta-filtrada";
 
 const TEST_CP_ID = randomUUID();
 const TEST_ROLE_ID = randomUUID();
@@ -23,6 +24,9 @@ const WEEK_DAYS = [
     "Domingo", "Lunes", "Martes", "Miércoles",
     "Jueves", "Viernes", "Sábado",
 ];
+
+const TODAY_DAY_NAME = WEEK_DAYS[new Date().getDay()];
+const CURRENT_WEEK_INDEX = Route.getCurrentWeekIndex();
 
 const createAuthToken = () => {
     return generateAccessToken({
@@ -65,14 +69,10 @@ const createTestData = async () => {
         },
     });
 
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const tomorrowDayName = WEEK_DAYS[tomorrow.getDay()];
-
     await prisma.ruta.create({
         data: {
             id_ruta: TEST_RUTA_ID,
-            dia_ruta: tomorrowDayName,
+            dia_ruta: TODAY_DAY_NAME,
             turno_ruta: "Matutino",
         },
     });
@@ -93,13 +93,10 @@ const createTestData = async () => {
 };
 
 const createSolicitud = async () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-
     await prisma.solicitudes_recoleccion.create({
         data: {
             id_cliente: TEST_CLIENT_ID,
-            fecha: tomorrow,
+            fecha: new Date(),
             horario: new Date(),
             estatus: true,
             quiere_recoleccion: true,
@@ -108,7 +105,7 @@ const createSolicitud = async () => {
             cubetas_entregadas: 2,
             total_a_pagar: 150,
             total_pagado: 150,
-            notas: "Solicitud de exportación (día siguiente)",
+            notas: "Solicitud de exportación filtrada",
         },
     });
 };
@@ -153,26 +150,17 @@ afterEach(async () => {
     await cleanDb();
 });
 
-beforeAll(async () => {
-    await cleanDb();
-    await createTestData();
-});
-
 afterAll(async () => {
     await cleanDb();
     await prisma.$disconnect();
 });
 
-// =====================================================================
-// Casos de prueba: Exportación de Rutas Diarias
-// =====================================================================
+describe("RUT-10 Exportación de Rutas Filtradas Integration", () => {
 
-describe("RUT-10 Exportación de Rutas Diarias Integration", () => {
-    
     it("retorna 401 si no hay token de autenticación", async () => {
         const res = await request(app)
-            .get(ENDPOINT)
-            .send();
+            .post(ENDPOINT)
+            .send({ weekIndex: CURRENT_WEEK_INDEX, dayName: TODAY_DAY_NAME });
 
         expect(res.status).toBe(401);
 
@@ -180,25 +168,42 @@ describe("RUT-10 Exportación de Rutas Diarias Integration", () => {
             error: "UNAUTHORIZED",
             message: "Token de autenticación requerido",
         });
-        
+
         expect(GoogleSheetsRoutesService.exportDailyRoutes).not.toHaveBeenCalled();
     });
 
-    it("retorna 200 y exporta la información a Google Sheets correctamente", async () => {
+    it("retorna 400 si faltan weekIndex o dayName", async () => {
+        const token = createAuthToken();
+
+        const res = await request(app)
+            .post(ENDPOINT)
+            .set("Authorization", `Bearer ${token}`)
+            .send({ weekIndex: CURRENT_WEEK_INDEX });
+
+        expect(res.status).toBe(400);
+        expect(res.body).toEqual({
+            success: false,
+            message: "Selecciona una semana y un día de ruta para exportar.",
+        });
+
+        expect(GoogleSheetsRoutesService.exportDailyRoutes).not.toHaveBeenCalled();
+    });
+
+    it("retorna 200 y exporta la información filtrada a Google Sheets correctamente", async () => {
         const token = createAuthToken();
         await createSolicitud();
 
         const res = await request(app)
             .post(ENDPOINT)
             .set("Authorization", `Bearer ${token}`)
-            .send();
+            .send({ weekIndex: CURRENT_WEEK_INDEX, dayName: TODAY_DAY_NAME });
 
         expect(res.status).toBe(200);
         expect(res.body).toEqual({
             success: true,
             message: "Exportación exitosa",
-            data: { 
-                routeInfo: "https://docs.google.com/spreadsheets/d/mock-export-sheet-id" 
+            data: {
+                sheetUrl: "https://docs.google.com/spreadsheets/d/mock-export-sheet-id"
             },
         });
 
@@ -206,6 +211,7 @@ describe("RUT-10 Exportación de Rutas Diarias Integration", () => {
         const callArgs = GoogleSheetsRoutesService.exportDailyRoutes.mock.calls[0][0];
         expect(Array.isArray(callArgs)).toBe(true);
         expect(callArgs[0]).toHaveProperty("nombre", "Alejandra Prueba Exportación");
+        expect(callArgs[0]).toHaveProperty("dia_ruta", TODAY_DAY_NAME);
     });
 
     it("retorna 500 si falla el servicio de Google Sheets", async () => {
@@ -221,12 +227,12 @@ describe("RUT-10 Exportación de Rutas Diarias Integration", () => {
         const res = await request(app)
             .post(ENDPOINT)
             .set("Authorization", `Bearer ${token}`)
-            .send();
+            .send({ weekIndex: CURRENT_WEEK_INDEX, dayName: TODAY_DAY_NAME });
 
         expect(res.status).toBe(500);
         expect(res.body).toEqual({
             success: false,
-            message: "Ocurrió un error obteniendo la información.",
+            message: "Ocurrió un error exportando la información.",
             error: "Google Sheets API Timeout",
         });
 
