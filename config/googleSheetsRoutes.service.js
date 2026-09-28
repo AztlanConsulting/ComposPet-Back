@@ -4,8 +4,8 @@ const GoogleSheetsService = require('./googleSheets.service');
 const HEADERS = [
     "Nombre cliente", 
     "Día de ruta",
-    "#cubetas\nRECOLECTAR", 
     "#cubetas\nENTREGAR", 
+    "#cubetas\nRECOLECTAR",
     "Productos extra",
     "Horario", 
     "Forma de pago", 
@@ -55,8 +55,8 @@ const GoogleSheetsRoutesService = {
         const values = routeInfo.map((routeInfo) => [
             routeInfo.nombre,
             routeInfo.dia_ruta,
-            routeInfo.recoleccion,
             routeInfo.entrega,
+            routeInfo.recoleccion,
             routeInfo.productos_extra,
             routeInfo.horario,
             routeInfo.forma_pago,

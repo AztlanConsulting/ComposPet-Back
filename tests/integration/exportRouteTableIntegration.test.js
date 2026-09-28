@@ -11,7 +11,7 @@ const Route = require("../../models/route.model");
 const { generateAccessToken } = require("../../utils/jwt.utils");
 const GoogleSheetsRoutesService = require("../../config/googleSheetsRoutes.service");
 
-const ENDPOINT = "/api/rutas/exportar-ruta-filtrada";
+const ENDPOINT = "/api/rutas/exportar-tabla-rutas";
 
 const TEST_CP_ID = randomUUID();
 const TEST_ROLE_ID = randomUUID();
