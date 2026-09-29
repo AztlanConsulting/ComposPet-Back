@@ -2,7 +2,8 @@ const GoogleSheetsService = require('./googleSheets.service');
 
 /** Encabezados de la hoja de cálculo exportada, en el orden exacto de las columnas A–J. */
 const HEADERS = [
-    "Nombre cliente", 
+    "Nombre cliente",
+    "Fecha", 
     "Día de ruta",
     "#cubetas\nENTREGAR", 
     "#cubetas\nRECOLECTAR",
@@ -54,6 +55,7 @@ const GoogleSheetsRoutesService = {
 
         const values = routeInfo.map((routeInfo) => [
             routeInfo.nombre,
+            routeInfo.fecha,
             routeInfo.dia_ruta,
             routeInfo.entrega,
             routeInfo.recoleccion,
@@ -68,13 +70,13 @@ const GoogleSheetsRoutesService = {
         await GoogleSheetsService.clearRange({
             sheets,
             spreadsheetId,
-            range: 'Ruta!A1:J',
+            range: 'Ruta!A1:K',
         });
 
         await GoogleSheetsService.appendValues({
             sheets,
             spreadsheetId,
-            range: 'Ruta!A1:J',
+            range: 'Ruta!A1:K',
             values: [HEADERS, ...values],
         });
 
