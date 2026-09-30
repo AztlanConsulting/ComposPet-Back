@@ -11,8 +11,9 @@
  */
 
 const prisma = require("../config/prisma");
+const bucketCostMap = require('../utils/bucketCostMap');
 const Client = require('./client.model');
-
+const { getCollectionWeekMonday } = require('./route.model');
 module.exports = class CollectionRequest {
 
 
@@ -87,12 +88,49 @@ module.exports = class CollectionRequest {
      * Crea una solicitud de recolección inicial con valores por defecto
      * para el FORM-02-03.
      *
+     * Antes de crear, valida que el cliente no tenga ya una solicitud dentro
+     * de la misma semana de recolección (Sábado-Viernes, mismo criterio que
+     * la tabla de rutas vía getCollectionWeekMonday). Esta validación es
+     * independiente del rango que reciba el frontend, para que el sistema
+     * quede protegido contra duplicados incluso si el cálculo de semana del
+     * formulario y el del backend llegaran a desincronizarse de nuevo en el
+     * futuro.
+     *
      * @async
      * @static
      * @param {string} clientId - Id del cliente.
-     * @returns {Promise<Object>} La solicitud inicial creada.
+     * @returns {Promise<Object>} La solicitud inicial creada, o la ya existente
+     * para esa semana de recolección si se detecta una.
+     * @throws {Error} Si ocurre un fallo inesperado al crear el registro.
      */
     static async createInitialCollectionRequest(clientId) {
+
+        const today = new Date();
+        const monday = getCollectionWeekMonday(today);
+
+        const weekStart = new Date(monday);
+        weekStart.setDate(weekStart.getDate() - 2); // Sábado de esa semana
+        weekStart.setHours(0, 0, 0, 0);
+
+        const weekEnd = new Date(monday);
+        weekEnd.setDate(weekEnd.getDate() + 5); // Sábado siguiente (exclusivo)
+        weekEnd.setHours(0, 0, 0, 0);
+
+        // Verifica si ya existe una solicitud del cliente dentro de la semana
+        // de recolección real, sin depender del rango recibido del frontend.
+        const existingRequest = await prisma.solicitudes_recoleccion.findFirst({
+            where: {
+                id_cliente: clientId,
+                fecha: {
+                    gte: weekStart,
+                    lt: weekEnd,
+                },
+            },
+        });
+
+        if (existingRequest) {
+            return existingRequest;
+        }
 
         // Genera una solicitud para que el cliente pueda continuar el flujo del formulario.
         const newCollectionRequest = await prisma.solicitudes_recoleccion.create({
@@ -116,7 +154,7 @@ module.exports = class CollectionRequest {
 
         return newCollectionRequest;
     }
-
+    
     /**
      * Guarda la información correspondiente a la primera sección
      * del formulario de solicitud de recolección.

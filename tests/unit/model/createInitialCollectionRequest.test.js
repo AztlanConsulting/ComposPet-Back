@@ -4,6 +4,7 @@ jest.mock("../../../config/prisma", () => ({
 
     solicitudes_recoleccion: {
         create: jest.fn(),
+        findFirst: jest.fn(),
     },
 }));
 
@@ -13,6 +14,10 @@ describe("Model - createInitialCollectionRequest", () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+
+        // Por defecto, no existe una solicitud previa para la semana de
+        // recolección actual, así que se sigue creando una nueva.
+        prisma.solicitudes_recoleccion.findFirst.mockResolvedValue(null);
     });
 
     it ("Debe crear una solicitud inicial para el cliente", async () => {
@@ -41,6 +46,15 @@ describe("Model - createInitialCollectionRequest", () => {
 
         //Afirmar
         expect(result).toEqual(mockNewRequest);
+        expect(prisma.solicitudes_recoleccion.findFirst).toHaveBeenCalledWith({
+            where: {
+                id_cliente: clientId,
+                fecha: {
+                    gte: expect.any(Date),
+                    lt: expect.any(Date),
+                },
+            },
+        });
         expect(prisma.solicitudes_recoleccion.create).toHaveBeenCalledWith({
             data: {
                 cliente: {
@@ -59,6 +73,27 @@ describe("Model - createInitialCollectionRequest", () => {
                 estatus: false,
             },
         });
+    });
+
+    it ("Debe retornar la solicitud existente sin crear una nueva si ya hay una para esa semana", async () => {
+
+        //Arrange (Preparar)
+        const clientId = "11111111-1111-1111-1111-111111111111";
+
+        const mockExistingRequest = {
+            id_solicitud: "req-existing",
+            id_cliente: clientId,
+            estatus: false,
+        };
+
+        prisma.solicitudes_recoleccion.findFirst.mockResolvedValue(mockExistingRequest);
+
+        //Actuar
+        const result = await CollectionRequest.createInitialCollectionRequest(clientId);
+
+        //Afirmar
+        expect(result).toEqual(mockExistingRequest);
+        expect(prisma.solicitudes_recoleccion.create).not.toHaveBeenCalled();
     });
 
     it ("Debe lanzar error si Prisma no puede crear la solicitud", async () => {

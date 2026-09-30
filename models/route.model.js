@@ -414,6 +414,10 @@ module.exports = class Route {
                                 lt: endOfWeek,
                             },
                         },
+                        orderBy: [
+                            { estatus: 'desc' },
+                            { fecha: 'desc' },
+                        ],
                         select: {
                             id_solicitud: true,
                             estatus: true,
@@ -539,6 +543,10 @@ module.exports = class Route {
                     },
                     solicitudes_recoleccion: {
                         where: { fecha: dateFilter },
+                        orderBy: [
+                            { estatus: 'desc' },
+                            { fecha: 'desc' },
+                        ],
                         select: {
                             id_solicitud: true,
                             estatus: true,
