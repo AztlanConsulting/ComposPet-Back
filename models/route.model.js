@@ -1,5 +1,6 @@
 const prisma = require("../config/prisma");
 const { formatDate } = require("../utils/formatDate");
+const { getCollectionWeekMonday } = require("../utils/collectionWeek");
 
 /** Array con los nombres de los días de la semana en español */
 const WEEK_DAYS = [
@@ -11,32 +12,6 @@ const DAY_INDEX = {
     Domingo: 0, Lunes: 1, Martes: 2, Miércoles: 3,
     Jueves: 4, Viernes: 5, Sábado: 6,
 };
-
-/**
- * Calcula el lunes de la semana de recolección (Lunes-Viernes) a la que
- * pertenece una fecha dada. Sábado y Domingo se consideran parte de la
- * semana de recolección SIGUIENTE, ya que un cliente puede llenar el
- * formulario en fin de semana aunque esos no sean días de ruta.
- *
- * @param {Date} date - Fecha a evaluar.
- * @returns {Date} Lunes (UTC, medianoche) de la semana de recolección correspondiente.
- */
-function getCollectionWeekMonday(date) {
-    const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-    const dow = d.getUTCDay();
-
-    if (dow === 6) { // Sábado -> semana siguiente
-        d.setUTCDate(d.getUTCDate() + 2);
-        return d;
-    }
-    if (dow === 0) { // Domingo -> semana siguiente
-        d.setUTCDate(d.getUTCDate() + 1);
-        return d;
-    }
-    // Lunes a Viernes: retrocede al lunes de esa misma semana
-    d.setUTCDate(d.getUTCDate() - (dow - 1));
-    return d;
-}
 
 /**
  * De un conjunto de solicitudes de un cliente, selecciona la que pertenece
@@ -72,7 +47,7 @@ function pickRequestForWeek(requests, weekStart) {
  * Arreglo de semanas ordenadas de la más antigua a la más reciente.
  */
 function getLastTwoMonthsWeeks(now = new Date()) {
-    const nowUtc = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    const nowUtc = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
     const today = new Date(nowUtc);
 
     const day = today.getUTCDay();
@@ -90,7 +65,7 @@ function getLastTwoMonthsWeeks(now = new Date()) {
     const weeks = [];
     let weekStart = new Date(startMonday);
 
-    while (weekStart <= lastMonday) { // antes: weekStart <= currentDay
+    while (weekStart <= lastMonday) {
         const weekEnd = new Date(weekStart);
         weekEnd.setUTCDate(weekEnd.getUTCDate() + 6); // domingo
 
@@ -114,11 +89,20 @@ function getLastTwoMonthsWeeks(now = new Date()) {
  */
 function getCurrentWeekIndex(now = new Date()) {
     const weeks = getLastTwoMonthsWeeks(now);
-    return weeks.findIndex(
-        (week) => now >= week.weekStart && now < week.weekEnd
-    );
-}
 
+    return weeks.findIndex((week) => {
+        // week.weekEnd representa el domingo a las 00:00 UTC (inicio del
+        // domingo, no su fin), porque también se usa para construir el
+        // label legible de la semana. Para la comparación de pertenencia
+        // se necesita el límite exclusivo del LUNES SIGUIENTE, de lo
+        // contrario cualquier "now" que caiga en domingo después de
+        // medianoche queda fuera de todas las semanas del arreglo.
+        const exclusiveWeekEnd = new Date(week.weekEnd);
+        exclusiveWeekEnd.setUTCDate(exclusiveWeekEnd.getUTCDate() + 1);
+
+        return now >= week.weekStart && now < exclusiveWeekEnd;
+    });
+}
 /**
  * Formatea un horario al formato HH:mm.
  * Maneja valores tipo Date y string.
@@ -250,12 +234,6 @@ const buildRow = (client, request, weekStart) => {
  * Formatea la información de rutas obtenida desde la base de datos
  * al formato requerido por la vista.
  *
- * En modo normal (una semana específica) genera una fila por cliente,
- * tomando su única solicitud de esa semana o null si no tiene.
- *
- * En modo expandido (todas las semanas) genera una fila por cada solicitud
- * del cliente, permitiendo ver el historial completo.
- *
  * @param {Array<Object>} routeInfo - Clientes con sus solicitudes de recolección.
  * @param {boolean} [expandMultiple=false] - Si true, expande múltiples solicitudes por cliente.
  * @param {Date|null} [weekStart=null] - Inicio de la semana seleccionada para calcular fechas.
@@ -292,21 +270,11 @@ const formatRouteInfo = (routeInfo, expandMultiple = false, weekStart = null) =>
 
 /**
  * Modelo de acceso a datos para las rutas registradas en el sistema.
- * Encapsula las operaciones sobre la tabla `ruta` y consultas relacionadas
- * con solicitudes de recolección, productos extra y formas de pago.
  *
  * @namespace Route
  */
 module.exports = class Route {
-    
-    /**
-     * Obtiene todos los días de ruta disponibles en el sistema.
-     * Consulta la tabla `ruta` y retorna únicamente el identificador y el día asignado.
-     * Se utiliza para poblar el catálogo de días de ruta en el formulario de registro de clientes.
-     *
-     * @returns {Promise<Array<{ id_ruta: number, dia_ruta: string }>>}
-     * Arreglo con los registros de ruta disponibles, o un arreglo vacío si no existen.
-     */
+
     static async findAllDaysOfRoute(){
         const daysOfRoutes = await prisma.ruta.findMany({
             select: {
@@ -318,30 +286,6 @@ module.exports = class Route {
         return daysOfRoutes;
     }
 
-    /**
-     * Obtiene la información de todas las rutas para un día específico,
-     * relativo a la fecha actual mediante un desplazamiento en días.
-     * Realiza una consulta compleja a la base de datos filtrando por el día de la semana objetivo,
-     * incluyendo solicitudes de recolección de la semana en curso, productos extra y formas de pago.
-     * Los datos son formateados para su presentación en la interfaz.
-     *
-     * @async
-     * @static
-     * @param {number} [dayOffset=0] - Desplazamiento en días respecto a hoy.
-     * 0 = hoy (usado por la vista de tabla), 1 = mañana (usado por la exportación diaria a Sheets).
-     * @returns {Promise<Array<Object>>} Promesa que resuelve con un array de objetos con la información formateada:
-     * @returns {string} return[].nombre - Nombre completo del cliente (nombre + apellido).
-     * @returns {string} return[].recoleccion - Número de cubetas recolectadas como string (o " " si no hay dato).
-     * @returns {string} return[].entrega - Número de cubetas entregadas como string (o " " si no hay dato).
-     * @returns {string} return[].productos_extra - Lista de productos extra separados por saltos de línea.
-     * @returns {string} return[].horario - Horario de la ruta en formato HH:mm (o " " si no hay dato).
-     * @returns {string} return[].forma_pago - Tipo de forma de pago (efectivo, transferencia, etc.).
-     * @returns {string} return[].total_a_pagar - Monto total a pagar como string.
-     * @returns {string} return[].total_pagado - Monto total pagado como string.
-     * @returns {string} return[].notas - Notas adicionales sobre la ruta o cliente.
-     * @throws {Error} Lanza un error si ocurre algún problema al consultar la base de datos.
-     */ 
-
     static async getRoutesInfo(dayOffset = 0) {
         try{
 
@@ -349,13 +293,11 @@ module.exports = class Route {
                 throw new Error(`dayOffset inválido: se esperaba un número entero, se recibió "${dayOffset}"`);
             }
 
-            // ==================== CÁLCULO DE FECHAS ====================
             const now = new Date();
 
             const targetDate = new Date(now);
             targetDate.setDate(targetDate.getDate() + dayOffset);
 
-            /** Nombre del día objetivo */
             const todayName = WEEK_DAYS[targetDate.getDay()];
 
             const startOfWeek = new Date(targetDate);
@@ -366,14 +308,6 @@ module.exports = class Route {
             endOfWeek.setDate(startOfWeek.getDate() + 7);
             endOfWeek.setHours(0, 0, 0, 0);
 
-            // ==================== CONSULTA A BASE DE DATOS ====================
-        
-            /**
-             * Consulta todos los clientes con rutas del día actual,
-             * incluyendo sus solicitudes de recolección de la semana,
-             * productos extra asociados y formas de pago.
-             * Ordenado por turno de ruta y orden de horario.
-             */
             const routeInfo = await prisma.cliente.findMany({
                 where: {
                     usuarios_cp: {
@@ -414,6 +348,13 @@ module.exports = class Route {
                                 lt: endOfWeek,
                             },
                         },
+                        // Orden determinista como salvaguarda: si llegara a
+                        // existir más de una solicitud para la misma semana
+                        // (no debería ocurrir con las protecciones de
+                        // createInitialCollectionRequest), prioriza la
+                        // completada/con más avance sobre una abandonada,
+                        // en vez de depender del orden no garantizado de
+                        // Postgres.
                         orderBy: [
                             { estatus: 'desc' },
                             { fecha: 'desc' },
@@ -445,7 +386,7 @@ module.exports = class Route {
                                     productos_extra: {
                                         select: {
                                             nombre: true,
-                                            orden: true, // ordenar los productos
+                                            orden: true,
                                             color: true,
                                         },
                                     },
@@ -458,11 +399,11 @@ module.exports = class Route {
                 orderBy: [
                     {
                         ruta: {
-                            id_ruta: "asc", // primero por turno
+                            id_ruta: "asc",
                         },
                     },
                     {
-                        orden_horario: "asc", // luego por orden dentro del turno
+                        orden_horario: "asc",
                     },
                 ],
             });
@@ -472,23 +413,6 @@ module.exports = class Route {
             throw new Error('Error obteniendo rutas');
         }
     }
-
-    /**
-     * Obtiene la información de rutas filtrada por una semana específica y opcionalmente por día.
-     * Las semanas disponibles se calculan mediante `getLastTwoMonthsWeeks` y se acceden por índice.
-     * Si no se proporciona `dayName`, se utiliza el día actual de la semana.
-     *
-     * @param {Object} [params={}] - Parámetros de filtrado.
-     * @param {number} params.weekIndex - Índice de la semana dentro del arreglo de semanas disponibles.
-     * @param {string} [params.dayName] - Nombre del día a filtrar (ej. `"Lunes"`). Si se omite,
-     * se usa el día actual.
-     * @returns {Promise<Array<Object>>} Arreglo de clientes con su información de ruta formateada,
-     * con la misma estructura que retorna `getRoutesInfo`.
-     * @throws {Error} Lanza un error si `weekIndex` está fuera del rango de semanas disponibles.
-     * @throws {Error} Lanza un error si ocurre un fallo al consultar la base de datos.
-     * @see getLastTwoMonthsWeeks
-     * @see Route.getRoutesInfo
-     */
 
     static async getFilteredRoutesInfo({ weekIndex, dayName } = {}) {
         try {
@@ -507,14 +431,11 @@ module.exports = class Route {
                 const { weekStart: ws } = weeks[weekIndex];
                 weekStart = ws;
 
-                // Rango ampliado: incluye el sábado y domingo ANTERIORES a este lunes
-                // (donde pudo llenarse el formulario para esta semana), y excluye el
-                // sábado/domingo de ESTA semana (que pertenecen a la semana siguiente).
                 const expandedStart = new Date(ws);
-                expandedStart.setUTCDate(expandedStart.getUTCDate() - 2); // sábado previo
+                expandedStart.setUTCDate(expandedStart.getUTCDate() - 2);
 
                 const expandedEnd = new Date(ws);
-                expandedEnd.setUTCDate(expandedEnd.getUTCDate() + 5); // sábado de esta semana
+                expandedEnd.setUTCDate(expandedEnd.getUTCDate() + 5);
 
                 dateFilter = { gte: expandedStart, lt: expandedEnd };
             } else {
@@ -587,16 +508,6 @@ module.exports = class Route {
         }
     }
 
-    /**
-     * Calcula la fecha de ruta correspondiente a una semana específica
-     * para un cliente dado, usada al crear manualmente una solicitud
-     * de recolección desde la tabla de rutas.
-     *
-     * @param {number} weekIndex - Índice de la semana seleccionada.
-     * @param {string} clientId - Id del cliente.
-     * @returns {Promise<Date>} Fecha de ruta calculada.
-     * @throws {Error} Si weekIndex es inválido o el cliente no tiene ruta asignada.
-     */
     static async getRouteDateForWeekAndClient(weekIndex, clientId) {
         if (weekIndex === null || weekIndex === undefined) {
             throw new Error("Debes seleccionar una semana específica para crear una solicitud manual.");
@@ -628,53 +539,19 @@ module.exports = class Route {
         return new Date(dateStr);
     }
 
-    /**
-     * Retorna el índice de la semana actual dentro del arreglo generado por `getLastTwoMonthsWeeks`.
-     * Delega el cálculo a la función utilitaria `getCurrentWeekIndex` del módulo.
-     *
-     * @returns {number} Índice de la semana actual.
-     * @see getLastTwoMonthsWeeks
-     * @see getCurrentWeekIndex
-     */
     static getCurrentWeekIndex() {
         return getCurrentWeekIndex();
     }
 
-    /**
-     * Retorna las semanas disponibles para filtrar rutas, correspondientes a los últimos dos meses.
-     *
-     * @returns {Array<{ weekStart: Date, weekEnd: Date, label: string }>}
-     * Arreglo de semanas ordenadas de la más antigua a la más reciente.
-     * @see getLastTwoMonthsWeeks
-     */
     static getAvailableWeeks(){
         return getLastTwoMonthsWeeks();
     }
 
-
-    /**
-     * Obtiene las rutas que cuentan con una solicitud válida para generar
-     * mensajes de confirmación.
-     *
-     * Reutiliza la consulta de rutas filtradas por semana y día, 
-     * Este método no construye el mensaje final; solo entrega al controlador la información
-     * necesaria para generarlo.
-     *
-     * @async
-     * @static
-     * @param {Object} [params={}] - Parámetros para filtrar las rutas.
-     * @param {number} params.weekIndex - Índice de la semana seleccionada dentro del rango disponible.
-     * @param {string} [params.dayName] - Día de ruta seleccionado. Si se omite, se usa el día actual.
-     * @returns {Promise<Array<Object>>} Lista de rutas con solicitud y horario válido para generar mensajes.
-     * @throws {Error} Lanza un error si falla la consulta de rutas filtradas.
-     * @see Route.getFilteredRoutesInfo
-     */
-    static async generateConfirmationMessages({ weekIndex, dayName } = {}){ 
+    static async generateConfirmationMessages({ weekIndex, dayName } = {}){
         try {
             const filteredRoutes = await this.getFilteredRoutesInfo({ weekIndex, dayName });
 
-            //Filtra las rutas que tienen una solicitud válida y horario definido para mensajes de confirmación.
-            return filteredRoutes.filter(route => 
+            return filteredRoutes.filter(route =>
                 route.hasRequest === true &&
                 route.status === true &&
                 route.horario &&
@@ -684,13 +561,14 @@ module.exports = class Route {
                     route.wantsExtraProducts === true
                 )
             );
-    
+
         } catch (error) {
             throw new Error(`Error generando mensajes de confirmación: ${error.message}`);
-        
+
         }
     }
 };
 
-module.exports.getCollectionWeekMonday = getCollectionWeekMonday;
 module.exports.getRouteDateForDay = getRouteDateForDay;
+module.exports.getLastTwoMonthsWeeks = getLastTwoMonthsWeeks;
+module.exports.getCurrentWeekIndex = getCurrentWeekIndex;

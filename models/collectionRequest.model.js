@@ -11,9 +11,9 @@
  */
 
 const prisma = require("../config/prisma");
-const bucketCostMap = require('../utils/bucketCostMap');
+const { Prisma } = require('../generated/prisma');
 const Client = require('./client.model');
-const { getCollectionWeekMonday } = require('./route.model');
+const { getCollectionWeekRange } = require('../utils/collectionWeek');
 module.exports = class CollectionRequest {
 
 
@@ -105,54 +105,53 @@ module.exports = class CollectionRequest {
      */
     static async createInitialCollectionRequest(clientId) {
 
-        const today = new Date();
-        const monday = getCollectionWeekMonday(today);
+        const { weekStart, weekEnd } = getCollectionWeekRange(new Date());
 
-        const weekStart = new Date(monday);
-        weekStart.setDate(weekStart.getDate() - 2); // Sábado de esa semana
-        weekStart.setHours(0, 0, 0, 0);
+        try {
+            return await prisma.$transaction(async (tx) => {
 
-        const weekEnd = new Date(monday);
-        weekEnd.setDate(weekEnd.getDate() + 5); // Sábado siguiente (exclusivo)
-        weekEnd.setHours(0, 0, 0, 0);
-
-        // Verifica si ya existe una solicitud del cliente dentro de la semana
-        // de recolección real, sin depender del rango recibido del frontend.
-        const existingRequest = await prisma.solicitudes_recoleccion.findFirst({
-            where: {
-                id_cliente: clientId,
-                fecha: {
-                    gte: weekStart,
-                    lt: weekEnd,
-                },
-            },
-        });
-
-        if (existingRequest) {
-            return existingRequest;
-        }
-
-        // Genera una solicitud para que el cliente pueda continuar el flujo del formulario.
-        const newCollectionRequest = await prisma.solicitudes_recoleccion.create({
-            data: {
-                cliente: {
-                    connect: {
-                    id_cliente: clientId,
+                const existingRequest = await tx.solicitudes_recoleccion.findFirst({
+                    where: {
+                        id_cliente: clientId,
+                        fecha: { gte: weekStart, lt: weekEnd },
                     },
-                },
-                cubetas_recolectadas: 0,
-                cubetas_entregadas: 0,
-                total_a_pagar: 0,
-                total_pagado: 0,
-                fecha: new Date(),
-                notas: null,
-                quiere_recoleccion: true,
-                quiere_productos_extra: true,
-                estatus: false,
-            },
-        });
+                });
 
-        return newCollectionRequest;
+                if (existingRequest) {
+                    if (existingRequest.estatus === true) {
+                        throw new Error("Ya existe una solicitud completada para esta semana de recolección.");
+                    }
+
+                    return existingRequest;
+                }
+
+                return await tx.solicitudes_recoleccion.create({
+                    data: {
+                        cliente: {
+                            connect: {
+                                id_cliente: clientId,
+                            },
+                        },
+                        cubetas_recolectadas: 0,
+                        cubetas_entregadas: 0,
+                        total_a_pagar: 0,
+                        total_pagado: 0,
+                        fecha: new Date(),
+                        notas: null,
+                        quiere_recoleccion: true,
+                        quiere_productos_extra: true,
+                        estatus: false,
+                    },
+                });
+            }, {
+                isolation: Prisma.TransactionIsolationLevel.Serializable,
+            });
+        } catch (error) {
+            if (error.code === 'P2034') {
+                return await this.createInitialCollectionRequest(clientId);
+            }
+            throw error;
+        }
     }
     
     /**
