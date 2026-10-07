@@ -346,6 +346,14 @@ module.exports = class CollectionRequest {
         })
     }
 
+    /**
+     * Completa el formulario inicial del cliente; los pagos administrativos se
+     * editan con updateRequest(), que admite pagos superiores al costo.
+     * La validación exige estatus distinto de true, pero no total_pagado = 0:
+     * updateRequest() permite reabrir una solicitud conservando sus pagos.
+     * total_a_pagar conserva el costo ya aplicado al saldo: al recompletar,
+     * solo se carga o devuelve la diferencia y se conservan los pagos previos.
+     */
     static async updateCollectionTotal(
         idRequest,
         collectionTotal,
@@ -400,8 +408,17 @@ module.exports = class CollectionRequest {
                 currentRequest.total_pagado ?? 0
             );
 
-            const amountToDiscount =
-                total - currentTotalPaid;
+            const currentTotal = Number(currentRequest.total_a_pagar ?? 0);
+            const amountToDiscount = total - currentTotal;
+
+            let paymentFromBalance = 0;
+            if (payForm?.tipo === "Saldo" && amountToDiscount > 0 && total > currentTotalPaid) {
+                const balance = await Client.getClientBalance(currentRequest.id_cliente, tx);
+                // El excedente previo ya forma parte de total_pagado; no contarlo otra vez.
+                const previousOverpayment = Math.max(currentTotalPaid - currentTotal, 0);
+                const availableBalance = Math.max(Number(balance?.saldo ?? 0) - previousOverpayment, 0);
+                paymentFromBalance = Math.min(availableBalance, amountToDiscount, total - currentTotalPaid);
+            }
 
             // Ajustar el saldo utilizando el método existente
             await this.adjustBalance(
@@ -426,15 +443,14 @@ module.exports = class CollectionRequest {
                     },
             };
 
-            // Si no hay nada que pagar, tampoco debe quedar
-            // registrado un monto pagado anterior
+            // Un costo cero no elimina pagos previos ni el saldo a favor.
             if (!requiresPayment) {
-                updateData.total_pagado = 0;
+                updateData.total_pagado = currentTotalPaid;
             }
 
-            // Cuando se paga con saldo, el total queda cubierto
+            // Conservar lo pagado y sumar solo el nuevo cargo cubierto por saldo positivo.
             if (payForm?.tipo === "Saldo") {
-                updateData.total_pagado = total;
+                updateData.total_pagado = currentTotalPaid + paymentFromBalance;
             }
 
             const updatedRequest =
