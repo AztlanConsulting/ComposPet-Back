@@ -403,6 +403,13 @@ module.exports = class CollectionRequest {
             const amountToDiscount =
                 total - currentTotalPaid;
 
+            let paymentFromBalance = 0;
+            if (payForm?.tipo === "Saldo") {
+                const balance = await Client.getClientBalance(currentRequest.id_cliente, tx);
+                const availableBalance = Math.max(Number(balance?.saldo ?? 0), 0);
+                paymentFromBalance = Math.min(availableBalance, total);
+            }
+
             // Ajustar el saldo utilizando el método existente
             await this.adjustBalance(
                 tx,
@@ -432,9 +439,9 @@ module.exports = class CollectionRequest {
                 updateData.total_pagado = 0;
             }
 
-            // Cuando se paga con saldo, el total queda cubierto
+            // Solo el saldo positivo disponible antes del cargo cuenta como pago.
             if (payForm?.tipo === "Saldo") {
-                updateData.total_pagado = total;
+                updateData.total_pagado = paymentFromBalance;
             }
 
             const updatedRequest =

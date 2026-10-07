@@ -24,6 +24,7 @@ jest.mock('../../../config/prisma', () => {
         },
 
         saldo: {
+            findUnique: jest.fn(),
             update: jest.fn(),
         },
     };
@@ -36,6 +37,7 @@ jest.mock('../../../config/prisma', () => {
 });
 
 jest.mock('../../../models/client.model', () => ({
+    getClientBalance: jest.requireActual('../../../models/client.model').getClientBalance,
     getBucketCost: jest.fn().mockResolvedValue(100),
 }));
 
@@ -103,6 +105,20 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
             expect(callData).not.toHaveProperty('total_pagado');
         });
 
+        it.each(['Efectivo', 'Transferencia'])('conserva el pago previo y el cargo para %s sin consultar saldo', async (tipo) => {
+            prisma.formas_pago.findUnique.mockResolvedValue({ tipo });
+
+            await CollectionRequest.updateCollectionTotal(15, 500, 2, null);
+
+            const callData = prisma.solicitudes_recoleccion.update.mock.calls[0][0].data;
+            expect(callData).not.toHaveProperty('total_pagado');
+            expect(prisma.saldo.findUnique).not.toHaveBeenCalled();
+            expect(prisma.saldo.update).toHaveBeenCalledWith({
+                where: { id_cliente: BASE_REQUEST.id_cliente },
+                data: { saldo: { decrement: 400 } },
+            });
+        });
+
         it('debe admitir notas null', async () => {
             prisma.solicitudes_recoleccion.update.mockResolvedValue({
                 id_solicitud: 15,
@@ -122,6 +138,7 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
 
         beforeEach(() => {
             prisma.formas_pago.findUnique.mockResolvedValue({ tipo: 'Saldo' });
+            prisma.saldo.findUnique.mockResolvedValue({ saldo: 500 });
             prisma.solicitudes_recoleccion.findUnique.mockResolvedValue({
                 ...BASE_REQUEST,
                 total_pagado: 100,
@@ -147,7 +164,7 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
             });
         });
 
-        it('debe incluir total_pagado igual al nuevo total en el update de la solicitud', async () => {
+        it('debe incluir total_pagado igual al nuevo total cuando el saldo disponible lo cubre', async () => {
             await CollectionRequest.updateCollectionTotal(15, 500, 3, null);
 
             const callData = prisma.solicitudes_recoleccion.update.mock.calls[0][0].data;
@@ -166,6 +183,60 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
             expect(prisma.saldo.update).not.toHaveBeenCalled();
         });
 
+        it.each([
+            [150, 90, 60],
+            [90, 90, 0],
+            [30, 30, -60],
+            [0, 0, -90],
+            [-90, 0, -180],
+        ])('con saldo previo %s registra total_pagado %s y deja saldo final %s', async (initialBalance, expectedPaid, expectedBalance) => {
+            const { Prisma } = require('../../../generated/prisma');
+            let balance = new Prisma.Decimal(initialBalance);
+            const request = {
+                ...BASE_REQUEST,
+                total_pagado: new Prisma.Decimal(0),
+                total_a_pagar: new Prisma.Decimal(0),
+            };
+            // Un cliente distinto permite detectar consultas fuera de la transacción.
+            const tx = {
+                solicitudes_recoleccion: {
+                    findUnique: jest.fn().mockResolvedValue(request),
+                    update: jest.fn(async ({ data }) => ({ ...request, ...data })),
+                },
+                formas_pago: {
+                    findUnique: jest.fn().mockResolvedValue({ tipo: 'Saldo' }),
+                },
+                saldo: {
+                    findUnique: jest.fn(async () => ({ saldo: balance })),
+                    update: jest.fn(async ({ data }) => {
+                        balance = balance.minus(data.saldo.decrement);
+                        return { saldo: balance };
+                    }),
+                },
+            };
+            prisma.$transaction.mockImplementationOnce(async (callback) => callback(tx));
+
+            const result = await CollectionRequest.updateCollectionTotal(15, '90', 3, null);
+
+            expect(result.total_a_pagar).toBe(90);
+            expect(result.total_pagado).toBe(expectedPaid);
+            expect(result.estatus).toBe(true);
+            expect(Number(balance)).toBe(expectedBalance);
+            expect(tx.saldo.findUnique).toHaveBeenCalledTimes(1);
+            expect(tx.saldo.findUnique).toHaveBeenCalledWith({
+                where: { id_cliente: BASE_REQUEST.id_cliente },
+            });
+            expect(tx.saldo.update).toHaveBeenCalledTimes(1);
+            expect(tx.saldo.update).toHaveBeenCalledWith({
+                where: { id_cliente: BASE_REQUEST.id_cliente },
+                data: { saldo: { decrement: 90 } },
+            });
+            expect(tx.saldo.findUnique.mock.invocationCallOrder[0])
+                .toBeLessThan(tx.saldo.update.mock.invocationCallOrder[0]);
+            expect(prisma.saldo.findUnique).not.toHaveBeenCalled();
+            expect(prisma.saldo.update).not.toHaveBeenCalled();
+        });
+
     });
 
 
@@ -181,6 +252,94 @@ describe('Unit - Model - CollectionRequest - updateCollectionTotal', () => {
 
     });
 
+});
+
+describe('Unit - Model - CollectionRequest - pago parcial con Saldo y liquidación administrativa', () => {
+    it('carga 90, registra 30 de saldo y abona solo los 60 restantes al editar el pago', async () => {
+        jest.clearAllMocks();
+        const { Prisma } = require('../../../generated/prisma');
+        const Client = require('../../../models/client.model');
+        let balance = new Prisma.Decimal(30);
+        let request = {
+            ...BASE_REQUEST,
+            cubetas_recolectadas: 1,
+            cubetas_entregadas: 0,
+            total_a_pagar: new Prisma.Decimal(0),
+            total_pagado: new Prisma.Decimal(0),
+            quiere_recoleccion: true,
+            quiere_productos_extra: false,
+        };
+        const tx = {
+            solicitudes_recoleccion: {
+                findUnique: jest.fn(async () => ({ ...request })),
+                update: jest.fn(async ({ data }) => {
+                    request = {
+                        ...request,
+                        ...data,
+                        total_a_pagar: new Prisma.Decimal(data.total_a_pagar),
+                        total_pagado: new Prisma.Decimal(data.total_pagado),
+                    };
+                    return { ...request };
+                }),
+            },
+            formas_pago: {
+                findUnique: jest.fn().mockResolvedValue({ id_pago: 3, tipo: 'Saldo' }),
+            },
+            saldo: {
+                findUnique: jest.fn(async () => ({ saldo: balance })),
+                update: jest.fn(async ({ data }) => {
+                    balance = balance.minus(data.saldo.decrement ?? 0)
+                        .plus(data.saldo.increment ?? 0);
+                    return { saldo: balance };
+                }),
+            },
+            productos_extra: {
+                findMany: jest.fn().mockResolvedValue([]),
+            },
+            productos_solicitud: {
+                deleteMany: jest.fn().mockResolvedValue({ count: 0 }),
+            },
+        };
+        prisma.$transaction
+            .mockImplementationOnce(async (callback) => callback(tx))
+            .mockImplementationOnce(async (callback) => callback(tx))
+            .mockImplementationOnce(async (callback) => callback(tx));
+        Client.getBucketCost.mockResolvedValueOnce(90).mockResolvedValueOnce(90);
+
+        const completed = await CollectionRequest.updateCollectionTotal(15, 90, 3, null);
+
+        expect(Number(completed.total_a_pagar)).toBe(90);
+        expect(Number(completed.total_pagado)).toBe(30);
+        expect(completed.estatus).toBe(true);
+        expect(Number(balance)).toBe(-60);
+        expect(tx.saldo.update).toHaveBeenCalledTimes(1);
+        expect(tx.saldo.update).toHaveBeenNthCalledWith(1, {
+            where: { id_cliente: BASE_REQUEST.id_cliente },
+            data: { saldo: { decrement: 90 } },
+        });
+
+        const adminEdit = { ...completed, total_pagado: 90, id_pago: 3, horario: null };
+        const paid = await CollectionRequest.updateRequest(adminEdit, []);
+
+        expect(Number(paid.total_a_pagar)).toBe(90);
+        expect(Number(paid.total_pagado)).toBe(90);
+        expect(Number(balance)).toBe(0);
+        expect(tx.saldo.update).toHaveBeenCalledTimes(2);
+        expect(tx.saldo.update).toHaveBeenNthCalledWith(2, {
+            where: { id_cliente: BASE_REQUEST.id_cliente },
+            data: { saldo: { increment: 60 } },
+        });
+
+        // Guardar otra vez el mismo pago tampoco debe volver a abonarlo.
+        const unchanged = await CollectionRequest.updateRequest(adminEdit, []);
+
+        expect(Number(unchanged.total_a_pagar)).toBe(90);
+        expect(Number(unchanged.total_pagado)).toBe(90);
+        expect(Number(balance)).toBe(0);
+        expect(tx.saldo.update).toHaveBeenCalledTimes(2);
+        expect(prisma.$transaction).toHaveBeenCalledTimes(3);
+        expect(prisma.saldo.update).not.toHaveBeenCalled();
+    });
 });
 
 describe('Unit - Model - CollectionRequest - updateRequest', () => {

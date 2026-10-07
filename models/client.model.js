@@ -120,11 +120,12 @@ module.exports = class Client {
      * @async
      * @static
      * @param {string} idClient - Id del cliente.
+     * @param {Object} [tx=prisma] - Cliente Prisma o transacción existente.
      * @returns {Promise<Object|null>} Objeto con el saldo del cliente
      */
     
-    static async getClientBalance(idClient) {
-        const balance = await prisma.saldo.findUnique({
+    static async getClientBalance(idClient, tx = prisma) {
+        const balance = await tx.saldo.findUnique({
             where: {
                 id_cliente: idClient,
             },
