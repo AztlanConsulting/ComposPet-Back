@@ -409,6 +409,7 @@ describe('Unit - Model - CollectionRequest - updateRequest', () => {
             [120, 20, 30, 50, -10],
             [90, 30, 120, 120, 30],
             [120, 30, 120, 120, 0],
+            [140, 30, 120, 120, -20],
             [60, 30, 120, 120, 60],
         ])('al reabrir con costo %s, saldo %s y pago previo %s conserva pago %s y saldo %s', async (newTotal, initialBalance, previousPaid, expectedPaid, expectedBalance) => {
             const { Prisma } = require('../../../generated/prisma');

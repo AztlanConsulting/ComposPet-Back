@@ -414,7 +414,9 @@ module.exports = class CollectionRequest {
             let paymentFromBalance = 0;
             if (payForm?.tipo === "Saldo" && amountToDiscount > 0 && total > currentTotalPaid) {
                 const balance = await Client.getClientBalance(currentRequest.id_cliente, tx);
-                const availableBalance = Math.max(Number(balance?.saldo ?? 0), 0);
+                // El excedente previo ya forma parte de total_pagado; no contarlo otra vez.
+                const previousOverpayment = Math.max(currentTotalPaid - currentTotal, 0);
+                const availableBalance = Math.max(Number(balance?.saldo ?? 0) - previousOverpayment, 0);
                 paymentFromBalance = Math.min(availableBalance, amountToDiscount, total - currentTotalPaid);
             }
 
