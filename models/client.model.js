@@ -478,23 +478,6 @@ module.exports = class Client {
             });
         }
 
-        await tx.cliente.updateMany({
-            where: {
-                id_ruta: oldRouteId,
-                id_cliente: {
-                    not: clientId,
-                },
-                orden_horario: {
-                    gt: oldOrder,
-                }
-            },
-            data: {
-                orden_horario: {
-                    decrement: 1,
-                }
-            }
-        });
-
         const lastClient = await tx.cliente.findFirst({
             where: {
                 id_ruta: newRouteId,
