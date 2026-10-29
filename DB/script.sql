@@ -229,6 +229,8 @@ CREATE TABLE public.ruta (
 	dia_ruta varchar NOT NULL,
 	id_zona int4 NOT NULL,
 	turno_ruta varchar NOT NULL,
+	orden int4 NOT NULL,
+	CONSTRAINT ruta_orden_key UNIQUE (orden),
 	CONSTRAINT ruta_pkey PRIMARY KEY (id_ruta),
 	CONSTRAINT ruta_zona_fk FOREIGN KEY (id_zona) REFERENCES public.zona(id_zona)
 );

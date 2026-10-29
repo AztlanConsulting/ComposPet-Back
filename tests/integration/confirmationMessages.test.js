@@ -7,6 +7,7 @@ jest.mock("../../config/googleSheetsMessages.service", () => ({
 
 const app = require("../../app");
 const prisma = require("../../config/prisma");
+const { createRouteFixture } = require('../helpers/routeFixture');
 const { generateAccessToken } = require("../../utils/jwt.utils");
 const GoogleSheetsMessagesService = require("../../config/googleSheetsMessages.service");
 const Routes = require("../../models/route.model");
@@ -62,7 +63,7 @@ const createTestData = async () => {
         },
     });
 
-    await prisma.ruta.create({
+    await createRouteFixture(prisma, {
         data: {
             id_ruta: TEST_RUTA_ID,
             dia_ruta: "Jueves",

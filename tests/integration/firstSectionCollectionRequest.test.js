@@ -3,6 +3,7 @@ const { randomUUID } = require("crypto");
 
 const app = require("../../app");
 const prisma = require("../../config/prisma");
+const { createRouteFixture } = require('../helpers/routeFixture');
 
 const { generateAccessToken } = require("../../utils/jwt.utils");
 
@@ -61,7 +62,7 @@ const createTestUserAndClient = async () => {
         },
     });
 
-    await prisma.ruta.create({
+    await createRouteFixture(prisma, {
         data: {
             id_ruta: TEST_RUTA_ID,
             dia_ruta: "Lunes",

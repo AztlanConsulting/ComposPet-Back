@@ -95,12 +95,14 @@ INSERT INTO public.ruta (
     id_ruta,
     dia_ruta,
     id_zona,
-    turno_ruta
+    turno_ruta,
+    orden
     ) VALUES (
     1,
     'Lunes',
     1,
-    'Matutino'
+    'Matutino',
+    1
 );
 
 -- =========================

@@ -116,6 +116,7 @@ model ruta {
   id_ruta    Int       @id
   dia_ruta   String    @db.VarChar
   turno_ruta String    @db.VarChar
+  orden      Int       @unique
   cliente    cliente[]
 }
 
