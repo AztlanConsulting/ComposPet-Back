@@ -122,6 +122,15 @@ npx prisma migrate reset
 ```
 
 
+## Mantenimiento del catálogo de rutas
+
+Las opciones se ordenan por día (lunes a domingo) y después por `orden`
+ascendente. `ruta.orden` es global, obligatorio y único; las altas y bajas
+deben conservar la secuencia `1..N`. Para reorganizarla, usar una transacción
+que bloquee escrituras sobre `ruta`, mueva primero las posiciones a valores
+temporales libres y después asigne `1..N`. No intercambiar directamente dos
+valores ocupados: infringiría `UNIQUE`.
+
 ## Ejecución del proyecto
 
 **Desarrollo**

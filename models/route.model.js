@@ -1,6 +1,7 @@
 const prisma = require("../config/prisma");
 const { formatDate } = require("../utils/formatDate");
 const { getCollectionWeekMonday } = require("../utils/collectionWeek");
+const { sortRouteCatalog } = require("../utils/routeCatalogOrder");
 
 /** Array con los nombres de los días de la semana en español */
 const WEEK_DAYS = [
@@ -280,10 +281,11 @@ module.exports = class Route {
             select: {
                 id_ruta: true,
                 dia_ruta: true,
+                orden: true,
             }
         });
 
-        return daysOfRoutes;
+        return sortRouteCatalog(daysOfRoutes);
     }
 
     static async getRoutesInfo(dayOffset = 0) {

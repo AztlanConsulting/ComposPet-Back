@@ -7,6 +7,7 @@ jest.mock("../../config/googleSheetsRoutes.service", () => ({
 
 const app = require("../../app");
 const prisma = require("../../config/prisma");
+const { createRouteFixture } = require('../helpers/routeFixture');
 const Route = require("../../models/route.model");
 const { generateAccessToken } = require("../../utils/jwt.utils");
 const GoogleSheetsRoutesService = require("../../config/googleSheetsRoutes.service");
@@ -69,7 +70,7 @@ const createTestData = async () => {
         },
     });
 
-    await prisma.ruta.create({
+    await createRouteFixture(prisma, {
         data: {
             id_ruta: TEST_RUTA_ID,
             dia_ruta: TODAY_DAY_NAME,

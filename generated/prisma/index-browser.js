@@ -207,7 +207,8 @@ exports.Prisma.Roles_permisosScalarFieldEnum = {
 exports.Prisma.RutaScalarFieldEnum = {
   id_ruta: 'id_ruta',
   dia_ruta: 'dia_ruta',
-  turno_ruta: 'turno_ruta'
+  turno_ruta: 'turno_ruta',
+  orden: 'orden'
 };
 
 exports.Prisma.Solicitudes_recoleccionScalarFieldEnum = {

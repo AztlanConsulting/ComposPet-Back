@@ -13664,56 +13664,66 @@ export namespace Prisma {
 
   export type RutaAvgAggregateOutputType = {
     id_ruta: number | null
+    orden: number | null
   }
 
   export type RutaSumAggregateOutputType = {
     id_ruta: number | null
+    orden: number | null
   }
 
   export type RutaMinAggregateOutputType = {
     id_ruta: number | null
     dia_ruta: string | null
     turno_ruta: string | null
+    orden: number | null
   }
 
   export type RutaMaxAggregateOutputType = {
     id_ruta: number | null
     dia_ruta: string | null
     turno_ruta: string | null
+    orden: number | null
   }
 
   export type RutaCountAggregateOutputType = {
     id_ruta: number
     dia_ruta: number
     turno_ruta: number
+    orden: number
     _all: number
   }
 
 
   export type RutaAvgAggregateInputType = {
     id_ruta?: true
+    orden?: true
   }
 
   export type RutaSumAggregateInputType = {
     id_ruta?: true
+    orden?: true
   }
 
   export type RutaMinAggregateInputType = {
     id_ruta?: true
     dia_ruta?: true
     turno_ruta?: true
+    orden?: true
   }
 
   export type RutaMaxAggregateInputType = {
     id_ruta?: true
     dia_ruta?: true
     turno_ruta?: true
+    orden?: true
   }
 
   export type RutaCountAggregateInputType = {
     id_ruta?: true
     dia_ruta?: true
     turno_ruta?: true
+    orden?: true
     _all?: true
   }
 
@@ -13807,6 +13817,7 @@ export namespace Prisma {
     id_ruta: number
     dia_ruta: string
     turno_ruta: string
+    orden: number
     _count: RutaCountAggregateOutputType | null
     _avg: RutaAvgAggregateOutputType | null
     _sum: RutaSumAggregateOutputType | null
@@ -13832,6 +13843,7 @@ export namespace Prisma {
     id_ruta?: boolean
     dia_ruta?: boolean
     turno_ruta?: boolean
+    orden?: boolean
     cliente?: boolean | ruta$clienteArgs<ExtArgs>
     _count?: boolean | RutaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["ruta"]>
@@ -13840,21 +13852,24 @@ export namespace Prisma {
     id_ruta?: boolean
     dia_ruta?: boolean
     turno_ruta?: boolean
+    orden?: boolean
   }, ExtArgs["result"]["ruta"]>
 
   export type rutaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_ruta?: boolean
     dia_ruta?: boolean
     turno_ruta?: boolean
+    orden?: boolean
   }, ExtArgs["result"]["ruta"]>
 
   export type rutaSelectScalar = {
     id_ruta?: boolean
     dia_ruta?: boolean
     turno_ruta?: boolean
+    orden?: boolean
   }
 
-  export type rutaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_ruta" | "dia_ruta" | "turno_ruta", ExtArgs["result"]["ruta"]>
+  export type rutaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_ruta" | "dia_ruta" | "turno_ruta" | "orden", ExtArgs["result"]["ruta"]>
   export type rutaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     cliente?: boolean | ruta$clienteArgs<ExtArgs>
     _count?: boolean | RutaCountOutputTypeDefaultArgs<ExtArgs>
@@ -13871,6 +13886,7 @@ export namespace Prisma {
       id_ruta: number
       dia_ruta: string
       turno_ruta: string
+      orden: number
     }, ExtArgs["result"]["ruta"]>
     composites: {}
   }
@@ -14298,6 +14314,7 @@ export namespace Prisma {
     readonly id_ruta: FieldRef<"ruta", 'Int'>
     readonly dia_ruta: FieldRef<"ruta", 'String'>
     readonly turno_ruta: FieldRef<"ruta", 'String'>
+    readonly orden: FieldRef<"ruta", 'Int'>
   }
     
 
@@ -20711,7 +20728,8 @@ export namespace Prisma {
   export const RutaScalarFieldEnum: {
     id_ruta: 'id_ruta',
     dia_ruta: 'dia_ruta',
-    turno_ruta: 'turno_ruta'
+    turno_ruta: 'turno_ruta',
+    orden: 'orden'
   };
 
   export type RutaScalarFieldEnum = (typeof RutaScalarFieldEnum)[keyof typeof RutaScalarFieldEnum]
@@ -21531,6 +21549,7 @@ export namespace Prisma {
     id_ruta?: IntFilter<"ruta"> | number
     dia_ruta?: StringFilter<"ruta"> | string
     turno_ruta?: StringFilter<"ruta"> | string
+    orden?: IntFilter<"ruta"> | number
     cliente?: ClienteListRelationFilter
   }
 
@@ -21538,23 +21557,26 @@ export namespace Prisma {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
     turno_ruta?: SortOrder
+    orden?: SortOrder
     cliente?: clienteOrderByRelationAggregateInput
   }
 
   export type rutaWhereUniqueInput = Prisma.AtLeast<{
     id_ruta?: number
+    orden?: number
     AND?: rutaWhereInput | rutaWhereInput[]
     OR?: rutaWhereInput[]
     NOT?: rutaWhereInput | rutaWhereInput[]
     dia_ruta?: StringFilter<"ruta"> | string
     turno_ruta?: StringFilter<"ruta"> | string
     cliente?: ClienteListRelationFilter
-  }, "id_ruta">
+  }, "id_ruta" | "orden">
 
   export type rutaOrderByWithAggregationInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
     turno_ruta?: SortOrder
+    orden?: SortOrder
     _count?: rutaCountOrderByAggregateInput
     _avg?: rutaAvgOrderByAggregateInput
     _max?: rutaMaxOrderByAggregateInput
@@ -21569,6 +21591,7 @@ export namespace Prisma {
     id_ruta?: IntWithAggregatesFilter<"ruta"> | number
     dia_ruta?: StringWithAggregatesFilter<"ruta"> | string
     turno_ruta?: StringWithAggregatesFilter<"ruta"> | string
+    orden?: IntWithAggregatesFilter<"ruta"> | number
   }
 
   export type solicitudes_recoleccionWhereInput = {
@@ -22589,6 +22612,7 @@ export namespace Prisma {
     id_ruta: number
     dia_ruta: string
     turno_ruta: string
+    orden: number
     cliente?: clienteCreateNestedManyWithoutRutaInput
   }
 
@@ -22596,6 +22620,7 @@ export namespace Prisma {
     id_ruta: number
     dia_ruta: string
     turno_ruta: string
+    orden: number
     cliente?: clienteUncheckedCreateNestedManyWithoutRutaInput
   }
 
@@ -22603,6 +22628,7 @@ export namespace Prisma {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
     cliente?: clienteUpdateManyWithoutRutaNestedInput
   }
 
@@ -22610,6 +22636,7 @@ export namespace Prisma {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
     cliente?: clienteUncheckedUpdateManyWithoutRutaNestedInput
   }
 
@@ -22617,18 +22644,21 @@ export namespace Prisma {
     id_ruta: number
     dia_ruta: string
     turno_ruta: string
+    orden: number
   }
 
   export type rutaUpdateManyMutationInput = {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
   }
 
   export type rutaUncheckedUpdateManyInput = {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
   }
 
   export type solicitudes_recoleccionCreateInput = {
@@ -23810,26 +23840,31 @@ export namespace Prisma {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
     turno_ruta?: SortOrder
+    orden?: SortOrder
   }
 
   export type rutaAvgOrderByAggregateInput = {
     id_ruta?: SortOrder
+    orden?: SortOrder
   }
 
   export type rutaMaxOrderByAggregateInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
     turno_ruta?: SortOrder
+    orden?: SortOrder
   }
 
   export type rutaMinOrderByAggregateInput = {
     id_ruta?: SortOrder
     dia_ruta?: SortOrder
     turno_ruta?: SortOrder
+    orden?: SortOrder
   }
 
   export type rutaSumOrderByAggregateInput = {
     id_ruta?: SortOrder
+    orden?: SortOrder
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -25381,12 +25416,14 @@ export namespace Prisma {
     id_ruta: number
     dia_ruta: string
     turno_ruta: string
+    orden: number
   }
 
   export type rutaUncheckedCreateWithoutClienteInput = {
     id_ruta: number
     dia_ruta: string
     turno_ruta: string
+    orden: number
   }
 
   export type rutaCreateOrConnectWithoutClienteInput = {
@@ -25509,12 +25546,14 @@ export namespace Prisma {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
   }
 
   export type rutaUncheckedUpdateWithoutClienteInput = {
     id_ruta?: IntFieldUpdateOperationsInput | number
     dia_ruta?: StringFieldUpdateOperationsInput | string
     turno_ruta?: StringFieldUpdateOperationsInput | string
+    orden?: IntFieldUpdateOperationsInput | number
   }
 
   export type usuarios_cpUpsertWithoutClienteInput = {

@@ -3,6 +3,7 @@ const { randomUUID } = require('crypto');
 
 const app = require('../../app');
 const prisma = require('../../config/prisma');
+const { createRouteFixture } = require('../helpers/routeFixture');
 
 const { generateAccessToken } = require('../../utils/jwt.utils');
 
@@ -77,8 +78,10 @@ const createBaseData = async () => {
     const diasSemana = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
     const todayName  = diasSemana[new Date().getDay()];
 
-    await prisma.ruta.create({
-        data: { id_ruta: TEST_RUTA_ID, dia_ruta: todayName, turno_ruta: '1' },
+    await createRouteFixture(prisma, {
+        data: {
+            id_ruta: TEST_RUTA_ID, dia_ruta: todayName, turno_ruta: '1',
+        },
     });
 
     await prisma.cliente.create({

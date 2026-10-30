@@ -3,6 +3,7 @@ const { randomUUID } = require("crypto");
 
 const app = require("../../app");
 const prisma = require("../../config/prisma");
+const { upsertRouteFixture } = require('../helpers/routeFixture');
 
 const {generateAccessToken} = require("../../utils/jwt.utils");
 
@@ -67,13 +68,13 @@ const createBaseData = async () => {
         },
     });
 
-    await prisma.ruta.upsert({
+    await upsertRouteFixture(prisma, {
         where: { id_ruta: 99 },
         update: {},
         create: {
             id_ruta: 99,
             dia_ruta: "dia test",
-            turno_ruta: "turno test"
+            turno_ruta: "turno test",
         },
     });
 
